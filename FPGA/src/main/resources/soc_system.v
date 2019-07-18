@@ -1,0 +1,1 @@
+../../../soc/arria10/soc_system/synth/soc_system.v
