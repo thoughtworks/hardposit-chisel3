@@ -13,23 +13,17 @@ refer to user manual chapter 7 for details about the demo
 #include "socal/socal.h"
 #include "socal/hps.h"
 #include "socal/alt_gpio.h"
-#include "hps_0.h"
 
 #define HW_REGS_BASE ( 0xff200000 )
 #define HW_REGS_SPAN ( 0x00100000 )
-#define WRITE_MEM_OFFSET ( 0x00040000 )
-#define READ_MEM_OFFSET ( 0x00080000 )
+#define NUM1_OFFSET ( 0x00001000 )
+#define NUM2_OFFSET ( 0x00002000 )
+#define RESULT_OFFSET ( 0x00003000 )
 #define HW_REGS_MASK ( HW_REGS_SPAN - 1 )
 
 int main() {
-
 	void *virtual_base;
 	int fd;
-	void *fpga_data_in_addr;
-	void *fpga_data_out_addr;
-
-	// map the address space for the LED registers into user space so we can interact with them.
-	// we'll actually map in the entire CSR span of the HPS since we want to access various registers within that span
 
 	if( ( fd = open( "/dev/mem", ( O_RDWR | O_SYNC ) ) ) == -1 ) {
 		printf( "ERROR: could not open \"/dev/mem\"...\n" );
@@ -44,69 +38,16 @@ int main() {
 		return( 1 );
 	}
 
-	void *start_address = virtual_base + 0x00000030;
-	void *completed_address = virtual_base + 0x00000010;
-	void *reset_address = virtual_base + 0x00000020;
+	void *num1_address = virtual_base + NUM1_OFFSET;
+	void *num2_address = virtual_base + NUM2_OFFSET;
+	void *result_address = virtual_base + RESULT_OFFSET;
 
-	fpga_data_in_addr = virtual_base + WRITE_MEM_OFFSET;
-	fpga_data_out_addr = virtual_base + READ_MEM_OFFSET;
+    *(float *)(num1_address) = 4.57;
+    *(float *)(num2_address) = 35.23;
 
-	int i=0;
-	int sequences = 4;
-	int windowSize = 1024;
-    FILE *sample_data_file, *input_text_file, *output_text_file;
-    sample_data_file = fopen("sample_data","r");
-    input_text_file = fopen("input.txt","w");
-    output_text_file = fopen("output.txt","w");
+    usleep(1000);
 
-    if(sample_data_file == NULL || input_text_file == NULL || output_text_file == NULL)
-    {
-      printf("Error!");
-      return 1;
-    }
-
-    //Resetting
-    *(char *)(start_address) = 0;
-    *(char *)(reset_address) = 1;
-    *(char *)(reset_address) = 0;
-
-    int8_t num;
-    printf("Started Writing\n");
-    while(i < windowSize*sequences)
-    {
-//        num = rand() % 256 - 128;
-        fread(&num, sizeof(int8_t), 1, sample_data_file);
-        *(int8_t *)(fpga_data_in_addr + i) = num;
-        fprintf(input_text_file, "%d\n", num);
-        i++;
-    }
-    fclose(sample_data_file);
-    fclose(input_text_file);
-    printf("Writing Completed \n");
-
-    i=0;
-    printf("\n");
-
-    struct timeval t1, t2;
-    *(char *)(start_address) = 1;
-    gettimeofday(&t1, NULL);
-//    *(char *)(start_address) = 0;
-//    printf("Reading sequences ***\n");
-    while(*(uint8_t *)(completed_address) != 1);
-    gettimeofday(&t2, NULL);
-    double elapsedTime = (t2.tv_usec - t1.tv_usec);
-    printf("Elapsed time %.0f usec\n", elapsedTime);
-
-    while(i < windowSize*sequences) {
-        int8_t val = *(int8_t *)(fpga_data_out_addr +  i);
-        fprintf(output_text_file, "%d\n", val);
-//        printf("%d ", val);
-        i++;
-    }
-    printf("\n\n");
-    fclose(output_text_file);
-    // wait 100ms
-    usleep( 1000 );
+    printf("Num1: %f\t Num2: %f\t Result: %f\n", *(float *)(num1_address), *(float *)(num2_address), *(float *)(result_address));
 
 	if( munmap( virtual_base, HW_REGS_SPAN ) != 0 ) {
 		printf( "ERROR: munmap() failed...\n" );

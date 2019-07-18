@@ -1,5 +1,5 @@
 #
-TARGET = rfi
+TARGET = posit
 
 #
 ALT_DEVICE_FAMILY ?= soc_a10

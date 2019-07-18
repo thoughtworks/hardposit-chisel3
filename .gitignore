@@ -14,9 +14,11 @@ FPGA/soc/arria10/.qsys_edit/
 FPGA/soc/arria10/soc_system/*
 FPGA/soc/arria10/soc_system.sopcinfo
 FPGA/soc/arria10/ip/*
+FPGA/soc/arria10/hps_isw_handoff/*
 *.csv
 *.txt
 *.swp
 *.bak
 *.qws
 HPS/main.o
+HPS/posit

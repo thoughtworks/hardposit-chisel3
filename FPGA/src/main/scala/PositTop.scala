@@ -12,13 +12,18 @@ class PositTop extends Module{
   private val soc = Module(new soc_system)
   soc.io.clk_clk := clock.asUInt().toBool()
   soc.io.reset_reset := reset.asBool()
-  io.led := soc.io.led_pio_export
+
+  private val fp = Module(new FloatOperation)
+  fp.io.num1 := soc.io.num1_export
+  fp.io.num2 := soc.io.num2_export
+  soc.io.result_export := fp.io.result
+  io.led := 5.U
 }
 
 object PositTop extends App {
   val optionsManager = new ExecutionOptionsManager("chisel3") with HasChiselExecutionOptions with HasFirrtlOptions
   optionsManager.setTargetDirName("soc/chisel_output")
   Driver.execute(optionsManager, () => new PositTop())
-  private val file = new File("soc/chisel_output/soc_system.v")
-  file.delete()
+  new File("soc/chisel_output/soc_system.v").delete()
+  new File("soc/chisel_output/float.v").delete()
 }
