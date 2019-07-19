@@ -37,4 +37,4 @@ jobs:
       # run tests!
       - run: 
           command: cat /dev/null | sbt test:test
-          working_directory: FPGA/
+          working_directory: fpga/
