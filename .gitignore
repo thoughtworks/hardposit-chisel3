@@ -19,5 +19,8 @@ fpga/soc/arria10/hps_isw_handoff/*
 *.swp
 *.bak
 *.qws
+
 hps/main.o
 hps/posit
+
+softposit/main
