@@ -76,9 +76,6 @@
 		.emif_a10_hps_0_mem_conduit_end_mem_dqs_n   (_connected_to_emif_a10_hps_0_mem_conduit_end_mem_dqs_n_),   //   inout,   width = 4,                                      .mem_dqs_n
 		.emif_a10_hps_0_mem_conduit_end_mem_dq      (_connected_to_emif_a10_hps_0_mem_conduit_end_mem_dq_),      //   inout,  width = 32,                                      .mem_dq
 		.emif_a10_hps_0_mem_conduit_end_mem_dbi_n   (_connected_to_emif_a10_hps_0_mem_conduit_end_mem_dbi_n_),   //   inout,   width = 4,                                      .mem_dbi_n
-		.fp_functions_0_a_a                         (_connected_to_fp_functions_0_a_a_),                         //   input,  width = 32,                      fp_functions_0_a.a
-		.fp_functions_0_b_b                         (_connected_to_fp_functions_0_b_b_),                         //   input,  width = 32,                      fp_functions_0_b.b
-		.fp_functions_0_q_q                         (_connected_to_fp_functions_0_q_q_),                         //  output,  width = 32,                      fp_functions_0_q.q
 		.num1_export                                (_connected_to_num1_export_),                                //  output,  width = 32,                                  num1.export
 		.num2_export                                (_connected_to_num2_export_),                                //  output,  width = 32,                                  num2.export
 		.result_export                              (_connected_to_result_export_),                              //   input,  width = 32,                                result.export

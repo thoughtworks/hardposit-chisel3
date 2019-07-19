@@ -42,7 +42,7 @@ int main() {
 	void *num2_address = virtual_base + NUM2_OFFSET;
 	void *result_address = virtual_base + RESULT_OFFSET;
 
-    *(float *)(num1_address) = 4.57;
+    *(float *)(num1_address) = 4.59;
     *(float *)(num2_address) = 35.23;
 
 //    usleep(1000*1000);

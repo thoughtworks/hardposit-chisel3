@@ -14,9 +14,8 @@ set_instance_assignment -name IO_STANDARD LVDS -to FPGA_CLK1_100 -entity PositTo
 set_location_assignment PIN_AM10 -to clock
 set_global_assignment -name QIP_FILE soc_system/soc_system.qip
 set_global_assignment -name QIP_FILE qsys_top/qsys_top.qip
-#set_global_assignment -name IP_FILE ip/float.ip
+set_global_assignment -name IP_FILE ip/float.ip
 set_global_assignment -name IP_FILE ip/qsys_top/num1.ip
-set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_fp_functions_0.ip
 set_global_assignment -name IP_FILE ip/qsys_top/result.ip
 set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_clock_bridge_0.ip
 set_global_assignment -name IP_FILE ip/qsys_top/rst_in.ip

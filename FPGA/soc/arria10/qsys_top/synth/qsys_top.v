@@ -81,9 +81,6 @@ module qsys_top (
 		inout  wire [3:0]  emif_a10_hps_0_mem_conduit_end_mem_dqs_n,   //                                      .mem_dqs_n
 		inout  wire [31:0] emif_a10_hps_0_mem_conduit_end_mem_dq,      //                                      .mem_dq
 		inout  wire [3:0]  emif_a10_hps_0_mem_conduit_end_mem_dbi_n,   //                                      .mem_dbi_n
-		input  wire [31:0] fp_functions_0_a_a,                         //                      fp_functions_0_a.a
-		input  wire [31:0] fp_functions_0_b_b,                         //                      fp_functions_0_b.b
-		output wire [31:0] fp_functions_0_q_q,                         //                      fp_functions_0_q.q
 		output wire [31:0] num1_export,                                //                                  num1.export
 		output wire [31:0] num2_export,                                //                                  num2.export
 		input  wire [31:0] result_export,                              //                                result.export
@@ -91,12 +88,12 @@ module qsys_top (
 		input  wire        reset_reset_n                               //                                 reset.reset_n
 	);
 
-	wire           clock_bridge_0_out_clk_clk;                // clock_bridge_0:out_clk -> [a10_hps:f2h_axi_clk, a10_hps:f2sdram0_clk, a10_hps:f2sdram2_clk, a10_hps:h2f_axi_clk, a10_hps:h2f_lw_axi_clk, fp_functions_0:clk, mm_interconnect_0:clock_bridge_0_out_clk_clk, num1:clk, num2:clk, result:clk, rst_bdg:clk, rst_controller:clk, rst_in:clk]
+	wire           clock_bridge_0_out_clk_clk;                // clock_bridge_0:out_clk -> [a10_hps:f2h_axi_clk, a10_hps:f2sdram0_clk, a10_hps:f2sdram2_clk, a10_hps:h2f_axi_clk, a10_hps:h2f_lw_axi_clk, mm_interconnect_0:clock_bridge_0_out_clk_clk, num1:clk, num2:clk, result:clk, rst_bdg:clk, rst_controller:clk, rst_in:clk]
 	wire     [1:0] a10_hps_emif_gp_to_emif;                   // a10_hps:emif_gp_to_emif -> emif_hps:hps_to_emif_gp
 	wire  [4095:0] emif_hps_hps_emif_conduit_end_emif_to_hps; // emif_hps:emif_to_hps -> a10_hps:emif_emif_to_hps
 	wire     [0:0] emif_hps_hps_emif_conduit_end_emif_to_gp;  // emif_hps:emif_to_hps_gp -> a10_hps:emif_emif_to_gp
 	wire  [4095:0] a10_hps_emif_hps_to_emif;                  // a10_hps:emif_hps_to_emif -> emif_hps:hps_to_emif
-	wire           rst_in_out_reset_reset;                    // rst_in:out_reset_n -> [emif_hps:global_reset_n, fp_functions_0:areset, mm_interconnect_0:num1_reset_reset_bridge_in_reset_reset, num1:reset_n, num2:reset_n, result:reset_n, rst_controller:reset_in1]
+	wire           rst_in_out_reset_reset;                    // rst_in:out_reset_n -> [emif_hps:global_reset_n, mm_interconnect_0:num1_reset_reset_bridge_in_reset_reset, num1:reset_n, num2:reset_n, result:reset_n, rst_controller:reset_in1]
 	wire     [1:0] a10_hps_h2f_lw_axi_master_awburst;         // a10_hps:h2f_lw_AWBURST -> mm_interconnect_0:a10_hps_h2f_lw_axi_master_awburst
 	wire     [4:0] a10_hps_h2f_lw_axi_master_awuser;          // a10_hps:h2f_lw_AWUSER -> mm_interconnect_0:a10_hps_h2f_lw_axi_master_awuser
 	wire     [3:0] a10_hps_h2f_lw_axi_master_arlen;           // a10_hps:h2f_lw_ARLEN -> mm_interconnect_0:a10_hps_h2f_lw_axi_master_arlen
@@ -452,14 +449,6 @@ module qsys_top (
 		.emif_to_hps    (emif_hps_hps_emif_conduit_end_emif_to_hps),  //  output,  width = 4096,                        .emif_to_hps
 		.hps_to_emif_gp (a10_hps_emif_gp_to_emif),                    //   input,     width = 2,                        .gp_to_emif
 		.emif_to_hps_gp (emif_hps_hps_emif_conduit_end_emif_to_gp)    //  output,     width = 1,                        .emif_to_gp
-	);
-
-	qsys_top_fp_functions_0 fp_functions_0 (
-		.clk    (clock_bridge_0_out_clk_clk), //   input,   width = 1,    clk.clk
-		.areset (~rst_in_out_reset_reset),    //   input,   width = 1, areset.reset
-		.a      (fp_functions_0_a_a),         //   input,  width = 32,      a.a
-		.b      (fp_functions_0_b_b),         //   input,  width = 32,      b.b
-		.q      (fp_functions_0_q_q)          //  output,  width = 32,      q.q
 	);
 
 	num1 num1 (
