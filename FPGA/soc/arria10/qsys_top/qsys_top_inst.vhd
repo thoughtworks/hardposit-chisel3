@@ -77,6 +77,9 @@
 			emif_a10_hps_0_mem_conduit_end_mem_dqs_n   : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs_n
 			emif_a10_hps_0_mem_conduit_end_mem_dq      : inout std_logic_vector(31 downto 0) := (others => 'X'); -- mem_dq
 			emif_a10_hps_0_mem_conduit_end_mem_dbi_n   : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dbi_n
+			fp_functions_0_a_a                         : in    std_logic_vector(31 downto 0) := (others => 'X'); -- a
+			fp_functions_0_b_b                         : in    std_logic_vector(31 downto 0) := (others => 'X'); -- b
+			fp_functions_0_q_q                         : out   std_logic_vector(31 downto 0);                    -- q
 			num1_export                                : out   std_logic_vector(31 downto 0);                    -- export
 			num2_export                                : out   std_logic_vector(31 downto 0);                    -- export
 			result_export                              : in    std_logic_vector(31 downto 0) := (others => 'X'); -- export
@@ -164,6 +167,9 @@
 			emif_a10_hps_0_mem_conduit_end_mem_dqs_n   => CONNECTED_TO_emif_a10_hps_0_mem_conduit_end_mem_dqs_n,   --                                      .mem_dqs_n
 			emif_a10_hps_0_mem_conduit_end_mem_dq      => CONNECTED_TO_emif_a10_hps_0_mem_conduit_end_mem_dq,      --                                      .mem_dq
 			emif_a10_hps_0_mem_conduit_end_mem_dbi_n   => CONNECTED_TO_emif_a10_hps_0_mem_conduit_end_mem_dbi_n,   --                                      .mem_dbi_n
+			fp_functions_0_a_a                         => CONNECTED_TO_fp_functions_0_a_a,                         --                      fp_functions_0_a.a
+			fp_functions_0_b_b                         => CONNECTED_TO_fp_functions_0_b_b,                         --                      fp_functions_0_b.b
+			fp_functions_0_q_q                         => CONNECTED_TO_fp_functions_0_q_q,                         --                      fp_functions_0_q.q
 			num1_export                                => CONNECTED_TO_num1_export,                                --                                  num1.export
 			num2_export                                => CONNECTED_TO_num2_export,                                --                                  num2.export
 			result_export                              => CONNECTED_TO_result_export,                              --                                result.export

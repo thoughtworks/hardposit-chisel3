@@ -76,6 +76,9 @@ module qsys_top (
 		inout  wire [3:0]  emif_a10_hps_0_mem_conduit_end_mem_dqs_n,   //                                      .mem_dqs_n
 		inout  wire [31:0] emif_a10_hps_0_mem_conduit_end_mem_dq,      //                                      .mem_dq
 		inout  wire [3:0]  emif_a10_hps_0_mem_conduit_end_mem_dbi_n,   //                                      .mem_dbi_n
+		input  wire [31:0] fp_functions_0_a_a,                         //                      fp_functions_0_a.a
+		input  wire [31:0] fp_functions_0_b_b,                         //                      fp_functions_0_b.b
+		output wire [31:0] fp_functions_0_q_q,                         //                      fp_functions_0_q.q
 		output wire [31:0] num1_export,                                //                                  num1.export
 		output wire [31:0] num2_export,                                //                                  num2.export
 		input  wire [31:0] result_export,                              //                                result.export

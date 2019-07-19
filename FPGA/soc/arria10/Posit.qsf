@@ -8,24 +8,15 @@ set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
 set_global_assignment -name DEVICE 10AS066N3F40E2SG
 set_global_assignment -name FAMILY "Arria 10"
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 2
-set_global_assignment -name VERILOG_FILE ../chisel_output/PositTop.v
-
-set_instance_assignment -name IO_STANDARD "1.8 V" -to io_led[0] -entity PositTop
-set_instance_assignment -name IO_STANDARD "1.8 V" -to io_led[1] -entity PositTop
-set_instance_assignment -name IO_STANDARD "1.8 V" -to io_led[2] -entity PositTop
-set_instance_assignment -name IO_STANDARD "1.8 V" -to io_led[3] -entity PositTop
-set_location_assignment PIN_AR23 -to io_led[0]
-set_location_assignment PIN_AR22 -to io_led[1]
-set_location_assignment PIN_AM21 -to io_led[2]
-set_location_assignment PIN_AL20 -to io_led[3]
 
 set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
 set_instance_assignment -name IO_STANDARD LVDS -to FPGA_CLK1_100 -entity PositTop
 set_location_assignment PIN_AM10 -to clock
 set_global_assignment -name QIP_FILE soc_system/soc_system.qip
 set_global_assignment -name QIP_FILE qsys_top/qsys_top.qip
-set_global_assignment -name IP_FILE ip/float.ip
+#set_global_assignment -name IP_FILE ip/float.ip
 set_global_assignment -name IP_FILE ip/qsys_top/num1.ip
+set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_fp_functions_0.ip
 set_global_assignment -name IP_FILE ip/qsys_top/result.ip
 set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_clock_bridge_0.ip
 set_global_assignment -name IP_FILE ip/qsys_top/rst_in.ip
@@ -53,18 +44,6 @@ set_global_assignment -name PRESERVE_UNUSED_XCVR_CHANNEL ON
 set_global_assignment -name GENERATE_RBF_FILE ON
 set_location_assignment PIN_AM10 -to fpga_clk_100
 set_location_assignment PIN_AV21 -to fpga_reset_n
-set_location_assignment PIN_AR23 -to fpga_led_pio[0]
-set_location_assignment PIN_AR22 -to fpga_led_pio[1]
-set_location_assignment PIN_AM21 -to fpga_led_pio[2]
-set_location_assignment PIN_AL20 -to fpga_led_pio[3]
-set_location_assignment PIN_P3 -to fpga_dipsw_pio[0]
-set_location_assignment PIN_P4 -to fpga_dipsw_pio[1]
-set_location_assignment PIN_P1 -to fpga_dipsw_pio[2]
-set_location_assignment PIN_R1 -to fpga_dipsw_pio[3]
-set_location_assignment PIN_R5 -to fpga_button_pio[0]
-set_location_assignment PIN_T5 -to fpga_button_pio[1]
-set_location_assignment PIN_P5 -to fpga_button_pio[2]
-set_location_assignment PIN_P6 -to fpga_button_pio[3]
 set_location_assignment PIN_AT22 -to dp_aux_ch_n
 set_location_assignment PIN_AU22 -to dp_aux_ch_p
 set_location_assignment PIN_N4 -to tx_hpd
@@ -76,18 +55,6 @@ set_location_assignment PIN_B39 -to dp_tx_serial_out[2]
 set_location_assignment PIN_C37 -to dp_tx_serial_out[3]
 set_instance_assignment -name IO_STANDARD LVDS -to fpga_clk_100
 set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_reset_n
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_dipsw_pio[0]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_led_pio[0]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_button_pio[0]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_dipsw_pio[1]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_led_pio[1]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_button_pio[1]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_dipsw_pio[2]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_led_pio[2]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_button_pio[2]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_dipsw_pio[3]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_led_pio[3]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_button_pio[3]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to tx_hpd
 set_instance_assignment -name IO_STANDARD "1.8 V" -to dp_on
 set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to dp_aux_ch_n

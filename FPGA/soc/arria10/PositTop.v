@@ -185,15 +185,18 @@ module PositTop (
         .clk_clk                                       (fpga_clk_100),
         .num1_export(num1),
         .num2_export(num2),
-        .result_export(result)
+        .result_export(result),
+        .fp_functions_0_a_a(num1),
+        .fp_functions_0_b_b(num2),
+        .fp_functions_0_q_q(result)
     );
-    FloatOperation floatOperation(
-        .clock(fpga_clk_100),
-        .reset(fpga_reset_n),
-        .io_num1(num1),
-        .io_num2(num2),
-        .io_result(result)
-    );
+//    FloatOperation floatOperation(
+//        .clock(fpga_clk_100),
+//        .reset(fpga_reset_n),
+//        .io_num1(num1),
+//        .io_num2(num2),
+//        .io_result(result)
+//    );
 
 endmodule
 

@@ -45,9 +45,9 @@ int main() {
     *(float *)(num1_address) = 4.57;
     *(float *)(num2_address) = 35.23;
 
-    usleep(1000);
+//    usleep(1000*1000);
 
-    printf("Num1: %f\t Num2: %f\t Result: %f\n", *(float *)(num1_address), *(float *)(num2_address), *(float *)(result_address));
+    printf("Num1: %f\nNum2: %f\nResult: %f\n", *(float *)(num1_address), *(float *)(num2_address), *(float *)(result_address));
 
 	if( munmap( virtual_base, HW_REGS_SPAN ) != 0 ) {
 		printf( "ERROR: munmap() failed...\n" );

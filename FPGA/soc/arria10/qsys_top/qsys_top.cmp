@@ -77,6 +77,9 @@
 			emif_a10_hps_0_mem_conduit_end_mem_dqs_n   : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs_n
 			emif_a10_hps_0_mem_conduit_end_mem_dq      : inout std_logic_vector(31 downto 0) := (others => 'X'); -- mem_dq
 			emif_a10_hps_0_mem_conduit_end_mem_dbi_n   : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dbi_n
+			fp_functions_0_a_a                         : in    std_logic_vector(31 downto 0) := (others => 'X'); -- a
+			fp_functions_0_b_b                         : in    std_logic_vector(31 downto 0) := (others => 'X'); -- b
+			fp_functions_0_q_q                         : out   std_logic_vector(31 downto 0);                    -- q
 			num1_export                                : out   std_logic_vector(31 downto 0);                    -- export
 			num2_export                                : out   std_logic_vector(31 downto 0);                    -- export
 			result_export                              : in    std_logic_vector(31 downto 0) := (others => 'X'); -- export

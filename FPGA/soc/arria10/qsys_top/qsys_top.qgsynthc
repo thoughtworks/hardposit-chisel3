@@ -1795,6 +1795,31 @@
               </parameter>
               <parameter>
                 <name>clockRateSysInfo</name>
+                <value>150000000</value>
+              </parameter>
+            </parameters>
+            <interconnectAssignments></interconnectAssignments>
+            <className>clock</className>
+            <version>18.1</version>
+            <end>fp_functions_0/clk</end>
+            <start>clock_bridge_0/out_clk</start>
+          </incidentConnection>
+          <incidentConnection>
+            <parameters>
+              <parameter>
+                <name>resetDomainSysInfo</name>
+                <value>-1</value>
+              </parameter>
+              <parameter>
+                <name>clockDomainSysInfo</name>
+                <value>-1</value>
+              </parameter>
+              <parameter>
+                <name>clockResetSysInfo</name>
+                <value></value>
+              </parameter>
+              <parameter>
+                <name>clockRateSysInfo</name>
                 <value>-1</value>
               </parameter>
             </parameters>
@@ -2076,6 +2101,102 @@
           </incidentConnection>
         </incidentConnections>
         <path>qsys_top.emif_hps</path>
+      </instanceData>
+      <children></children>
+    </node>
+    <node>
+      <instanceKey xsi:type="xs:string">fp_functions_0</instanceKey>
+      <instanceData xsi:type="data">
+        <parameters>
+          <parameter>
+            <name>componentDefinition</name>
+            <value>&lt;componentDefinition&gt;&#xa;    &lt;boundary&gt;&#xa;        &lt;interfaces&gt;&#xa;            &lt;interface&gt;&#xa;                &lt;name&gt;clk&lt;/name&gt;&#xa;                &lt;type&gt;clock&lt;/type&gt;&#xa;                &lt;isStart&gt;false&lt;/isStart&gt;&#xa;                &lt;ports&gt;&#xa;                    &lt;port&gt;&#xa;                        &lt;name&gt;clk&lt;/name&gt;&#xa;                        &lt;role&gt;clk&lt;/role&gt;&#xa;                        &lt;direction&gt;Input&lt;/direction&gt;&#xa;                        &lt;width&gt;1&lt;/width&gt;&#xa;                        &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                        &lt;vhdlType&gt;STD_LOGIC&lt;/vhdlType&gt;&#xa;                    &lt;/port&gt;&#xa;                &lt;/ports&gt;&#xa;                &lt;assignments&gt;&#xa;                    &lt;assignmentValueMap/&gt;&#xa;                &lt;/assignments&gt;&#xa;                &lt;parameters&gt;&#xa;                    &lt;parameterValueMap&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;clockRate&lt;/key&gt;&#xa;                            &lt;value&gt;0&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;externallyDriven&lt;/key&gt;&#xa;                            &lt;value&gt;false&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;ptfSchematicName&lt;/key&gt;&#xa;                        &lt;/entry&gt;&#xa;                    &lt;/parameterValueMap&gt;&#xa;                &lt;/parameters&gt;&#xa;            &lt;/interface&gt;&#xa;            &lt;interface&gt;&#xa;                &lt;name&gt;areset&lt;/name&gt;&#xa;                &lt;type&gt;reset&lt;/type&gt;&#xa;                &lt;isStart&gt;false&lt;/isStart&gt;&#xa;                &lt;ports&gt;&#xa;                    &lt;port&gt;&#xa;                        &lt;name&gt;areset&lt;/name&gt;&#xa;                        &lt;role&gt;reset&lt;/role&gt;&#xa;                        &lt;direction&gt;Input&lt;/direction&gt;&#xa;                        &lt;width&gt;1&lt;/width&gt;&#xa;                        &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                        &lt;vhdlType&gt;STD_LOGIC&lt;/vhdlType&gt;&#xa;                    &lt;/port&gt;&#xa;                &lt;/ports&gt;&#xa;                &lt;assignments&gt;&#xa;                    &lt;assignmentValueMap/&gt;&#xa;                &lt;/assignments&gt;&#xa;                &lt;parameters&gt;&#xa;                    &lt;parameterValueMap&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;associatedClock&lt;/key&gt;&#xa;                            &lt;value&gt;clk&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;synchronousEdges&lt;/key&gt;&#xa;                            &lt;value&gt;DEASSERT&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                    &lt;/parameterValueMap&gt;&#xa;                &lt;/parameters&gt;&#xa;            &lt;/interface&gt;&#xa;            &lt;interface&gt;&#xa;                &lt;name&gt;a&lt;/name&gt;&#xa;                &lt;type&gt;conduit&lt;/type&gt;&#xa;                &lt;isStart&gt;false&lt;/isStart&gt;&#xa;                &lt;ports&gt;&#xa;                    &lt;port&gt;&#xa;                        &lt;name&gt;a&lt;/name&gt;&#xa;                        &lt;role&gt;a&lt;/role&gt;&#xa;                        &lt;direction&gt;Input&lt;/direction&gt;&#xa;                        &lt;width&gt;32&lt;/width&gt;&#xa;                        &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                        &lt;vhdlType&gt;STD_LOGIC_VECTOR&lt;/vhdlType&gt;&#xa;                    &lt;/port&gt;&#xa;                &lt;/ports&gt;&#xa;                &lt;assignments&gt;&#xa;                    &lt;assignmentValueMap/&gt;&#xa;                &lt;/assignments&gt;&#xa;                &lt;parameters&gt;&#xa;                    &lt;parameterValueMap&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;associatedClock&lt;/key&gt;&#xa;                            &lt;value&gt;clk&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;associatedReset&lt;/key&gt;&#xa;                            &lt;value&gt;areset&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;prSafe&lt;/key&gt;&#xa;                            &lt;value&gt;false&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                    &lt;/parameterValueMap&gt;&#xa;                &lt;/parameters&gt;&#xa;            &lt;/interface&gt;&#xa;            &lt;interface&gt;&#xa;                &lt;name&gt;b&lt;/name&gt;&#xa;                &lt;type&gt;conduit&lt;/type&gt;&#xa;                &lt;isStart&gt;false&lt;/isStart&gt;&#xa;                &lt;ports&gt;&#xa;                    &lt;port&gt;&#xa;                        &lt;name&gt;b&lt;/name&gt;&#xa;                        &lt;role&gt;b&lt;/role&gt;&#xa;                        &lt;direction&gt;Input&lt;/direction&gt;&#xa;                        &lt;width&gt;32&lt;/width&gt;&#xa;                        &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                        &lt;vhdlType&gt;STD_LOGIC_VECTOR&lt;/vhdlType&gt;&#xa;                    &lt;/port&gt;&#xa;                &lt;/ports&gt;&#xa;                &lt;assignments&gt;&#xa;                    &lt;assignmentValueMap/&gt;&#xa;                &lt;/assignments&gt;&#xa;                &lt;parameters&gt;&#xa;                    &lt;parameterValueMap&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;associatedClock&lt;/key&gt;&#xa;                            &lt;value&gt;clk&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;associatedReset&lt;/key&gt;&#xa;                            &lt;value&gt;areset&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;prSafe&lt;/key&gt;&#xa;                            &lt;value&gt;false&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                    &lt;/parameterValueMap&gt;&#xa;                &lt;/parameters&gt;&#xa;            &lt;/interface&gt;&#xa;            &lt;interface&gt;&#xa;                &lt;name&gt;q&lt;/name&gt;&#xa;                &lt;type&gt;conduit&lt;/type&gt;&#xa;                &lt;isStart&gt;false&lt;/isStart&gt;&#xa;                &lt;ports&gt;&#xa;                    &lt;port&gt;&#xa;                        &lt;name&gt;q&lt;/name&gt;&#xa;                        &lt;role&gt;q&lt;/role&gt;&#xa;                        &lt;direction&gt;Output&lt;/direction&gt;&#xa;                        &lt;width&gt;32&lt;/width&gt;&#xa;                        &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                        &lt;vhdlType&gt;STD_LOGIC_VECTOR&lt;/vhdlType&gt;&#xa;                    &lt;/port&gt;&#xa;                &lt;/ports&gt;&#xa;                &lt;assignments&gt;&#xa;                    &lt;assignmentValueMap&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;ui.blockdiagram.direction&lt;/key&gt;&#xa;                            &lt;value&gt;OUTPUT&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                    &lt;/assignmentValueMap&gt;&#xa;                &lt;/assignments&gt;&#xa;                &lt;parameters&gt;&#xa;                    &lt;parameterValueMap&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;associatedClock&lt;/key&gt;&#xa;                            &lt;value&gt;clk&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;associatedReset&lt;/key&gt;&#xa;                        &lt;/entry&gt;&#xa;                        &lt;entry&gt;&#xa;                            &lt;key&gt;prSafe&lt;/key&gt;&#xa;                            &lt;value&gt;false&lt;/value&gt;&#xa;                        &lt;/entry&gt;&#xa;                    &lt;/parameterValueMap&gt;&#xa;                &lt;/parameters&gt;&#xa;            &lt;/interface&gt;&#xa;        &lt;/interfaces&gt;&#xa;    &lt;/boundary&gt;&#xa;    &lt;originalModuleInfo&gt;&#xa;        &lt;className&gt;altera_fp_functions&lt;/className&gt;&#xa;        &lt;version&gt;18.1&lt;/version&gt;&#xa;        &lt;displayName&gt;Floating Point Functions Intel FPGA IP&lt;/displayName&gt;&#xa;    &lt;/originalModuleInfo&gt;&#xa;    &lt;systemInfoParameterDescriptors&gt;&#xa;        &lt;descriptors&gt;&#xa;            &lt;descriptor&gt;&#xa;                &lt;parameterDefaultValue&gt;&lt;/parameterDefaultValue&gt;&#xa;                &lt;parameterName&gt;selected_device_family&lt;/parameterName&gt;&#xa;                &lt;parameterType&gt;java.lang.String&lt;/parameterType&gt;&#xa;                &lt;systemInfotype&gt;DEVICE_FAMILY&lt;/systemInfotype&gt;&#xa;            &lt;/descriptor&gt;&#xa;            &lt;descriptor&gt;&#xa;                &lt;parameterDefaultValue&gt;Unknown&lt;/parameterDefaultValue&gt;&#xa;                &lt;parameterName&gt;selected_device_speedgrade&lt;/parameterName&gt;&#xa;                &lt;parameterType&gt;java.lang.String&lt;/parameterType&gt;&#xa;                &lt;systemInfotype&gt;DEVICE_SPEEDGRADE&lt;/systemInfotype&gt;&#xa;            &lt;/descriptor&gt;&#xa;        &lt;/descriptors&gt;&#xa;    &lt;/systemInfoParameterDescriptors&gt;&#xa;    &lt;systemInfos&gt;&#xa;        &lt;connPtSystemInfos/&gt;&#xa;    &lt;/systemInfos&gt;&#xa;&lt;/componentDefinition&gt;</value>
+          </parameter>
+          <parameter>
+            <name>generationInfoDefinition</name>
+            <value>&lt;generationInfoDefinition&gt;&#xa;    &lt;hdlLibraryName&gt;qsys_top_fp_functions_0&lt;/hdlLibraryName&gt;&#xa;    &lt;fileSets&gt;&#xa;        &lt;fileSet&gt;&#xa;            &lt;fileSetName&gt;qsys_top_fp_functions_0&lt;/fileSetName&gt;&#xa;            &lt;fileSetFixedName&gt;qsys_top_fp_functions_0&lt;/fileSetFixedName&gt;&#xa;            &lt;fileSetKind&gt;QUARTUS_SYNTH&lt;/fileSetKind&gt;&#xa;            &lt;fileSetFiles/&gt;&#xa;        &lt;/fileSet&gt;&#xa;        &lt;fileSet&gt;&#xa;            &lt;fileSetName&gt;qsys_top_fp_functions_0&lt;/fileSetName&gt;&#xa;            &lt;fileSetFixedName&gt;qsys_top_fp_functions_0&lt;/fileSetFixedName&gt;&#xa;            &lt;fileSetKind&gt;SIM_VERILOG&lt;/fileSetKind&gt;&#xa;            &lt;fileSetFiles/&gt;&#xa;        &lt;/fileSet&gt;&#xa;        &lt;fileSet&gt;&#xa;            &lt;fileSetName&gt;qsys_top_fp_functions_0&lt;/fileSetName&gt;&#xa;            &lt;fileSetFixedName&gt;qsys_top_fp_functions_0&lt;/fileSetFixedName&gt;&#xa;            &lt;fileSetKind&gt;SIM_VHDL&lt;/fileSetKind&gt;&#xa;            &lt;fileSetFiles/&gt;&#xa;        &lt;/fileSet&gt;&#xa;    &lt;/fileSets&gt;&#xa;&lt;/generationInfoDefinition&gt;</value>
+          </parameter>
+          <parameter>
+            <name>hlsFile</name>
+            <value></value>
+          </parameter>
+          <parameter>
+            <name>logicalView</name>
+            <value>ip/qsys_top/qsys_top_fp_functions_0.ip</value>
+          </parameter>
+          <parameter>
+            <name>moduleAssignmentDefinition</name>
+            <value>&lt;assignmentDefinition&gt;&#xa;    &lt;assignmentValueMap/&gt;&#xa;&lt;/assignmentDefinition&gt;</value>
+          </parameter>
+          <parameter>
+            <name>selected_device_family</name>
+            <value>Arria 10</value>
+          </parameter>
+          <parameter>
+            <name>selected_device_speedgrade</name>
+            <value>2</value>
+          </parameter>
+          <parameter>
+            <name>svInterfaceDefinition</name>
+            <value></value>
+          </parameter>
+        </parameters>
+        <interconnectAssignments></interconnectAssignments>
+        <className>altera_generic_component</className>
+        <version>1.0</version>
+        <name>fp_functions_0</name>
+        <uniqueName>qsys_top_fp_functions_0</uniqueName>
+        <fixedName>qsys_top_fp_functions_0</fixedName>
+        <nonce>0</nonce>
+        <incidentConnections>
+          <incidentConnection>
+            <parameters>
+              <parameter>
+                <name>resetDomainSysInfo</name>
+                <value>-1</value>
+              </parameter>
+              <parameter>
+                <name>clockDomainSysInfo</name>
+                <value>-1</value>
+              </parameter>
+              <parameter>
+                <name>clockResetSysInfo</name>
+                <value></value>
+              </parameter>
+              <parameter>
+                <name>clockRateSysInfo</name>
+                <value>150000000</value>
+              </parameter>
+            </parameters>
+            <interconnectAssignments></interconnectAssignments>
+            <className>clock</className>
+            <version>18.1</version>
+            <end>fp_functions_0/clk</end>
+            <start>clock_bridge_0/out_clk</start>
+          </incidentConnection>
+          <incidentConnection>
+            <parameters>
+              <parameter>
+                <name>resetDomainSysInfo</name>
+                <value>-1</value>
+              </parameter>
+              <parameter>
+                <name>clockDomainSysInfo</name>
+                <value>-1</value>
+              </parameter>
+              <parameter>
+                <name>clockResetSysInfo</name>
+                <value></value>
+              </parameter>
+            </parameters>
+            <interconnectAssignments></interconnectAssignments>
+            <className>reset</className>
+            <version>18.1</version>
+            <end>fp_functions_0/areset</end>
+            <start>rst_in/out_reset</start>
+          </incidentConnection>
+        </incidentConnections>
+        <path>qsys_top.fp_functions_0</path>
       </instanceData>
       <children></children>
     </node>
@@ -16555,6 +16676,27 @@
             <className>reset</className>
             <version>18.1</version>
             <end>emif_hps/global_reset_reset_sink</end>
+            <start>rst_in/out_reset</start>
+          </incidentConnection>
+          <incidentConnection>
+            <parameters>
+              <parameter>
+                <name>resetDomainSysInfo</name>
+                <value>-1</value>
+              </parameter>
+              <parameter>
+                <name>clockDomainSysInfo</name>
+                <value>-1</value>
+              </parameter>
+              <parameter>
+                <name>clockResetSysInfo</name>
+                <value></value>
+              </parameter>
+            </parameters>
+            <interconnectAssignments></interconnectAssignments>
+            <className>reset</className>
+            <version>18.1</version>
+            <end>fp_functions_0/areset</end>
             <start>rst_in/out_reset</start>
           </incidentConnection>
           <incidentConnection>
