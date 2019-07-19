@@ -1,0 +1,7 @@
+	component issp_dp is
+		port (
+			source     : out std_logic_vector(0 downto 0);        -- source
+			source_clk : in  std_logic                    := 'X'  -- clk
+		);
+	end component issp_dp;
+

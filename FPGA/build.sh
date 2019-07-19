@@ -1,7 +1,7 @@
 #! /bin/bash
 set -e
 
-sbt "runMain PositTop"
+sbt "runMain FloatOperation"
 
 QUARTUS_PATH=~/intelFPGA_pro/18.1/quartus/bin
 DEVICE=arria10
