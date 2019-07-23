@@ -87,7 +87,6 @@ module PositTop (
 // internal wires and registers declaration
     wire [3:0]  fpga_debounced_buttons;
     wire [3:0]  fpga_led_internal;
-    wire [27:0] stm_hw_events;
     wire        hps_fpga_reset;
     wire [2:0]  hps_reset_req;
     wire        hps_cold_reset;
@@ -97,14 +96,12 @@ module PositTop (
 
 // connection of internal logics
     assign fpga_led_pio     = 4'h5;
-    assign stm_hw_events    = {{16{1'b0}}, fpga_dipsw_pio, fpga_led_internal, fpga_debounced_buttons};
     wire [31:0] num1;
     wire [31:0] num2;
     wire [31:0] result;
 
 // SoC sub-system module
     qsys_top soc_inst (
-        .f2h_stm_hw_events_stm_hwevents                (stm_hw_events),
         .hps_io_hps_io_phery_emac0_TX_CLK              (hps_emac0_TX_CLK),
         .hps_io_hps_io_phery_emac0_TXD0                (hps_emac0_TXD0),
         .hps_io_hps_io_phery_emac0_TXD1                (hps_emac0_TXD1),

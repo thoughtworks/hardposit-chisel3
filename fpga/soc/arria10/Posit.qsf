@@ -2,7 +2,6 @@ set_global_assignment -name TOP_LEVEL_ENTITY PositTop
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "11:51:17  JULY 18, 2019"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Pro Edition"
-set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
 set_global_assignment -name DEVICE 10AS066N3F40E2SG
@@ -22,14 +21,6 @@ set_global_assignment -name IP_FILE ip/qsys_top/rst_in.ip
 set_global_assignment -name IP_FILE ip/qsys_top/rst_bdg.ip
 set_global_assignment -name IP_FILE ip/qsys_top/emif_hps.ip
 
-set_global_assignment -name QSYS_FILE qsys_top.qsys
-set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
-set_global_assignment -name ENABLE_SIGNALTAP ON
-set_global_assignment -name USE_SIGNALTAP_FILE cti_tapping.stp
-set_global_assignment -name SIGNALTAP_FILE cti_tapping.stp
-set_global_assignment -name HPS_EARLY_IO_RELEASE ON
-set_global_assignment -name PRESERVE_UNUSED_XCVR_CHANNEL ON
-set_global_assignment -name GENERATE_RBF_FILE ON
 
 set_global_assignment -name QSYS_FILE qsys_top.qsys
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
@@ -272,3 +263,4 @@ set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_D1
 set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_D2
 set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_D3
 set_instance_assignment -name OUTPUT_DELAY_CHAIN 8 -to hps_emac0_TX_CLK
+set_global_assignment -name FLOW_ENABLE_EARLY_PLACE OFF
