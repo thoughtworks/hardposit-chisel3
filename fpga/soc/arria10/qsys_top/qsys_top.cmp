@@ -1,8 +1,5 @@
 	component qsys_top is
 		port (
-			f2h_cold_reset_req_reset_n                 : in    std_logic                     := 'X';             -- reset_n
-			f2h_debug_reset_req_reset_n                : in    std_logic                     := 'X';             -- reset_n
-			f2h_warm_reset_req_reset_n                 : in    std_logic                     := 'X';             -- reset_n
 			hps_io_hps_io_phery_emac0_TX_CLK           : out   std_logic;                                        -- hps_io_phery_emac0_TX_CLK
 			hps_io_hps_io_phery_emac0_TXD0             : out   std_logic;                                        -- hps_io_phery_emac0_TXD0
 			hps_io_hps_io_phery_emac0_TXD1             : out   std_logic;                                        -- hps_io_phery_emac0_TXD1

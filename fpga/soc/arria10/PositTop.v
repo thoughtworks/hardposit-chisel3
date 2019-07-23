@@ -89,9 +89,9 @@ module PositTop (
     wire [3:0]  fpga_led_internal;
     wire        hps_fpga_reset;
     wire [2:0]  hps_reset_req;
-    wire        hps_cold_reset;
-    wire        hps_warm_reset;
-    wire        hps_debug_reset;
+//    wire        hps_cold_reset;
+//    wire        hps_warm_reset;
+//    wire        hps_debug_reset;
 
 
 // connection of internal logics
@@ -175,9 +175,9 @@ module PositTop (
         .hps_io_hps_io_phery_i2c1_SDA                  (hps_i2c1_SDA),
         .hps_io_hps_io_phery_i2c1_SCL                  (hps_i2c1_SCL),
         .hps_fpga_reset_reset                          (hps_fpga_reset),
-        .f2h_cold_reset_req_reset_n                    (~hps_cold_reset),
-        .f2h_warm_reset_req_reset_n                    (~hps_warm_reset),
-        .f2h_debug_reset_req_reset_n                   (~hps_debug_reset),
+//        .f2h_cold_reset_req_reset_n                    (~hps_cold_reset),
+//        .f2h_warm_reset_req_reset_n                    (~hps_warm_reset),
+//        .f2h_debug_reset_req_reset_n                   (~hps_debug_reset),
         .reset_reset_n                                 (fpga_reset_n),
         .clk_clk                                       (fpga_clk_100),
         .num1_export(num1),
