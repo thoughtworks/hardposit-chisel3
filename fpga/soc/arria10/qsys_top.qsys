@@ -162,11 +162,7 @@
    internal="a10_hps.f2h_debug_reset_req"
    type="reset"
    dir="end" />
- <interface
-   name="f2h_stm_hw_events"
-   internal="a10_hps.f2h_stm_hw_events"
-   type="conduit"
-   dir="end" />
+ <interface name="f2h_stm_hw_events" internal="a10_hps.f2h_stm_hw_events" />
  <interface
    name="f2h_warm_reset_req"
    internal="a10_hps.f2h_warm_reset_req"
@@ -258,7 +254,7 @@
   <parameter name="F2SDRAM_ADDRESS_WIDTH" value="32" />
   <parameter name="F2SDRAM_PORT_CONFIG" value="6" />
   <parameter name="F2SDRAM_READY_LATENCY" value="true" />
-  <parameter name="F2SINTERRUPT_Enable" value="true" />
+  <parameter name="F2SINTERRUPT_Enable" value="false" />
   <parameter name="F2S_Width" value="6" />
   <parameter name="FPGA_PERIPHERAL_INPUT_CLOCK_FREQ_EMAC0_RX_CLK_IN" value="100" />
   <parameter name="FPGA_PERIPHERAL_INPUT_CLOCK_FREQ_EMAC0_TX_CLK_IN" value="100" />
@@ -389,7 +385,7 @@
   <parameter name="SPIS0_PinMuxing" value="Unused" />
   <parameter name="SPIS1_Mode" value="N/A" />
   <parameter name="SPIS1_PinMuxing" value="Unused" />
-  <parameter name="STM_Enable" value="true" />
+  <parameter name="STM_Enable" value="false" />
   <parameter name="TESTIOCTRL_DEBUGCLKSEL" value="16" />
   <parameter name="TESTIOCTRL_MAINCLKSEL" value="8" />
   <parameter name="TESTIOCTRL_PERICLKSEL" value="8" />

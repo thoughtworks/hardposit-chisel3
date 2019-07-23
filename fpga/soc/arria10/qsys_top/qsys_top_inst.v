@@ -2,7 +2,6 @@
 		.f2h_cold_reset_req_reset_n                 (_connected_to_f2h_cold_reset_req_reset_n_),                 //   input,   width = 1,                    f2h_cold_reset_req.reset_n
 		.f2h_debug_reset_req_reset_n                (_connected_to_f2h_debug_reset_req_reset_n_),                //   input,   width = 1,                   f2h_debug_reset_req.reset_n
 		.f2h_warm_reset_req_reset_n                 (_connected_to_f2h_warm_reset_req_reset_n_),                 //   input,   width = 1,                    f2h_warm_reset_req.reset_n
-		.f2h_stm_hw_events_stm_hwevents             (_connected_to_f2h_stm_hw_events_stm_hwevents_),             //   input,  width = 28,                     f2h_stm_hw_events.stm_hwevents
 		.hps_io_hps_io_phery_emac0_TX_CLK           (_connected_to_hps_io_hps_io_phery_emac0_TX_CLK_),           //  output,   width = 1,                                hps_io.hps_io_phery_emac0_TX_CLK
 		.hps_io_hps_io_phery_emac0_TXD0             (_connected_to_hps_io_hps_io_phery_emac0_TXD0_),             //  output,   width = 1,                                      .hps_io_phery_emac0_TXD0
 		.hps_io_hps_io_phery_emac0_TXD1             (_connected_to_hps_io_hps_io_phery_emac0_TXD1_),             //  output,   width = 1,                                      .hps_io_phery_emac0_TXD1

@@ -2,7 +2,6 @@ module qsys_top (
 		input  wire        f2h_cold_reset_req_reset_n,                 //                    f2h_cold_reset_req.reset_n
 		input  wire        f2h_debug_reset_req_reset_n,                //                   f2h_debug_reset_req.reset_n
 		input  wire        f2h_warm_reset_req_reset_n,                 //                    f2h_warm_reset_req.reset_n
-		input  wire [27:0] f2h_stm_hw_events_stm_hwevents,             //                     f2h_stm_hw_events.stm_hwevents
 		output wire        hps_io_hps_io_phery_emac0_TX_CLK,           //                                hps_io.hps_io_phery_emac0_TX_CLK
 		output wire        hps_io_hps_io_phery_emac0_TXD0,             //                                      .hps_io_phery_emac0_TXD0
 		output wire        hps_io_hps_io_phery_emac0_TXD1,             //                                      .hps_io_phery_emac0_TXD1

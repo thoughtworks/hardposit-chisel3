@@ -3,7 +3,6 @@
 			f2h_cold_reset_req_reset_n                 : in    std_logic                     := 'X';             -- reset_n
 			f2h_debug_reset_req_reset_n                : in    std_logic                     := 'X';             -- reset_n
 			f2h_warm_reset_req_reset_n                 : in    std_logic                     := 'X';             -- reset_n
-			f2h_stm_hw_events_stm_hwevents             : in    std_logic_vector(27 downto 0) := (others => 'X'); -- stm_hwevents
 			hps_io_hps_io_phery_emac0_TX_CLK           : out   std_logic;                                        -- hps_io_phery_emac0_TX_CLK
 			hps_io_hps_io_phery_emac0_TXD0             : out   std_logic;                                        -- hps_io_phery_emac0_TXD0
 			hps_io_hps_io_phery_emac0_TXD1             : out   std_logic;                                        -- hps_io_phery_emac0_TXD1
@@ -90,7 +89,6 @@
 			f2h_cold_reset_req_reset_n                 => CONNECTED_TO_f2h_cold_reset_req_reset_n,                 --                    f2h_cold_reset_req.reset_n
 			f2h_debug_reset_req_reset_n                => CONNECTED_TO_f2h_debug_reset_req_reset_n,                --                   f2h_debug_reset_req.reset_n
 			f2h_warm_reset_req_reset_n                 => CONNECTED_TO_f2h_warm_reset_req_reset_n,                 --                    f2h_warm_reset_req.reset_n
-			f2h_stm_hw_events_stm_hwevents             => CONNECTED_TO_f2h_stm_hw_events_stm_hwevents,             --                     f2h_stm_hw_events.stm_hwevents
 			hps_io_hps_io_phery_emac0_TX_CLK           => CONNECTED_TO_hps_io_hps_io_phery_emac0_TX_CLK,           --                                hps_io.hps_io_phery_emac0_TX_CLK
 			hps_io_hps_io_phery_emac0_TXD0             => CONNECTED_TO_hps_io_hps_io_phery_emac0_TXD0,             --                                      .hps_io_phery_emac0_TXD0
 			hps_io_hps_io_phery_emac0_TXD1             => CONNECTED_TO_hps_io_hps_io_phery_emac0_TXD1,             --                                      .hps_io_phery_emac0_TXD1

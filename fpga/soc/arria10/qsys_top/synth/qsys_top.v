@@ -7,7 +7,6 @@ module qsys_top (
 		input  wire        f2h_cold_reset_req_reset_n,                 //                    f2h_cold_reset_req.reset_n
 		input  wire        f2h_debug_reset_req_reset_n,                //                   f2h_debug_reset_req.reset_n
 		input  wire        f2h_warm_reset_req_reset_n,                 //                    f2h_warm_reset_req.reset_n
-		input  wire [27:0] f2h_stm_hw_events_stm_hwevents,             //                     f2h_stm_hw_events.stm_hwevents
 		output wire        hps_io_hps_io_phery_emac0_TX_CLK,           //                                hps_io.hps_io_phery_emac0_TX_CLK
 		output wire        hps_io_hps_io_phery_emac0_TXD0,             //                                      .hps_io_phery_emac0_TXD0
 		output wire        hps_io_hps_io_phery_emac0_TXD1,             //                                      .hps_io_phery_emac0_TXD1
@@ -144,12 +143,10 @@ module qsys_top (
 	wire    [31:0] mm_interconnect_0_num2_s1_writedata;       // mm_interconnect_0:num2_s1_writedata -> num2:writedata
 	wire    [31:0] mm_interconnect_0_result_s1_readdata;      // result:readdata -> mm_interconnect_0:result_s1_readdata
 	wire     [1:0] mm_interconnect_0_result_s1_address;       // mm_interconnect_0:result_s1_address -> result:address
-	wire    [31:0] a10_hps_f2h_irq0_irq;                      // irq_mapper:sender_irq -> a10_hps:f2h_irq_p0
-	wire    [31:0] a10_hps_f2h_irq1_irq;                      // irq_mapper_001:sender_irq -> a10_hps:f2h_irq_p1
 	wire           rst_controller_reset_out_reset;            // rst_controller:reset_out -> [a10_hps:f2h_axi_rst, a10_hps:f2s_sdram0_rst, a10_hps:f2s_sdram2_rst, a10_hps:h2f_axi_rst, a10_hps:h2f_lw_axi_rst, mm_interconnect_0:a10_hps_h2f_lw_axi_reset_reset_bridge_in_reset_reset, rst_bdg:in_reset]
 	wire           a10_hps_h2f_reset_reset;                   // a10_hps:h2f_rst_n -> rst_controller:reset_in0
 
-	qsys_top_altera_arria10_hps_181_2xyroxa #(
+	qsys_top_altera_arria10_hps_181_gx7txaq #(
 		.F2S_Width (6),
 		.S2F_Width (4)
 	) a10_hps (
@@ -157,7 +154,6 @@ module qsys_top (
 		.f2h_cold_rst_req_n        (f2h_cold_reset_req_reset_n),                //   input,     width = 1,  f2h_cold_reset_req.reset_n
 		.f2h_dbg_rst_req_n         (f2h_debug_reset_req_reset_n),               //   input,     width = 1, f2h_debug_reset_req.reset_n
 		.f2h_warm_rst_req_n        (f2h_warm_reset_req_reset_n),                //   input,     width = 1,  f2h_warm_reset_req.reset_n
-		.f2h_stm_hwevents          (f2h_stm_hw_events_stm_hwevents),            //   input,    width = 28,   f2h_stm_hw_events.stm_hwevents
 		.emif_emif_to_hps          (emif_hps_hps_emif_conduit_end_emif_to_hps), //   input,  width = 4096,                emif.emif_to_hps
 		.emif_hps_to_emif          (a10_hps_emif_hps_to_emif),                  //  output,  width = 4096,                    .hps_to_emif
 		.emif_emif_to_gp           (emif_hps_hps_emif_conduit_end_emif_to_gp),  //   input,     width = 1,                    .emif_to_gp
@@ -362,8 +358,6 @@ module qsys_top (
 		.f2sdram2_RREADY           (),                                          //   input,     width = 1,                    .rready
 		.f2sdram2_RRESP            (),                                          //  output,     width = 2,                    .rresp
 		.f2sdram2_RVALID           (),                                          //  output,     width = 1,                    .rvalid
-		.f2h_irq_p0                (a10_hps_f2h_irq0_irq),                      //   input,    width = 32,            f2h_irq0.irq
-		.f2h_irq_p1                (a10_hps_f2h_irq1_irq),                      //   input,    width = 32,            f2h_irq1.irq
 		.hps_io_phery_emac0_TX_CLK (hps_io_hps_io_phery_emac0_TX_CLK),          //  output,     width = 1,              hps_io.hps_io_phery_emac0_TX_CLK
 		.hps_io_phery_emac0_TXD0   (hps_io_hps_io_phery_emac0_TXD0),            //  output,     width = 1,                    .hps_io_phery_emac0_TXD0
 		.hps_io_phery_emac0_TXD1   (hps_io_hps_io_phery_emac0_TXD1),            //  output,     width = 1,                    .hps_io_phery_emac0_TXD1
@@ -547,18 +541,6 @@ module qsys_top (
 		.a10_hps_h2f_lw_axi_reset_reset_bridge_in_reset_reset (rst_controller_reset_out_reset),       //   input,   width = 1, a10_hps_h2f_lw_axi_reset_reset_bridge_in_reset.reset
 		.num1_reset_reset_bridge_in_reset_reset               (~rst_in_out_reset_reset),              //   input,   width = 1,               num1_reset_reset_bridge_in_reset.reset
 		.clock_bridge_0_out_clk_clk                           (clock_bridge_0_out_clk_clk)            //   input,   width = 1,                         clock_bridge_0_out_clk.clk
-	);
-
-	qsys_top_altera_irq_mapper_181_qd5nila irq_mapper (
-		.clk        (),                     //   input,   width = 1,       clk.clk
-		.reset      (),                     //   input,   width = 1, clk_reset.reset
-		.sender_irq (a10_hps_f2h_irq0_irq)  //  output,  width = 32,    sender.irq
-	);
-
-	qsys_top_altera_irq_mapper_181_qd5nila irq_mapper_001 (
-		.clk        (),                     //   input,   width = 1,       clk.clk
-		.reset      (),                     //   input,   width = 1, clk_reset.reset
-		.sender_irq (a10_hps_f2h_irq1_irq)  //  output,  width = 32,    sender.irq
 	);
 
 	altera_reset_controller #(
