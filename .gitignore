@@ -19,6 +19,7 @@ fpga/soc/arria10/hps_isw_handoff/*
 *.swp
 *.bak
 *.qws
+test_run_dir/
 
 hps/main.o
 hps/posit
