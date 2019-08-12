@@ -11,18 +11,22 @@ class PositAdd(totalBits: Int, es: Int) extends Module {
     val out = Output(UInt(totalBits.W))
   })
 
-  /*
-  private val regimeExtractor = new RegimeExtractor(totalBits - 1)
-  regimeExtractor.io.num := io.num1(totalBits - 2, 0)
-  private val regimeLength = regimeExtractor.io.regimeLength
-  private val regime = regimeExtractor.io.regime
+//  private val regimeExtractor = new RegimeExtractor(totalBits - 1)
+//  regimeExtractor.io.num := io.num1(totalBits - 2, 0)
+//  private val regimeLength = regimeExtractor.io.regimeLength
+//  private val regime = regimeExtractor.io.regime
+//
+//  private val exponentExtractor = new ExponentExtractor(totalBits,es)
+//  exponentExtractor.io.regimeLength := regimeLength
+//  exponentExtractor.io.num := io.num1
+//  private val totalLengthAfterExponent = exponentExtractor.io.totalLength
+//  private val exponent = exponentExtractor.io.exponent
+//
+//  private val fractionExtractor = new FractionExtractor(totalBits)
+//  fractionExtractor.io.noOfUsedBits := totalLengthAfterExponent + 1.U
+//  fractionExtractor.io.num := io.num1
+//  private val fraction = fractionExtractor.io.fraction
 
-  private val exponentExtractor = new ExponentExtractor(totalBits,es)
-  exponentExtractor.io.regimeLength := regimeLength
-  exponentExtractor.io.num := io.num1
-  private val totalLengthAfterExponent = exponentExtractor.io.totalLength
-  private val exponent = exponentExtractor.io.exponent
-  */
   io.out := 0.U
 }
 
