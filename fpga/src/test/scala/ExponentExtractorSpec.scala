@@ -24,6 +24,10 @@ class ExponentExtractorSpec extends FlatSpec with Matchers {
     assert(test(8,0,0x35,2,-1))
   }
 
+  it should "return the exponent and length correctly when there are more than 1 exponent bits" in {
+    assert(test(8,2,0x36,4,-2))
+  }
+
   it should "return the exponent as zero when the regime bits occupied all the places" in {
     assert(test(8,2,0x7F,7,24))
     assert(test(8,2,0x7E,7,20))
