@@ -6,7 +6,7 @@ class FieldsExtractor(totalBits: Int, es: Int) extends Module {
     val num = Input(UInt(totalBits.W))
     val sign = Output(Bool())
     val exponent = Output(SInt((log2Ceil(math.pow(2, es).toInt * totalBits) + 1).W))
-    val fraction = Output(UInt(totalBits.W))
+    val fraction = Output(UInt((totalBits + 1).W))
   })
 
   private val num = Mux(io.num(totalBits - 1), -io.num, io.num)

@@ -17,10 +17,10 @@ class FieldsExtractorSpec extends FlatSpec with Matchers {
   }
 
   it should "return the sign, exponent, fraction as expected for positive number" in {
-    assert(test(8,2,0x36,sign = false,-2,0xC0))
+    assert(test(8,2,0x36,sign = false,-2,0x1C0))
   }
 
   it should "return the sign, exponent, fraction as expected for negative number" in {
-    assert(test(8,1,0xB2,sign = true,0,0xE0))
+    assert(test(8,1,0xB2,sign = true,0,0x1E0))
   }
 }

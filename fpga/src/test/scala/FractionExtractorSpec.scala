@@ -16,14 +16,14 @@ class FractionExtractorSpec extends FlatSpec with Matchers {
   }
 
   it should "return the fraction starting from 1st bit" in {
-    assert(test(8,4,0x3F,0xF0))
+    assert(test(8,4,0x3F,0x1F0))
   }
 
   it should "return the fraction as zero when bits are occupied" in {
-    assert(test(8,8,0xFF,0))
+    assert(test(8,8,0xFF,0x100))
   }
 
   it should "return the fraction when there are different types of bits" in {
-    assert(test(8,3,0x16,0xB0))
+    assert(test(8,3,0x16,0x1B0))
   }
 }
