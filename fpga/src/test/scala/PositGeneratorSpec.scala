@@ -41,4 +41,9 @@ class PositGeneratorSpec extends FlatSpec with Matchers {
     assert(test(8,0,false,-6,0xFF,0x01))
     assert(test(8,0,true,-6,0xFF,0xFF))
   }
+
+  it should "extract the posit as infinite if the number is too high" in {
+    assert(test(8,0,false,8,0x7F,0x80))
+    assert(test(8,0,false,-8,0x7F,0x0))
+  }
 }

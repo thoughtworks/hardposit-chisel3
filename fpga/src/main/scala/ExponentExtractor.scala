@@ -6,7 +6,7 @@ class ExponentExtractor(totalBits: Int, es: Int) extends Module {
   val io = IO(new Bundle {
     val num = Input(UInt(totalBits.W))
     val totalLength = Output(UInt((log2Ceil(totalBits) + 1).W))
-    val exponent = Output(SInt((log2Ceil(math.pow(2,es).toInt * totalBits) + es + 1).W))
+    val exponent = Output(SInt((log2Ceil(math.pow(2,es).toInt * totalBits) + es + 2).W))
   })
 
   private val regimeExtractor = Module(new RegimeExtractor(totalBits - 1))

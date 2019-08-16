@@ -5,7 +5,7 @@ class FieldsExtractor(totalBits: Int, es: Int) extends Module {
   val io = IO(new Bundle {
     val num = Input(UInt(totalBits.W))
     val sign = Output(Bool())
-    val exponent = Output(SInt((log2Ceil(math.pow(2, es).toInt * totalBits) + es + 1).W))
+    val exponent = Output(SInt((log2Ceil(math.pow(2, es).toInt * totalBits) + es + 2).W))
     val fraction = Output(UInt((totalBits + 1).W))
   })
 
