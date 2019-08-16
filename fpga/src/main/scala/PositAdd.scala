@@ -44,10 +44,15 @@ class PositAdd(totalBits: Int, es: Int) extends Module {
 
   private val addedFraction = highestExponentFraction + smallestFraction
 
-  private val finalFraction = Mux(addedFraction(totalBits + 1) === 1.U,addedFraction(totalBits,0),Cat(addedFraction(totalBits -1 ,0),0.U(1.W)))
+  private val finalFraction = Mux(addedFraction(totalBits + 1) === 1.U,addedFraction(totalBits,1),Cat(addedFraction(totalBits -1 ,0)))
   private val finalExponent = Mux(addedFraction(totalBits + 1) === 1.U,highestExponent + 1.S, highestExponent)
 
-  io.out := finalFraction + finalExponent.asUInt() + highestExponentSign
+  private val positGenerator = Module(new PositGenerator(totalBits,es))
+  positGenerator.io.sign := highestExponentSign
+  positGenerator.io.exponent := finalExponent
+  positGenerator.io.fraction := finalFraction
+
+  io.out := positGenerator.io.posit
 }
 
 object PositAdd extends App {
