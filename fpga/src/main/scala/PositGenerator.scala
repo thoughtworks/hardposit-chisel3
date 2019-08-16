@@ -26,7 +26,6 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
     var finalPosit = regimeBits
     finalPosit = if (es > 0) Cat(finalPosit, positExponent) else finalPosit
     finalPosit = Cat(finalPosit, io.fraction)
-    printf("*******%d %d %d\n", finalPosit(usedBits - 1, usedBits - numberOfBitsExcludingSignBit), index.U, positRegime)
     (positRegime === index.U) -> finalPosit(usedBits - 1, usedBits - numberOfBitsExcludingSignBit)
   })
 
@@ -41,7 +40,6 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
     var finalPosit = regimeBits
     finalPosit = if (es > 0) Cat(finalPosit, positExponent) else finalPosit
     finalPosit = Cat(finalPosit, io.fraction)
-    printf("*******%d %d %d %d\n", finalPosit(usedBits - 1, usedBits - numberOfBitsExcludingSignBit), index.U, positRegime,io.exponent)
     (positRegime === index.U) -> finalPosit(usedBits - 1, usedBits - numberOfBitsExcludingSignBit)
   })
 

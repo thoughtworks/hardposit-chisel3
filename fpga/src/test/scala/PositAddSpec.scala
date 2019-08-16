@@ -3,10 +3,10 @@ import org.scalatest.{FlatSpec, Matchers}
 
 class PositAddSpec extends FlatSpec with Matchers {
 
-
   private class PositAddTest(c: PositAdd, num1: Int, num2: Int, expectedPosit: Int) extends PeekPokeTester(c) {
       poke(c.io.num1,num1)
       poke(c.io.num2,num2)
+      step(1)
       expect(c.io.out,expectedPosit)
   }
 
@@ -34,5 +34,17 @@ class PositAddSpec extends FlatSpec with Matchers {
 
   it should "return added value when both exponent and signs are equal3" in {
     assert(test(8,0,0x94,0x9E,0x8D))
+  }
+
+  it should "return the subtracted value when first one is lesser and positive" in {
+    assert(test(8,1,0x42,0xAC,0xBA))
+  }
+
+  it should "return the subtracted value when first one is greater and positive" in {
+    assert(test(8,1,0x54,0xBE,0x46))
+  }
+
+  it should "return the zero when both values are equal and different signs" in {
+    assert(test(8,0,0x9D,0x63,0x00))
   }
 }
