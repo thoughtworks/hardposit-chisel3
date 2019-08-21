@@ -47,4 +47,16 @@ class PositAddSpec extends FlatSpec with Matchers {
   it should "return the zero when both values are equal and different signs" in {
     assert(test(8,0,0x9D,0x63,0x00))
   }
+
+  it should "should return the subtracted value when first one is greater and positive1" in {
+    assert(test(16,2,0x64AF,0xAF44,0x6423))
+  }
+
+  it should "should return the subtracted value when first one is lesser and negative1" in {
+    assert(test(16,2,0xAF44,0x64AF,0x6423))
+  }
+
+  it should "should return the subtracted value when first one is greater and negative" in {
+    assert(test(16,2,0x9B51,0x50BC,0x9BDD))
+  }
 }

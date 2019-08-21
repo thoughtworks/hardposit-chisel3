@@ -57,23 +57,19 @@ class PositAdd(totalBits: Int, es: Int) extends Module {
   })
 
   private val subtractionCombinationsForFraction = Array.range(0, totalBits).map(index => {
-    (subtractedFraction(totalBits,totalBits - index) === 1.U) -> Cat(subtractedFraction(totalBits - index - 1,0),0.U(index.U))
+    val int = if(index == 0) subtractedFraction(totalBits-1,0) else Cat(subtractedFraction(totalBits - index - 1, 0), 0.U(index.W))
+    (subtractedFraction(totalBits,totalBits - index) === 1.U) -> int
   })
 
   private val finalSubtractedExponent = highestExponent - Cat(0.U(1.W),MuxCase(totalBits.U,subtractionCombinationsForExponent)).asSInt()
-  printf("%d %d\n",highestExponent,Cat(0.U(1.W),MuxCase(totalBits.U,subtractionCombinationsForExponent)).asSInt())
-  printf("fractions %d %d\n",highestExponentFraction,smallestExponentFraction)
-  printf("fractions %d %d\n",num1Fraction,num2Fraction)
   private val finalSubtractedFraction = MuxCase(0.U,subtractionCombinationsForFraction)
   private val finalSubtractedSign = Mux(isHighestExponentFractionHigher,highestExponentSign,smallestExponentSign)
 
   private val isSameSignAddition = !(highestExponentSign ^ smallestExponentSign)
-  printf("%d %d %d\n",finalSubtractedFraction,finalSubtractedFraction,finalSubtractedSign)
   private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.sign := Mux(isSameSignAddition,highestExponentSign,finalSubtractedSign)
   positGenerator.io.exponent := Mux(isSameSignAddition,finalAddedExponent,finalSubtractedExponent)
   positGenerator.io.fraction := Mux(isSameSignAddition,finalAddedFraction,finalSubtractedFraction)
-
   io.out := positGenerator.io.posit
 }
 
