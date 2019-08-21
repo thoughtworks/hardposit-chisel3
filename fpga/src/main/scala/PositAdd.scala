@@ -61,7 +61,8 @@ class PositAdd(totalBits: Int, es: Int) extends Module {
     (subtractedFraction(totalBits,totalBits - index) === 1.U) -> int
   })
 
-  private val finalSubtractedExponent = highestExponent - Cat(0.U(1.W),MuxCase(totalBits.U,subtractionCombinationsForExponent)).asSInt()
+  private val int: SInt = Cat(0.U, MuxCase(totalBits.U, subtractionCombinationsForExponent)).asSInt()
+  private val finalSubtractedExponent = Mux(int === totalBits.S, 0.S - (totalBits * math.pow(2,es).toInt).S, highestExponent - int)
   private val finalSubtractedFraction = MuxCase(0.U,subtractionCombinationsForFraction)
   private val finalSubtractedSign = Mux(isHighestExponentFractionHigher,highestExponentSign,smallestExponentSign)
 
