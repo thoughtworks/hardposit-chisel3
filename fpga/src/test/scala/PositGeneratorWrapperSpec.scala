@@ -26,9 +26,13 @@ class PositGeneratorWrapperSpec extends FlatSpec with Matchers {
     assert(test(8, 1, true, 2, false, 0, 0))
   }
 
-  it should "represent infinity when the exponent after adjusting is more than it fit" in {
-    assert(test(8, 0, false, -7, false, 0xFF, 0x80))
-    assert(test(8, 0, false, -6, false, 0x7F, 0x80))
+  it should "represent zero when the exponent too less" in {
+    assert(test(8, 0, false, -7, false, 0xFF, 0x00))
+    assert(test(8, 0, false, -6, false, 0x7F, 0x00))
+  }
+
+  it should "represent infinite when the exponent is high then it fits" in {
+    assert(test(8,0,false,8,true,0xFF,0x80))
   }
 
   it should "extract the positive regime" in {

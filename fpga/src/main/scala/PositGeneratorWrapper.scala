@@ -3,7 +3,7 @@ import chisel3.util.{Cat, MuxCase, log2Ceil}
 
 class PositGeneratorWrapper(totalBits: Int, es:Int) extends Module {
   private val base = math.pow(2, es).toInt
-  private val exponentBits = log2Ceil(base * (totalBits - 1)) + 1
+  private val exponentBits = 128
   val io = IO(new Bundle{
     val sign = Input(Bool())
     val exponent = Input(SInt(exponentBits.W))
@@ -31,6 +31,6 @@ class PositGeneratorWrapper(totalBits: Int, es:Int) extends Module {
   positGenerator.io.fraction := fraction
   
   private val infiniteRepresentation: UInt = math.pow(2, totalBits - 1).toInt.U
-  private val maxExponent: SInt = (base * (totalBits - 1)).S
-  io.posit := Mux(fractionWithDecimal === 0.U,0.U,Mux(exponent.abs() > maxExponent,infiniteRepresentation,positGenerator.io.posit))
+  private val maxExponent: SInt = (base * (totalBits - 1)).S - 1.S
+  io.posit := Mux(fractionWithDecimal === 0.U | exponent <= 0.S - maxExponent ,0.U,Mux(exponent > maxExponent,infiniteRepresentation,positGenerator.io.posit))
 }
