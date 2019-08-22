@@ -1,5 +1,5 @@
 import chisel3._
-import chisel3.util.{Cat, MuxCase}
+import chisel3.util.MuxCase
 import firrtl.{ExecutionOptionsManager, HasFirrtlOptions}
 
 class PositAdd(totalBits: Int, es: Int) extends Module {
@@ -43,34 +43,26 @@ class PositAdd(totalBits: Int, es: Int) extends Module {
   private val smallestExponentFractionAfterAdjustment = MuxCase(0.U((totalBits + 2).W), shiftingCombinations)
 
   private val addedFraction = highestExponentFraction + smallestExponentFractionAfterAdjustment
-  private val finalAddedFraction = Mux(addedFraction(totalBits + 1) === 1.U, addedFraction(totalBits, 1), Cat(addedFraction(totalBits - 1, 0)))
-  private val finalAddedExponent = Mux(addedFraction(totalBits + 1) === 1.U, highestExponent + 1.S, highestExponent)
+  private val finalAddedDecimal = addedFraction(totalBits + 1)
+  private val finalAddedExponent = highestExponent + 1.S
+  private val finalAddedFraction = addedFraction(totalBits, 1)
 
-  private val isHighestExponentFractionHigher = highestExponentFraction >= smallestExponentFractionAfterAdjustment(totalBits,0)
+  private val isHighestExponentFractionHigher = highestExponentFraction >= smallestExponentFractionAfterAdjustment(totalBits, 0)
   private val subtractedFraction = Mux(isHighestExponentFractionHigher,
     highestExponentFraction - smallestExponentFractionAfterAdjustment,
     smallestExponentFractionAfterAdjustment - highestExponentFraction
   )
-
-  private val subtractionCombinationsForExponent = Array.range(0, totalBits + 1).map(index => {
-    (subtractedFraction(totalBits,totalBits - index) === 1.U) -> index.U
-  })
-
-  private val subtractionCombinationsForFraction = Array.range(0, totalBits).map(index => {
-    val int = if(index == 0) subtractedFraction(totalBits-1,0) else Cat(subtractedFraction(totalBits - index - 1, 0), 0.U(index.W))
-    (subtractedFraction(totalBits,totalBits - index) === 1.U) -> int
-  })
-
-  private val int: SInt = Cat(0.U, MuxCase(totalBits.U, subtractionCombinationsForExponent)).asSInt()
-  private val finalSubtractedExponent = Mux(int === totalBits.S, 0.S - (totalBits * math.pow(2,es).toInt).S, highestExponent - int)
-  private val finalSubtractedFraction = MuxCase(0.U,subtractionCombinationsForFraction)
-  private val finalSubtractedSign = Mux(isHighestExponentFractionHigher,highestExponentSign,smallestExponentSign)
+  private val finalSubtractedDecimal = subtractedFraction(totalBits)
+  private val finalSubtractedExponent = highestExponent
+  private val finalSubtractedFraction = subtractedFraction(totalBits - 1, 0)
+  private val finalSubtractedSign = Mux(isHighestExponentFractionHigher, highestExponentSign, smallestExponentSign)
 
   private val isSameSignAddition = !(highestExponentSign ^ smallestExponentSign)
-  private val positGenerator = Module(new PositGenerator(totalBits, es))
-  positGenerator.io.sign := Mux(isSameSignAddition,highestExponentSign,finalSubtractedSign)
-  positGenerator.io.exponent := Mux(isSameSignAddition,finalAddedExponent,finalSubtractedExponent)
-  positGenerator.io.fraction := Mux(isSameSignAddition,finalAddedFraction,finalSubtractedFraction)
+  private val positGenerator = Module(new PositGeneratorWrapper(totalBits, es))
+  positGenerator.io.decimal := Mux(isSameSignAddition, finalAddedDecimal, finalSubtractedDecimal)
+  positGenerator.io.sign := Mux(isSameSignAddition, highestExponentSign, finalSubtractedSign)
+  positGenerator.io.exponent := Mux(isSameSignAddition, finalAddedExponent, finalSubtractedExponent)
+  positGenerator.io.fraction := Mux(isSameSignAddition, finalAddedFraction, finalSubtractedFraction)
   io.out := positGenerator.io.posit
 }
 
