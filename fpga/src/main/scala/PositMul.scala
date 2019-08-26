@@ -1,5 +1,4 @@
 import chisel3._
-import chisel3.util.Cat
 
 class PositMul(totalBits: Int, es: Int) extends Module {
 
@@ -7,6 +6,7 @@ class PositMul(totalBits: Int, es: Int) extends Module {
     val num1 = Input(UInt(totalBits.W))
     val num2 = Input(UInt(totalBits.W))
     val out = Output(UInt(totalBits.W))
+    val isNaN = Output(Bool())
   })
 
   private val num1Fields = Module(new FieldsExtractor(totalBits, es))
@@ -30,6 +30,15 @@ class PositMul(totalBits: Int, es: Int) extends Module {
   positGenerator.io.exponent := finalExponent + 1.S
   positGenerator.io.decimal := finalFraction(maxFractionBits - 1)
   positGenerator.io.fraction := finalFraction(maxFractionBits - 2, totalBits + 1)
+  private val infiniteRepresentation: UInt = math.pow(2, totalBits - 1).toInt.U
 
-  io.out := positGenerator.io.posit
+  private def checkSame(num1:UInt,num2:UInt,number:UInt):Bool = num1 === number || num2 === number
+
+  io.out := Mux(checkSame(io.num1,io.num2,0.U), 0.U,
+            Mux(checkSame(io.num1,io.num2,infiniteRepresentation), infiniteRepresentation,
+              positGenerator.io.posit))
+
+  private def check(num1: UInt,num2: UInt) : Bool = num1 === 0.U && num2 === infiniteRepresentation
+
+  io.isNaN := check(io.num1,io.num2) || check(io.num2,io.num1)
 }
