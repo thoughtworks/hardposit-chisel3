@@ -1,13 +1,6 @@
 import chisel3._
 
-class PositMul(totalBits: Int, es: Int) extends Module {
-
-  val io = IO(new Bundle {
-    val num1 = Input(UInt(totalBits.W))
-    val num2 = Input(UInt(totalBits.W))
-    val out = Output(UInt(totalBits.W))
-    val isNaN = Output(Bool())
-  })
+class PositMul(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits) {
 
   private val num1Fields = Module(new FieldsExtractor(totalBits, es))
   num1Fields.io.num := io.num1

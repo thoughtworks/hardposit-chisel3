@@ -2,16 +2,9 @@ import chisel3._
 import chisel3.util.MuxCase
 import firrtl.{ExecutionOptionsManager, HasFirrtlOptions}
 
-class PositAdd(totalBits: Int, es: Int) extends Module {
+class PositAdd(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits) {
   require(totalBits > es)
   require(es >= 0)
-
-  val io = IO(new Bundle {
-    val num1 = Input(UInt(totalBits.W))
-    val num2 = Input(UInt(totalBits.W))
-    val out = Output(UInt(totalBits.W))
-    val isNaN = Output(Bool())
-  })
 
   private val num1Fields = Module(new FieldsExtractor(totalBits, es))
   num1Fields.io.num := io.num1

@@ -1,12 +1,6 @@
 import chisel3._
 
-class PositSub(totalBits: Int, es: Int) extends Module {
-  val io = IO(new Bundle {
-    val num1 = Input(UInt(totalBits.W))
-    val num2 = Input(UInt(totalBits.W))
-    val out = Output(UInt(totalBits.W))
-    val isNaN = Output(Bool())
-  })
+class PositSub(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits) {
 
   private val positAdd = Module(new PositAdd(totalBits, es))
   positAdd.io.num1 := io.num1
