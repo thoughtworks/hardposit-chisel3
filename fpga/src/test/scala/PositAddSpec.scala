@@ -8,7 +8,7 @@ class PositAddSpec extends FlatSpec with Matchers {
     poke(c.io.num2, num2)
     step(1)
     expect(c.io.out, expectedPosit)
-    expect(c.io.isNan,false)
+    expect(c.io.isNaN,false)
   }
 
   private def test(totalBits: Int, es: Int, num1: Int, num2: Int, expectedPosit: Int): Boolean = {

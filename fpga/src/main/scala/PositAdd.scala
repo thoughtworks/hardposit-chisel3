@@ -10,7 +10,7 @@ class PositAdd(totalBits: Int, es: Int) extends Module {
     val num1 = Input(UInt(totalBits.W))
     val num2 = Input(UInt(totalBits.W))
     val out = Output(UInt(totalBits.W))
-    val isNan = Output(Bool())
+    val isNaN = Output(Bool())
   })
 
   private val num1Fields = Module(new FieldsExtractor(totalBits, es))
@@ -69,7 +69,7 @@ class PositAdd(totalBits: Int, es: Int) extends Module {
   private def check(num1: UInt, num2: UInt): Bool = num1 === 0.U || num2 === infiniteRepresentation
 
   io.out := Mux(check(io.num1, io.num2), io.num2, Mux(check(io.num2, io.num1), io.num1, positGenerator.io.posit))
-  io.isNan := false.B
+  io.isNaN := false.B
 }
 
 object PositAdd extends App {
