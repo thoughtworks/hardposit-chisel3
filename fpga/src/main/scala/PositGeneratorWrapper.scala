@@ -13,7 +13,6 @@ class PositGeneratorWrapper(totalBits: Int, es:Int) extends Module {
   })
 
   private val fractionWithDecimal = Cat(io.decimal,io.fraction)
-  
   private val exponentOffsetCombinations = Array.range(0, totalBits + 1).map(index => {
     (fractionWithDecimal(totalBits,totalBits - index) === 1.U) -> index.S
   })
@@ -29,7 +28,7 @@ class PositGeneratorWrapper(totalBits: Int, es:Int) extends Module {
   positGenerator.io.sign := io.sign
   positGenerator.io.exponent := exponent
   positGenerator.io.fraction := fraction
-  
+
   private val infiniteRepresentation: UInt = math.pow(2, totalBits - 1).toInt.U
   private val maxExponent: SInt = (base * (totalBits - 1)).S - 1.S
   io.posit := Mux(fractionWithDecimal === 0.U | exponent <= 0.S - maxExponent ,0.U,Mux(exponent > maxExponent,infiniteRepresentation,positGenerator.io.posit))

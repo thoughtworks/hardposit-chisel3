@@ -35,6 +35,10 @@ class PositGeneratorSpec extends FlatSpec with Matchers {
     assert(test(8,0,false,-2,0xB3,0x1B))
   }
 
+  it should "extract" in {
+    assert(test(8,2,false,-8,0xFF,0x13))
+  }
+
   it should "extract the posit for bigger numbers" in {
     assert(test(8,0,false,7,0xFF,0x7f))
     assert(test(8,0,false,6,0xFF,0x7f))
