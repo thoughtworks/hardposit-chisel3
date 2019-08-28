@@ -68,5 +68,5 @@ class PositAdd(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits)
 object PositAdd extends App {
   val optionsManager = new ExecutionOptionsManager("chisel3") with HasChiselExecutionOptions with HasFirrtlOptions
   optionsManager.setTargetDirName("soc/chisel_output")
-  Driver.execute(optionsManager, () => new PositAdd(8, 0))
+  Driver.execute(optionsManager, () => new PositAdd(8, 2))
 }

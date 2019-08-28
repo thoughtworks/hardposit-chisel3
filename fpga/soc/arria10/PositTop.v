@@ -1,4 +1,4 @@
-`include "../chisel_output/FloatOperation.v"
+`include "../chisel_output/PositAdd.v"
 module PositTop (
 // FPGA peripherals ports
     input  wire [3:0]  fpga_dipsw_pio,
@@ -184,12 +184,12 @@ module PositTop (
         .num2_export(num2),
         .result_export(result)
     );
-    FloatOperation floatOperation(
+    PositAdd positAdd(
         .clock(fpga_clk_100),
         .reset(~fpga_reset_n),
         .io_num1(num1),
         .io_num2(num2),
-        .io_result(result)
+        .io_out(result)
     );
 
 endmodule

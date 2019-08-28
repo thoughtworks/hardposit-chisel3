@@ -10,9 +10,7 @@ refer to user manual chapter 7 for details about the demo
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/time.h>
-#include "socal/socal.h"
-#include "socal/hps.h"
-#include "socal/alt_gpio.h"
+#include <stdint.h>
 
 #define HW_REGS_BASE ( 0xff200000 )
 #define HW_REGS_SPAN ( 0x00100000 )
@@ -32,6 +30,7 @@ int main() {
 
 	virtual_base = mmap( NULL, HW_REGS_SPAN, ( PROT_READ | PROT_WRITE ), MAP_SHARED, fd, HW_REGS_BASE );
 
+	printf("virtual base %p \nvalue %d \n", virtual_base + 0, *(int *) virtual_base);
 	if( virtual_base == MAP_FAILED ) {
 		printf( "ERROR: mmap() failed...\n" );
 		close( fd );
@@ -41,14 +40,18 @@ int main() {
 	void *num1_address = virtual_base + NUM1_OFFSET;
 	void *num2_address = virtual_base + NUM2_OFFSET;
 	void *result_address = virtual_base + RESULT_OFFSET;
+    printf("%d \n",  *(int8_t *)(result_address));
+    struct timeval t1, t2;
+    gettimeofday(&t1,NULL);
+    *(int8_t *)(num1_address) = 0x64;
+    *(int8_t *)(num2_address) = 0xAF;
+    int8_t sum = *(int8_t *)(result_address);
+    gettimeofday(&t2,NULL);
 
-    *(float *)(num1_address) = 4.59;
-    *(float *)(num2_address) = 35.23;
-
-//    usleep(1000*1000);
-
-    printf("Num1: %f\nNum2: %f\nResult: %f\n", *(float *)(num1_address), *(float *)(num2_address), *(float *)(result_address));
-
+    printf("Num1: %d\nNum2: %d\nResult: %d\n", *(int8_t *)(num1_address), *(int8_t *)(num2_address), sum);
+    long start_time = t1.tv_sec*1000000 + t1.tv_usec;
+    long end_time = t2.tv_sec*1000000 + t2.tv_usec;
+    printf("time required : %ld\n", end_time - start_time );
 	if( munmap( virtual_base, HW_REGS_SPAN ) != 0 ) {
 		printf( "ERROR: munmap() failed...\n" );
 		close( fd );
