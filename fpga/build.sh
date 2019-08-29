@@ -1,11 +1,11 @@
 #! /bin/bash
 set -e
 
-sbt "runMain PositAdd"
+sbt "runMain PositAddWrapper"
 
 QUARTUS_PATH=~/intelFPGA_pro/18.1/quartus/bin
 DEVICE=arria10
-if [[ ${1} -e 'de10' ]]
+if [ ${1} -e 'de10' ]
 then
     QUARTUS_PATH=~/intelFPGA_lite/18.1/quartus/bin
     DEVICE=de10

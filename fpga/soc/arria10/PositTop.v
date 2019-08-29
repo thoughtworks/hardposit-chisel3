@@ -1,4 +1,4 @@
-`include "../chisel_output/PositAdd.v"
+`include "../chisel_output/PositAddWrapper.v"
 module PositTop (
 // FPGA peripherals ports
     input  wire [3:0]  fpga_dipsw_pio,
@@ -100,6 +100,13 @@ module PositTop (
     wire [31:0] num2;
     wire [31:0] result;
 
+    wire [11:0]  onchip_memory2_0_s2_address;
+    wire        onchip_memory2_0_s2_write;
+    wire [7:0] onchip_memory2_0_s2_readdata;
+    wire [7:0] onchip_memory2_0_s2_writedata;
+    wire start_external_connection_export;
+    wire completed_external_connection_export;
+
 // SoC sub-system module
     qsys_top soc_inst (
         .hps_io_hps_io_phery_emac0_TX_CLK              (hps_emac0_TX_CLK),
@@ -175,21 +182,32 @@ module PositTop (
         .hps_io_hps_io_phery_i2c1_SDA                  (hps_i2c1_SDA),
         .hps_io_hps_io_phery_i2c1_SCL                  (hps_i2c1_SCL),
         .hps_fpga_reset_reset                          (hps_fpga_reset),
-//        .f2h_cold_reset_req_reset_n                    (~hps_cold_reset),
-//        .f2h_warm_reset_req_reset_n                    (~hps_warm_reset),
-//        .f2h_debug_reset_req_reset_n                   (~hps_debug_reset),
         .reset_reset_n                                 (fpga_reset_n),
-        .clk_clk                                       (fpga_clk_100),
+        .clk_clk                                      (fpga_clk_100),
         .num1_export(num1),
         .num2_export(num2),
-        .result_export(result)
+        .result_export(result),
+        .onchip_memory2_0_s2_address(onchip_memory2_0_s2_address),
+        .onchip_memory2_0_s2_chipselect(1'b1),
+        .onchip_memory2_0_s2_clken(1'b1),
+        .onchip_memory2_0_s2_write(onchip_memory2_0_s2_write),
+        .onchip_memory2_0_s2_readdata(onchip_memory2_0_s2_readdata),
+        .onchip_memory2_0_s2_writedata(onchip_memory2_0_s2_writedata),
+        .completed_external_connection_export(completed_external_connection_export),
+        .start_external_connection_export(start_external_connection_export)
     );
-    PositAdd positAdd(
+
+    PositAddWrapper positAddWrapper(
         .clock(fpga_clk_100),
         .reset(~fpga_reset_n),
-        .io_num1(num1),
-        .io_num2(num2),
-        .io_out(result)
+        .io_starting_address(12'h000),
+        .io_result_address(12'h010),
+        .io_address_to_access(onchip_memory2_0_s2_address),
+        .io_read_data(onchip_memory2_0_s2_readdata),
+        .io_write_data(onchip_memory2_0_s2_writedata),
+        .io_write_enable(onchip_memory2_0_s2_write),
+        .io_start(start_external_connection_export),
+        .io_completed(completed_external_connection_export)
     );
 
 endmodule

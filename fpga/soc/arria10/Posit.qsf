@@ -20,6 +20,9 @@ set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_clock_bridge_0.ip
 set_global_assignment -name IP_FILE ip/qsys_top/rst_in.ip
 set_global_assignment -name IP_FILE ip/qsys_top/rst_bdg.ip
 set_global_assignment -name IP_FILE ip/qsys_top/emif_hps.ip
+set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_pio_0.ip
+set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_pio_1.ip
+set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_onchip_memory2_0.ip
 
 
 set_global_assignment -name QSYS_FILE qsys_top.qsys

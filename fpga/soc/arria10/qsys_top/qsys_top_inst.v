@@ -54,6 +54,7 @@
 		.hps_io_hps_io_gpio_gpio1_io16              (_connected_to_hps_io_hps_io_gpio_gpio1_io16_),              //   inout,   width = 1,                                      .hps_io_gpio_gpio1_io16
 		.hps_io_hps_io_gpio_gpio1_io17              (_connected_to_hps_io_hps_io_gpio_gpio1_io17_),              //   inout,   width = 1,                                      .hps_io_gpio_gpio1_io17
 		.clk_clk                                    (_connected_to_clk_clk_),                                    //   input,   width = 1,                                   clk.clk
+		.completed_external_connection_export       (_connected_to_completed_external_connection_export_),       //   input,   width = 1,         completed_external_connection.export
 		.emif_a10_hps_0_pll_ref_clk_clock_sink_clk  (_connected_to_emif_a10_hps_0_pll_ref_clk_clock_sink_clk_),  //   input,   width = 1, emif_a10_hps_0_pll_ref_clk_clock_sink.clk
 		.emif_a10_hps_0_oct_conduit_end_oct_rzqin   (_connected_to_emif_a10_hps_0_oct_conduit_end_oct_rzqin_),   //   input,   width = 1,        emif_a10_hps_0_oct_conduit_end.oct_rzqin
 		.emif_a10_hps_0_mem_conduit_end_mem_ck      (_connected_to_emif_a10_hps_0_mem_conduit_end_mem_ck_),      //  output,   width = 1,        emif_a10_hps_0_mem_conduit_end.mem_ck
@@ -74,8 +75,15 @@
 		.emif_a10_hps_0_mem_conduit_end_mem_dbi_n   (_connected_to_emif_a10_hps_0_mem_conduit_end_mem_dbi_n_),   //   inout,   width = 4,                                      .mem_dbi_n
 		.num1_export                                (_connected_to_num1_export_),                                //  output,  width = 32,                                  num1.export
 		.num2_export                                (_connected_to_num2_export_),                                //  output,  width = 32,                                  num2.export
+		.onchip_memory2_0_s2_address                (_connected_to_onchip_memory2_0_s2_address_),                //   input,  width = 12,                   onchip_memory2_0_s2.address
+		.onchip_memory2_0_s2_chipselect             (_connected_to_onchip_memory2_0_s2_chipselect_),             //   input,   width = 1,                                      .chipselect
+		.onchip_memory2_0_s2_clken                  (_connected_to_onchip_memory2_0_s2_clken_),                  //   input,   width = 1,                                      .clken
+		.onchip_memory2_0_s2_write                  (_connected_to_onchip_memory2_0_s2_write_),                  //   input,   width = 1,                                      .write
+		.onchip_memory2_0_s2_readdata               (_connected_to_onchip_memory2_0_s2_readdata_),               //  output,   width = 8,                                      .readdata
+		.onchip_memory2_0_s2_writedata              (_connected_to_onchip_memory2_0_s2_writedata_),              //   input,   width = 8,                                      .writedata
 		.result_export                              (_connected_to_result_export_),                              //   input,  width = 32,                                result.export
 		.hps_fpga_reset_reset                       (_connected_to_hps_fpga_reset_reset_),                       //  output,   width = 1,                        hps_fpga_reset.reset
-		.reset_reset_n                              (_connected_to_reset_reset_n_)                               //   input,   width = 1,                                 reset.reset_n
+		.reset_reset_n                              (_connected_to_reset_reset_n_),                              //   input,   width = 1,                                 reset.reset_n
+		.start_external_connection_export           (_connected_to_start_external_connection_export_)            //  output,   width = 1,             start_external_connection.export
 	);
 

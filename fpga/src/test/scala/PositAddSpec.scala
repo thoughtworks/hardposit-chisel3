@@ -86,6 +86,7 @@ class PositAddSpec extends FlatSpec with Matchers {
   }
 
   it should "return" in {
+    println()
     assert(test(8,2,0x64,0xAF,0x62))
   }
 }

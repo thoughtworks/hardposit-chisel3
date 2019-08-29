@@ -7,18 +7,24 @@ Progress: Adding a10_hps [altera_arria10_hps 18.1]
 Progress: Parameterizing module a10_hps
 Progress: Adding clock_bridge_0 [altera_generic_component 1.0]
 Progress: Parameterizing module clock_bridge_0
+Progress: Adding completed [altera_generic_component 1.0]
+Progress: Parameterizing module completed
 Progress: Adding emif_hps [altera_generic_component 1.0]
 Progress: Parameterizing module emif_hps
 Progress: Adding num1 [altera_generic_component 1.0]
 Progress: Parameterizing module num1
 Progress: Adding num2 [altera_generic_component 1.0]
 Progress: Parameterizing module num2
+Progress: Adding onchip_memory2_0 [altera_generic_component 1.0]
+Progress: Parameterizing module onchip_memory2_0
 Progress: Adding result [altera_generic_component 1.0]
 Progress: Parameterizing module result
 Progress: Adding rst_bdg [altera_generic_component 1.0]
 Progress: Parameterizing module rst_bdg
 Progress: Adding rst_in [altera_generic_component 1.0]
 Progress: Parameterizing module rst_in
+Progress: Adding start [altera_generic_component 1.0]
+Progress: Parameterizing module start
 Progress: Building connections
 Progress: Parameterizing connections
 Progress: Validating
@@ -35,18 +41,24 @@ Progress: Adding a10_hps [altera_arria10_hps 18.1]
 Progress: Parameterizing module a10_hps
 Progress: Adding clock_bridge_0 [altera_generic_component 1.0]
 Progress: Parameterizing module clock_bridge_0
+Progress: Adding completed [altera_generic_component 1.0]
+Progress: Parameterizing module completed
 Progress: Adding emif_hps [altera_generic_component 1.0]
 Progress: Parameterizing module emif_hps
 Progress: Adding num1 [altera_generic_component 1.0]
 Progress: Parameterizing module num1
 Progress: Adding num2 [altera_generic_component 1.0]
 Progress: Parameterizing module num2
+Progress: Adding onchip_memory2_0 [altera_generic_component 1.0]
+Progress: Parameterizing module onchip_memory2_0
 Progress: Adding result [altera_generic_component 1.0]
 Progress: Parameterizing module result
 Progress: Adding rst_bdg [altera_generic_component 1.0]
 Progress: Parameterizing module rst_bdg
 Progress: Adding rst_in [altera_generic_component 1.0]
 Progress: Parameterizing module rst_in
+Progress: Adding start [altera_generic_component 1.0]
+Progress: Parameterizing module start
 Progress: Building connections
 Progress: Parameterizing connections
 Progress: Validating
@@ -59,12 +71,15 @@ Info: qsys_top: "Processing generation queue"
 Info: qsys_top: "Generating: qsys_top"
 Info: qsys_top: "Generating: qsys_top_altera_arria10_hps_181_oh55mga"
 Info: qsys_top: "Generating: qsys_top_clock_bridge_0"
+Info: qsys_top: "Generating: qsys_top_pio_1"
 Info: qsys_top: "Generating: emif_hps"
 Info: qsys_top: "Generating: num1"
+Info: qsys_top: "Generating: qsys_top_onchip_memory2_0"
 Info: qsys_top: "Generating: result"
 Info: qsys_top: "Generating: rst_bdg"
 Info: qsys_top: "Generating: rst_in"
-Info: qsys_top: "Generating: qsys_top_altera_mm_interconnect_181_sqn6eoa"
+Info: qsys_top: "Generating: qsys_top_pio_0"
+Info: qsys_top: "Generating: qsys_top_altera_mm_interconnect_181_m5kuslq"
 Info: qsys_top: "Generating: altera_reset_controller"
 Info: qsys_top: "Generating: qsys_top_altera_arria10_interface_generator_140_q5fiwxi"
 Info: qsys_top: "Generating: qsys_top_altera_arria10_hps_io_181_rqi574i"
@@ -72,22 +87,26 @@ Info: qsys_top: "Generating: qsys_top_altera_merlin_slave_translator_181_5aswt6a
 Info: qsys_top: "Generating: qsys_top_altera_merlin_axi_master_ni_181_dp4ifgy"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_slave_agent_181_a7g37xa"
 Info: qsys_top: "Generating: qsys_top_altera_avalon_sc_fifo_181_hseo73i"
-Info: qsys_top: "Generating: qsys_top_altera_merlin_router_181_7nqkolq"
-Info: qsys_top: "Generating: qsys_top_altera_merlin_router_181_fqgo25q"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_router_181_6h6acsa"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_router_181_6nykl5q"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_router_181_dilouqy"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_traffic_limiter_181_reppfiq"
 Info: my_altera_avalon_sc_fifo_dest_id_fifo: "Generating: my_altera_avalon_sc_fifo_dest_id_fifo"
 Info: my_alt_hiconnect_sc_fifo_dest_id_fifo: "Generating: my_alt_hiconnect_sc_fifo_dest_id_fifo"
-Info: qsys_top: "Generating: qsys_top_altera_merlin_burst_adapter_181_efhh5ua"
-Info: qsys_top: "Generating: qsys_top_altera_merlin_demultiplexer_181_ibonxii"
-Info: qsys_top: "Generating: qsys_top_altera_merlin_multiplexer_181_63w2npy"
-Info: qsys_top: "Generating: qsys_top_altera_merlin_demultiplexer_181_dbzr4fa"
-Info: qsys_top: "Generating: qsys_top_altera_merlin_multiplexer_181_ua4lkca"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_burst_adapter_181_bbevf7i"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_burst_adapter_181_rbmuuyi"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_demultiplexer_181_ohvfyzy"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_multiplexer_181_ze2diwq"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_demultiplexer_181_fbbqmbq"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_multiplexer_181_6hat57a"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_width_adapter_181_3hqflmi"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_width_adapter_181_s4cvxiq"
 Info: qsys_top: "Generating: altera_avalon_st_pipeline_stage"
 Info: qsys_top: "Generating: qsys_top_altera_arria10_interface_generator_140_2omeccq"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_traffic_limiter_181_vzi2hjq"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_traffic_limiter_181_62jycta"
 Info: qsys_top: "Generating: qsys_top_alt_hiconnect_sc_fifo_181_cjmuh4a"
-Info: qsys_top: Done "qsys_top" with 29 modules, 50 files
+Info: qsys_top: Done "qsys_top" with 36 modules, 67 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis
 Info: Starting: Generate IP Core Documentation
