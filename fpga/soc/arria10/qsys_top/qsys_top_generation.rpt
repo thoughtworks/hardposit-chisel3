@@ -11,6 +11,8 @@ Progress: Adding completed [altera_generic_component 1.0]
 Progress: Parameterizing module completed
 Progress: Adding emif_hps [altera_generic_component 1.0]
 Progress: Parameterizing module emif_hps
+Progress: Adding iopll_0 [altera_generic_component 1.0]
+Progress: Parameterizing module iopll_0
 Progress: Adding num1 [altera_generic_component 1.0]
 Progress: Parameterizing module num1
 Progress: Adding num2 [altera_generic_component 1.0]
@@ -34,6 +36,11 @@ Progress: Parameterizing connections
 Progress: Validating
 Progress: Done reading input file
 Info: qsys_top.a10_hps: HPS NOC (L3 clock) is set to 200 MHz When the Max Speed for this part is 400 MHz.
+Component Instantiation Warning: qsys_top.clock_bridge_0: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Warning: qsys_top: You have exported the interface onchip_memory2_0.s2 but not its associated clock interface.  Export the driver of onchip_memory2_0.clk2
+Warning: qsys_top: You have exported the interface onchip_memory2_1.s2 but not its associated clock interface.  Export the driver of onchip_memory2_1.clk2
+Warning: qsys_top: You have exported the interface rst_bdg.out_reset but not its associated clock interface.  Export rst_bdg.clk
+Warning: qsys_top: You have exported the interface rst_in.in_reset but not its associated clock interface.  Export the driver of rst_in.clk
 Info: qsys-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
@@ -49,6 +56,8 @@ Progress: Adding completed [altera_generic_component 1.0]
 Progress: Parameterizing module completed
 Progress: Adding emif_hps [altera_generic_component 1.0]
 Progress: Parameterizing module emif_hps
+Progress: Adding iopll_0 [altera_generic_component 1.0]
+Progress: Parameterizing module iopll_0
 Progress: Adding num1 [altera_generic_component 1.0]
 Progress: Parameterizing module num1
 Progress: Adding num2 [altera_generic_component 1.0]
@@ -72,6 +81,11 @@ Progress: Parameterizing connections
 Progress: Validating
 Progress: Done reading input file
 Info: qsys_top.a10_hps: HPS NOC (L3 clock) is set to 200 MHz When the Max Speed for this part is 400 MHz.
+Component Instantiation Warning: qsys_top.clock_bridge_0: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Warning: qsys_top: You have exported the interface onchip_memory2_0.s2 but not its associated clock interface.  Export the driver of onchip_memory2_0.clk2
+Warning: qsys_top: You have exported the interface onchip_memory2_1.s2 but not its associated clock interface.  Export the driver of onchip_memory2_1.clk2
+Warning: qsys_top: You have exported the interface rst_bdg.out_reset but not its associated clock interface.  Export rst_bdg.clk
+Warning: qsys_top: You have exported the interface rst_in.in_reset but not its associated clock interface.  Export the driver of rst_in.clk
 Info: qsys_top: "Transforming system: qsys_top"
 Info: a10_hps: HPS NOC (L3 clock) is set to 200 MHz When the Max Speed for this part is 400 MHz.
 Info: qsys_top: "Naming system components in system: qsys_top"
@@ -81,6 +95,7 @@ Info: qsys_top: "Generating: qsys_top_altera_arria10_hps_181_oh55mga"
 Info: qsys_top: "Generating: qsys_top_clock_bridge_0"
 Info: qsys_top: "Generating: qsys_top_pio_1"
 Info: qsys_top: "Generating: emif_hps"
+Info: qsys_top: "Generating: qsys_top_iopll_0"
 Info: qsys_top: "Generating: num1"
 Info: qsys_top: "Generating: qsys_top_onchip_memory2_0"
 Info: qsys_top: "Generating: qsys_top_onchip_memory2_1"
@@ -89,7 +104,7 @@ Info: qsys_top: "Generating: result"
 Info: qsys_top: "Generating: rst_bdg"
 Info: qsys_top: "Generating: rst_in"
 Info: qsys_top: "Generating: qsys_top_pio_0"
-Info: qsys_top: "Generating: qsys_top_altera_mm_interconnect_181_qqkqnzi"
+Info: qsys_top: "Generating: qsys_top_altera_mm_interconnect_181_ko3tysi"
 Info: qsys_top: "Generating: altera_reset_controller"
 Info: qsys_top: "Generating: qsys_top_altera_arria10_interface_generator_140_q5fiwxi"
 Info: qsys_top: "Generating: qsys_top_altera_arria10_hps_io_181_rqi574i"
@@ -116,7 +131,7 @@ Info: qsys_top: "Generating: qsys_top_altera_arria10_interface_generator_140_2om
 Info: qsys_top: "Generating: qsys_top_altera_merlin_traffic_limiter_181_vzi2hjq"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_traffic_limiter_181_62jycta"
 Info: qsys_top: "Generating: qsys_top_alt_hiconnect_sc_fifo_181_cjmuh4a"
-Info: qsys_top: Done "qsys_top" with 38 modules, 67 files
+Info: qsys_top: Done "qsys_top" with 39 modules, 67 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis
 Info: Starting: Generate IP Core Documentation

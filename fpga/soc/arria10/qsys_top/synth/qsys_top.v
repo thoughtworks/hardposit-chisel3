@@ -58,7 +58,6 @@ module qsys_top (
 		inout  wire        hps_io_hps_io_gpio_gpio1_io14,              //                                      .hps_io_gpio_gpio1_io14
 		inout  wire        hps_io_hps_io_gpio_gpio1_io16,              //                                      .hps_io_gpio_gpio1_io16
 		inout  wire        hps_io_hps_io_gpio_gpio1_io17,              //                                      .hps_io_gpio_gpio1_io17
-		input  wire        clk_clk,                                    //                                   clk.clk
 		input  wire        completed_external_connection_export,       //         completed_external_connection.export
 		input  wire        emif_a10_hps_0_pll_ref_clk_clock_sink_clk,  // emif_a10_hps_0_pll_ref_clk_clock_sink.clk
 		input  wire        emif_a10_hps_0_oct_conduit_end_oct_rzqin,   //        emif_a10_hps_0_oct_conduit_end.oct_rzqin
@@ -78,6 +77,8 @@ module qsys_top (
 		inout  wire [3:0]  emif_a10_hps_0_mem_conduit_end_mem_dqs_n,   //                                      .mem_dqs_n
 		inout  wire [31:0] emif_a10_hps_0_mem_conduit_end_mem_dq,      //                                      .mem_dq
 		inout  wire [3:0]  emif_a10_hps_0_mem_conduit_end_mem_dbi_n,   //                                      .mem_dbi_n
+		input  wire        iopll_0_refclk_clk,                         //                        iopll_0_refclk.clk
+		output wire        iopll_0_outclk1_clk,                        //                       iopll_0_outclk1.clk
 		output wire [31:0] num1_export,                                //                                  num1.export
 		output wire [31:0] num2_export,                                //                                  num2.export
 		input  wire [11:0] onchip_memory2_0_s2_address,                //                   onchip_memory2_0_s2.address
@@ -99,12 +100,13 @@ module qsys_top (
 		output wire        start_external_connection_export            //             start_external_connection.export
 	);
 
-	wire           clock_bridge_0_out_clk_clk;                       // clock_bridge_0:out_clk -> [a10_hps:f2h_axi_clk, a10_hps:f2sdram0_clk, a10_hps:f2sdram2_clk, a10_hps:h2f_axi_clk, a10_hps:h2f_lw_axi_clk, completed:clk, mm_interconnect_0:clock_bridge_0_out_clk_clk, num1:clk, num2:clk, onchip_memory2_0:clk, onchip_memory2_0:clk2, onchip_memory2_1:clk, onchip_memory2_1:clk2, reset_pio:clk, result:clk, rst_bdg:clk, rst_controller:clk, rst_controller_001:clk, rst_in:clk, start:clk]
+	wire           clock_bridge_0_out_clk_clk;                       // clock_bridge_0:out_clk -> [a10_hps:f2h_axi_clk, a10_hps:f2sdram0_clk, a10_hps:f2sdram2_clk, a10_hps:h2f_axi_clk, a10_hps:h2f_lw_axi_clk, completed:clk, num1:clk, num2:clk, onchip_memory2_0:clk, onchip_memory2_0:clk2, onchip_memory2_1:clk, onchip_memory2_1:clk2, reset_pio:clk, result:clk, rst_bdg:clk, rst_in:clk, start:clk]
+	wire           iopll_0_outclk0_clk;                              // iopll_0:outclk_0 -> [clock_bridge_0:in_clk, mm_interconnect_0:iopll_0_outclk0_clk, rst_controller:clk, rst_controller_001:clk]
 	wire     [1:0] a10_hps_emif_gp_to_emif;                          // a10_hps:emif_gp_to_emif -> emif_hps:hps_to_emif_gp
 	wire  [4095:0] emif_hps_hps_emif_conduit_end_emif_to_hps;        // emif_hps:emif_to_hps -> a10_hps:emif_emif_to_hps
 	wire     [0:0] emif_hps_hps_emif_conduit_end_emif_to_gp;         // emif_hps:emif_to_hps_gp -> a10_hps:emif_emif_to_gp
 	wire  [4095:0] a10_hps_emif_hps_to_emif;                         // a10_hps:emif_hps_to_emif -> emif_hps:hps_to_emif
-	wire           rst_in_out_reset_reset;                           // rst_in:out_reset_n -> [emif_hps:global_reset_n, rst_controller:reset_in1, rst_controller_001:reset_in0]
+	wire           rst_in_out_reset_reset;                           // rst_in:out_reset_n -> [emif_hps:global_reset_n, iopll_0:rst, rst_controller:reset_in1, rst_controller_001:reset_in0]
 	wire     [1:0] a10_hps_h2f_lw_axi_master_awburst;                // a10_hps:h2f_lw_AWBURST -> mm_interconnect_0:a10_hps_h2f_lw_axi_master_awburst
 	wire     [4:0] a10_hps_h2f_lw_axi_master_awuser;                 // a10_hps:h2f_lw_AWUSER -> mm_interconnect_0:a10_hps_h2f_lw_axi_master_awuser
 	wire     [3:0] a10_hps_h2f_lw_axi_master_arlen;                  // a10_hps:h2f_lw_ARLEN -> mm_interconnect_0:a10_hps_h2f_lw_axi_master_arlen
@@ -450,7 +452,7 @@ module qsys_top (
 	);
 
 	qsys_top_clock_bridge_0 clock_bridge_0 (
-		.in_clk  (clk_clk),                    //   input,  width = 1,  in_clk.clk
+		.in_clk  (iopll_0_outclk0_clk),        //   input,  width = 1,  in_clk.clk
 		.out_clk (clock_bridge_0_out_clk_clk)  //  output,  width = 1, out_clk.clk
 	);
 
@@ -486,6 +488,14 @@ module qsys_top (
 		.emif_to_hps    (emif_hps_hps_emif_conduit_end_emif_to_hps),  //  output,  width = 4096,                        .emif_to_hps
 		.hps_to_emif_gp (a10_hps_emif_gp_to_emif),                    //   input,     width = 2,                        .gp_to_emif
 		.emif_to_hps_gp (emif_hps_hps_emif_conduit_end_emif_to_gp)    //  output,     width = 1,                        .emif_to_gp
+	);
+
+	qsys_top_iopll_0 iopll_0 (
+		.rst      (~rst_in_out_reset_reset), //   input,  width = 1,   reset.reset
+		.refclk   (iopll_0_refclk_clk),      //   input,  width = 1,  refclk.clk
+		.locked   (),                        //  output,  width = 1,  locked.export
+		.outclk_0 (iopll_0_outclk0_clk),     //  output,  width = 1, outclk0.clk
+		.outclk_1 (iopll_0_outclk1_clk)      //  output,  width = 1, outclk1.clk
 	);
 
 	num1 num1 (
@@ -594,7 +604,7 @@ module qsys_top (
 		.out_port   (start_external_connection_export)       //  output,   width = 1, external_connection.export
 	);
 
-	qsys_top_altera_mm_interconnect_181_qqkqnzi mm_interconnect_0 (
+	qsys_top_altera_mm_interconnect_181_ko3tysi mm_interconnect_0 (
 		.num1_s1_address                                      (mm_interconnect_0_num1_s1_address),                //  output,   width = 2,                                        num1_s1.address
 		.num1_s1_write                                        (mm_interconnect_0_num1_s1_write),                  //  output,   width = 1,                                               .write
 		.num1_s1_readdata                                     (mm_interconnect_0_num1_s1_readdata),               //   input,  width = 32,                                               .readdata
@@ -671,7 +681,7 @@ module qsys_top (
 		.a10_hps_h2f_lw_axi_master_rready                     (a10_hps_h2f_lw_axi_master_rready),                 //   input,   width = 1,                                               .rready
 		.a10_hps_h2f_lw_axi_reset_reset_bridge_in_reset_reset (rst_controller_reset_out_reset),                   //   input,   width = 1, a10_hps_h2f_lw_axi_reset_reset_bridge_in_reset.reset
 		.num1_reset_reset_bridge_in_reset_reset               (rst_controller_001_reset_out_reset),               //   input,   width = 1,               num1_reset_reset_bridge_in_reset.reset
-		.clock_bridge_0_out_clk_clk                           (clock_bridge_0_out_clk_clk)                        //   input,   width = 1,                         clock_bridge_0_out_clk.clk
+		.iopll_0_outclk0_clk                                  (iopll_0_outclk0_clk)                               //   input,   width = 1,                                iopll_0_outclk0.clk
 	);
 
 	altera_reset_controller #(
@@ -702,7 +712,7 @@ module qsys_top (
 	) rst_controller (
 		.reset_in0      (~a10_hps_h2f_reset_reset),       //   input,  width = 1, reset_in0.reset
 		.reset_in1      (~rst_in_out_reset_reset),        //   input,  width = 1, reset_in1.reset
-		.clk            (clock_bridge_0_out_clk_clk),     //   input,  width = 1,       clk.clk
+		.clk            (iopll_0_outclk0_clk),            //   input,  width = 1,       clk.clk
 		.reset_out      (rst_controller_reset_out_reset), //  output,  width = 1, reset_out.reset
 		.reset_req      (),                               // (terminated),                       
 		.reset_req_in0  (1'b0),                           // (terminated),                       
@@ -764,7 +774,7 @@ module qsys_top (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_001 (
 		.reset_in0      (~rst_in_out_reset_reset),                //   input,  width = 1, reset_in0.reset
-		.clk            (clock_bridge_0_out_clk_clk),             //   input,  width = 1,       clk.clk
+		.clk            (iopll_0_outclk0_clk),                    //   input,  width = 1,       clk.clk
 		.reset_out      (rst_controller_001_reset_out_reset),     //  output,  width = 1, reset_out.reset
 		.reset_req      (rst_controller_001_reset_out_reset_req), //  output,  width = 1,          .reset_req
 		.reset_req_in0  (1'b0),                                   // (terminated),                       

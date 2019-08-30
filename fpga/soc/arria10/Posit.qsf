@@ -11,7 +11,6 @@ set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 2
 set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
 set_instance_assignment -name IO_STANDARD LVDS -to FPGA_CLK1_100 -entity PositTop
 set_location_assignment PIN_AM10 -to clock
-set_global_assignment -name QIP_FILE soc_system/soc_system.qip
 set_global_assignment -name QIP_FILE qsys_top/qsys_top.qip
 set_global_assignment -name IP_FILE ip/float.ip
 set_global_assignment -name IP_FILE ip/qsys_top/num1.ip
@@ -25,6 +24,7 @@ set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_pio_1.ip
 set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_onchip_memory2_0.ip
 set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_onchip_memory2_1.ip
 set_global_assignment -name IP_FILE ip/qsys_top/reset_pio.ip
+set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_iopll_0.ip
 
 
 set_global_assignment -name QSYS_FILE qsys_top.qsys

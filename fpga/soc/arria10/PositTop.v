@@ -108,6 +108,7 @@ module PositTop (
     wire start_external_connection_export;
     wire completed_external_connection_export;
     wire reset_pio_external_connection_export;
+    wire pll_clk;
 
 // SoC sub-system module
     qsys_top soc_inst (
@@ -185,7 +186,8 @@ module PositTop (
         .hps_io_hps_io_phery_i2c1_SCL                  (hps_i2c1_SCL),
         .hps_fpga_reset_reset                          (hps_fpga_reset),
         .reset_reset_n                                 (fpga_reset_n),
-        .clk_clk                                      (fpga_clk_100),
+        .iopll_0_refclk_clk                            (fpga_clk_100),
+        .iopll_0_outclk1_clk                            (pll_clk),
         .num1_export(num1),
         .num2_export(num2),
         .result_export(result),
@@ -204,7 +206,7 @@ module PositTop (
     );
 
     PositAddWrapper positAddWrapper(
-        .clock(fpga_clk_100),
+        .clock(pll_clk),
         .reset(reset_pio_external_connection_export),
         .io_starting_address(12'h000),
         .io_result_address(12'h010),

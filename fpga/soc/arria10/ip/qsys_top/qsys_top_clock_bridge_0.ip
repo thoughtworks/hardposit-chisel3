@@ -149,7 +149,7 @@
         <ipxact:parameter parameterId="DERIVED_CLOCK_RATE" type="longint">
           <ipxact:name>DERIVED_CLOCK_RATE</ipxact:name>
           <ipxact:displayName>Derived clock rate</ipxact:displayName>
-          <ipxact:value>0</ipxact:value>
+          <ipxact:value>100000000</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="EXPLICIT_CLOCK_RATE" type="longint">
           <ipxact:name>EXPLICIT_CLOCK_RATE</ipxact:name>
@@ -203,7 +203,7 @@
         <ipxact:parameter parameterId="systemInfos" type="string">
           <ipxact:name>systemInfos</ipxact:name>
           <ipxact:displayName>systemInfos</ipxact:displayName>
-          <ipxact:value>&lt;systemInfosDefinition&gt;&#xa;    &lt;connPtSystemInfos&gt;&#xa;        &lt;entry&gt;&#xa;            &lt;key&gt;in_clk&lt;/key&gt;&#xa;            &lt;value&gt;&#xa;                &lt;connectionPointName&gt;in_clk&lt;/connectionPointName&gt;&#xa;                &lt;suppliedSystemInfos&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;CLOCK_RATE&lt;/key&gt;&#xa;                        &lt;value&gt;0&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/suppliedSystemInfos&gt;&#xa;                &lt;consumedSystemInfos/&gt;&#xa;            &lt;/value&gt;&#xa;        &lt;/entry&gt;&#xa;        &lt;entry&gt;&#xa;            &lt;key&gt;out_clk&lt;/key&gt;&#xa;            &lt;value&gt;&#xa;                &lt;connectionPointName&gt;out_clk&lt;/connectionPointName&gt;&#xa;                &lt;suppliedSystemInfos/&gt;&#xa;                &lt;consumedSystemInfos&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;CLOCK_RATE&lt;/key&gt;&#xa;                        &lt;value&gt;150000000&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/consumedSystemInfos&gt;&#xa;            &lt;/value&gt;&#xa;        &lt;/entry&gt;&#xa;    &lt;/connPtSystemInfos&gt;&#xa;&lt;/systemInfosDefinition&gt;</ipxact:value>
+          <ipxact:value>&lt;systemInfosDefinition&gt;&#xa;    &lt;connPtSystemInfos&gt;&#xa;        &lt;entry&gt;&#xa;            &lt;key&gt;in_clk&lt;/key&gt;&#xa;            &lt;value&gt;&#xa;                &lt;connectionPointName&gt;in_clk&lt;/connectionPointName&gt;&#xa;                &lt;suppliedSystemInfos&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;CLOCK_RATE&lt;/key&gt;&#xa;                        &lt;value&gt;100000000&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/suppliedSystemInfos&gt;&#xa;                &lt;consumedSystemInfos/&gt;&#xa;            &lt;/value&gt;&#xa;        &lt;/entry&gt;&#xa;        &lt;entry&gt;&#xa;            &lt;key&gt;out_clk&lt;/key&gt;&#xa;            &lt;value&gt;&#xa;                &lt;connectionPointName&gt;out_clk&lt;/connectionPointName&gt;&#xa;                &lt;suppliedSystemInfos/&gt;&#xa;                &lt;consumedSystemInfos&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;CLOCK_RATE&lt;/key&gt;&#xa;                        &lt;value&gt;150000000&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/consumedSystemInfos&gt;&#xa;            &lt;/value&gt;&#xa;        &lt;/entry&gt;&#xa;    &lt;/connPtSystemInfos&gt;&#xa;&lt;/systemInfosDefinition&gt;</ipxact:value>
         </ipxact:parameter>
       </ipxact:parameters>
     </altera:altera_system_parameters>

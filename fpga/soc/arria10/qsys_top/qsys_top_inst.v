@@ -53,7 +53,6 @@
 		.hps_io_hps_io_gpio_gpio1_io14              (_connected_to_hps_io_hps_io_gpio_gpio1_io14_),              //   inout,   width = 1,                                      .hps_io_gpio_gpio1_io14
 		.hps_io_hps_io_gpio_gpio1_io16              (_connected_to_hps_io_hps_io_gpio_gpio1_io16_),              //   inout,   width = 1,                                      .hps_io_gpio_gpio1_io16
 		.hps_io_hps_io_gpio_gpio1_io17              (_connected_to_hps_io_hps_io_gpio_gpio1_io17_),              //   inout,   width = 1,                                      .hps_io_gpio_gpio1_io17
-		.clk_clk                                    (_connected_to_clk_clk_),                                    //   input,   width = 1,                                   clk.clk
 		.completed_external_connection_export       (_connected_to_completed_external_connection_export_),       //   input,   width = 1,         completed_external_connection.export
 		.emif_a10_hps_0_pll_ref_clk_clock_sink_clk  (_connected_to_emif_a10_hps_0_pll_ref_clk_clock_sink_clk_),  //   input,   width = 1, emif_a10_hps_0_pll_ref_clk_clock_sink.clk
 		.emif_a10_hps_0_oct_conduit_end_oct_rzqin   (_connected_to_emif_a10_hps_0_oct_conduit_end_oct_rzqin_),   //   input,   width = 1,        emif_a10_hps_0_oct_conduit_end.oct_rzqin
@@ -73,6 +72,8 @@
 		.emif_a10_hps_0_mem_conduit_end_mem_dqs_n   (_connected_to_emif_a10_hps_0_mem_conduit_end_mem_dqs_n_),   //   inout,   width = 4,                                      .mem_dqs_n
 		.emif_a10_hps_0_mem_conduit_end_mem_dq      (_connected_to_emif_a10_hps_0_mem_conduit_end_mem_dq_),      //   inout,  width = 32,                                      .mem_dq
 		.emif_a10_hps_0_mem_conduit_end_mem_dbi_n   (_connected_to_emif_a10_hps_0_mem_conduit_end_mem_dbi_n_),   //   inout,   width = 4,                                      .mem_dbi_n
+		.iopll_0_refclk_clk                         (_connected_to_iopll_0_refclk_clk_),                         //   input,   width = 1,                        iopll_0_refclk.clk
+		.iopll_0_outclk1_clk                        (_connected_to_iopll_0_outclk1_clk_),                        //  output,   width = 1,                       iopll_0_outclk1.clk
 		.num1_export                                (_connected_to_num1_export_),                                //  output,  width = 32,                                  num1.export
 		.num2_export                                (_connected_to_num2_export_),                                //  output,  width = 32,                                  num2.export
 		.onchip_memory2_0_s2_address                (_connected_to_onchip_memory2_0_s2_address_),                //   input,  width = 12,                   onchip_memory2_0_s2.address

@@ -56,15 +56,16 @@ int main() {
     *(int8_t *)(start_address) = 0;
     *(int8_t *)(reset_address) = 0;
 
-    *(int8_t *)(write_memory_address) = 0x64;
-    *(int8_t *)(write_memory_address + 1) = 0;
-    *(int8_t *)(write_memory_address + 2) = 0;
-    *(int8_t *)(write_memory_address + 3) = 0;
-    *(int8_t *)(write_memory_address + 4) = 0;
-    *(int8_t *)(write_memory_address + 5) = 0;
-    *(int8_t *)(write_memory_address + 6) = 0;
-    *(int8_t *)(write_memory_address + 8) = 0xAF;
-    *(int8_t *)(write_memory_address + 9) = 0xAF;
+    *(int8_t *)(write_memory_address) = 0x40;
+    *(int8_t *)(write_memory_address + 1) = 0x48;
+    *(int8_t *)(write_memory_address + 2) = 0x4C;
+    *(int8_t *)(write_memory_address + 3) = 0x50;
+    *(int8_t *)(write_memory_address + 4) = 0x52;
+    *(int8_t *)(write_memory_address + 5) = 0x54;
+    *(int8_t *)(write_memory_address + 6) = 0x56;
+    *(int8_t *)(write_memory_address + 7) = 0x58;
+    *(int8_t *)(write_memory_address + 8) = 0x59;
+    *(int8_t *)(write_memory_address + 9) = 0xA6;
 
 
     *(int8_t *)(start_address) = 1;

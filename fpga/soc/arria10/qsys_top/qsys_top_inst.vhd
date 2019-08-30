@@ -54,7 +54,6 @@
 			hps_io_hps_io_gpio_gpio1_io14              : inout std_logic                     := 'X';             -- hps_io_gpio_gpio1_io14
 			hps_io_hps_io_gpio_gpio1_io16              : inout std_logic                     := 'X';             -- hps_io_gpio_gpio1_io16
 			hps_io_hps_io_gpio_gpio1_io17              : inout std_logic                     := 'X';             -- hps_io_gpio_gpio1_io17
-			clk_clk                                    : in    std_logic                     := 'X';             -- clk
 			completed_external_connection_export       : in    std_logic                     := 'X';             -- export
 			emif_a10_hps_0_pll_ref_clk_clock_sink_clk  : in    std_logic                     := 'X';             -- clk
 			emif_a10_hps_0_oct_conduit_end_oct_rzqin   : in    std_logic                     := 'X';             -- oct_rzqin
@@ -74,6 +73,8 @@
 			emif_a10_hps_0_mem_conduit_end_mem_dqs_n   : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs_n
 			emif_a10_hps_0_mem_conduit_end_mem_dq      : inout std_logic_vector(31 downto 0) := (others => 'X'); -- mem_dq
 			emif_a10_hps_0_mem_conduit_end_mem_dbi_n   : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dbi_n
+			iopll_0_refclk_clk                         : in    std_logic                     := 'X';             -- clk
+			iopll_0_outclk1_clk                        : out   std_logic;                                        -- clk
 			num1_export                                : out   std_logic_vector(31 downto 0);                    -- export
 			num2_export                                : out   std_logic_vector(31 downto 0);                    -- export
 			onchip_memory2_0_s2_address                : in    std_logic_vector(11 downto 0) := (others => 'X'); -- address
@@ -152,7 +153,6 @@
 			hps_io_hps_io_gpio_gpio1_io14              => CONNECTED_TO_hps_io_hps_io_gpio_gpio1_io14,              --                                      .hps_io_gpio_gpio1_io14
 			hps_io_hps_io_gpio_gpio1_io16              => CONNECTED_TO_hps_io_hps_io_gpio_gpio1_io16,              --                                      .hps_io_gpio_gpio1_io16
 			hps_io_hps_io_gpio_gpio1_io17              => CONNECTED_TO_hps_io_hps_io_gpio_gpio1_io17,              --                                      .hps_io_gpio_gpio1_io17
-			clk_clk                                    => CONNECTED_TO_clk_clk,                                    --                                   clk.clk
 			completed_external_connection_export       => CONNECTED_TO_completed_external_connection_export,       --         completed_external_connection.export
 			emif_a10_hps_0_pll_ref_clk_clock_sink_clk  => CONNECTED_TO_emif_a10_hps_0_pll_ref_clk_clock_sink_clk,  -- emif_a10_hps_0_pll_ref_clk_clock_sink.clk
 			emif_a10_hps_0_oct_conduit_end_oct_rzqin   => CONNECTED_TO_emif_a10_hps_0_oct_conduit_end_oct_rzqin,   --        emif_a10_hps_0_oct_conduit_end.oct_rzqin
@@ -172,6 +172,8 @@
 			emif_a10_hps_0_mem_conduit_end_mem_dqs_n   => CONNECTED_TO_emif_a10_hps_0_mem_conduit_end_mem_dqs_n,   --                                      .mem_dqs_n
 			emif_a10_hps_0_mem_conduit_end_mem_dq      => CONNECTED_TO_emif_a10_hps_0_mem_conduit_end_mem_dq,      --                                      .mem_dq
 			emif_a10_hps_0_mem_conduit_end_mem_dbi_n   => CONNECTED_TO_emif_a10_hps_0_mem_conduit_end_mem_dbi_n,   --                                      .mem_dbi_n
+			iopll_0_refclk_clk                         => CONNECTED_TO_iopll_0_refclk_clk,                         --                        iopll_0_refclk.clk
+			iopll_0_outclk1_clk                        => CONNECTED_TO_iopll_0_outclk1_clk,                        --                       iopll_0_outclk1.clk
 			num1_export                                => CONNECTED_TO_num1_export,                                --                                  num1.export
 			num2_export                                => CONNECTED_TO_num2_export,                                --                                  num2.export
 			onchip_memory2_0_s2_address                => CONNECTED_TO_onchip_memory2_0_s2_address,                --                   onchip_memory2_0_s2.address

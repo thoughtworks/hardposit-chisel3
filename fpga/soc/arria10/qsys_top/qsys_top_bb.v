@@ -53,7 +53,6 @@ module qsys_top (
 		inout  wire        hps_io_hps_io_gpio_gpio1_io14,              //                                      .hps_io_gpio_gpio1_io14
 		inout  wire        hps_io_hps_io_gpio_gpio1_io16,              //                                      .hps_io_gpio_gpio1_io16
 		inout  wire        hps_io_hps_io_gpio_gpio1_io17,              //                                      .hps_io_gpio_gpio1_io17
-		input  wire        clk_clk,                                    //                                   clk.clk
 		input  wire        completed_external_connection_export,       //         completed_external_connection.export
 		input  wire        emif_a10_hps_0_pll_ref_clk_clock_sink_clk,  // emif_a10_hps_0_pll_ref_clk_clock_sink.clk
 		input  wire        emif_a10_hps_0_oct_conduit_end_oct_rzqin,   //        emif_a10_hps_0_oct_conduit_end.oct_rzqin
@@ -73,6 +72,8 @@ module qsys_top (
 		inout  wire [3:0]  emif_a10_hps_0_mem_conduit_end_mem_dqs_n,   //                                      .mem_dqs_n
 		inout  wire [31:0] emif_a10_hps_0_mem_conduit_end_mem_dq,      //                                      .mem_dq
 		inout  wire [3:0]  emif_a10_hps_0_mem_conduit_end_mem_dbi_n,   //                                      .mem_dbi_n
+		input  wire        iopll_0_refclk_clk,                         //                        iopll_0_refclk.clk
+		output wire        iopll_0_outclk1_clk,                        //                       iopll_0_outclk1.clk
 		output wire [31:0] num1_export,                                //                                  num1.export
 		output wire [31:0] num2_export,                                //                                  num2.export
 		input  wire [11:0] onchip_memory2_0_s2_address,                //                   onchip_memory2_0_s2.address
