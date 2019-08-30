@@ -11,38 +11,38 @@ class PositAddWrapper(totalBits: Int, es: Int) extends Module {
 
     val write_enable = Output(Bool())
     val write_data = Output(UInt(8.W))
-    val address_to_access = Output(UInt(12.W))
+    val address_to_read = Output(UInt(12.W))
+    val address_to_write = Output(UInt(12.W))
     val completed = Output(Bool())
+    val result = Output(UInt(totalBits.W))
   })
 
   private val numbersToRead = 10
   private val maxCount = numbersToRead + 2
 
   private val num1 = RegInit(0.U(totalBits.W))
-  private val num2 = RegInit(0.U(totalBits.W))
+  private val num2 = WireInit(0.U(totalBits.W))
   private val result = RegInit(0.U(totalBits.W))
   private val positAdd = Module(new PositAdd(totalBits, es))
   positAdd.io.num1 := num1
   positAdd.io.num2 := num2
-  result := positAdd.io.out
 
   private val counter = RegInit(0.U(totalBits.W))
 
-
   io.completed := counter === maxCount.U
 
-  when(io.start) {
-    counter := Mux(counter === maxCount.U, counter, counter + 1.U)
-  }.otherwise {
-    counter := 0.U
-  }
+  private val incrementedCounter: UInt = counter + 1.U
+  counter := Mux(io.start,Mux(counter < maxCount.U, incrementedCounter,counter),0.U)
 
-  num1 := Mux(io.start && counter <= maxCount.U,result,0.U)
-  num2 := Mux(counter < numbersToRead.U && io.start,io.read_data,0.U)
+  num1 := Mux(counter > 0.U && counter <= maxCount.U && io.start,positAdd.io.out,0.U)
+  num2 := Mux(counter <= numbersToRead.U && io.start,io.read_data,0.U)
 
-  io.address_to_access := Mux(counter < numbersToRead.U, io.starting_address + counter, io.result_address)
-  io.write_data := result
-  io.write_enable := counter === (numbersToRead + 1).U
+  io.address_to_read := io.starting_address + counter
+  io.address_to_write := io.starting_address + counter
+  io.write_data := positAdd.io.out
+  io.write_enable := true.B
+
+  io.result := positAdd.io.out
 }
 
 

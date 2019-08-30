@@ -8,7 +8,15 @@ Info:
 Info: Starting: Create HDL design files for synthesis
 Info: qsys-generate /home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/result.ip --synthesis=VERILOG --output-directory=/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/result --family="Arria 10" --part=10AS066N3F40E2SG
 Info: result.result: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
-Info: Skipping generation of result: files already generated.
+Info: result: "Transforming system: result"
+Info: result: "Naming system components in system: result"
+Info: result: "Processing generation queue"
+Info: result: "Generating: result"
+Info: result: "Generating: result_altera_avalon_pio_181_ukp5m7i"
+Info: result: Starting RTL generation for module 'result_altera_avalon_pio_181_ukp5m7i'
+Info: result:   Generation command is [exec /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/bin/perl -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/europa -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/perl_lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/common -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=result_altera_avalon_pio_181_ukp5m7i --dir=/tmp/alt8138_5844391680760311574.dir/0005_result_gen/ --quartus_dir=/home/sai-ganesh/intelFPGA_pro/18.1/quartus --verilog --config=/tmp/alt8138_5844391680760311574.dir/0005_result_gen//result_altera_avalon_pio_181_ukp5m7i_component_configuration.pl  --do_build_sim=0  ]
+Info: result: Done RTL generation for module 'result_altera_avalon_pio_181_ukp5m7i'
+Info: result: Done "result" with 2 modules, 2 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis
 Info: Starting: Generate IP Core Documentation

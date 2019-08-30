@@ -6,7 +6,11 @@ Info: Finished: Create block symbol file (.bsf)
 Info: 
 Info: Starting: Create HDL design files for synthesis
 Info: qsys-generate /home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/rst_in.ip --synthesis=VERILOG --output-directory=/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/rst_in --family="Arria 10" --part=10AS066N3F40E2SG
-Info: Skipping generation of rst_in: files already generated.
+Info: rst_in: "Transforming system: rst_in"
+Info: rst_in: "Naming system components in system: rst_in"
+Info: rst_in: "Processing generation queue"
+Info: rst_in: "Generating: rst_in"
+Info: rst_in: Done "rst_in" with 1 modules, 1 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis
 Info: Starting: Generate IP Core Documentation

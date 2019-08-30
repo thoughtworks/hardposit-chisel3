@@ -82,6 +82,13 @@
 			onchip_memory2_0_s2_write                  : in    std_logic                     := 'X';             -- write
 			onchip_memory2_0_s2_readdata               : out   std_logic_vector(7 downto 0);                     -- readdata
 			onchip_memory2_0_s2_writedata              : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- writedata
+			onchip_memory2_1_s2_address                : in    std_logic_vector(11 downto 0) := (others => 'X'); -- address
+			onchip_memory2_1_s2_chipselect             : in    std_logic                     := 'X';             -- chipselect
+			onchip_memory2_1_s2_clken                  : in    std_logic                     := 'X';             -- clken
+			onchip_memory2_1_s2_write                  : in    std_logic                     := 'X';             -- write
+			onchip_memory2_1_s2_readdata               : out   std_logic_vector(7 downto 0);                     -- readdata
+			onchip_memory2_1_s2_writedata              : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- writedata
+			reset_pio_external_connection_export       : out   std_logic;                                        -- export
 			result_export                              : in    std_logic_vector(31 downto 0) := (others => 'X'); -- export
 			hps_fpga_reset_reset                       : out   std_logic;                                        -- reset
 			reset_reset_n                              : in    std_logic                     := 'X';             -- reset_n
@@ -173,6 +180,13 @@
 			onchip_memory2_0_s2_write                  => CONNECTED_TO_onchip_memory2_0_s2_write,                  --                                      .write
 			onchip_memory2_0_s2_readdata               => CONNECTED_TO_onchip_memory2_0_s2_readdata,               --                                      .readdata
 			onchip_memory2_0_s2_writedata              => CONNECTED_TO_onchip_memory2_0_s2_writedata,              --                                      .writedata
+			onchip_memory2_1_s2_address                => CONNECTED_TO_onchip_memory2_1_s2_address,                --                   onchip_memory2_1_s2.address
+			onchip_memory2_1_s2_chipselect             => CONNECTED_TO_onchip_memory2_1_s2_chipselect,             --                                      .chipselect
+			onchip_memory2_1_s2_clken                  => CONNECTED_TO_onchip_memory2_1_s2_clken,                  --                                      .clken
+			onchip_memory2_1_s2_write                  => CONNECTED_TO_onchip_memory2_1_s2_write,                  --                                      .write
+			onchip_memory2_1_s2_readdata               => CONNECTED_TO_onchip_memory2_1_s2_readdata,               --                                      .readdata
+			onchip_memory2_1_s2_writedata              => CONNECTED_TO_onchip_memory2_1_s2_writedata,              --                                      .writedata
+			reset_pio_external_connection_export       => CONNECTED_TO_reset_pio_external_connection_export,       --         reset_pio_external_connection.export
 			result_export                              => CONNECTED_TO_result_export,                              --                                result.export
 			hps_fpga_reset_reset                       => CONNECTED_TO_hps_fpga_reset_reset,                       --                        hps_fpga_reset.reset
 			reset_reset_n                              => CONNECTED_TO_reset_reset_n,                              --                                 reset.reset_n

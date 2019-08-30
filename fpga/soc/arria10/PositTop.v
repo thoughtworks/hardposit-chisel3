@@ -101,11 +101,13 @@ module PositTop (
     wire [31:0] result;
 
     wire [11:0]  onchip_memory2_0_s2_address;
+    wire [11:0]  onchip_memory2_1_s2_address;
     wire        onchip_memory2_0_s2_write;
     wire [7:0] onchip_memory2_0_s2_readdata;
     wire [7:0] onchip_memory2_0_s2_writedata;
     wire start_external_connection_export;
     wire completed_external_connection_export;
+    wire reset_pio_external_connection_export;
 
 // SoC sub-system module
     qsys_top soc_inst (
@@ -190,24 +192,30 @@ module PositTop (
         .onchip_memory2_0_s2_address(onchip_memory2_0_s2_address),
         .onchip_memory2_0_s2_chipselect(1'b1),
         .onchip_memory2_0_s2_clken(1'b1),
-        .onchip_memory2_0_s2_write(onchip_memory2_0_s2_write),
         .onchip_memory2_0_s2_readdata(onchip_memory2_0_s2_readdata),
-        .onchip_memory2_0_s2_writedata(onchip_memory2_0_s2_writedata),
+        .onchip_memory2_1_s2_address(onchip_memory2_1_s2_address),
+        .onchip_memory2_1_s2_chipselect(1'b1),
+        .onchip_memory2_1_s2_clken(1'b1),
+        .onchip_memory2_1_s2_write(onchip_memory2_0_s2_write),
+        .onchip_memory2_1_s2_writedata(onchip_memory2_0_s2_writedata),
         .completed_external_connection_export(completed_external_connection_export),
-        .start_external_connection_export(start_external_connection_export)
+        .start_external_connection_export(start_external_connection_export),
+        .reset_pio_external_connection_export(reset_pio_external_connection_export)
     );
 
     PositAddWrapper positAddWrapper(
         .clock(fpga_clk_100),
-        .reset(~fpga_reset_n),
+        .reset(reset_pio_external_connection_export),
         .io_starting_address(12'h000),
         .io_result_address(12'h010),
-        .io_address_to_access(onchip_memory2_0_s2_address),
+        .io_address_to_read(onchip_memory2_0_s2_address),
+        .io_address_to_write(onchip_memory2_1_s2_address),
         .io_read_data(onchip_memory2_0_s2_readdata),
         .io_write_data(onchip_memory2_0_s2_writedata),
         .io_write_enable(onchip_memory2_0_s2_write),
         .io_start(start_external_connection_export),
-        .io_completed(completed_external_connection_export)
+        .io_completed(completed_external_connection_export),
+        .io_result(result)
     );
 
 endmodule

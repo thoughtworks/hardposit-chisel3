@@ -6,7 +6,15 @@ Info: Finished: Create block symbol file (.bsf)
 Info: 
 Info: Starting: Create HDL design files for synthesis
 Info: qsys-generate /home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/num1.ip --synthesis=VERILOG --output-directory=/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/num1 --family="Arria 10" --part=10AS066N3F40E2SG
-Info: Skipping generation of num1: files already generated.
+Info: num1: "Transforming system: num1"
+Info: num1: "Naming system components in system: num1"
+Info: num1: "Processing generation queue"
+Info: num1: "Generating: num1"
+Info: num1: "Generating: num1_altera_avalon_pio_181_ktizfyi"
+Info: num1: Starting RTL generation for module 'num1_altera_avalon_pio_181_ktizfyi'
+Info: num1:   Generation command is [exec /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/bin/perl -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/europa -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/perl_lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/common -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=num1_altera_avalon_pio_181_ktizfyi --dir=/tmp/alt8138_5844391680760311574.dir/0006_num1_gen/ --quartus_dir=/home/sai-ganesh/intelFPGA_pro/18.1/quartus --verilog --config=/tmp/alt8138_5844391680760311574.dir/0006_num1_gen//num1_altera_avalon_pio_181_ktizfyi_component_configuration.pl  --do_build_sim=0  ]
+Info: num1: Done RTL generation for module 'num1_altera_avalon_pio_181_ktizfyi'
+Info: num1: Done "num1" with 2 modules, 2 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis
 Info: Starting: Generate IP Core Documentation

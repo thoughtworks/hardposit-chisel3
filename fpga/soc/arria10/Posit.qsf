@@ -23,6 +23,8 @@ set_global_assignment -name IP_FILE ip/qsys_top/emif_hps.ip
 set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_pio_0.ip
 set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_pio_1.ip
 set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_onchip_memory2_0.ip
+set_global_assignment -name IP_FILE ip/qsys_top/qsys_top_onchip_memory2_1.ip
+set_global_assignment -name IP_FILE ip/qsys_top/reset_pio.ip
 
 
 set_global_assignment -name QSYS_FILE qsys_top.qsys

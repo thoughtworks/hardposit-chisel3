@@ -6,7 +6,15 @@ Info: Finished: Create block symbol file (.bsf)
 Info: 
 Info: Starting: Create HDL design files for synthesis
 Info: qsys-generate /home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_pio_0.ip --synthesis=VERILOG --output-directory=/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_pio_0 --family="Arria 10" --part=10AS066N3F40E2SG
-Info: Skipping generation of qsys_top_pio_0: files already generated.
+Info: qsys_top_pio_0: "Transforming system: qsys_top_pio_0"
+Info: qsys_top_pio_0: "Naming system components in system: qsys_top_pio_0"
+Info: qsys_top_pio_0: "Processing generation queue"
+Info: qsys_top_pio_0: "Generating: qsys_top_pio_0"
+Info: qsys_top_pio_0: "Generating: qsys_top_pio_0_altera_avalon_pio_181_efkiieq"
+Info: pio_0: Starting RTL generation for module 'qsys_top_pio_0_altera_avalon_pio_181_efkiieq'
+Info: pio_0:   Generation command is [exec /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/bin/perl -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/europa -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/perl_lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/common -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=qsys_top_pio_0_altera_avalon_pio_181_efkiieq --dir=/tmp/alt8138_5844391680760311574.dir/0004_pio_0_gen/ --quartus_dir=/home/sai-ganesh/intelFPGA_pro/18.1/quartus --verilog --config=/tmp/alt8138_5844391680760311574.dir/0004_pio_0_gen//qsys_top_pio_0_altera_avalon_pio_181_efkiieq_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_0: Done RTL generation for module 'qsys_top_pio_0_altera_avalon_pio_181_efkiieq'
+Info: qsys_top_pio_0: Done "qsys_top_pio_0" with 2 modules, 2 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis
 Info: Starting: Generate IP Core Documentation

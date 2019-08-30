@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2019.07.19.13:01:54"
- outputDirectory="/home/bhimsenp/Projects/posit-fpga/FPGA/soc/arria10/ip/qsys_top/num1/">
+ date="2019.08.30.11:15:05"
+ outputDirectory="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/num1/">
  <perimeter>
   <parameter
      name="AUTO_GENERATION_ID"
@@ -128,27 +128,27 @@
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
   <generatedFiles>
    <file
-       path="/home/bhimsenp/Projects/posit-fpga/FPGA/soc/arria10/ip/qsys_top/num1/synth/num1.v"
+       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/num1/synth/num1.v"
        attributes="CONTAINS_INLINE_CONFIGURATION" />
   </generatedFiles>
   <childGeneratedFiles>
    <file
-       path="/home/bhimsenp/Projects/posit-fpga/FPGA/soc/arria10/ip/qsys_top/num1/synth/num1.v"
+       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/num1/synth/num1.v"
        attributes="CONTAINS_INLINE_CONFIGURATION" />
   </childGeneratedFiles>
   <sourceFiles>
    <file
-       path="/home/bhimsenp/Projects/posit-fpga/FPGA/soc/arria10/ip/qsys_top/num1.ip" />
+       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/num1.ip" />
   </sourceFiles>
   <childSourceFiles>
    <file
-       path="/home/bhimsenp/intelFPGA_pro/18.1/ip/altera/sopc_builder_ip/altera_avalon_pio/altera_avalon_pio_hw.tcl" />
+       path="/home/sai-ganesh/intelFPGA_pro/18.1/ip/altera/sopc_builder_ip/altera_avalon_pio/altera_avalon_pio_hw.tcl" />
   </childSourceFiles>
   <messages>
    <message level="Info" culprit="num1">"Generating: num1"</message>
    <message level="Info" culprit="num1">"Generating: num1_altera_avalon_pio_181_ktizfyi"</message>
    <message level="Info" culprit="num1">Starting RTL generation for module 'num1_altera_avalon_pio_181_ktizfyi'</message>
-   <message level="Info" culprit="num1">  Generation command is [exec /home/bhimsenp/intelFPGA_pro/18.1/quartus/linux64/perl/bin/perl -I /home/bhimsenp/intelFPGA_pro/18.1/quartus/linux64/perl/lib -I /home/bhimsenp/intelFPGA_pro/18.1/quartus/sopc_builder/bin/europa -I /home/bhimsenp/intelFPGA_pro/18.1/quartus/sopc_builder/bin/perl_lib -I /home/bhimsenp/intelFPGA_pro/18.1/quartus/sopc_builder/bin -I /home/bhimsenp/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/common -I /home/bhimsenp/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/bhimsenp/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=num1_altera_avalon_pio_181_ktizfyi --dir=/tmp/alt8096_2887499840712603533.dir/0004_num1_gen/ --quartus_dir=/home/bhimsenp/intelFPGA_pro/18.1/quartus --verilog --config=/tmp/alt8096_2887499840712603533.dir/0004_num1_gen//num1_altera_avalon_pio_181_ktizfyi_component_configuration.pl  --do_build_sim=0  ]</message>
+   <message level="Info" culprit="num1">  Generation command is [exec /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/bin/perl -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/europa -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/perl_lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/common -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=num1_altera_avalon_pio_181_ktizfyi --dir=/tmp/alt8138_5844391680760311574.dir/0006_num1_gen/ --quartus_dir=/home/sai-ganesh/intelFPGA_pro/18.1/quartus --verilog --config=/tmp/alt8138_5844391680760311574.dir/0006_num1_gen//num1_altera_avalon_pio_181_ktizfyi_component_configuration.pl  --do_build_sim=0  ]</message>
    <message level="Info" culprit="num1">Done RTL generation for module 'num1_altera_avalon_pio_181_ktizfyi'</message>
   </messages>
  </entity>
@@ -178,24 +178,24 @@
   <parameter name="direction" value="Output" />
   <generatedFiles>
    <file
-       path="/home/bhimsenp/Projects/posit-fpga/FPGA/soc/arria10/ip/qsys_top/num1/altera_avalon_pio_181/synth/num1_altera_avalon_pio_181_ktizfyi.v"
+       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/num1/altera_avalon_pio_181/synth/num1_altera_avalon_pio_181_ktizfyi.v"
        attributes="" />
   </generatedFiles>
   <childGeneratedFiles>
    <file
-       path="/home/bhimsenp/Projects/posit-fpga/FPGA/soc/arria10/ip/qsys_top/num1/altera_avalon_pio_181/synth/num1_altera_avalon_pio_181_ktizfyi.v"
+       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/num1/altera_avalon_pio_181/synth/num1_altera_avalon_pio_181_ktizfyi.v"
        attributes="" />
   </childGeneratedFiles>
   <sourceFiles>
    <file
-       path="/home/bhimsenp/intelFPGA_pro/18.1/ip/altera/sopc_builder_ip/altera_avalon_pio/altera_avalon_pio_hw.tcl" />
+       path="/home/sai-ganesh/intelFPGA_pro/18.1/ip/altera/sopc_builder_ip/altera_avalon_pio/altera_avalon_pio_hw.tcl" />
   </sourceFiles>
   <childSourceFiles/>
   <instantiator instantiator="num1" as="num1" />
   <messages>
    <message level="Info" culprit="num1">"Generating: num1_altera_avalon_pio_181_ktizfyi"</message>
    <message level="Info" culprit="num1">Starting RTL generation for module 'num1_altera_avalon_pio_181_ktizfyi'</message>
-   <message level="Info" culprit="num1">  Generation command is [exec /home/bhimsenp/intelFPGA_pro/18.1/quartus/linux64/perl/bin/perl -I /home/bhimsenp/intelFPGA_pro/18.1/quartus/linux64/perl/lib -I /home/bhimsenp/intelFPGA_pro/18.1/quartus/sopc_builder/bin/europa -I /home/bhimsenp/intelFPGA_pro/18.1/quartus/sopc_builder/bin/perl_lib -I /home/bhimsenp/intelFPGA_pro/18.1/quartus/sopc_builder/bin -I /home/bhimsenp/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/common -I /home/bhimsenp/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/bhimsenp/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=num1_altera_avalon_pio_181_ktizfyi --dir=/tmp/alt8096_2887499840712603533.dir/0004_num1_gen/ --quartus_dir=/home/bhimsenp/intelFPGA_pro/18.1/quartus --verilog --config=/tmp/alt8096_2887499840712603533.dir/0004_num1_gen//num1_altera_avalon_pio_181_ktizfyi_component_configuration.pl  --do_build_sim=0  ]</message>
+   <message level="Info" culprit="num1">  Generation command is [exec /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/bin/perl -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/europa -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/perl_lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/common -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=num1_altera_avalon_pio_181_ktizfyi --dir=/tmp/alt8138_5844391680760311574.dir/0006_num1_gen/ --quartus_dir=/home/sai-ganesh/intelFPGA_pro/18.1/quartus --verilog --config=/tmp/alt8138_5844391680760311574.dir/0006_num1_gen//num1_altera_avalon_pio_181_ktizfyi_component_configuration.pl  --do_build_sim=0  ]</message>
    <message level="Info" culprit="num1">Done RTL generation for module 'num1_altera_avalon_pio_181_ktizfyi'</message>
   </messages>
  </entity>

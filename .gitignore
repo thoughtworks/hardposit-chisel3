@@ -14,6 +14,7 @@ fpga/soc/arria10/.qsys_edit/
 fpga/soc/arria10/soc_system/*
 fpga/soc/arria10/soc_system.sopcinfo
 fpga/soc/arria10/hps_isw_handoff/*
+fpga/soc/arria10/tmp-clearbox/*
 *.csv
 *.txt
 *.swp

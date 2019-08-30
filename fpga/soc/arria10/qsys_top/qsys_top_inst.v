@@ -81,6 +81,13 @@
 		.onchip_memory2_0_s2_write                  (_connected_to_onchip_memory2_0_s2_write_),                  //   input,   width = 1,                                      .write
 		.onchip_memory2_0_s2_readdata               (_connected_to_onchip_memory2_0_s2_readdata_),               //  output,   width = 8,                                      .readdata
 		.onchip_memory2_0_s2_writedata              (_connected_to_onchip_memory2_0_s2_writedata_),              //   input,   width = 8,                                      .writedata
+		.onchip_memory2_1_s2_address                (_connected_to_onchip_memory2_1_s2_address_),                //   input,  width = 12,                   onchip_memory2_1_s2.address
+		.onchip_memory2_1_s2_chipselect             (_connected_to_onchip_memory2_1_s2_chipselect_),             //   input,   width = 1,                                      .chipselect
+		.onchip_memory2_1_s2_clken                  (_connected_to_onchip_memory2_1_s2_clken_),                  //   input,   width = 1,                                      .clken
+		.onchip_memory2_1_s2_write                  (_connected_to_onchip_memory2_1_s2_write_),                  //   input,   width = 1,                                      .write
+		.onchip_memory2_1_s2_readdata               (_connected_to_onchip_memory2_1_s2_readdata_),               //  output,   width = 8,                                      .readdata
+		.onchip_memory2_1_s2_writedata              (_connected_to_onchip_memory2_1_s2_writedata_),              //   input,   width = 8,                                      .writedata
+		.reset_pio_external_connection_export       (_connected_to_reset_pio_external_connection_export_),       //  output,   width = 1,         reset_pio_external_connection.export
 		.result_export                              (_connected_to_result_export_),                              //   input,  width = 32,                                result.export
 		.hps_fpga_reset_reset                       (_connected_to_hps_fpga_reset_reset_),                       //  output,   width = 1,                        hps_fpga_reset.reset
 		.reset_reset_n                              (_connected_to_reset_reset_n_),                              //   input,   width = 1,                                 reset.reset_n

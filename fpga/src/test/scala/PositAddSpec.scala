@@ -84,9 +84,4 @@ class PositAddSpec extends FlatSpec with Matchers {
   it should "return zero when both are zero" in {
     assert(test(8,4,0,0,0))
   }
-
-  it should "return" in {
-    println()
-    assert(test(8,2,0x64,0xAF,0x62))
-  }
 }

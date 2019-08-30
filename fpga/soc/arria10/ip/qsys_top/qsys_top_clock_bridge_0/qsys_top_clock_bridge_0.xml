@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2019.07.19.13:01:54"
- outputDirectory="/home/bhimsenp/Projects/posit-fpga/FPGA/soc/arria10/ip/qsys_top/qsys_top_clock_bridge_0/">
+ date="2019.08.30.11:15:06"
+ outputDirectory="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_clock_bridge_0/">
  <perimeter>
   <parameter
      name="AUTO_GENERATION_ID"
@@ -80,17 +80,17 @@
   <parameter name="AUTO_IN_CLK_CLOCK_DOMAIN" value="-1" />
   <generatedFiles>
    <file
-       path="/home/bhimsenp/Projects/posit-fpga/FPGA/soc/arria10/ip/qsys_top/qsys_top_clock_bridge_0/synth/qsys_top_clock_bridge_0.v"
+       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_clock_bridge_0/synth/qsys_top_clock_bridge_0.v"
        attributes="CONTAINS_INLINE_CONFIGURATION" />
   </generatedFiles>
   <childGeneratedFiles>
    <file
-       path="/home/bhimsenp/Projects/posit-fpga/FPGA/soc/arria10/ip/qsys_top/qsys_top_clock_bridge_0/synth/qsys_top_clock_bridge_0.v"
+       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_clock_bridge_0/synth/qsys_top_clock_bridge_0.v"
        attributes="CONTAINS_INLINE_CONFIGURATION" />
   </childGeneratedFiles>
   <sourceFiles>
    <file
-       path="/home/bhimsenp/Projects/posit-fpga/FPGA/soc/arria10/ip/qsys_top/qsys_top_clock_bridge_0.ip" />
+       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_clock_bridge_0.ip" />
   </sourceFiles>
   <childSourceFiles/>
   <messages>
