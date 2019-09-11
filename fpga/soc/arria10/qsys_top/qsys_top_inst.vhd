@@ -54,6 +54,7 @@
 			hps_io_hps_io_gpio_gpio1_io14              : inout std_logic                     := 'X';             -- hps_io_gpio_gpio1_io14
 			hps_io_hps_io_gpio_gpio1_io16              : inout std_logic                     := 'X';             -- hps_io_gpio_gpio1_io16
 			hps_io_hps_io_gpio_gpio1_io17              : inout std_logic                     := 'X';             -- hps_io_gpio_gpio1_io17
+			pll_clk_clk                                : out   std_logic;                                        -- clk
 			completed_external_connection_export       : in    std_logic                     := 'X';             -- export
 			emif_a10_hps_0_pll_ref_clk_clock_sink_clk  : in    std_logic                     := 'X';             -- clk
 			emif_a10_hps_0_oct_conduit_end_oct_rzqin   : in    std_logic                     := 'X';             -- oct_rzqin
@@ -74,21 +75,23 @@
 			emif_a10_hps_0_mem_conduit_end_mem_dq      : inout std_logic_vector(31 downto 0) := (others => 'X'); -- mem_dq
 			emif_a10_hps_0_mem_conduit_end_mem_dbi_n   : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dbi_n
 			iopll_0_refclk_clk                         : in    std_logic                     := 'X';             -- clk
-			iopll_0_outclk1_clk                        : out   std_logic;                                        -- clk
+			iopll_0_locked_export                      : out   std_logic;                                        -- export
 			num1_export                                : out   std_logic_vector(31 downto 0);                    -- export
 			num2_export                                : out   std_logic_vector(31 downto 0);                    -- export
-			onchip_memory2_0_s2_address                : in    std_logic_vector(11 downto 0) := (others => 'X'); -- address
+			onchip_memory2_0_s2_address                : in    std_logic_vector(10 downto 0) := (others => 'X'); -- address
 			onchip_memory2_0_s2_chipselect             : in    std_logic                     := 'X';             -- chipselect
 			onchip_memory2_0_s2_clken                  : in    std_logic                     := 'X';             -- clken
 			onchip_memory2_0_s2_write                  : in    std_logic                     := 'X';             -- write
-			onchip_memory2_0_s2_readdata               : out   std_logic_vector(7 downto 0);                     -- readdata
-			onchip_memory2_0_s2_writedata              : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- writedata
-			onchip_memory2_1_s2_address                : in    std_logic_vector(11 downto 0) := (others => 'X'); -- address
+			onchip_memory2_0_s2_readdata               : out   std_logic_vector(15 downto 0);                    -- readdata
+			onchip_memory2_0_s2_writedata              : in    std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
+			onchip_memory2_0_s2_byteenable             : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- byteenable
+			onchip_memory2_1_s2_address                : in    std_logic_vector(10 downto 0) := (others => 'X'); -- address
 			onchip_memory2_1_s2_chipselect             : in    std_logic                     := 'X';             -- chipselect
 			onchip_memory2_1_s2_clken                  : in    std_logic                     := 'X';             -- clken
 			onchip_memory2_1_s2_write                  : in    std_logic                     := 'X';             -- write
-			onchip_memory2_1_s2_readdata               : out   std_logic_vector(7 downto 0);                     -- readdata
-			onchip_memory2_1_s2_writedata              : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- writedata
+			onchip_memory2_1_s2_readdata               : out   std_logic_vector(15 downto 0);                    -- readdata
+			onchip_memory2_1_s2_writedata              : in    std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
+			onchip_memory2_1_s2_byteenable             : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- byteenable
 			reset_pio_external_connection_export       : out   std_logic;                                        -- export
 			result_export                              : in    std_logic_vector(31 downto 0) := (others => 'X'); -- export
 			hps_fpga_reset_reset                       : out   std_logic;                                        -- reset
@@ -153,6 +156,7 @@
 			hps_io_hps_io_gpio_gpio1_io14              => CONNECTED_TO_hps_io_hps_io_gpio_gpio1_io14,              --                                      .hps_io_gpio_gpio1_io14
 			hps_io_hps_io_gpio_gpio1_io16              => CONNECTED_TO_hps_io_hps_io_gpio_gpio1_io16,              --                                      .hps_io_gpio_gpio1_io16
 			hps_io_hps_io_gpio_gpio1_io17              => CONNECTED_TO_hps_io_hps_io_gpio_gpio1_io17,              --                                      .hps_io_gpio_gpio1_io17
+			pll_clk_clk                                => CONNECTED_TO_pll_clk_clk,                                --                               pll_clk.clk
 			completed_external_connection_export       => CONNECTED_TO_completed_external_connection_export,       --         completed_external_connection.export
 			emif_a10_hps_0_pll_ref_clk_clock_sink_clk  => CONNECTED_TO_emif_a10_hps_0_pll_ref_clk_clock_sink_clk,  -- emif_a10_hps_0_pll_ref_clk_clock_sink.clk
 			emif_a10_hps_0_oct_conduit_end_oct_rzqin   => CONNECTED_TO_emif_a10_hps_0_oct_conduit_end_oct_rzqin,   --        emif_a10_hps_0_oct_conduit_end.oct_rzqin
@@ -173,7 +177,7 @@
 			emif_a10_hps_0_mem_conduit_end_mem_dq      => CONNECTED_TO_emif_a10_hps_0_mem_conduit_end_mem_dq,      --                                      .mem_dq
 			emif_a10_hps_0_mem_conduit_end_mem_dbi_n   => CONNECTED_TO_emif_a10_hps_0_mem_conduit_end_mem_dbi_n,   --                                      .mem_dbi_n
 			iopll_0_refclk_clk                         => CONNECTED_TO_iopll_0_refclk_clk,                         --                        iopll_0_refclk.clk
-			iopll_0_outclk1_clk                        => CONNECTED_TO_iopll_0_outclk1_clk,                        --                       iopll_0_outclk1.clk
+			iopll_0_locked_export                      => CONNECTED_TO_iopll_0_locked_export,                      --                        iopll_0_locked.export
 			num1_export                                => CONNECTED_TO_num1_export,                                --                                  num1.export
 			num2_export                                => CONNECTED_TO_num2_export,                                --                                  num2.export
 			onchip_memory2_0_s2_address                => CONNECTED_TO_onchip_memory2_0_s2_address,                --                   onchip_memory2_0_s2.address
@@ -182,12 +186,14 @@
 			onchip_memory2_0_s2_write                  => CONNECTED_TO_onchip_memory2_0_s2_write,                  --                                      .write
 			onchip_memory2_0_s2_readdata               => CONNECTED_TO_onchip_memory2_0_s2_readdata,               --                                      .readdata
 			onchip_memory2_0_s2_writedata              => CONNECTED_TO_onchip_memory2_0_s2_writedata,              --                                      .writedata
+			onchip_memory2_0_s2_byteenable             => CONNECTED_TO_onchip_memory2_0_s2_byteenable,             --                                      .byteenable
 			onchip_memory2_1_s2_address                => CONNECTED_TO_onchip_memory2_1_s2_address,                --                   onchip_memory2_1_s2.address
 			onchip_memory2_1_s2_chipselect             => CONNECTED_TO_onchip_memory2_1_s2_chipselect,             --                                      .chipselect
 			onchip_memory2_1_s2_clken                  => CONNECTED_TO_onchip_memory2_1_s2_clken,                  --                                      .clken
 			onchip_memory2_1_s2_write                  => CONNECTED_TO_onchip_memory2_1_s2_write,                  --                                      .write
 			onchip_memory2_1_s2_readdata               => CONNECTED_TO_onchip_memory2_1_s2_readdata,               --                                      .readdata
 			onchip_memory2_1_s2_writedata              => CONNECTED_TO_onchip_memory2_1_s2_writedata,              --                                      .writedata
+			onchip_memory2_1_s2_byteenable             => CONNECTED_TO_onchip_memory2_1_s2_byteenable,             --                                      .byteenable
 			reset_pio_external_connection_export       => CONNECTED_TO_reset_pio_external_connection_export,       --         reset_pio_external_connection.export
 			result_export                              => CONNECTED_TO_result_export,                              --                                result.export
 			hps_fpga_reset_reset                       => CONNECTED_TO_hps_fpga_reset_reset,                       --                        hps_fpga_reset.reset

@@ -15,6 +15,13 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
   private val positRegime = exponent / base.U
   private val positExponent = (exponent % base.U) (if (es > 0) es - 1 else 0, 0)
 
+
+//    private val exponent = io.exponent.abs().asUInt()
+//    private val remainder: UInt = exponent % base.U
+//    private val isDivisible = exponent > 0.U || remainder === 0.U
+//    private val positRegime = exponent / base.U + Mux(isDivisible,0.U,1.U)
+//    private val positExponent = Mux(isDivisible,remainder,base.U - remainder) (if (es > 0) es - 1 else 0, 0)
+
   private val positiveExponentCombinations = Array.range(0, totalBits).map(index => {
     val regimeBits = (math.pow(2, index + 2) - 2).toInt.U
     val bitsRequiredForRegime = index + 2

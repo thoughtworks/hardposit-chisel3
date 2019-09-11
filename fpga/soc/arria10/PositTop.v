@@ -103,8 +103,8 @@ module PositTop (
     wire [11:0]  onchip_memory2_0_s2_address;
     wire [11:0]  onchip_memory2_1_s2_address;
     wire        onchip_memory2_0_s2_write;
-    wire [7:0] onchip_memory2_0_s2_readdata;
-    wire [7:0] onchip_memory2_0_s2_writedata;
+    wire [16:0] onchip_memory2_0_s2_readdata;
+    wire [16:0] onchip_memory2_0_s2_writedata;
     wire start_external_connection_export;
     wire completed_external_connection_export;
     wire reset_pio_external_connection_export;
@@ -187,7 +187,7 @@ module PositTop (
         .hps_fpga_reset_reset                          (hps_fpga_reset),
         .reset_reset_n                                 (fpga_reset_n),
         .iopll_0_refclk_clk                            (fpga_clk_100),
-        .iopll_0_outclk1_clk                            (pll_clk),
+        .pll_clk_clk                                    (pll_clk),
         .num1_export(num1),
         .num2_export(num2),
         .result_export(result),

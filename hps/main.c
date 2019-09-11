@@ -56,16 +56,16 @@ int main() {
     *(int8_t *)(start_address) = 0;
     *(int8_t *)(reset_address) = 0;
 
-    *(int8_t *)(write_memory_address) = 0x40;
-    *(int8_t *)(write_memory_address + 1) = 0x48;
-    *(int8_t *)(write_memory_address + 2) = 0x4C;
-    *(int8_t *)(write_memory_address + 3) = 0x50;
-    *(int8_t *)(write_memory_address + 4) = 0x52;
-    *(int8_t *)(write_memory_address + 5) = 0x54;
-    *(int8_t *)(write_memory_address + 6) = 0x56;
-    *(int8_t *)(write_memory_address + 7) = 0x58;
-    *(int8_t *)(write_memory_address + 8) = 0x59;
-    *(int8_t *)(write_memory_address + 9) = 0xA6;
+    *(int16_t *)(write_memory_address) = 0x4000;
+    *(int16_t *)(write_memory_address + 2) = 0x5000;
+    *(int16_t *)(write_memory_address + 4) = 0x5800;
+    *(int16_t *)(write_memory_address + 6) = 0x6000;
+    *(int16_t *)(write_memory_address + 8) = 0x6200;
+    *(int16_t *)(write_memory_address + 10) = 0x6400;
+    *(int16_t *)(write_memory_address + 12) = 0x6600;
+    *(int16_t *)(write_memory_address + 14) = 0x6800;
+    *(int16_t *)(write_memory_address + 16) = 0x6900;
+    *(int16_t *)(write_memory_address + 18) = 0x9600;
 
 
     *(int8_t *)(start_address) = 1;
@@ -75,18 +75,18 @@ int main() {
     while(*(int8_t *)(completed_address) == 0);
     gettimeofday(&t2,NULL);
 
-    for(int i=0; i<10; i++) {
-        printf("write memory location %d : %d \n",i,*(int8_t *)(write_memory_address + i));
+    for(int i=0; i<18; i=i+2) {
+        printf("write memory location %d : %d \n",i,*(int16_t *)(write_memory_address + i));
     }
         printf("\n\n");
 
-    for(int i=0; i<10; i++) {
-        printf("read memory location %d : %d \n",i,*(int8_t *)(read_memory_address + i));
+    for(int i=0; i<18; i=i+2) {
+        printf("read memory location %d : %d \n",i,*(int16_t *)(read_memory_address + i));
     }
         printf("\n\n");
 
 //    printf("Num1: %d\nNum2: %d\nResult: %d\n", *(int8_t *)(memory_address), *(int8_t *)(memory_address + 1), sum);
-    printf("Result: %d\n", *(int8_t *)(result_address) );
+    printf("Result: %d\n", *(int16_t *)(read_memory_address + 20) );
     long start_time = t1.tv_sec*1000000 + t1.tv_usec;
     long end_time = t2.tv_sec*1000000 + t2.tv_usec;
     printf("time required : %ld\n", end_time - start_time );

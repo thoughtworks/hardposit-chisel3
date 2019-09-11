@@ -36,11 +36,14 @@ Progress: Parameterizing connections
 Progress: Validating
 Progress: Done reading input file
 Info: qsys_top.a10_hps: HPS NOC (L3 clock) is set to 200 MHz When the Max Speed for this part is 400 MHz.
-Component Instantiation Warning: qsys_top.clock_bridge_0: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
-Warning: qsys_top: You have exported the interface onchip_memory2_0.s2 but not its associated clock interface.  Export the driver of onchip_memory2_0.clk2
-Warning: qsys_top: You have exported the interface onchip_memory2_1.s2 but not its associated clock interface.  Export the driver of onchip_memory2_1.clk2
-Warning: qsys_top: You have exported the interface rst_bdg.out_reset but not its associated clock interface.  Export rst_bdg.clk
-Warning: qsys_top: You have exported the interface rst_in.in_reset but not its associated clock interface.  Export the driver of rst_in.clk
+Component Instantiation Warning: qsys_top.completed: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.num1: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.num2: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.reset_pio: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.result: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.rst_bdg: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.rst_in: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.start: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
 Info: qsys-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
@@ -81,17 +84,20 @@ Progress: Parameterizing connections
 Progress: Validating
 Progress: Done reading input file
 Info: qsys_top.a10_hps: HPS NOC (L3 clock) is set to 200 MHz When the Max Speed for this part is 400 MHz.
-Component Instantiation Warning: qsys_top.clock_bridge_0: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
-Warning: qsys_top: You have exported the interface onchip_memory2_0.s2 but not its associated clock interface.  Export the driver of onchip_memory2_0.clk2
-Warning: qsys_top: You have exported the interface onchip_memory2_1.s2 but not its associated clock interface.  Export the driver of onchip_memory2_1.clk2
-Warning: qsys_top: You have exported the interface rst_bdg.out_reset but not its associated clock interface.  Export rst_bdg.clk
-Warning: qsys_top: You have exported the interface rst_in.in_reset but not its associated clock interface.  Export the driver of rst_in.clk
+Component Instantiation Warning: qsys_top.completed: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.num1: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.num2: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.reset_pio: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.result: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.rst_bdg: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.rst_in: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
+Component Instantiation Warning: qsys_top.start: System Information doesn't match requirements of IP.  Double-click to open System Info tab.
 Info: qsys_top: "Transforming system: qsys_top"
 Info: a10_hps: HPS NOC (L3 clock) is set to 200 MHz When the Max Speed for this part is 400 MHz.
 Info: qsys_top: "Naming system components in system: qsys_top"
 Info: qsys_top: "Processing generation queue"
 Info: qsys_top: "Generating: qsys_top"
-Info: qsys_top: "Generating: qsys_top_altera_arria10_hps_181_oh55mga"
+Info: qsys_top: "Generating: qsys_top_altera_arria10_hps_181_wbeohja"
 Info: qsys_top: "Generating: qsys_top_clock_bridge_0"
 Info: qsys_top: "Generating: qsys_top_pio_1"
 Info: qsys_top: "Generating: emif_hps"
@@ -104,30 +110,30 @@ Info: qsys_top: "Generating: result"
 Info: qsys_top: "Generating: rst_bdg"
 Info: qsys_top: "Generating: rst_in"
 Info: qsys_top: "Generating: qsys_top_pio_0"
-Info: qsys_top: "Generating: qsys_top_altera_mm_interconnect_181_ko3tysi"
+Info: qsys_top: "Generating: qsys_top_altera_mm_interconnect_181_55qei4a"
 Info: qsys_top: "Generating: altera_reset_controller"
 Info: qsys_top: "Generating: qsys_top_altera_arria10_interface_generator_140_q5fiwxi"
-Info: qsys_top: "Generating: qsys_top_altera_arria10_hps_io_181_rqi574i"
+Info: qsys_top: "Generating: qsys_top_altera_arria10_hps_io_181_4dodjaq"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_slave_translator_181_5aswt6a"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_axi_master_ni_181_dp4ifgy"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_slave_agent_181_a7g37xa"
 Info: qsys_top: "Generating: qsys_top_altera_avalon_sc_fifo_181_hseo73i"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_router_181_ueryrxi"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_router_181_ozphwri"
-Info: qsys_top: "Generating: qsys_top_altera_merlin_router_181_k5nnchi"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_router_181_r46v5yq"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_traffic_limiter_181_reppfiq"
 Info: my_altera_avalon_sc_fifo_dest_id_fifo: "Generating: my_altera_avalon_sc_fifo_dest_id_fifo"
 Info: my_alt_hiconnect_sc_fifo_dest_id_fifo: "Generating: my_alt_hiconnect_sc_fifo_dest_id_fifo"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_burst_adapter_181_bbevf7i"
-Info: qsys_top: "Generating: qsys_top_altera_merlin_burst_adapter_181_rbmuuyi"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_burst_adapter_181_s7lrvgq"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_demultiplexer_181_5xsl6ei"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_multiplexer_181_eojnhwa"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_demultiplexer_181_ziay2ky"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_multiplexer_181_ecwpway"
-Info: qsys_top: "Generating: qsys_top_altera_merlin_width_adapter_181_3hqflmi"
-Info: qsys_top: "Generating: qsys_top_altera_merlin_width_adapter_181_s4cvxiq"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_width_adapter_181_erek4wa"
+Info: qsys_top: "Generating: qsys_top_altera_merlin_width_adapter_181_guxmpsy"
 Info: qsys_top: "Generating: altera_avalon_st_pipeline_stage"
-Info: qsys_top: "Generating: qsys_top_altera_arria10_interface_generator_140_2omeccq"
+Info: qsys_top: "Generating: qsys_top_altera_arria10_interface_generator_140_7tk3zti"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_traffic_limiter_181_vzi2hjq"
 Info: qsys_top: "Generating: qsys_top_altera_merlin_traffic_limiter_181_62jycta"
 Info: qsys_top: "Generating: qsys_top_alt_hiconnect_sc_fifo_181_cjmuh4a"

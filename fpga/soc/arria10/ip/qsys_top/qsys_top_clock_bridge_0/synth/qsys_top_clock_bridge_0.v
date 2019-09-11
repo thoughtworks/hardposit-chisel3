@@ -4,10 +4,13 @@
 
 `timescale 1 ps / 1 ps
 module qsys_top_clock_bridge_0 (
-		input  wire  in_clk,  //  in_clk.clk
-		output wire  out_clk  // out_clk.clk
+		input  wire  in_clk,    //    in_clk.clk
+		output wire  out_clk,   //   out_clk.clk
+		output wire  out_clk_1  // out_clk_1.clk
 	);
 
 	assign out_clk = in_clk;
+
+	assign out_clk_1 = in_clk;
 
 endmodule

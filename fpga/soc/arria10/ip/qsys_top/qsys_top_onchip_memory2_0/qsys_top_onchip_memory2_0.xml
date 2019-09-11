@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2019.08.30.14:35:03"
+ date="2019.09.06.16:24:46"
  outputDirectory="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_onchip_memory2_0/">
  <perimeter>
   <parameter
@@ -117,12 +117,13 @@
    <property name="writeLatency" value="0" />
    <property name="writeWaitStates" value="0" />
    <property name="writeWaitTime" value="0" />
-   <port name="address" direction="input" role="address" width="12" />
+   <port name="address" direction="input" role="address" width="11" />
    <port name="clken" direction="input" role="clken" width="1" />
    <port name="chipselect" direction="input" role="chipselect" width="1" />
    <port name="write" direction="input" role="write" width="1" />
-   <port name="readdata" direction="output" role="readdata" width="8" />
-   <port name="writedata" direction="input" role="writedata" width="8" />
+   <port name="readdata" direction="output" role="readdata" width="16" />
+   <port name="writedata" direction="input" role="writedata" width="16" />
+   <port name="byteenable" direction="input" role="byteenable" width="2" />
   </interface>
   <interface name="reset1" kind="reset" start="0">
    <property name="associatedClock" value="clk1" />
@@ -172,12 +173,13 @@
    <property name="writeLatency" value="0" />
    <property name="writeWaitStates" value="0" />
    <property name="writeWaitTime" value="0" />
-   <port name="address2" direction="input" role="address" width="12" />
+   <port name="address2" direction="input" role="address" width="11" />
    <port name="chipselect2" direction="input" role="chipselect" width="1" />
    <port name="clken2" direction="input" role="clken" width="1" />
    <port name="write2" direction="input" role="write" width="1" />
-   <port name="readdata2" direction="output" role="readdata" width="8" />
-   <port name="writedata2" direction="input" role="writedata" width="8" />
+   <port name="readdata2" direction="output" role="readdata" width="16" />
+   <port name="writedata2" direction="input" role="writedata" width="16" />
+   <port name="byteenable2" direction="input" role="byteenable" width="2" />
   </interface>
   <interface name="clk2" kind="clock" start="0">
    <property name="clockRate" value="0" />
@@ -227,16 +229,16 @@
   </childSourceFiles>
   <messages>
    <message level="Info" culprit="qsys_top_onchip_memory2_0">"Generating: qsys_top_onchip_memory2_0"</message>
-   <message level="Info" culprit="qsys_top_onchip_memory2_0">"Generating: qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni"</message>
-   <message level="Info" culprit="onchip_memory2_0">Starting RTL generation for module 'qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni'</message>
-   <message level="Info" culprit="onchip_memory2_0">  Generation command is [exec /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/bin/perl -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/europa -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/perl_lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/common -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni --dir=/tmp/alt8138_5309486013218641653.dir/0009_onchip_memory2_0_gen/ --quartus_dir=/home/sai-ganesh/intelFPGA_pro/18.1/quartus --verilog --config=/tmp/alt8138_5309486013218641653.dir/0009_onchip_memory2_0_gen//qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni_component_configuration.pl  --do_build_sim=0  ]</message>
-   <message level="Info" culprit="onchip_memory2_0">Done RTL generation for module 'qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni'</message>
+   <message level="Info" culprit="qsys_top_onchip_memory2_0">"Generating: qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy"</message>
+   <message level="Info" culprit="onchip_memory2_0">Starting RTL generation for module 'qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy'</message>
+   <message level="Info" culprit="onchip_memory2_0">  Generation command is [exec /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/bin/perl -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/europa -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/perl_lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/common -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy --dir=/tmp/alt8145_4987005404108826092.dir/0002_onchip_memory2_0_gen/ --quartus_dir=/home/sai-ganesh/intelFPGA_pro/18.1/quartus --verilog --config=/tmp/alt8145_4987005404108826092.dir/0002_onchip_memory2_0_gen//qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy_component_configuration.pl  --do_build_sim=0  ]</message>
+   <message level="Info" culprit="onchip_memory2_0">Done RTL generation for module 'qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy'</message>
   </messages>
  </entity>
  <entity
    kind="altera_avalon_onchip_memory2"
    version="18.1"
-   name="qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni">
+   name="qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy">
   <parameter name="derived_singleClockOperation" value="false" />
   <parameter name="derived_is_hardcopy" value="false" />
   <parameter
@@ -250,16 +252,16 @@
   <parameter name="useShallowMemBlocks" value="false" />
   <parameter name="writable" value="true" />
   <parameter name="dualPort" value="true" />
-  <parameter name="derived_set_addr_width2" value="12" />
-  <parameter name="dataWidth" value="8" />
+  <parameter name="derived_set_addr_width2" value="11" />
+  <parameter name="dataWidth" value="16" />
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="derived_set_addr_width" value="12" />
+  <parameter name="derived_set_addr_width" value="11" />
   <parameter
      name="derived_init_file_name"
      value="qsys_top_onchip_memory2_0_onchip_memory2_0.hex" />
   <parameter name="initializationFileName" value="onchip_mem.hex" />
   <parameter name="singleClockOperation" value="false" />
-  <parameter name="derived_set_data_width2" value="8" />
+  <parameter name="derived_set_data_width2" value="16" />
   <parameter name="readDuringWriteMode" value="DONT_CARE" />
   <parameter name="blockType" value="AUTO" />
   <parameter name="derived_enableDiffWidth" value="false" />
@@ -270,7 +272,7 @@
   <parameter name="deviceFamily" value="Arria 10" />
   <parameter name="simAllowMRAMContentsFile" value="false" />
   <parameter name="ecc_enabled" value="false" />
-  <parameter name="derived_set_data_width" value="8" />
+  <parameter name="derived_set_data_width" value="16" />
   <parameter name="instanceID" value="NONE" />
   <parameter name="memorySize" value="4096" />
   <parameter name="dataWidth2" value="32" />
@@ -283,7 +285,7 @@
        path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_onchip_memory2_0/altera_avalon_onchip_memory2_181/synth/qsys_top_onchip_memory2_0_onchip_memory2_0.hex"
        attributes="" />
    <file
-       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_onchip_memory2_0/altera_avalon_onchip_memory2_181/synth/qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni.v"
+       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_onchip_memory2_0/altera_avalon_onchip_memory2_181/synth/qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy.v"
        attributes="" />
   </generatedFiles>
   <childGeneratedFiles>
@@ -291,7 +293,7 @@
        path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_onchip_memory2_0/altera_avalon_onchip_memory2_181/synth/qsys_top_onchip_memory2_0_onchip_memory2_0.hex"
        attributes="" />
    <file
-       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_onchip_memory2_0/altera_avalon_onchip_memory2_181/synth/qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni.v"
+       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_onchip_memory2_0/altera_avalon_onchip_memory2_181/synth/qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy.v"
        attributes="" />
   </childGeneratedFiles>
   <sourceFiles>
@@ -301,10 +303,10 @@
   <childSourceFiles/>
   <instantiator instantiator="qsys_top_onchip_memory2_0" as="onchip_memory2_0" />
   <messages>
-   <message level="Info" culprit="qsys_top_onchip_memory2_0">"Generating: qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni"</message>
-   <message level="Info" culprit="onchip_memory2_0">Starting RTL generation for module 'qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni'</message>
-   <message level="Info" culprit="onchip_memory2_0">  Generation command is [exec /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/bin/perl -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/europa -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/perl_lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/common -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni --dir=/tmp/alt8138_5309486013218641653.dir/0009_onchip_memory2_0_gen/ --quartus_dir=/home/sai-ganesh/intelFPGA_pro/18.1/quartus --verilog --config=/tmp/alt8138_5309486013218641653.dir/0009_onchip_memory2_0_gen//qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni_component_configuration.pl  --do_build_sim=0  ]</message>
-   <message level="Info" culprit="onchip_memory2_0">Done RTL generation for module 'qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_qf7hrni'</message>
+   <message level="Info" culprit="qsys_top_onchip_memory2_0">"Generating: qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy"</message>
+   <message level="Info" culprit="onchip_memory2_0">Starting RTL generation for module 'qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy'</message>
+   <message level="Info" culprit="onchip_memory2_0">  Generation command is [exec /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/bin/perl -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/linux64/perl/lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/europa -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin/perl_lib -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/sopc_builder/bin -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/common -I /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- /home/sai-ganesh/intelFPGA_pro/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy --dir=/tmp/alt8145_4987005404108826092.dir/0002_onchip_memory2_0_gen/ --quartus_dir=/home/sai-ganesh/intelFPGA_pro/18.1/quartus --verilog --config=/tmp/alt8145_4987005404108826092.dir/0002_onchip_memory2_0_gen//qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy_component_configuration.pl  --do_build_sim=0  ]</message>
+   <message level="Info" culprit="onchip_memory2_0">Done RTL generation for module 'qsys_top_onchip_memory2_0_altera_avalon_onchip_memory2_181_t3dhtpy'</message>
   </messages>
  </entity>
 </deploy>

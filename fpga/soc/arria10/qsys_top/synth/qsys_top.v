@@ -58,6 +58,7 @@ module qsys_top (
 		inout  wire        hps_io_hps_io_gpio_gpio1_io14,              //                                      .hps_io_gpio_gpio1_io14
 		inout  wire        hps_io_hps_io_gpio_gpio1_io16,              //                                      .hps_io_gpio_gpio1_io16
 		inout  wire        hps_io_hps_io_gpio_gpio1_io17,              //                                      .hps_io_gpio_gpio1_io17
+		output wire        pll_clk_clk,                                //                               pll_clk.clk
 		input  wire        completed_external_connection_export,       //         completed_external_connection.export
 		input  wire        emif_a10_hps_0_pll_ref_clk_clock_sink_clk,  // emif_a10_hps_0_pll_ref_clk_clock_sink.clk
 		input  wire        emif_a10_hps_0_oct_conduit_end_oct_rzqin,   //        emif_a10_hps_0_oct_conduit_end.oct_rzqin
@@ -78,21 +79,23 @@ module qsys_top (
 		inout  wire [31:0] emif_a10_hps_0_mem_conduit_end_mem_dq,      //                                      .mem_dq
 		inout  wire [3:0]  emif_a10_hps_0_mem_conduit_end_mem_dbi_n,   //                                      .mem_dbi_n
 		input  wire        iopll_0_refclk_clk,                         //                        iopll_0_refclk.clk
-		output wire        iopll_0_outclk1_clk,                        //                       iopll_0_outclk1.clk
+		output wire        iopll_0_locked_export,                      //                        iopll_0_locked.export
 		output wire [31:0] num1_export,                                //                                  num1.export
 		output wire [31:0] num2_export,                                //                                  num2.export
-		input  wire [11:0] onchip_memory2_0_s2_address,                //                   onchip_memory2_0_s2.address
+		input  wire [10:0] onchip_memory2_0_s2_address,                //                   onchip_memory2_0_s2.address
 		input  wire        onchip_memory2_0_s2_chipselect,             //                                      .chipselect
 		input  wire        onchip_memory2_0_s2_clken,                  //                                      .clken
 		input  wire        onchip_memory2_0_s2_write,                  //                                      .write
-		output wire [7:0]  onchip_memory2_0_s2_readdata,               //                                      .readdata
-		input  wire [7:0]  onchip_memory2_0_s2_writedata,              //                                      .writedata
-		input  wire [11:0] onchip_memory2_1_s2_address,                //                   onchip_memory2_1_s2.address
+		output wire [15:0] onchip_memory2_0_s2_readdata,               //                                      .readdata
+		input  wire [15:0] onchip_memory2_0_s2_writedata,              //                                      .writedata
+		input  wire [1:0]  onchip_memory2_0_s2_byteenable,             //                                      .byteenable
+		input  wire [10:0] onchip_memory2_1_s2_address,                //                   onchip_memory2_1_s2.address
 		input  wire        onchip_memory2_1_s2_chipselect,             //                                      .chipselect
 		input  wire        onchip_memory2_1_s2_clken,                  //                                      .clken
 		input  wire        onchip_memory2_1_s2_write,                  //                                      .write
-		output wire [7:0]  onchip_memory2_1_s2_readdata,               //                                      .readdata
-		input  wire [7:0]  onchip_memory2_1_s2_writedata,              //                                      .writedata
+		output wire [15:0] onchip_memory2_1_s2_readdata,               //                                      .readdata
+		input  wire [15:0] onchip_memory2_1_s2_writedata,              //                                      .writedata
+		input  wire [1:0]  onchip_memory2_1_s2_byteenable,             //                                      .byteenable
 		output wire        reset_pio_external_connection_export,       //         reset_pio_external_connection.export
 		input  wire [31:0] result_export,                              //                                result.export
 		output wire        hps_fpga_reset_reset,                       //                        hps_fpga_reset.reset
@@ -158,10 +161,11 @@ module qsys_top (
 	wire    [31:0] mm_interconnect_0_result_s1_readdata;             // result:readdata -> mm_interconnect_0:result_s1_readdata
 	wire     [1:0] mm_interconnect_0_result_s1_address;              // mm_interconnect_0:result_s1_address -> result:address
 	wire           mm_interconnect_0_onchip_memory2_0_s1_chipselect; // mm_interconnect_0:onchip_memory2_0_s1_chipselect -> onchip_memory2_0:chipselect
-	wire     [7:0] mm_interconnect_0_onchip_memory2_0_s1_readdata;   // onchip_memory2_0:readdata -> mm_interconnect_0:onchip_memory2_0_s1_readdata
-	wire    [11:0] mm_interconnect_0_onchip_memory2_0_s1_address;    // mm_interconnect_0:onchip_memory2_0_s1_address -> onchip_memory2_0:address
+	wire    [15:0] mm_interconnect_0_onchip_memory2_0_s1_readdata;   // onchip_memory2_0:readdata -> mm_interconnect_0:onchip_memory2_0_s1_readdata
+	wire    [10:0] mm_interconnect_0_onchip_memory2_0_s1_address;    // mm_interconnect_0:onchip_memory2_0_s1_address -> onchip_memory2_0:address
+	wire     [1:0] mm_interconnect_0_onchip_memory2_0_s1_byteenable; // mm_interconnect_0:onchip_memory2_0_s1_byteenable -> onchip_memory2_0:byteenable
 	wire           mm_interconnect_0_onchip_memory2_0_s1_write;      // mm_interconnect_0:onchip_memory2_0_s1_write -> onchip_memory2_0:write
-	wire     [7:0] mm_interconnect_0_onchip_memory2_0_s1_writedata;  // mm_interconnect_0:onchip_memory2_0_s1_writedata -> onchip_memory2_0:writedata
+	wire    [15:0] mm_interconnect_0_onchip_memory2_0_s1_writedata;  // mm_interconnect_0:onchip_memory2_0_s1_writedata -> onchip_memory2_0:writedata
 	wire           mm_interconnect_0_onchip_memory2_0_s1_clken;      // mm_interconnect_0:onchip_memory2_0_s1_clken -> onchip_memory2_0:clken
 	wire           mm_interconnect_0_start_s1_chipselect;            // mm_interconnect_0:start_s1_chipselect -> start:chipselect
 	wire    [31:0] mm_interconnect_0_start_s1_readdata;              // start:readdata -> mm_interconnect_0:start_s1_readdata
@@ -176,17 +180,18 @@ module qsys_top (
 	wire           mm_interconnect_0_reset_pio_s1_write;             // mm_interconnect_0:reset_pio_s1_write -> reset_pio:write_n
 	wire    [31:0] mm_interconnect_0_reset_pio_s1_writedata;         // mm_interconnect_0:reset_pio_s1_writedata -> reset_pio:writedata
 	wire           mm_interconnect_0_onchip_memory2_1_s1_chipselect; // mm_interconnect_0:onchip_memory2_1_s1_chipselect -> onchip_memory2_1:chipselect
-	wire     [7:0] mm_interconnect_0_onchip_memory2_1_s1_readdata;   // onchip_memory2_1:readdata -> mm_interconnect_0:onchip_memory2_1_s1_readdata
-	wire    [11:0] mm_interconnect_0_onchip_memory2_1_s1_address;    // mm_interconnect_0:onchip_memory2_1_s1_address -> onchip_memory2_1:address
+	wire    [15:0] mm_interconnect_0_onchip_memory2_1_s1_readdata;   // onchip_memory2_1:readdata -> mm_interconnect_0:onchip_memory2_1_s1_readdata
+	wire    [10:0] mm_interconnect_0_onchip_memory2_1_s1_address;    // mm_interconnect_0:onchip_memory2_1_s1_address -> onchip_memory2_1:address
+	wire     [1:0] mm_interconnect_0_onchip_memory2_1_s1_byteenable; // mm_interconnect_0:onchip_memory2_1_s1_byteenable -> onchip_memory2_1:byteenable
 	wire           mm_interconnect_0_onchip_memory2_1_s1_write;      // mm_interconnect_0:onchip_memory2_1_s1_write -> onchip_memory2_1:write
-	wire     [7:0] mm_interconnect_0_onchip_memory2_1_s1_writedata;  // mm_interconnect_0:onchip_memory2_1_s1_writedata -> onchip_memory2_1:writedata
+	wire    [15:0] mm_interconnect_0_onchip_memory2_1_s1_writedata;  // mm_interconnect_0:onchip_memory2_1_s1_writedata -> onchip_memory2_1:writedata
 	wire           mm_interconnect_0_onchip_memory2_1_s1_clken;      // mm_interconnect_0:onchip_memory2_1_s1_clken -> onchip_memory2_1:clken
 	wire           rst_controller_reset_out_reset;                   // rst_controller:reset_out -> [a10_hps:f2h_axi_rst, a10_hps:f2s_sdram0_rst, a10_hps:f2s_sdram2_rst, a10_hps:h2f_axi_rst, a10_hps:h2f_lw_axi_rst, mm_interconnect_0:a10_hps_h2f_lw_axi_reset_reset_bridge_in_reset_reset, rst_bdg:in_reset]
 	wire           a10_hps_h2f_reset_reset;                          // a10_hps:h2f_rst_n -> rst_controller:reset_in0
 	wire           rst_controller_001_reset_out_reset;               // rst_controller_001:reset_out -> [completed:reset_n, mm_interconnect_0:num1_reset_reset_bridge_in_reset_reset, num1:reset_n, num2:reset_n, onchip_memory2_0:reset, onchip_memory2_0:reset2, onchip_memory2_1:reset, onchip_memory2_1:reset2, reset_pio:reset_n, result:reset_n, rst_translator:in_reset, start:reset_n]
 	wire           rst_controller_001_reset_out_reset_req;           // rst_controller_001:reset_req -> [onchip_memory2_0:reset_req, onchip_memory2_0:reset_req2, onchip_memory2_1:reset_req, onchip_memory2_1:reset_req2, rst_translator:reset_req_in]
 
-	qsys_top_altera_arria10_hps_181_oh55mga #(
+	qsys_top_altera_arria10_hps_181_wbeohja #(
 		.F2S_Width (6),
 		.S2F_Width (4)
 	) a10_hps (
@@ -452,8 +457,9 @@ module qsys_top (
 	);
 
 	qsys_top_clock_bridge_0 clock_bridge_0 (
-		.in_clk  (iopll_0_outclk0_clk),        //   input,  width = 1,  in_clk.clk
-		.out_clk (clock_bridge_0_out_clk_clk)  //  output,  width = 1, out_clk.clk
+		.in_clk    (iopll_0_outclk0_clk),        //   input,  width = 1,    in_clk.clk
+		.out_clk   (clock_bridge_0_out_clk_clk), //  output,  width = 1,   out_clk.clk
+		.out_clk_1 (pll_clk_clk)                 //  output,  width = 1, out_clk_1.clk
 	);
 
 	qsys_top_pio_1 completed (
@@ -493,9 +499,8 @@ module qsys_top (
 	qsys_top_iopll_0 iopll_0 (
 		.rst      (~rst_in_out_reset_reset), //   input,  width = 1,   reset.reset
 		.refclk   (iopll_0_refclk_clk),      //   input,  width = 1,  refclk.clk
-		.locked   (),                        //  output,  width = 1,  locked.export
-		.outclk_0 (iopll_0_outclk0_clk),     //  output,  width = 1, outclk0.clk
-		.outclk_1 (iopll_0_outclk1_clk)      //  output,  width = 1, outclk1.clk
+		.locked   (iopll_0_locked_export),   //  output,  width = 1,  locked.export
+		.outclk_0 (iopll_0_outclk0_clk)      //  output,  width = 1, outclk0.clk
 	);
 
 	num1 num1 (
@@ -522,20 +527,22 @@ module qsys_top (
 
 	qsys_top_onchip_memory2_0 onchip_memory2_0 (
 		.clk         (clock_bridge_0_out_clk_clk),                       //   input,   width = 1,   clk1.clk
-		.address     (mm_interconnect_0_onchip_memory2_0_s1_address),    //   input,  width = 12,     s1.address
+		.address     (mm_interconnect_0_onchip_memory2_0_s1_address),    //   input,  width = 11,     s1.address
 		.clken       (mm_interconnect_0_onchip_memory2_0_s1_clken),      //   input,   width = 1,       .clken
 		.chipselect  (mm_interconnect_0_onchip_memory2_0_s1_chipselect), //   input,   width = 1,       .chipselect
 		.write       (mm_interconnect_0_onchip_memory2_0_s1_write),      //   input,   width = 1,       .write
-		.readdata    (mm_interconnect_0_onchip_memory2_0_s1_readdata),   //  output,   width = 8,       .readdata
-		.writedata   (mm_interconnect_0_onchip_memory2_0_s1_writedata),  //   input,   width = 8,       .writedata
+		.readdata    (mm_interconnect_0_onchip_memory2_0_s1_readdata),   //  output,  width = 16,       .readdata
+		.writedata   (mm_interconnect_0_onchip_memory2_0_s1_writedata),  //   input,  width = 16,       .writedata
+		.byteenable  (mm_interconnect_0_onchip_memory2_0_s1_byteenable), //   input,   width = 2,       .byteenable
 		.reset       (rst_controller_001_reset_out_reset),               //   input,   width = 1, reset1.reset
 		.reset_req   (rst_controller_001_reset_out_reset_req),           //   input,   width = 1,       .reset_req
-		.address2    (onchip_memory2_0_s2_address),                      //   input,  width = 12,     s2.address
+		.address2    (onchip_memory2_0_s2_address),                      //   input,  width = 11,     s2.address
 		.chipselect2 (onchip_memory2_0_s2_chipselect),                   //   input,   width = 1,       .chipselect
 		.clken2      (onchip_memory2_0_s2_clken),                        //   input,   width = 1,       .clken
 		.write2      (onchip_memory2_0_s2_write),                        //   input,   width = 1,       .write
-		.readdata2   (onchip_memory2_0_s2_readdata),                     //  output,   width = 8,       .readdata
-		.writedata2  (onchip_memory2_0_s2_writedata),                    //   input,   width = 8,       .writedata
+		.readdata2   (onchip_memory2_0_s2_readdata),                     //  output,  width = 16,       .readdata
+		.writedata2  (onchip_memory2_0_s2_writedata),                    //   input,  width = 16,       .writedata
+		.byteenable2 (onchip_memory2_0_s2_byteenable),                   //   input,   width = 2,       .byteenable
 		.clk2        (clock_bridge_0_out_clk_clk),                       //   input,   width = 1,   clk2.clk
 		.reset2      (rst_controller_001_reset_out_reset),               //   input,   width = 1, reset2.reset
 		.reset_req2  (rst_controller_001_reset_out_reset_req)            //   input,   width = 1,       .reset_req
@@ -543,20 +550,22 @@ module qsys_top (
 
 	qsys_top_onchip_memory2_1 onchip_memory2_1 (
 		.clk         (clock_bridge_0_out_clk_clk),                       //   input,   width = 1,   clk1.clk
-		.address     (mm_interconnect_0_onchip_memory2_1_s1_address),    //   input,  width = 12,     s1.address
+		.address     (mm_interconnect_0_onchip_memory2_1_s1_address),    //   input,  width = 11,     s1.address
 		.clken       (mm_interconnect_0_onchip_memory2_1_s1_clken),      //   input,   width = 1,       .clken
 		.chipselect  (mm_interconnect_0_onchip_memory2_1_s1_chipselect), //   input,   width = 1,       .chipselect
 		.write       (mm_interconnect_0_onchip_memory2_1_s1_write),      //   input,   width = 1,       .write
-		.readdata    (mm_interconnect_0_onchip_memory2_1_s1_readdata),   //  output,   width = 8,       .readdata
-		.writedata   (mm_interconnect_0_onchip_memory2_1_s1_writedata),  //   input,   width = 8,       .writedata
+		.readdata    (mm_interconnect_0_onchip_memory2_1_s1_readdata),   //  output,  width = 16,       .readdata
+		.writedata   (mm_interconnect_0_onchip_memory2_1_s1_writedata),  //   input,  width = 16,       .writedata
+		.byteenable  (mm_interconnect_0_onchip_memory2_1_s1_byteenable), //   input,   width = 2,       .byteenable
 		.reset       (rst_controller_001_reset_out_reset),               //   input,   width = 1, reset1.reset
 		.reset_req   (rst_controller_001_reset_out_reset_req),           //   input,   width = 1,       .reset_req
-		.address2    (onchip_memory2_1_s2_address),                      //   input,  width = 12,     s2.address
+		.address2    (onchip_memory2_1_s2_address),                      //   input,  width = 11,     s2.address
 		.chipselect2 (onchip_memory2_1_s2_chipselect),                   //   input,   width = 1,       .chipselect
 		.clken2      (onchip_memory2_1_s2_clken),                        //   input,   width = 1,       .clken
 		.write2      (onchip_memory2_1_s2_write),                        //   input,   width = 1,       .write
-		.readdata2   (onchip_memory2_1_s2_readdata),                     //  output,   width = 8,       .readdata
-		.writedata2  (onchip_memory2_1_s2_writedata),                    //   input,   width = 8,       .writedata
+		.readdata2   (onchip_memory2_1_s2_readdata),                     //  output,  width = 16,       .readdata
+		.writedata2  (onchip_memory2_1_s2_writedata),                    //   input,  width = 16,       .writedata
+		.byteenable2 (onchip_memory2_1_s2_byteenable),                   //   input,   width = 2,       .byteenable
 		.clk2        (clock_bridge_0_out_clk_clk),                       //   input,   width = 1,   clk2.clk
 		.reset2      (rst_controller_001_reset_out_reset),               //   input,   width = 1, reset2.reset
 		.reset_req2  (rst_controller_001_reset_out_reset_req)            //   input,   width = 1,       .reset_req
@@ -604,7 +613,7 @@ module qsys_top (
 		.out_port   (start_external_connection_export)       //  output,   width = 1, external_connection.export
 	);
 
-	qsys_top_altera_mm_interconnect_181_ko3tysi mm_interconnect_0 (
+	qsys_top_altera_mm_interconnect_181_55qei4a mm_interconnect_0 (
 		.num1_s1_address                                      (mm_interconnect_0_num1_s1_address),                //  output,   width = 2,                                        num1_s1.address
 		.num1_s1_write                                        (mm_interconnect_0_num1_s1_write),                  //  output,   width = 1,                                               .write
 		.num1_s1_readdata                                     (mm_interconnect_0_num1_s1_readdata),               //   input,  width = 32,                                               .readdata
@@ -617,10 +626,11 @@ module qsys_top (
 		.num2_s1_chipselect                                   (mm_interconnect_0_num2_s1_chipselect),             //  output,   width = 1,                                               .chipselect
 		.result_s1_address                                    (mm_interconnect_0_result_s1_address),              //  output,   width = 2,                                      result_s1.address
 		.result_s1_readdata                                   (mm_interconnect_0_result_s1_readdata),             //   input,  width = 32,                                               .readdata
-		.onchip_memory2_0_s1_address                          (mm_interconnect_0_onchip_memory2_0_s1_address),    //  output,  width = 12,                            onchip_memory2_0_s1.address
+		.onchip_memory2_0_s1_address                          (mm_interconnect_0_onchip_memory2_0_s1_address),    //  output,  width = 11,                            onchip_memory2_0_s1.address
 		.onchip_memory2_0_s1_write                            (mm_interconnect_0_onchip_memory2_0_s1_write),      //  output,   width = 1,                                               .write
-		.onchip_memory2_0_s1_readdata                         (mm_interconnect_0_onchip_memory2_0_s1_readdata),   //   input,   width = 8,                                               .readdata
-		.onchip_memory2_0_s1_writedata                        (mm_interconnect_0_onchip_memory2_0_s1_writedata),  //  output,   width = 8,                                               .writedata
+		.onchip_memory2_0_s1_readdata                         (mm_interconnect_0_onchip_memory2_0_s1_readdata),   //   input,  width = 16,                                               .readdata
+		.onchip_memory2_0_s1_writedata                        (mm_interconnect_0_onchip_memory2_0_s1_writedata),  //  output,  width = 16,                                               .writedata
+		.onchip_memory2_0_s1_byteenable                       (mm_interconnect_0_onchip_memory2_0_s1_byteenable), //  output,   width = 2,                                               .byteenable
 		.onchip_memory2_0_s1_chipselect                       (mm_interconnect_0_onchip_memory2_0_s1_chipselect), //  output,   width = 1,                                               .chipselect
 		.onchip_memory2_0_s1_clken                            (mm_interconnect_0_onchip_memory2_0_s1_clken),      //  output,   width = 1,                                               .clken
 		.start_s1_address                                     (mm_interconnect_0_start_s1_address),               //  output,   width = 2,                                       start_s1.address
@@ -635,10 +645,11 @@ module qsys_top (
 		.reset_pio_s1_readdata                                (mm_interconnect_0_reset_pio_s1_readdata),          //   input,  width = 32,                                               .readdata
 		.reset_pio_s1_writedata                               (mm_interconnect_0_reset_pio_s1_writedata),         //  output,  width = 32,                                               .writedata
 		.reset_pio_s1_chipselect                              (mm_interconnect_0_reset_pio_s1_chipselect),        //  output,   width = 1,                                               .chipselect
-		.onchip_memory2_1_s1_address                          (mm_interconnect_0_onchip_memory2_1_s1_address),    //  output,  width = 12,                            onchip_memory2_1_s1.address
+		.onchip_memory2_1_s1_address                          (mm_interconnect_0_onchip_memory2_1_s1_address),    //  output,  width = 11,                            onchip_memory2_1_s1.address
 		.onchip_memory2_1_s1_write                            (mm_interconnect_0_onchip_memory2_1_s1_write),      //  output,   width = 1,                                               .write
-		.onchip_memory2_1_s1_readdata                         (mm_interconnect_0_onchip_memory2_1_s1_readdata),   //   input,   width = 8,                                               .readdata
-		.onchip_memory2_1_s1_writedata                        (mm_interconnect_0_onchip_memory2_1_s1_writedata),  //  output,   width = 8,                                               .writedata
+		.onchip_memory2_1_s1_readdata                         (mm_interconnect_0_onchip_memory2_1_s1_readdata),   //   input,  width = 16,                                               .readdata
+		.onchip_memory2_1_s1_writedata                        (mm_interconnect_0_onchip_memory2_1_s1_writedata),  //  output,  width = 16,                                               .writedata
+		.onchip_memory2_1_s1_byteenable                       (mm_interconnect_0_onchip_memory2_1_s1_byteenable), //  output,   width = 2,                                               .byteenable
 		.onchip_memory2_1_s1_chipselect                       (mm_interconnect_0_onchip_memory2_1_s1_chipselect), //  output,   width = 1,                                               .chipselect
 		.onchip_memory2_1_s1_clken                            (mm_interconnect_0_onchip_memory2_1_s1_clken),      //  output,   width = 1,                                               .clken
 		.a10_hps_h2f_lw_axi_master_awid                       (a10_hps_h2f_lw_axi_master_awid),                   //   input,   width = 4,                      a10_hps_h2f_lw_axi_master.awid

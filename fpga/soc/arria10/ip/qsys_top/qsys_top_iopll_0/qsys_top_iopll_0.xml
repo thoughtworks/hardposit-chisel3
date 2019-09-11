@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2019.08.30.15:52:16"
+ date="2019.09.06.15:03:34"
  outputDirectory="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_iopll_0/">
  <perimeter>
   <parameter
@@ -70,19 +70,11 @@
   </interface>
   <interface name="outclk0" kind="clock" start="1">
    <property name="associatedDirectClock" value="" />
-   <property name="clockRate" value="150000000" />
+   <property name="clockRate" value="100000000" />
    <property name="clockRateKnown" value="true" />
    <property name="externallyDriven" value="false" />
    <property name="ptfSchematicName" value="" />
    <port name="outclk_0" direction="output" role="clk" width="1" />
-  </interface>
-  <interface name="outclk1" kind="clock" start="1">
-   <property name="associatedDirectClock" value="" />
-   <property name="clockRate" value="150000000" />
-   <property name="clockRateKnown" value="true" />
-   <property name="externallyDriven" value="false" />
-   <property name="ptfSchematicName" value="" />
-   <port name="outclk_1" direction="output" role="clk" width="1" />
   </interface>
  </perimeter>
  <entity kind="qsys_top_iopll_0" version="1.0" name="qsys_top_iopll_0">
@@ -114,17 +106,17 @@
   </childSourceFiles>
   <messages>
    <message level="Info" culprit="qsys_top_iopll_0">"Generating: qsys_top_iopll_0"</message>
-   <message level="Info" culprit="qsys_top_iopll_0">"Generating: qsys_top_iopll_0_altera_iopll_181_5mz4foa"</message>
-   <message level="Debug" culprit="iopll_0">IN HDL WRAP: reset refclk locked outclk0 outclk1</message>
+   <message level="Info" culprit="qsys_top_iopll_0">"Generating: qsys_top_iopll_0_altera_iopll_181_wygntwy"</message>
+   <message level="Debug" culprit="iopll_0">IN HDL WRAP: reset refclk locked outclk0</message>
    <message level="Debug" culprit="iopll_0">--hdl_params: c_cnt_bypass_en0 c_cnt_bypass_en1 c_cnt_bypass_en2 c_cnt_bypass_en3 c_cnt_bypass_en4 c_cnt_bypass_en5 c_cnt_bypass_en6 c_cnt_bypass_en7 c_cnt_bypass_en8 c_cnt_hi_div0 c_cnt_hi_div1 c_cnt_hi_div2 c_cnt_hi_div3 c_cnt_hi_div4 c_cnt_hi_div5 c_cnt_hi_div6 c_cnt_hi_div7 c_cnt_hi_div8 c_cnt_in_src0 c_cnt_in_src1 c_cnt_in_src2 c_cnt_in_src3 c_cnt_in_src4 c_cnt_in_src5 c_cnt_in_src6 c_cnt_in_src7 c_cnt_in_src8 c_cnt_lo_div0 c_cnt_lo_div1 c_cnt_lo_div2 c_cnt_lo_div3 c_cnt_lo_div4 c_cnt_lo_div5 c_cnt_lo_div6 c_cnt_lo_div7 c_cnt_lo_div8 c_cnt_odd_div_duty_en0 c_cnt_odd_div_duty_en1 c_cnt_odd_div_duty_en2 c_cnt_odd_div_duty_en3 c_cnt_odd_div_duty_en4 c_cnt_odd_div_duty_en5 c_cnt_odd_div_duty_en6 c_cnt_odd_div_duty_en7 c_cnt_odd_div_duty_en8 c_cnt_ph_mux_prst0 c_cnt_ph_mux_prst1 c_cnt_ph_mux_prst2 c_cnt_ph_mux_prst3 c_cnt_ph_mux_prst4 c_cnt_ph_mux_prst5 c_cnt_ph_mux_prst6 c_cnt_ph_mux_prst7 c_cnt_ph_mux_prst8 c_cnt_prst0 c_cnt_prst1 c_cnt_prst2 c_cnt_prst3 c_cnt_prst4 c_cnt_prst5 c_cnt_prst6 c_cnt_prst7 c_cnt_prst8 clock_name_0 clock_name_1 clock_name_2 clock_name_3 clock_name_4 clock_name_5 clock_name_6 clock_name_7 clock_name_8 clock_name_global_0 clock_name_global_1 clock_name_global_2 clock_name_global_3 clock_name_global_4 clock_name_global_5 clock_name_global_6 clock_name_global_7 clock_name_global_8 duty_cycle0 duty_cycle1 duty_cycle2 duty_cycle3 duty_cycle4 duty_cycle5 duty_cycle6 duty_cycle7 duty_cycle8 m_cnt_bypass_en m_cnt_hi_div m_cnt_lo_div m_cnt_odd_div_duty_en n_cnt_bypass_en n_cnt_hi_div n_cnt_lo_div n_cnt_odd_div_duty_en number_of_clocks operation_mode output_clock_frequency0 output_clock_frequency1 output_clock_frequency2 output_clock_frequency3 output_clock_frequency4 output_clock_frequency5 output_clock_frequency6 output_clock_frequency7 output_clock_frequency8 phase_shift0 phase_shift1 phase_shift2 phase_shift3 phase_shift4 phase_shift5 phase_shift6 phase_shift7 phase_shift8 pll_bw_sel pll_bwctrl pll_cp_current pll_extclk_0_cnt_src pll_extclk_1_cnt_src pll_fbclk_mux_1 pll_fbclk_mux_2 pll_m_cnt_in_src pll_output_clk_frequency pll_slf_rst pll_subtype pll_type prot_mode reference_clock_frequency</message>
    <message level="Debug" culprit="iopll_0">altera_pll_ports ports: refclk1 {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} rst {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} fbclk {DIRECT_MAPPING false MAPPING_FUNCTION map_fbclk_port TIE_OFF {}} fboutclk {DIRECT_MAPPING false MAPPING_FUNCTION map_fboutclk_port TIE_OFF {}} zdbfbclk {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} locked {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} loaden {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} phase_done {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} reconfig_to_pll {DIRECT_MAPPING false MAPPING_FUNCTION map_reconfig_to_port TIE_OFF {}} refclk {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} scanclk {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} phout {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} num_phase_shifts {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 3'b0} cntsel {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 5'b0} clkbad {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} extclk_out {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} lvds_clk {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} outclk {DIRECT_MAPPING false MAPPING_FUNCTION map_outclk_port TIE_OFF {}} phase_en {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} extswitch {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} cascade_out {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} activeclk {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} adjpllin {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} updn {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} reconfig_from_pll {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }}</message>
-   <message level="Debug" culprit="iopll_0">module ports: rst refclk locked outclk_0 outclk_1</message>
+   <message level="Debug" culprit="iopll_0">module ports: rst refclk locked outclk_0</message>
   </messages>
  </entity>
  <entity
    kind="altera_iopll"
    version="18.1"
-   name="qsys_top_iopll_0_altera_iopll_181_5mz4foa">
+   name="qsys_top_iopll_0_altera_iopll_181_wygntwy">
   <parameter name="gui_clock_name_string12" value="outclk12" />
   <parameter name="hp_actual_phase_shift_fp5" value="0.0" />
   <parameter name="gui_clock_name_string11" value="outclk11" />
@@ -245,12 +237,10 @@
   <parameter name="gui_actual_phase_shift_range2" value="0.0" />
   <parameter name="system_part_trait_speed_grade" value="2" />
   <parameter name="gui_feedback_clock" value="Global Clock" />
-  <parameter
-     name="gui_actual_phase_shift_range1"
-     value="0.0,92.6,104.2,119.0,138.9,166.7" />
+  <parameter name="gui_actual_phase_shift_range1" value="0.0" />
   <parameter
      name="gui_actual_phase_shift_range0"
-     value="0.0,92.6,104.2,119.0,138.9,166.7" />
+     value="0.0,89.3,96.2,104.2,113.6,125.0" />
   <parameter name="gui_pll_m_cnt_in_src" value="c_m_cnt_in_src_ph_mux_clk" />
   <parameter name="gui_mif_config_name" value="unnamed" />
   <parameter name="gui_actual_phase_shift_range9" value="0.0" />
@@ -388,8 +378,8 @@
   <parameter name="gui_actual_duty_cycle_range14" value="50.0" />
   <parameter name="pll_type" value="Arria 10" />
   <parameter name="gui_actual_duty_cycle_range10" value="50.0" />
-  <parameter name="gui_actual_output_clock_frequency1" value="150.0" />
-  <parameter name="gui_actual_output_clock_frequency0" value="150.0" />
+  <parameter name="gui_actual_output_clock_frequency1" value="100.0" />
+  <parameter name="gui_actual_output_clock_frequency0" value="100.0" />
   <parameter name="gui_actual_phase_shift0" value="0.0" />
   <parameter name="gui_actual_phase_shift_deg_range12" value="0.0" />
   <parameter name="gui_actual_phase_shift_deg_range11" value="0.0" />
@@ -437,7 +427,7 @@
   <parameter name="gui_phase_shift_deg3" value="0.0" />
   <parameter name="gui_phase_shift_deg4" value="0.0" />
   <parameter name="gui_phase_shift_deg1" value="0.0" />
-  <parameter name="gui_output_clock_frequency_ps0" value="6666.667" />
+  <parameter name="gui_output_clock_frequency_ps0" value="10000.0" />
   <parameter name="gui_phase_shift_deg2" value="0.0" />
   <parameter name="gui_actual_phase_shift_deg15" value="0.0" />
   <parameter name="gui_actual_phase_shift_deg16" value="0.0" />
@@ -464,16 +454,14 @@
   <parameter name="gui_actual_phase_shift_deg_range3" value="0.0" />
   <parameter name="parameter_table_hex_file" value="seq_params_sim.hex" />
   <parameter name="gui_actual_phase_shift_deg_range2" value="0.0" />
-  <parameter
-     name="gui_actual_phase_shift_deg_range1"
-     value="0.0,5.0,5.6,6.4,7.5,9.0" />
+  <parameter name="gui_actual_phase_shift_deg_range1" value="0.0" />
   <parameter
      name="mifTable_names"
      value="The MIF file specified does not yet exist" />
   <parameter
      name="gui_actual_phase_shift_deg_range0"
-     value="0.0,5.0,5.6,6.4,7.5,9.0" />
-  <parameter name="gui_number_of_clocks" value="2" />
+     value="0.0,3.2,3.5,3.8,4.1,4.5" />
+  <parameter name="gui_number_of_clocks" value="1" />
   <parameter name="gui_actual_phase_shift_deg_range9" value="0.0" />
   <parameter name="c_cnt_hi_div10" value="1" />
   <parameter name="gui_actual_phase_shift_deg_range8" value="0.0" />
@@ -498,7 +486,7 @@
   <parameter name="gui_c_cnt_in_src2" value="c_m_cnt_in_src_ph_mux_clk" />
   <parameter name="gui_clk_bad" value="false" />
   <parameter name="gui_c_cnt_in_src3" value="c_m_cnt_in_src_ph_mux_clk" />
-  <parameter name="gui_output_clock_frequency0" value="150.0" />
+  <parameter name="gui_output_clock_frequency0" value="100.0" />
   <parameter name="multiply_factor" value="6" />
   <parameter name="gui_actual_phase_shift_range15" value="0.0" />
   <parameter name="output_clock_frequency10" value="0 MHz" />
@@ -582,8 +570,8 @@
   <parameter name="hp_actual_output_clock_frequency_fp5" value="100.0" />
   <parameter name="gui_pll_cal_done" value="false" />
   <parameter name="hp_actual_output_clock_frequency_fp4" value="100.0" />
-  <parameter name="hp_actual_output_clock_frequency_fp1" value="150.0" />
-  <parameter name="hp_actual_output_clock_frequency_fp0" value="150.0" />
+  <parameter name="hp_actual_output_clock_frequency_fp1" value="100.0" />
+  <parameter name="hp_actual_output_clock_frequency_fp0" value="100.0" />
   <parameter name="pll_defer_cal_user_mode" value="true" />
   <parameter name="gui_extclkout_0_source" value="C0" />
   <parameter name="gui_actual_output_clock_frequency_range4" value="100.0" />
@@ -594,14 +582,12 @@
   <parameter name="refclk1_frequency" value="100.0 MHz" />
   <parameter
      name="gui_actual_output_clock_frequency_range0"
-     value="148.979592,149.206349,149.382716,150.0,150.617284,150.793651" />
-  <parameter
-     name="gui_actual_output_clock_frequency_range1"
-     value="131.25,133.333333,135.0,150.0,168.75,171.428571" />
+     value="99.206349,99.230769,99.285714,100.0,100.714286,100.769231" />
+  <parameter name="gui_actual_output_clock_frequency_range1" value="100.0" />
   <parameter name="gui_actual_output_clock_frequency_range2" value="100.0" />
   <parameter name="gui_actual_output_clock_frequency_range3" value="100.0" />
   <parameter name="gui_actual_output_clock_frequency_range8" value="100.0" />
-  <parameter name="clock_name_1" value="outclk1" />
+  <parameter name="clock_name_1" value="" />
   <parameter name="gui_actual_output_clock_frequency_range9" value="100.0" />
   <parameter name="clock_name_2" value="" />
   <parameter name="clock_name_0" value="outclk0" />
@@ -627,9 +613,9 @@
   <parameter name="gui_output_clock_frequency14" value="100.0" />
   <parameter name="gui_output_clock_frequency15" value="100.0" />
   <parameter name="mifTable_values" value="" />
-  <parameter name="c_cnt_hi_div0" value="2" />
+  <parameter name="c_cnt_hi_div0" value="3" />
   <parameter name="clock_name_global_0" value="false" />
-  <parameter name="c_cnt_hi_div1" value="2" />
+  <parameter name="c_cnt_hi_div1" value="256" />
   <parameter name="c_cnt_hi_div2" value="256" />
   <parameter name="c_cnt_hi_div3" value="256" />
   <parameter name="c_cnt_hi_div4" value="256" />
@@ -743,15 +729,15 @@
   <parameter name="c_cnt_lo_div4" value="256" />
   <parameter name="pll_vco_freq_band_0" value="pll_freq_clk0_disabled" />
   <parameter name="hp_actual_phase_shift_fp17" value="0.0" />
-  <parameter name="c_cnt_lo_div1" value="2" />
+  <parameter name="c_cnt_lo_div1" value="256" />
   <parameter name="c_cnt_lo_div2" value="256" />
-  <parameter name="c_cnt_lo_div0" value="2" />
+  <parameter name="c_cnt_lo_div0" value="3" />
   <parameter name="hp_actual_phase_shift_fp10" value="0.0" />
   <parameter name="hp_actual_phase_shift_fp11" value="0.0" />
   <parameter name="hp_actual_phase_shift_fp12" value="0.0" />
   <parameter
      name="parameterTable_values"
-     value="6,1,600.0 MHz,4,4,1,1,1,1,1,1,1,false,3,3,false,false,256,256,false,true,2,2,256,256,256,256,256,256,256,2,2,256,256,256,256,256,256,256,false,false,false,false,false,false,false,false,false,false,false,true,true,true,true,true,true,true,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,pll_cp_setting14,pll_bw_res_setting3" />
+     value="6,1,600.0 MHz,6,1,1,1,1,1,1,1,1,false,3,3,false,false,256,256,false,true,3,256,256,256,256,256,256,256,256,3,256,256,256,256,256,256,256,256,false,false,false,false,false,false,false,false,false,false,true,true,true,true,true,true,true,true,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,pll_cp_setting14,pll_bw_res_setting3" />
   <parameter name="hp_actual_phase_shift_fp13" value="0.0" />
   <parameter name="pll_cp_current" value="pll_cp_setting14" />
   <parameter name="gui_usr_device_speed_grade" value="1" />
@@ -760,7 +746,7 @@
   <parameter name="gui_duty_cycle10" value="50.0" />
   <parameter name="gui_duty_cycle13" value="50.0" />
   <parameter name="gui_duty_cycle12" value="50.0" />
-  <parameter name="number_of_outclks" value="2" />
+  <parameter name="number_of_outclks" value="1" />
   <parameter name="gui_duty_cycle15" value="50.0" />
   <parameter name="gui_dps_dir" value="Positive" />
   <parameter name="gui_duty_cycle14" value="50.0" />
@@ -809,16 +795,14 @@
   <parameter name="phase_shift6" value="0 ps" />
   <parameter name="phase_shift9" value="0 ps" />
   <parameter name="phase_shift8" value="0 ps" />
-  <parameter name="number_of_clocks" value="2" />
+  <parameter name="number_of_clocks" value="1" />
   <parameter name="n_cnt_hi_div" value="256" />
   <parameter name="gui_actual_duty_cycle_range2" value="50.0" />
   <parameter name="gui_actual_duty_cycle_range3" value="50.0" />
   <parameter
      name="gui_actual_duty_cycle_range0"
-     value="42.86,43.75,44.44,50.0,55.56,56.25" />
-  <parameter
-     name="gui_actual_duty_cycle_range1"
-     value="42.86,43.75,44.44,50.0,55.56,56.25" />
+     value="45.83,46.15,46.43,50.0,53.57,53.85" />
+  <parameter name="gui_actual_duty_cycle_range1" value="50.0" />
   <parameter name="hp_qsys_scripting_mode" value="false" />
   <parameter name="gui_actual_duty_cycle_range6" value="50.0" />
   <parameter name="gui_actual_duty_cycle_range7" value="50.0" />
@@ -853,7 +837,7 @@
   <parameter name="operation_mode" value="direct" />
   <parameter name="c_cnt_odd_div_duty_en16" value="false" />
   <parameter name="c_cnt_odd_div_duty_en15" value="false" />
-  <parameter name="output_clock_frequency0" value="150.0 MHz" />
+  <parameter name="output_clock_frequency0" value="100.0 MHz" />
   <parameter name="c_cnt_odd_div_duty_en14" value="false" />
   <parameter name="c_cnt_odd_div_duty_en13" value="false" />
   <parameter name="gui_cascade_counter4" value="false" />
@@ -864,7 +848,7 @@
   <parameter name="output_clock_frequency4" value="0 ps" />
   <parameter name="gui_cascade_counter2" value="false" />
   <parameter name="c_cnt_odd_div_duty_en10" value="false" />
-  <parameter name="output_clock_frequency1" value="150.0 MHz" />
+  <parameter name="output_clock_frequency1" value="0 ps" />
   <parameter name="gui_cascade_counter1" value="false" />
   <parameter name="output_clock_frequency2" value="0 ps" />
   <parameter name="c_cnt_bypass_en6" value="true" />
@@ -873,7 +857,7 @@
   <parameter name="c_cnt_bypass_en9" value="true" />
   <parameter name="gui_fractional_cout" value="32" />
   <parameter name="c_cnt_bypass_en0" value="false" />
-  <parameter name="c_cnt_bypass_en1" value="false" />
+  <parameter name="c_cnt_bypass_en1" value="true" />
   <parameter name="c_cnt_bypass_en2" value="true" />
   <parameter name="gui_reference_clock_frequency" value="100.0" />
   <parameter name="c_cnt_bypass_en3" value="true" />
@@ -881,12 +865,12 @@
   <parameter name="c_cnt_bypass_en5" value="true" />
   <generatedFiles>
    <file
-       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_iopll_0/altera_iopll_181/synth/qsys_top_iopll_0_altera_iopll_181_5mz4foa.v"
+       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_iopll_0/altera_iopll_181/synth/qsys_top_iopll_0_altera_iopll_181_wygntwy.v"
        attributes="" />
   </generatedFiles>
   <childGeneratedFiles>
    <file
-       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_iopll_0/altera_iopll_181/synth/qsys_top_iopll_0_altera_iopll_181_5mz4foa.v"
+       path="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_iopll_0/altera_iopll_181/synth/qsys_top_iopll_0_altera_iopll_181_wygntwy.v"
        attributes="" />
   </childGeneratedFiles>
   <sourceFiles>
@@ -896,11 +880,11 @@
   <childSourceFiles/>
   <instantiator instantiator="qsys_top_iopll_0" as="iopll_0" />
   <messages>
-   <message level="Info" culprit="qsys_top_iopll_0">"Generating: qsys_top_iopll_0_altera_iopll_181_5mz4foa"</message>
-   <message level="Debug" culprit="iopll_0">IN HDL WRAP: reset refclk locked outclk0 outclk1</message>
+   <message level="Info" culprit="qsys_top_iopll_0">"Generating: qsys_top_iopll_0_altera_iopll_181_wygntwy"</message>
+   <message level="Debug" culprit="iopll_0">IN HDL WRAP: reset refclk locked outclk0</message>
    <message level="Debug" culprit="iopll_0">--hdl_params: c_cnt_bypass_en0 c_cnt_bypass_en1 c_cnt_bypass_en2 c_cnt_bypass_en3 c_cnt_bypass_en4 c_cnt_bypass_en5 c_cnt_bypass_en6 c_cnt_bypass_en7 c_cnt_bypass_en8 c_cnt_hi_div0 c_cnt_hi_div1 c_cnt_hi_div2 c_cnt_hi_div3 c_cnt_hi_div4 c_cnt_hi_div5 c_cnt_hi_div6 c_cnt_hi_div7 c_cnt_hi_div8 c_cnt_in_src0 c_cnt_in_src1 c_cnt_in_src2 c_cnt_in_src3 c_cnt_in_src4 c_cnt_in_src5 c_cnt_in_src6 c_cnt_in_src7 c_cnt_in_src8 c_cnt_lo_div0 c_cnt_lo_div1 c_cnt_lo_div2 c_cnt_lo_div3 c_cnt_lo_div4 c_cnt_lo_div5 c_cnt_lo_div6 c_cnt_lo_div7 c_cnt_lo_div8 c_cnt_odd_div_duty_en0 c_cnt_odd_div_duty_en1 c_cnt_odd_div_duty_en2 c_cnt_odd_div_duty_en3 c_cnt_odd_div_duty_en4 c_cnt_odd_div_duty_en5 c_cnt_odd_div_duty_en6 c_cnt_odd_div_duty_en7 c_cnt_odd_div_duty_en8 c_cnt_ph_mux_prst0 c_cnt_ph_mux_prst1 c_cnt_ph_mux_prst2 c_cnt_ph_mux_prst3 c_cnt_ph_mux_prst4 c_cnt_ph_mux_prst5 c_cnt_ph_mux_prst6 c_cnt_ph_mux_prst7 c_cnt_ph_mux_prst8 c_cnt_prst0 c_cnt_prst1 c_cnt_prst2 c_cnt_prst3 c_cnt_prst4 c_cnt_prst5 c_cnt_prst6 c_cnt_prst7 c_cnt_prst8 clock_name_0 clock_name_1 clock_name_2 clock_name_3 clock_name_4 clock_name_5 clock_name_6 clock_name_7 clock_name_8 clock_name_global_0 clock_name_global_1 clock_name_global_2 clock_name_global_3 clock_name_global_4 clock_name_global_5 clock_name_global_6 clock_name_global_7 clock_name_global_8 duty_cycle0 duty_cycle1 duty_cycle2 duty_cycle3 duty_cycle4 duty_cycle5 duty_cycle6 duty_cycle7 duty_cycle8 m_cnt_bypass_en m_cnt_hi_div m_cnt_lo_div m_cnt_odd_div_duty_en n_cnt_bypass_en n_cnt_hi_div n_cnt_lo_div n_cnt_odd_div_duty_en number_of_clocks operation_mode output_clock_frequency0 output_clock_frequency1 output_clock_frequency2 output_clock_frequency3 output_clock_frequency4 output_clock_frequency5 output_clock_frequency6 output_clock_frequency7 output_clock_frequency8 phase_shift0 phase_shift1 phase_shift2 phase_shift3 phase_shift4 phase_shift5 phase_shift6 phase_shift7 phase_shift8 pll_bw_sel pll_bwctrl pll_cp_current pll_extclk_0_cnt_src pll_extclk_1_cnt_src pll_fbclk_mux_1 pll_fbclk_mux_2 pll_m_cnt_in_src pll_output_clk_frequency pll_slf_rst pll_subtype pll_type prot_mode reference_clock_frequency</message>
    <message level="Debug" culprit="iopll_0">altera_pll_ports ports: refclk1 {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} rst {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} fbclk {DIRECT_MAPPING false MAPPING_FUNCTION map_fbclk_port TIE_OFF {}} fboutclk {DIRECT_MAPPING false MAPPING_FUNCTION map_fboutclk_port TIE_OFF {}} zdbfbclk {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} locked {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} loaden {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} phase_done {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} reconfig_to_pll {DIRECT_MAPPING false MAPPING_FUNCTION map_reconfig_to_port TIE_OFF {}} refclk {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} scanclk {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} phout {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} num_phase_shifts {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 3'b0} cntsel {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 5'b0} clkbad {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} extclk_out {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} lvds_clk {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} outclk {DIRECT_MAPPING false MAPPING_FUNCTION map_outclk_port TIE_OFF {}} phase_en {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} extswitch {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} cascade_out {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} activeclk {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }} adjpllin {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} updn {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF 1'b0} reconfig_from_pll {DIRECT_MAPPING true MAPPING_FUNCTION {} TIE_OFF { }}</message>
-   <message level="Debug" culprit="iopll_0">module ports: rst refclk locked outclk_0 outclk_1</message>
+   <message level="Debug" culprit="iopll_0">module ports: rst refclk locked outclk_0</message>
   </messages>
  </entity>
 </deploy>

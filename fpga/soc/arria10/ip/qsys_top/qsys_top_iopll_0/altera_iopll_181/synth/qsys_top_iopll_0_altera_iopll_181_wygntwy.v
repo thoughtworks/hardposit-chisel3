@@ -1,5 +1,5 @@
 `timescale 1ns/10ps
-module  qsys_top_iopll_0_altera_iopll_181_5mz4foa(
+module  qsys_top_iopll_0_altera_iopll_181_wygntwy(
 
 	// interface 'reset'
 	input wire rst,
@@ -11,17 +11,14 @@ module  qsys_top_iopll_0_altera_iopll_181_5mz4foa(
 	output wire locked,
 
 	// interface 'outclk0'
-	output wire outclk_0,
-
-	// interface 'outclk1'
-	output wire outclk_1
+	output wire outclk_0
 );
 
-    wire [6:0] unused_wires;
+    wire [7:0] unused_wires;
 
 	altera_iopll #(
 		.c_cnt_bypass_en0("false"),
-		.c_cnt_bypass_en1("false"),
+		.c_cnt_bypass_en1("true"),
 		.c_cnt_bypass_en2("true"),
 		.c_cnt_bypass_en3("true"),
 		.c_cnt_bypass_en4("true"),
@@ -29,8 +26,8 @@ module  qsys_top_iopll_0_altera_iopll_181_5mz4foa(
 		.c_cnt_bypass_en6("true"),
 		.c_cnt_bypass_en7("true"),
 		.c_cnt_bypass_en8("true"),
-		.c_cnt_hi_div0(2),
-		.c_cnt_hi_div1(2),
+		.c_cnt_hi_div0(3),
+		.c_cnt_hi_div1(256),
 		.c_cnt_hi_div2(256),
 		.c_cnt_hi_div3(256),
 		.c_cnt_hi_div4(256),
@@ -47,8 +44,8 @@ module  qsys_top_iopll_0_altera_iopll_181_5mz4foa(
 		.c_cnt_in_src6("c_m_cnt_in_src_ph_mux_clk"),
 		.c_cnt_in_src7("c_m_cnt_in_src_ph_mux_clk"),
 		.c_cnt_in_src8("c_m_cnt_in_src_ph_mux_clk"),
-		.c_cnt_lo_div0(2),
-		.c_cnt_lo_div1(2),
+		.c_cnt_lo_div0(3),
+		.c_cnt_lo_div1(256),
 		.c_cnt_lo_div2(256),
 		.c_cnt_lo_div3(256),
 		.c_cnt_lo_div4(256),
@@ -84,7 +81,7 @@ module  qsys_top_iopll_0_altera_iopll_181_5mz4foa(
 		.c_cnt_prst7(1),
 		.c_cnt_prst8(1),
 		.clock_name_0("outclk0"),
-		.clock_name_1("outclk1"),
+		.clock_name_1(""),
 		.clock_name_2(""),
 		.clock_name_3(""),
 		.clock_name_4(""),
@@ -118,10 +115,10 @@ module  qsys_top_iopll_0_altera_iopll_181_5mz4foa(
 		.n_cnt_hi_div(256),
 		.n_cnt_lo_div(256),
 		.n_cnt_odd_div_duty_en("false"),
-		.number_of_clocks(2),
+		.number_of_clocks(1),
 		.operation_mode("direct"),
-		.output_clock_frequency0("150.0 MHz"),
-		.output_clock_frequency1("150.0 MHz"),
+		.output_clock_frequency0("100.0 MHz"),
+		.output_clock_frequency1("0 ps"),
 		.output_clock_frequency2("0 ps"),
 		.output_clock_frequency3("0 ps"),
 		.output_clock_frequency4("0 ps"),
@@ -170,7 +167,7 @@ module  qsys_top_iopll_0_altera_iopll_181_5mz4foa(
 		.clkbad	( ),
 		.extclk_out	( ),
 		.lvds_clk	( ),
-		.outclk	({outclk_1, outclk_0}),
+		.outclk	({outclk_0}),
 		.phase_en	(1'b0),
 		.extswitch	(1'b0),
 		.cascade_out	( ),

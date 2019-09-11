@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2019.08.30.14:34:44"
+ date="2019.09.06.15:03:17"
  outputDirectory="/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_clock_bridge_0/">
  <perimeter>
   <parameter
@@ -59,11 +59,19 @@
   </interface>
   <interface name="out_clk" kind="clock" start="1">
    <property name="associatedDirectClock" value="in_clk" />
-   <property name="clockRate" value="150000000" />
+   <property name="clockRate" value="100000000" />
    <property name="clockRateKnown" value="true" />
    <property name="externallyDriven" value="false" />
    <property name="ptfSchematicName" value="" />
    <port name="out_clk" direction="output" role="clk" width="1" />
+  </interface>
+  <interface name="out_clk_1" kind="clock" start="1">
+   <property name="associatedDirectClock" value="in_clk" />
+   <property name="clockRate" value="100000000" />
+   <property name="clockRateKnown" value="true" />
+   <property name="externallyDriven" value="false" />
+   <property name="ptfSchematicName" value="" />
+   <port name="out_clk_1" direction="output" role="clk" width="1" />
   </interface>
  </perimeter>
  <entity
