@@ -23,7 +23,7 @@ class ExponentExtractor(totalBits: Int, es: Int) extends Module {
   })
 
   private val exponentCombinations1 = Array.range(1, es).reverse.map(index => {
-    (regimeLength === (maxBits - index).U) -> Cat(0.U((es-index).W), io.num(index - 1, 0))
+    (regimeLength === (maxBits - index).U) -> Cat(io.num(index - 1, 0),0.U((es-index).W))
   })
 
   io.totalLength := regimeLength + exponentLength

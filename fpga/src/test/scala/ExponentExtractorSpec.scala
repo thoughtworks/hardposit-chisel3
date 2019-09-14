@@ -35,13 +35,13 @@ class ExponentExtractorSpec extends FlatSpec with Matchers {
 
   it should "return the exponent only 1 bit even if es=2 as regime bits occupied the places" in {
     assert(test(8,2,0x7C,7,16))
-    assert(test(8,2,0x7D,7,17))
+    assert(test(8,2,0x7D,7,18))
   }
 
   it should "[redundant test just to confirm]return the exponent and exponent length as expected" in {
     assert(test(8,3,0x20,5,-8))
     assert(test(8,1,0x40,3,0))
-    assert(test(8,3,0x03,7,-39))
+    assert(test(8,3,0x03,7,-36))
     assert(test(8,3,0x01,7,-48))
   }
 }
