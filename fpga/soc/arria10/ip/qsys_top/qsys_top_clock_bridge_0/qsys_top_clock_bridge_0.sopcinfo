@@ -5,7 +5,7 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 222 (Future versions may contain additional information.) -->
- <!-- 2019.09.19.12:10:55 -->
+ <!-- 2019.09.19.13:31:03 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
@@ -118,7 +118,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="EXPLICIT_CLOCK_RATE">
    <type>long</type>
-   <value>125000000</value>
+   <value>130000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -223,7 +223,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="clockRate">
     <type>long</type>
-    <value>125000000</value>
+    <value>130000000</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -292,7 +292,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="clockRate">
     <type>long</type>
-    <value>125000000</value>
+    <value>130000000</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>

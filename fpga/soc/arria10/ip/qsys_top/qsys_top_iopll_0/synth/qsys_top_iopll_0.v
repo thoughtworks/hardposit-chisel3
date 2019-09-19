@@ -10,7 +10,7 @@ module qsys_top_iopll_0 (
 		output wire  outclk_0  // outclk0.clk
 	);
 
-	qsys_top_iopll_0_altera_iopll_181_6zm3xsi iopll_0 (
+	qsys_top_iopll_0_altera_iopll_181_f4koglq iopll_0 (
 		.rst      (rst),      //   input,  width = 1,   reset.reset
 		.refclk   (refclk),   //   input,  width = 1,  refclk.clk
 		.locked   (locked),   //  output,  width = 1,  locked.export
