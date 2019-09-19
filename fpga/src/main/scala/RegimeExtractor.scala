@@ -9,11 +9,11 @@ class RegimeExtractor(totalBits: Int) extends Module {
     val regime = Output(SInt((log2Ceil(totalBits) + 1).W))
   })
 
-  private val regimeMappongs = Array.range(0, totalBits - 1).reverse.map(index => {
+  private val regimeMappings = Array.range(0, totalBits - 1).reverse.map(index => {
     (!(io.num(index + 1) === io.num(index))) -> (totalBits - (index + 1)).U
   })
 
-  io.regimeLength := MuxCase(totalBits.U, regimeMappongs)
+  io.regimeLength := MuxCase(totalBits.U, regimeMappings)
 
   io.regime := Mux(io.num(totalBits - 1), io.regimeLength.asSInt() - 1.S, 0.S - io.regimeLength.asSInt())
 }
