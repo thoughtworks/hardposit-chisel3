@@ -212,7 +212,7 @@
                 <consumedSystemInfos>
                     <entry>
                         <key>ADDRESS_MAP</key>
-                        <value>&lt;address-map&gt;&lt;slave name='onchip_memory2_0.s2' start='0x0' end='0x1000' datawidth='16' /&gt;&lt;/address-map&gt;</value>
+                        <value>&lt;address-map&gt;&lt;slave name='onchip_memory2_0.s2' start='0x0' end='0x1000' datawidth='8' /&gt;&lt;/address-map&gt;</value>
                     </entry>
                     <entry>
                         <key>ADDRESS_WIDTH</key>
@@ -220,7 +220,7 @@
                     </entry>
                     <entry>
                         <key>MAX_SLAVE_DATA_WIDTH</key>
-                        <value>16</value>
+                        <value>8</value>
                     </entry>
                 </consumedSystemInfos>
             </value>
@@ -233,7 +233,7 @@
                 <consumedSystemInfos>
                     <entry>
                         <key>ADDRESS_MAP</key>
-                        <value>&lt;address-map&gt;&lt;slave name='onchip_memory2_1.s2' start='0x0' end='0x1000' datawidth='16' /&gt;&lt;/address-map&gt;</value>
+                        <value>&lt;address-map&gt;&lt;slave name='onchip_memory2_1.s2' start='0x0' end='0x1000' datawidth='8' /&gt;&lt;/address-map&gt;</value>
                     </entry>
                     <entry>
                         <key>ADDRESS_WIDTH</key>
@@ -241,7 +241,7 @@
                     </entry>
                     <entry>
                         <key>MAX_SLAVE_DATA_WIDTH</key>
-                        <value>16</value>
+                        <value>8</value>
                     </entry>
                 </consumedSystemInfos>
             </value>
@@ -254,7 +254,7 @@
                 <consumedSystemInfos>
                     <entry>
                         <key>CLOCK_RATE</key>
-                        <value>100000000</value>
+                        <value>125000000</value>
                     </entry>
                 </consumedSystemInfos>
             </value>
@@ -392,7 +392,7 @@
   <parameter name="EMAC_PTP_REF_CLK" value="100" />
   <parameter name="EMIF_BYPASS_CHECK" value="false" />
   <parameter name="EMIF_CONDUIT_Enable" value="true" />
-  <parameter name="F2H_AXI_CLOCK_FREQ" value="100000000" />
+  <parameter name="F2H_AXI_CLOCK_FREQ" value="125000000" />
   <parameter name="F2H_COLD_RST_Enable" value="false" />
   <parameter name="F2H_DBG_RST_Enable" value="false" />
   <parameter name="F2H_DELAY" value="3" />
@@ -450,12 +450,12 @@
   <parameter name="FPGA_PERIPHERAL_OUTPUT_CLOCK_FREQ_SPIM1_SCLK_OUT" value="100" />
   <parameter name="GPIO_REF_CLK" value="4" />
   <parameter name="GP_Enable" value="false" />
-  <parameter name="H2F_AXI_CLOCK_FREQ" value="100000000" />
+  <parameter name="H2F_AXI_CLOCK_FREQ" value="125000000" />
   <parameter name="H2F_COLD_RST_Enable" value="false" />
   <parameter name="H2F_CTI_CLOCK_FREQ" value="100" />
   <parameter name="H2F_DEBUG_APB_CLOCK_FREQ" value="100" />
   <parameter name="H2F_DELAY" value="3" />
-  <parameter name="H2F_LW_AXI_CLOCK_FREQ" value="100000000" />
+  <parameter name="H2F_LW_AXI_CLOCK_FREQ" value="125000000" />
   <parameter name="H2F_LW_DELAY" value="3" />
   <parameter name="H2F_PENDING_RST_Enable" value="false" />
   <parameter name="H2F_TPIU_CLOCK_IN_FREQ" value="100" />
@@ -635,7 +635,7 @@
                         </entry>
                         <entry>
                             <key>clockRate</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                         <entry>
                             <key>clockRateKnown</key>
@@ -676,7 +676,7 @@
                         </entry>
                         <entry>
                             <key>clockRate</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                         <entry>
                             <key>clockRateKnown</key>
@@ -720,7 +720,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -732,7 +732,7 @@
                     <suppliedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                     </suppliedSystemInfos>
                     <consumedSystemInfos/>
@@ -745,7 +745,7 @@
                     <suppliedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                     </suppliedSystemInfos>
                     <consumedSystemInfos/>
@@ -1252,7 +1252,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -1933,7 +1933,7 @@
                         </entry>
                         <entry>
                             <key>clockRate</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                         <entry>
                             <key>clockRateKnown</key>
@@ -1994,7 +1994,7 @@
                     <suppliedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                     </suppliedSystemInfos>
                     <consumedSystemInfos/>
@@ -2534,7 +2534,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -3158,7 +3158,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -3344,7 +3344,7 @@
                         <name>address</name>
                         <role>address</role>
                         <direction>Input</direction>
-                        <width>11</width>
+                        <width>12</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -3376,7 +3376,7 @@
                         <name>readdata</name>
                         <role>readdata</role>
                         <direction>Output</direction>
-                        <width>16</width>
+                        <width>8</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -3384,15 +3384,7 @@
                         <name>writedata</name>
                         <role>writedata</role>
                         <direction>Input</direction>
-                        <width>16</width>
-                        <lowerBound>0</lowerBound>
-                        <vhdlType>STD_LOGIC_VECTOR</vhdlType>
-                    </port>
-                    <port>
-                        <name>byteenable</name>
-                        <role>byteenable</role>
-                        <direction>Input</direction>
-                        <width>2</width>
+                        <width>8</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -3632,7 +3624,7 @@
                         <name>address2</name>
                         <role>address</role>
                         <direction>Input</direction>
-                        <width>11</width>
+                        <width>12</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -3664,7 +3656,7 @@
                         <name>readdata2</name>
                         <role>readdata</role>
                         <direction>Output</direction>
-                        <width>16</width>
+                        <width>8</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -3672,15 +3664,7 @@
                         <name>writedata2</name>
                         <role>writedata</role>
                         <direction>Input</direction>
-                        <width>16</width>
-                        <lowerBound>0</lowerBound>
-                        <vhdlType>STD_LOGIC_VECTOR</vhdlType>
-                    </port>
-                    <port>
-                        <name>byteenable2</name>
-                        <role>byteenable</role>
-                        <direction>Input</direction>
-                        <width>2</width>
+                        <width>8</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -3982,7 +3966,7 @@
                     <suppliedSystemInfos>
                         <entry>
                             <key>ADDRESS_MAP</key>
-                            <value>&lt;address-map&gt;&lt;slave name='s1' start='0x0' end='0x1000' datawidth='16' /&gt;&lt;/address-map&gt;</value>
+                            <value>&lt;address-map&gt;&lt;slave name='s1' start='0x0' end='0x1000' datawidth='8' /&gt;&lt;/address-map&gt;</value>
                         </entry>
                         <entry>
                             <key>ADDRESS_WIDTH</key>
@@ -3990,7 +3974,7 @@
                         </entry>
                         <entry>
                             <key>MAX_SLAVE_DATA_WIDTH</key>
-                            <value>16</value>
+                            <value>8</value>
                         </entry>
                     </suppliedSystemInfos>
                     <consumedSystemInfos/>
@@ -4003,7 +3987,7 @@
                     <suppliedSystemInfos>
                         <entry>
                             <key>ADDRESS_MAP</key>
-                            <value>&lt;address-map&gt;&lt;slave name='s2' start='0x0' end='0x1000' datawidth='16' /&gt;&lt;/address-map&gt;</value>
+                            <value>&lt;address-map&gt;&lt;slave name='s2' start='0x0' end='0x1000' datawidth='8' /&gt;&lt;/address-map&gt;</value>
                         </entry>
                         <entry>
                             <key>ADDRESS_WIDTH</key>
@@ -4011,7 +3995,7 @@
                         </entry>
                         <entry>
                             <key>MAX_SLAVE_DATA_WIDTH</key>
-                            <value>16</value>
+                            <value>8</value>
                         </entry>
                     </suppliedSystemInfos>
                     <consumedSystemInfos/>
@@ -4129,7 +4113,7 @@
         </entry>
         <entry>
             <key>embeddedsw.memoryInfo.MEM_INIT_DATA_WIDTH</key>
-            <value>16</value>
+            <value>8</value>
         </entry>
         <entry>
             <key>embeddedsw.memoryInfo.MEM_INIT_FILENAME</key>
@@ -4197,7 +4181,7 @@
                         <name>address</name>
                         <role>address</role>
                         <direction>Input</direction>
-                        <width>11</width>
+                        <width>12</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -4229,7 +4213,7 @@
                         <name>readdata</name>
                         <role>readdata</role>
                         <direction>Output</direction>
-                        <width>16</width>
+                        <width>8</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -4237,15 +4221,7 @@
                         <name>writedata</name>
                         <role>writedata</role>
                         <direction>Input</direction>
-                        <width>16</width>
-                        <lowerBound>0</lowerBound>
-                        <vhdlType>STD_LOGIC_VECTOR</vhdlType>
-                    </port>
-                    <port>
-                        <name>byteenable</name>
-                        <role>byteenable</role>
-                        <direction>Input</direction>
-                        <width>2</width>
+                        <width>8</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -4485,7 +4461,7 @@
                         <name>address2</name>
                         <role>address</role>
                         <direction>Input</direction>
-                        <width>11</width>
+                        <width>12</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -4517,7 +4493,7 @@
                         <name>readdata2</name>
                         <role>readdata</role>
                         <direction>Output</direction>
-                        <width>16</width>
+                        <width>8</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -4525,15 +4501,7 @@
                         <name>writedata2</name>
                         <role>writedata</role>
                         <direction>Input</direction>
-                        <width>16</width>
-                        <lowerBound>0</lowerBound>
-                        <vhdlType>STD_LOGIC_VECTOR</vhdlType>
-                    </port>
-                    <port>
-                        <name>byteenable2</name>
-                        <role>byteenable</role>
-                        <direction>Input</direction>
-                        <width>2</width>
+                        <width>8</width>
                         <lowerBound>0</lowerBound>
                         <vhdlType>STD_LOGIC_VECTOR</vhdlType>
                     </port>
@@ -4835,7 +4803,7 @@
                     <suppliedSystemInfos>
                         <entry>
                             <key>ADDRESS_MAP</key>
-                            <value>&lt;address-map&gt;&lt;slave name='s1' start='0x0' end='0x1000' datawidth='16' /&gt;&lt;/address-map&gt;</value>
+                            <value>&lt;address-map&gt;&lt;slave name='s1' start='0x0' end='0x1000' datawidth='8' /&gt;&lt;/address-map&gt;</value>
                         </entry>
                         <entry>
                             <key>ADDRESS_WIDTH</key>
@@ -4843,7 +4811,7 @@
                         </entry>
                         <entry>
                             <key>MAX_SLAVE_DATA_WIDTH</key>
-                            <value>16</value>
+                            <value>8</value>
                         </entry>
                     </suppliedSystemInfos>
                     <consumedSystemInfos/>
@@ -4856,7 +4824,7 @@
                     <suppliedSystemInfos>
                         <entry>
                             <key>ADDRESS_MAP</key>
-                            <value>&lt;address-map&gt;&lt;slave name='s2' start='0x0' end='0x1000' datawidth='16' /&gt;&lt;/address-map&gt;</value>
+                            <value>&lt;address-map&gt;&lt;slave name='s2' start='0x0' end='0x1000' datawidth='8' /&gt;&lt;/address-map&gt;</value>
                         </entry>
                         <entry>
                             <key>ADDRESS_WIDTH</key>
@@ -4864,7 +4832,7 @@
                         </entry>
                         <entry>
                             <key>MAX_SLAVE_DATA_WIDTH</key>
-                            <value>16</value>
+                            <value>8</value>
                         </entry>
                     </suppliedSystemInfos>
                     <consumedSystemInfos/>
@@ -4982,7 +4950,7 @@
         </entry>
         <entry>
             <key>embeddedsw.memoryInfo.MEM_INIT_DATA_WIDTH</key>
-            <value>16</value>
+            <value>8</value>
         </entry>
         <entry>
             <key>embeddedsw.memoryInfo.MEM_INIT_FILENAME</key>
@@ -5492,7 +5460,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -6096,7 +6064,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -6369,7 +6337,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -6544,7 +6512,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -7074,7 +7042,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>100000000</value>
+                            <value>125000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>

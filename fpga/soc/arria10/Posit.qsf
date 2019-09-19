@@ -48,28 +48,28 @@ set_location_assignment PIN_B35 -to dp_tx_serial_out[0]
 set_location_assignment PIN_A37 -to dp_tx_serial_out[1]
 set_location_assignment PIN_B39 -to dp_tx_serial_out[2]
 set_location_assignment PIN_C37 -to dp_tx_serial_out[3]
-set_instance_assignment -name IO_STANDARD LVDS -to fpga_clk_100
-set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_reset_n
-set_instance_assignment -name IO_STANDARD "1.8 V" -to tx_hpd
-set_instance_assignment -name IO_STANDARD "1.8 V" -to dp_on
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to dp_aux_ch_n
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to dp_aux_ch_p
-set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.8-V SSTL CLASS I" -to dp_aux_ch_n
-set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.8-V SSTL CLASS I" -to dp_aux_ch_p
-set_instance_assignment -name IO_STANDARD LVDS -to dp_refclk
-set_instance_assignment -name XCVR_VCCR_VCCT_VOLTAGE 1_0V -to dp_tx_serial_out[0]
-set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to dp_tx_serial_out[0]
-set_instance_assignment -name XCVR_VCCR_VCCT_VOLTAGE 1_0V -to dp_tx_serial_out[1]
-set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to dp_tx_serial_out[1]
-set_instance_assignment -name XCVR_VCCR_VCCT_VOLTAGE 1_0V -to dp_tx_serial_out[2]
-set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to dp_tx_serial_out[2]
-set_instance_assignment -name XCVR_VCCR_VCCT_VOLTAGE 1_0V -to dp_tx_serial_out[3]
-set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to dp_tx_serial_out[3]
+set_instance_assignment -name IO_STANDARD LVDS -to fpga_clk_100 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to fpga_reset_n -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to tx_hpd -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dp_on -entity PositTop
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to dp_aux_ch_n -entity PositTop
+set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to dp_aux_ch_p -entity PositTop
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.8-V SSTL CLASS I" -to dp_aux_ch_n -entity PositTop
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.8-V SSTL CLASS I" -to dp_aux_ch_p -entity PositTop
+set_instance_assignment -name IO_STANDARD LVDS -to dp_refclk -entity PositTop
+set_instance_assignment -name XCVR_VCCR_VCCT_VOLTAGE 1_0V -to dp_tx_serial_out[0] -entity PositTop
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to dp_tx_serial_out[0] -entity PositTop
+set_instance_assignment -name XCVR_VCCR_VCCT_VOLTAGE 1_0V -to dp_tx_serial_out[1] -entity PositTop
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to dp_tx_serial_out[1] -entity PositTop
+set_instance_assignment -name XCVR_VCCR_VCCT_VOLTAGE 1_0V -to dp_tx_serial_out[2] -entity PositTop
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to dp_tx_serial_out[2] -entity PositTop
+set_instance_assignment -name XCVR_VCCR_VCCT_VOLTAGE 1_0V -to dp_tx_serial_out[3] -entity PositTop
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to dp_tx_serial_out[3] -entity PositTop
 set_location_assignment PIN_F25 -to emif_ref_clk
 set_location_assignment PIN_G24 -to "emif_ref_clk(n)"
 set_location_assignment PIN_E26 -to hps_memory_oct_rzqin
-set_instance_assignment -name IO_STANDARD LVDS -to emif_ref_clk
-set_instance_assignment -name IO_STANDARD LVDS -to "emif_ref_clk(n)"
+set_instance_assignment -name IO_STANDARD LVDS -to emif_ref_clk -entity PositTop
+set_instance_assignment -name IO_STANDARD LVDS -to "emif_ref_clk(n)" -entity PositTop
 set_location_assignment PIN_AG24 -to hps_memory_mem_alert_n
 set_location_assignment PIN_H18 -to hps_emac0_TX_CLK
 set_location_assignment PIN_H19 -to hps_emac0_TX_CTL
@@ -197,75 +197,75 @@ set_location_assignment PIN_K22 -to hps_trace_D0
 set_location_assignment PIN_L22 -to hps_trace_D1
 set_location_assignment PIN_M22 -to hps_trace_D2
 set_location_assignment PIN_M21 -to hps_trace_D3
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_CLK
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_CMD
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D0
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D1
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D2
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D3
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D4
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D5
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D6
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D7
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_TX_CLK
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_TX_CTL
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_TXD0
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_TXD1
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_TXD2
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_TXD3
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_RX_CLK
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_RX_CTL
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_RXD0
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_RXD1
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_RXD2
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_RXD3
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_MDC
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_MDIO
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_spim1_CLK
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_spim1_MOSI
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_spim1_MISO
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_spim1_SS0_N
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_spim1_SS1_N
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_uart1_TX
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_uart1_RX
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_CLK
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_DIR
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_NXT
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_STP
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D0
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D1
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D2
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D3
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D4
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D5
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D6
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D7
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_i2c1_SDA
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_i2c1_SCL
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_gpio_GPIO05
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_gpio_GPIO14
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_gpio_GPIO16
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_gpio_GPIO17
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_trace_CLK
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_trace_D0
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_trace_D1
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_trace_D2
-set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_trace_D3
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to hps_sdio_CLK
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to hps_sdio_CMD
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to hps_sdio_D0
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to hps_sdio_D1
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to hps_sdio_D2
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to hps_sdio_D3
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to hps_sdio_D4
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to hps_sdio_D5
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to hps_sdio_D6
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to hps_sdio_D7
-set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_CLK
-set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_CMD
-set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_D0
-set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_D1
-set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_D2
-set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_D3
-set_instance_assignment -name OUTPUT_DELAY_CHAIN 8 -to hps_emac0_TX_CLK
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_CLK -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_CMD -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D0 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D1 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D2 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D3 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D4 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D5 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D6 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_sdio_D7 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_TX_CLK -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_TX_CTL -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_TXD0 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_TXD1 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_TXD2 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_TXD3 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_RX_CLK -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_RX_CTL -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_RXD0 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_RXD1 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_RXD2 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_RXD3 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_MDC -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_emac0_MDIO -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_spim1_CLK -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_spim1_MOSI -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_spim1_MISO -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_spim1_SS0_N -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_spim1_SS1_N -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_uart1_TX -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_uart1_RX -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_CLK -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_DIR -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_NXT -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_STP -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D0 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D1 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D2 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D3 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D4 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D5 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D6 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_usb0_D7 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_i2c1_SDA -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_i2c1_SCL -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_gpio_GPIO05 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_gpio_GPIO14 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_gpio_GPIO16 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_gpio_GPIO17 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_trace_CLK -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_trace_D0 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_trace_D1 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_trace_D2 -entity PositTop
+set_instance_assignment -name IO_STANDARD "1.8 V" -to hps_trace_D3 -entity PositTop
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to hps_sdio_CLK -entity PositTop
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to hps_sdio_CMD -entity PositTop
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to hps_sdio_D0 -entity PositTop
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to hps_sdio_D1 -entity PositTop
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to hps_sdio_D2 -entity PositTop
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to hps_sdio_D3 -entity PositTop
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to hps_sdio_D4 -entity PositTop
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to hps_sdio_D5 -entity PositTop
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to hps_sdio_D6 -entity PositTop
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to hps_sdio_D7 -entity PositTop
+set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_CLK -entity PositTop
+set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_CMD -entity PositTop
+set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_D0 -entity PositTop
+set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_D1 -entity PositTop
+set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_D2 -entity PositTop
+set_instance_assignment -name SLEW_RATE 1 -to hps_sdio_D3 -entity PositTop
+set_instance_assignment -name OUTPUT_DELAY_CHAIN 8 -to hps_emac0_TX_CLK -entity PositTop
 set_global_assignment -name FLOW_ENABLE_EARLY_PLACE OFF

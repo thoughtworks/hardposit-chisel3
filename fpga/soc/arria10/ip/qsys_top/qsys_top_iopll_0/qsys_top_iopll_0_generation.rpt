@@ -8,7 +8,12 @@ Info:
 Info: Starting: Create HDL design files for synthesis
 Info: qsys-generate /home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_iopll_0.ip --synthesis=VERILOG --output-directory=/home/sai-ganesh/projects/posit-fpga/fpga/soc/arria10/ip/qsys_top/qsys_top_iopll_0 --family="Arria 10" --part=10AS066N3F40E2SG
 Info: qsys_top_iopll_0.iopll_0: Able to implement PLL with user settings
-Info: Skipping generation of qsys_top_iopll_0: files already generated.
+Info: qsys_top_iopll_0: "Transforming system: qsys_top_iopll_0"
+Info: qsys_top_iopll_0: "Naming system components in system: qsys_top_iopll_0"
+Info: qsys_top_iopll_0: "Processing generation queue"
+Info: qsys_top_iopll_0: "Generating: qsys_top_iopll_0"
+Info: qsys_top_iopll_0: "Generating: qsys_top_iopll_0_altera_iopll_181_6zm3xsi"
+Info: qsys_top_iopll_0: Done "qsys_top_iopll_0" with 2 modules, 2 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis
 Info: Starting: Generate IP Core Documentation

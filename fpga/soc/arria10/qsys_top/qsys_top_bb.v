@@ -77,20 +77,18 @@ module qsys_top (
 		output wire        iopll_0_locked_export,                      //                        iopll_0_locked.export
 		output wire [31:0] num1_export,                                //                                  num1.export
 		output wire [31:0] num2_export,                                //                                  num2.export
-		input  wire [10:0] onchip_memory2_0_s2_address,                //                   onchip_memory2_0_s2.address
+		input  wire [11:0] onchip_memory2_0_s2_address,                //                   onchip_memory2_0_s2.address
 		input  wire        onchip_memory2_0_s2_chipselect,             //                                      .chipselect
 		input  wire        onchip_memory2_0_s2_clken,                  //                                      .clken
 		input  wire        onchip_memory2_0_s2_write,                  //                                      .write
-		output wire [15:0] onchip_memory2_0_s2_readdata,               //                                      .readdata
-		input  wire [15:0] onchip_memory2_0_s2_writedata,              //                                      .writedata
-		input  wire [1:0]  onchip_memory2_0_s2_byteenable,             //                                      .byteenable
-		input  wire [10:0] onchip_memory2_1_s2_address,                //                   onchip_memory2_1_s2.address
+		output wire [7:0]  onchip_memory2_0_s2_readdata,               //                                      .readdata
+		input  wire [7:0]  onchip_memory2_0_s2_writedata,              //                                      .writedata
+		input  wire [11:0] onchip_memory2_1_s2_address,                //                   onchip_memory2_1_s2.address
 		input  wire        onchip_memory2_1_s2_chipselect,             //                                      .chipselect
 		input  wire        onchip_memory2_1_s2_clken,                  //                                      .clken
 		input  wire        onchip_memory2_1_s2_write,                  //                                      .write
-		output wire [15:0] onchip_memory2_1_s2_readdata,               //                                      .readdata
-		input  wire [15:0] onchip_memory2_1_s2_writedata,              //                                      .writedata
-		input  wire [1:0]  onchip_memory2_1_s2_byteenable,             //                                      .byteenable
+		output wire [7:0]  onchip_memory2_1_s2_readdata,               //                                      .readdata
+		input  wire [7:0]  onchip_memory2_1_s2_writedata,              //                                      .writedata
 		output wire        reset_pio_external_connection_export,       //         reset_pio_external_connection.export
 		input  wire [31:0] result_export,                              //                                result.export
 		output wire        hps_fpga_reset_reset,                       //                        hps_fpga_reset.reset
