@@ -27,11 +27,11 @@
         <parameters>
           <parameter>
             <name>DERIVED_CLOCK_RATE</name>
-            <value>125000000</value>
+            <value>145000000</value>
           </parameter>
           <parameter>
             <name>EXPLICIT_CLOCK_RATE</name>
-            <value>130000000</value>
+            <value>140000000</value>
           </parameter>
           <parameter>
             <name>NUM_CLOCK_OUTPUTS</name>

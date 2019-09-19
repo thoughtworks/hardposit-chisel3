@@ -1,5 +1,5 @@
 `timescale 1ns/10ps
-module  qsys_top_iopll_0_altera_iopll_181_f4koglq(
+module  qsys_top_iopll_0_altera_iopll_181_25k5ggi(
 
 	// interface 'reset'
 	input wire rst,
@@ -108,16 +108,16 @@ module  qsys_top_iopll_0_altera_iopll_181_f4koglq(
 		.duty_cycle7(50),
 		.duty_cycle8(50),
 		.m_cnt_bypass_en("false"),
-		.m_cnt_hi_div(7),
-		.m_cnt_lo_div(6),
+		.m_cnt_hi_div(4),
+		.m_cnt_lo_div(3),
 		.m_cnt_odd_div_duty_en("true"),
-		.n_cnt_bypass_en("false"),
-		.n_cnt_hi_div(1),
-		.n_cnt_lo_div(1),
+		.n_cnt_bypass_en("true"),
+		.n_cnt_hi_div(256),
+		.n_cnt_lo_div(256),
 		.n_cnt_odd_div_duty_en("false"),
 		.number_of_clocks(1),
 		.operation_mode("direct"),
-		.output_clock_frequency0("130.0 MHz"),
+		.output_clock_frequency0("140.0 MHz"),
 		.output_clock_frequency1("0 ps"),
 		.output_clock_frequency2("0 ps"),
 		.output_clock_frequency3("0 ps"),
@@ -143,7 +143,7 @@ module  qsys_top_iopll_0_altera_iopll_181_f4koglq(
 		.pll_fbclk_mux_1("pll_fbclk_mux_1_glb"),
 		.pll_fbclk_mux_2("pll_fbclk_mux_2_m_cnt"),
 		.pll_m_cnt_in_src("c_m_cnt_in_src_ph_mux_clk"),
-		.pll_output_clk_frequency("650.0 MHz"),
+		.pll_output_clk_frequency("700.0 MHz"),
 		.pll_slf_rst("false"),
 		.pll_subtype("General"),
 		.pll_type("Arria 10"),

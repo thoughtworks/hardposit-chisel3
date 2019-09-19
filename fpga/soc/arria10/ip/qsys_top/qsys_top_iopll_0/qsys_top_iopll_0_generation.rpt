@@ -12,7 +12,7 @@ Info: qsys_top_iopll_0: "Transforming system: qsys_top_iopll_0"
 Info: qsys_top_iopll_0: "Naming system components in system: qsys_top_iopll_0"
 Info: qsys_top_iopll_0: "Processing generation queue"
 Info: qsys_top_iopll_0: "Generating: qsys_top_iopll_0"
-Info: qsys_top_iopll_0: "Generating: qsys_top_iopll_0_altera_iopll_181_f4koglq"
+Info: qsys_top_iopll_0: "Generating: qsys_top_iopll_0_altera_iopll_181_25k5ggi"
 Info: qsys_top_iopll_0: Done "qsys_top_iopll_0" with 2 modules, 2 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

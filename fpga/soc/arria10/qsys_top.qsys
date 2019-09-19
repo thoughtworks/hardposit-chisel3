@@ -254,7 +254,7 @@
                 <consumedSystemInfos>
                     <entry>
                         <key>CLOCK_RATE</key>
-                        <value>130000000</value>
+                        <value>140000000</value>
                     </entry>
                 </consumedSystemInfos>
             </value>
@@ -392,7 +392,7 @@
   <parameter name="EMAC_PTP_REF_CLK" value="100" />
   <parameter name="EMIF_BYPASS_CHECK" value="false" />
   <parameter name="EMIF_CONDUIT_Enable" value="true" />
-  <parameter name="F2H_AXI_CLOCK_FREQ" value="130000000" />
+  <parameter name="F2H_AXI_CLOCK_FREQ" value="140000000" />
   <parameter name="F2H_COLD_RST_Enable" value="false" />
   <parameter name="F2H_DBG_RST_Enable" value="false" />
   <parameter name="F2H_DELAY" value="3" />
@@ -450,12 +450,12 @@
   <parameter name="FPGA_PERIPHERAL_OUTPUT_CLOCK_FREQ_SPIM1_SCLK_OUT" value="100" />
   <parameter name="GPIO_REF_CLK" value="4" />
   <parameter name="GP_Enable" value="false" />
-  <parameter name="H2F_AXI_CLOCK_FREQ" value="130000000" />
+  <parameter name="H2F_AXI_CLOCK_FREQ" value="140000000" />
   <parameter name="H2F_COLD_RST_Enable" value="false" />
   <parameter name="H2F_CTI_CLOCK_FREQ" value="100" />
   <parameter name="H2F_DEBUG_APB_CLOCK_FREQ" value="100" />
   <parameter name="H2F_DELAY" value="3" />
-  <parameter name="H2F_LW_AXI_CLOCK_FREQ" value="130000000" />
+  <parameter name="H2F_LW_AXI_CLOCK_FREQ" value="140000000" />
   <parameter name="H2F_LW_DELAY" value="3" />
   <parameter name="H2F_PENDING_RST_Enable" value="false" />
   <parameter name="H2F_TPIU_CLOCK_IN_FREQ" value="100" />
@@ -635,7 +635,7 @@
                         </entry>
                         <entry>
                             <key>clockRate</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                         <entry>
                             <key>clockRateKnown</key>
@@ -676,7 +676,7 @@
                         </entry>
                         <entry>
                             <key>clockRate</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                         <entry>
                             <key>clockRateKnown</key>
@@ -720,7 +720,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -732,7 +732,7 @@
                     <suppliedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                     </suppliedSystemInfos>
                     <consumedSystemInfos/>
@@ -745,7 +745,7 @@
                     <suppliedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                     </suppliedSystemInfos>
                     <consumedSystemInfos/>
@@ -1252,7 +1252,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -1933,7 +1933,7 @@
                         </entry>
                         <entry>
                             <key>clockRate</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                         <entry>
                             <key>clockRateKnown</key>
@@ -1994,7 +1994,7 @@
                     <suppliedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                     </suppliedSystemInfos>
                     <consumedSystemInfos/>
@@ -2534,7 +2534,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -3158,7 +3158,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -5460,7 +5460,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -6064,7 +6064,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -6337,7 +6337,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -6512,7 +6512,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>
@@ -7042,7 +7042,7 @@
                     <consumedSystemInfos>
                         <entry>
                             <key>CLOCK_RATE</key>
-                            <value>130000000</value>
+                            <value>140000000</value>
                         </entry>
                     </consumedSystemInfos>
                 </value>

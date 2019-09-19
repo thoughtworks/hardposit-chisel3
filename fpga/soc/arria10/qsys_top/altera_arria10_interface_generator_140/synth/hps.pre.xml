@@ -2,7 +2,7 @@
   <system>
     <config name='VERSION' value='18.1' />
     <config name='DEVICE_FAMILY' value='Arria 10' />
-    <config name='TIME_AND_DATE' value='Thursday September, 19, 2019 - 01:32:10 PM IST' />
+    <config name='TIME_AND_DATE' value='Thursday September, 19, 2019 - 03:32:33 PM IST' />
     <config name='DMA_Enable' value='No No No No No No No No' />
     <config name='eosc1_clk_hz' value='25000000.0' />
     <config name='emac0_clk_hz' value='250000000' />
@@ -203,7 +203,7 @@
   </csr>
   <csr />
   <!-- This section was added by Quartus Prime Version 18.1.0 Build 222 09/21/2018 SJ Pro Edition -->
-  <!-- Generated on Thu Sep 19 13:34:16 2019 -->
+  <!-- Generated on Thu Sep 19 15:34:54 2019 -->
   <csr>
     <!-- OSC_CLK_1_HPS -->
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_1.rtrim'        value='1' />

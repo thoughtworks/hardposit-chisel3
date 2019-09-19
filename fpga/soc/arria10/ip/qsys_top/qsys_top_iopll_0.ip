@@ -169,7 +169,7 @@
         <ipxact:parameter parameterId="clockRate" type="longint">
           <ipxact:name>clockRate</ipxact:name>
           <ipxact:displayName>Clock rate</ipxact:displayName>
-          <ipxact:value>130000000</ipxact:value>
+          <ipxact:value>140000000</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="clockRateKnown" type="bit">
           <ipxact:name>clockRateKnown</ipxact:name>
@@ -999,7 +999,7 @@
         <ipxact:parameter parameterId="gui_output_clock_frequency0" type="real">
           <ipxact:name>gui_output_clock_frequency0</ipxact:name>
           <ipxact:displayName>Desired Frequency</ipxact:displayName>
-          <ipxact:value>130.0</ipxact:value>
+          <ipxact:value>140.0</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="gui_output_clock_frequency1" type="real">
           <ipxact:name>gui_output_clock_frequency1</ipxact:name>
@@ -1089,7 +1089,7 @@
         <ipxact:parameter parameterId="gui_output_clock_frequency_ps0" type="real">
           <ipxact:name>gui_output_clock_frequency_ps0</ipxact:name>
           <ipxact:displayName>Desired Frequency</ipxact:displayName>
-          <ipxact:value>7692.308</ipxact:value>
+          <ipxact:value>7142.857</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="gui_output_clock_frequency_ps1" type="real">
           <ipxact:name>gui_output_clock_frequency_ps1</ipxact:name>
@@ -1179,7 +1179,7 @@
         <ipxact:parameter parameterId="gui_actual_output_clock_frequency0" type="string">
           <ipxact:name>gui_actual_output_clock_frequency0</ipxact:name>
           <ipxact:displayName>Actual Frequency</ipxact:displayName>
-          <ipxact:value>130.0</ipxact:value>
+          <ipxact:value>140.0</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="gui_actual_output_clock_frequency1" type="string">
           <ipxact:name>gui_actual_output_clock_frequency1</ipxact:name>
@@ -1269,7 +1269,7 @@
         <ipxact:parameter parameterId="gui_actual_output_clock_frequency_range0" type="string">
           <ipxact:name>gui_actual_output_clock_frequency_range0</ipxact:name>
           <ipxact:displayName>Legal Frequencies</ipxact:displayName>
-          <ipxact:value>129.629630,129.6875,129.870130,130.0,130.158730,130.303030</ipxact:value>
+          <ipxact:value>139.506173,139.583333,139.682540,140.0,140.277778,140.47619</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="gui_actual_output_clock_frequency_range1" type="string">
           <ipxact:name>gui_actual_output_clock_frequency_range1</ipxact:name>
@@ -1719,7 +1719,7 @@
         <ipxact:parameter parameterId="gui_actual_phase_shift_range0" type="string">
           <ipxact:name>gui_actual_phase_shift_range0</ipxact:name>
           <ipxact:displayName>Legal Phase Shifts</ipxact:displayName>
-          <ipxact:value>0.0,87.4,96.2,106.8,120.2,137.4</ipxact:value>
+          <ipxact:value>0.0,89.3,99.2,111.6,127.6,148.8</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="gui_actual_phase_shift_range1" type="string">
           <ipxact:name>gui_actual_phase_shift_range1</ipxact:name>
@@ -1899,7 +1899,7 @@
         <ipxact:parameter parameterId="gui_actual_phase_shift_deg_range0" type="string">
           <ipxact:name>gui_actual_phase_shift_deg_range0</ipxact:name>
           <ipxact:displayName>Legal Phase Shifts</ipxact:displayName>
-          <ipxact:value>0.0,4.1,4.5,5.0,5.6,6.4</ipxact:value>
+          <ipxact:value>0.0,4.5,5.0,5.6,6.4,7.5</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="gui_actual_phase_shift_deg_range1" type="string">
           <ipxact:name>gui_actual_phase_shift_deg_range1</ipxact:name>
@@ -2169,7 +2169,7 @@
         <ipxact:parameter parameterId="gui_actual_duty_cycle_range0" type="string">
           <ipxact:name>gui_actual_duty_cycle_range0</ipxact:name>
           <ipxact:displayName>Legal Duty Cycles</ipxact:displayName>
-          <ipxact:value>44.44,45.0,45.45,50.0,54.55,55.0</ipxact:value>
+          <ipxact:value>43.75,44.44,45.0,50.0,55.0,55.56</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="gui_actual_duty_cycle_range1" type="string">
           <ipxact:name>gui_actual_duty_cycle_range1</ipxact:name>
@@ -2264,7 +2264,7 @@
         <ipxact:parameter parameterId="parameterTable_values" type="string">
           <ipxact:name>parameterTable_values</ipxact:name>
           <ipxact:displayName>Parameter Values</ipxact:displayName>
-          <ipxact:value>13,2,650.0 MHz,5,1,1,1,1,1,1,1,1,false,7,6,true,false,1,1,false,false,3,256,256,256,256,256,256,256,256,2,256,256,256,256,256,256,256,256,true,false,false,false,false,false,false,false,false,false,true,true,true,true,true,true,true,true,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,pll_cp_setting14,pll_bw_res_setting3</ipxact:value>
+          <ipxact:value>7,1,700.0 MHz,5,1,1,1,1,1,1,1,1,false,4,3,true,false,256,256,false,true,3,256,256,256,256,256,256,256,256,2,256,256,256,256,256,256,256,256,true,false,false,false,false,false,false,false,false,false,true,true,true,true,true,true,true,true,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,pll_cp_setting14,pll_bw_res_setting3</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="mifTable_names" type="string">
           <ipxact:name>mifTable_names</ipxact:name>
@@ -2294,7 +2294,7 @@
         <ipxact:parameter parameterId="m_cnt_hi_div" type="int">
           <ipxact:name>m_cnt_hi_div</ipxact:name>
           <ipxact:displayName>m_cnt_hi_div</ipxact:displayName>
-          <ipxact:value>7</ipxact:value>
+          <ipxact:value>4</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="eff_m_cnt" type="int">
           <ipxact:name>eff_m_cnt</ipxact:name>
@@ -2304,7 +2304,7 @@
         <ipxact:parameter parameterId="multiply_factor" type="int">
           <ipxact:name>multiply_factor</ipxact:name>
           <ipxact:displayName>multiply_factor</ipxact:displayName>
-          <ipxact:value>13</ipxact:value>
+          <ipxact:value>7</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="use_core_refclk" type="bit">
           <ipxact:name>use_core_refclk</ipxact:name>
@@ -2314,17 +2314,17 @@
         <ipxact:parameter parameterId="m_cnt_lo_div" type="int">
           <ipxact:name>m_cnt_lo_div</ipxact:name>
           <ipxact:displayName>m_cnt_lo_div</ipxact:displayName>
-          <ipxact:value>6</ipxact:value>
+          <ipxact:value>3</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="n_cnt_hi_div" type="int">
           <ipxact:name>n_cnt_hi_div</ipxact:name>
           <ipxact:displayName>n_cnt_hi_div</ipxact:displayName>
-          <ipxact:value>1</ipxact:value>
+          <ipxact:value>256</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="n_cnt_lo_div" type="int">
           <ipxact:name>n_cnt_lo_div</ipxact:name>
           <ipxact:displayName>n_cnt_lo_div</ipxact:displayName>
-          <ipxact:value>1</ipxact:value>
+          <ipxact:value>256</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="m_cnt_bypass_en" type="bit">
           <ipxact:name>m_cnt_bypass_en</ipxact:name>
@@ -2334,7 +2334,7 @@
         <ipxact:parameter parameterId="n_cnt_bypass_en" type="bit">
           <ipxact:name>n_cnt_bypass_en</ipxact:name>
           <ipxact:displayName>n_cnt_bypass_en</ipxact:displayName>
-          <ipxact:value>false</ipxact:value>
+          <ipxact:value>true</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="m_cnt_odd_div_duty_en" type="bit">
           <ipxact:name>m_cnt_odd_div_duty_en</ipxact:name>
@@ -2424,12 +2424,12 @@
         <ipxact:parameter parameterId="pll_output_clk_frequency" type="string">
           <ipxact:name>pll_output_clk_frequency</ipxact:name>
           <ipxact:displayName>pll_output_clk_frequency</ipxact:displayName>
-          <ipxact:value>650.0 MHz</ipxact:value>
+          <ipxact:value>700.0 MHz</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="pll_pfd_frequency" type="string">
           <ipxact:name>pll_pfd_frequency</ipxact:name>
           <ipxact:displayName>pll_pfd_frequency</ipxact:displayName>
-          <ipxact:value>50.0 MHz</ipxact:value>
+          <ipxact:value>100.0 MHz</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="mimic_fbclk_type" type="string">
           <ipxact:name>mimic_fbclk_type</ipxact:name>
@@ -3184,7 +3184,7 @@
         <ipxact:parameter parameterId="output_clock_frequency0" type="string">
           <ipxact:name>output_clock_frequency0</ipxact:name>
           <ipxact:displayName>output_clock_frequency0</ipxact:displayName>
-          <ipxact:value>130.0 MHz</ipxact:value>
+          <ipxact:value>140.0 MHz</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="output_clock_frequency1" type="string">
           <ipxact:name>output_clock_frequency1</ipxact:name>
@@ -3674,7 +3674,7 @@
         <ipxact:parameter parameterId="hp_actual_output_clock_frequency_fp0" type="real">
           <ipxact:name>hp_actual_output_clock_frequency_fp0</ipxact:name>
           <ipxact:displayName>hp_actual_output_clock_frequency_fp0</ipxact:displayName>
-          <ipxact:value>130.0</ipxact:value>
+          <ipxact:value>140.0</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="hp_actual_output_clock_frequency_fp1" type="real">
           <ipxact:name>hp_actual_output_clock_frequency_fp1</ipxact:name>
@@ -3994,12 +3994,12 @@
         <ipxact:parameter parameterId="lockedInterfaceDefinition" type="string">
           <ipxact:name>lockedInterfaceDefinition</ipxact:name>
           <ipxact:displayName>lockedInterfaceDefinition</ipxact:displayName>
-          <ipxact:value>&lt;boundaryDefinition&gt;&#xa;    &lt;interfaces&gt;&#xa;        &lt;interface&gt;&#xa;            &lt;name&gt;reset&lt;/name&gt;&#xa;            &lt;type&gt;reset&lt;/type&gt;&#xa;            &lt;isStart&gt;false&lt;/isStart&gt;&#xa;            &lt;ports&gt;&#xa;                &lt;port&gt;&#xa;                    &lt;name&gt;rst&lt;/name&gt;&#xa;                    &lt;role&gt;reset&lt;/role&gt;&#xa;                    &lt;direction&gt;Input&lt;/direction&gt;&#xa;                    &lt;width&gt;1&lt;/width&gt;&#xa;                    &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                    &lt;vhdlType&gt;STD_LOGIC&lt;/vhdlType&gt;&#xa;                &lt;/port&gt;&#xa;            &lt;/ports&gt;&#xa;            &lt;assignments&gt;&#xa;                &lt;assignmentValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;ui.blockdiagram.direction&lt;/key&gt;&#xa;                        &lt;value&gt;input&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/assignmentValueMap&gt;&#xa;            &lt;/assignments&gt;&#xa;            &lt;parameters&gt;&#xa;                &lt;parameterValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;associatedClock&lt;/key&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;synchronousEdges&lt;/key&gt;&#xa;                        &lt;value&gt;NONE&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/parameterValueMap&gt;&#xa;            &lt;/parameters&gt;&#xa;        &lt;/interface&gt;&#xa;        &lt;interface&gt;&#xa;            &lt;name&gt;refclk&lt;/name&gt;&#xa;            &lt;type&gt;clock&lt;/type&gt;&#xa;            &lt;isStart&gt;false&lt;/isStart&gt;&#xa;            &lt;ports&gt;&#xa;                &lt;port&gt;&#xa;                    &lt;name&gt;refclk&lt;/name&gt;&#xa;                    &lt;role&gt;clk&lt;/role&gt;&#xa;                    &lt;direction&gt;Input&lt;/direction&gt;&#xa;                    &lt;width&gt;1&lt;/width&gt;&#xa;                    &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                    &lt;vhdlType&gt;STD_LOGIC&lt;/vhdlType&gt;&#xa;                &lt;/port&gt;&#xa;            &lt;/ports&gt;&#xa;            &lt;assignments&gt;&#xa;                &lt;assignmentValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;ui.blockdiagram.direction&lt;/key&gt;&#xa;                        &lt;value&gt;input&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/assignmentValueMap&gt;&#xa;            &lt;/assignments&gt;&#xa;            &lt;parameters&gt;&#xa;                &lt;parameterValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;clockRate&lt;/key&gt;&#xa;                        &lt;value&gt;100000000&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;externallyDriven&lt;/key&gt;&#xa;                        &lt;value&gt;false&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;ptfSchematicName&lt;/key&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/parameterValueMap&gt;&#xa;            &lt;/parameters&gt;&#xa;        &lt;/interface&gt;&#xa;        &lt;interface&gt;&#xa;            &lt;name&gt;locked&lt;/name&gt;&#xa;            &lt;type&gt;conduit&lt;/type&gt;&#xa;            &lt;isStart&gt;false&lt;/isStart&gt;&#xa;            &lt;ports&gt;&#xa;                &lt;port&gt;&#xa;                    &lt;name&gt;locked&lt;/name&gt;&#xa;                    &lt;role&gt;export&lt;/role&gt;&#xa;                    &lt;direction&gt;Output&lt;/direction&gt;&#xa;                    &lt;width&gt;1&lt;/width&gt;&#xa;                    &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                    &lt;vhdlType&gt;STD_LOGIC&lt;/vhdlType&gt;&#xa;                &lt;/port&gt;&#xa;            &lt;/ports&gt;&#xa;            &lt;assignments&gt;&#xa;                &lt;assignmentValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;ui.blockdiagram.direction&lt;/key&gt;&#xa;                        &lt;value&gt;output&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/assignmentValueMap&gt;&#xa;            &lt;/assignments&gt;&#xa;            &lt;parameters&gt;&#xa;                &lt;parameterValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;associatedClock&lt;/key&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;associatedReset&lt;/key&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;prSafe&lt;/key&gt;&#xa;                        &lt;value&gt;false&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/parameterValueMap&gt;&#xa;            &lt;/parameters&gt;&#xa;        &lt;/interface&gt;&#xa;        &lt;interface&gt;&#xa;            &lt;name&gt;outclk0&lt;/name&gt;&#xa;            &lt;type&gt;clock&lt;/type&gt;&#xa;            &lt;isStart&gt;true&lt;/isStart&gt;&#xa;            &lt;ports&gt;&#xa;                &lt;port&gt;&#xa;                    &lt;name&gt;outclk_0&lt;/name&gt;&#xa;                    &lt;role&gt;clk&lt;/role&gt;&#xa;                    &lt;direction&gt;Output&lt;/direction&gt;&#xa;                    &lt;width&gt;1&lt;/width&gt;&#xa;                    &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                    &lt;vhdlType&gt;STD_LOGIC&lt;/vhdlType&gt;&#xa;                &lt;/port&gt;&#xa;            &lt;/ports&gt;&#xa;            &lt;assignments&gt;&#xa;                &lt;assignmentValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;ui.blockdiagram.direction&lt;/key&gt;&#xa;                        &lt;value&gt;output&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/assignmentValueMap&gt;&#xa;            &lt;/assignments&gt;&#xa;            &lt;parameters&gt;&#xa;                &lt;parameterValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;associatedDirectClock&lt;/key&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;clockRate&lt;/key&gt;&#xa;                        &lt;value&gt;130000000&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;clockRateKnown&lt;/key&gt;&#xa;                        &lt;value&gt;true&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;externallyDriven&lt;/key&gt;&#xa;                        &lt;value&gt;false&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;ptfSchematicName&lt;/key&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/parameterValueMap&gt;&#xa;            &lt;/parameters&gt;&#xa;        &lt;/interface&gt;&#xa;    &lt;/interfaces&gt;&#xa;&lt;/boundaryDefinition&gt;</ipxact:value>
+          <ipxact:value>&lt;boundaryDefinition&gt;&#xa;    &lt;interfaces&gt;&#xa;        &lt;interface&gt;&#xa;            &lt;name&gt;reset&lt;/name&gt;&#xa;            &lt;type&gt;reset&lt;/type&gt;&#xa;            &lt;isStart&gt;false&lt;/isStart&gt;&#xa;            &lt;ports&gt;&#xa;                &lt;port&gt;&#xa;                    &lt;name&gt;rst&lt;/name&gt;&#xa;                    &lt;role&gt;reset&lt;/role&gt;&#xa;                    &lt;direction&gt;Input&lt;/direction&gt;&#xa;                    &lt;width&gt;1&lt;/width&gt;&#xa;                    &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                    &lt;vhdlType&gt;STD_LOGIC&lt;/vhdlType&gt;&#xa;                &lt;/port&gt;&#xa;            &lt;/ports&gt;&#xa;            &lt;assignments&gt;&#xa;                &lt;assignmentValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;ui.blockdiagram.direction&lt;/key&gt;&#xa;                        &lt;value&gt;input&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/assignmentValueMap&gt;&#xa;            &lt;/assignments&gt;&#xa;            &lt;parameters&gt;&#xa;                &lt;parameterValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;associatedClock&lt;/key&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;synchronousEdges&lt;/key&gt;&#xa;                        &lt;value&gt;NONE&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/parameterValueMap&gt;&#xa;            &lt;/parameters&gt;&#xa;        &lt;/interface&gt;&#xa;        &lt;interface&gt;&#xa;            &lt;name&gt;refclk&lt;/name&gt;&#xa;            &lt;type&gt;clock&lt;/type&gt;&#xa;            &lt;isStart&gt;false&lt;/isStart&gt;&#xa;            &lt;ports&gt;&#xa;                &lt;port&gt;&#xa;                    &lt;name&gt;refclk&lt;/name&gt;&#xa;                    &lt;role&gt;clk&lt;/role&gt;&#xa;                    &lt;direction&gt;Input&lt;/direction&gt;&#xa;                    &lt;width&gt;1&lt;/width&gt;&#xa;                    &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                    &lt;vhdlType&gt;STD_LOGIC&lt;/vhdlType&gt;&#xa;                &lt;/port&gt;&#xa;            &lt;/ports&gt;&#xa;            &lt;assignments&gt;&#xa;                &lt;assignmentValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;ui.blockdiagram.direction&lt;/key&gt;&#xa;                        &lt;value&gt;input&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/assignmentValueMap&gt;&#xa;            &lt;/assignments&gt;&#xa;            &lt;parameters&gt;&#xa;                &lt;parameterValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;clockRate&lt;/key&gt;&#xa;                        &lt;value&gt;100000000&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;externallyDriven&lt;/key&gt;&#xa;                        &lt;value&gt;false&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;ptfSchematicName&lt;/key&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/parameterValueMap&gt;&#xa;            &lt;/parameters&gt;&#xa;        &lt;/interface&gt;&#xa;        &lt;interface&gt;&#xa;            &lt;name&gt;locked&lt;/name&gt;&#xa;            &lt;type&gt;conduit&lt;/type&gt;&#xa;            &lt;isStart&gt;false&lt;/isStart&gt;&#xa;            &lt;ports&gt;&#xa;                &lt;port&gt;&#xa;                    &lt;name&gt;locked&lt;/name&gt;&#xa;                    &lt;role&gt;export&lt;/role&gt;&#xa;                    &lt;direction&gt;Output&lt;/direction&gt;&#xa;                    &lt;width&gt;1&lt;/width&gt;&#xa;                    &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                    &lt;vhdlType&gt;STD_LOGIC&lt;/vhdlType&gt;&#xa;                &lt;/port&gt;&#xa;            &lt;/ports&gt;&#xa;            &lt;assignments&gt;&#xa;                &lt;assignmentValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;ui.blockdiagram.direction&lt;/key&gt;&#xa;                        &lt;value&gt;output&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/assignmentValueMap&gt;&#xa;            &lt;/assignments&gt;&#xa;            &lt;parameters&gt;&#xa;                &lt;parameterValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;associatedClock&lt;/key&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;associatedReset&lt;/key&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;prSafe&lt;/key&gt;&#xa;                        &lt;value&gt;false&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/parameterValueMap&gt;&#xa;            &lt;/parameters&gt;&#xa;        &lt;/interface&gt;&#xa;        &lt;interface&gt;&#xa;            &lt;name&gt;outclk0&lt;/name&gt;&#xa;            &lt;type&gt;clock&lt;/type&gt;&#xa;            &lt;isStart&gt;true&lt;/isStart&gt;&#xa;            &lt;ports&gt;&#xa;                &lt;port&gt;&#xa;                    &lt;name&gt;outclk_0&lt;/name&gt;&#xa;                    &lt;role&gt;clk&lt;/role&gt;&#xa;                    &lt;direction&gt;Output&lt;/direction&gt;&#xa;                    &lt;width&gt;1&lt;/width&gt;&#xa;                    &lt;lowerBound&gt;0&lt;/lowerBound&gt;&#xa;                    &lt;vhdlType&gt;STD_LOGIC&lt;/vhdlType&gt;&#xa;                &lt;/port&gt;&#xa;            &lt;/ports&gt;&#xa;            &lt;assignments&gt;&#xa;                &lt;assignmentValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;ui.blockdiagram.direction&lt;/key&gt;&#xa;                        &lt;value&gt;output&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/assignmentValueMap&gt;&#xa;            &lt;/assignments&gt;&#xa;            &lt;parameters&gt;&#xa;                &lt;parameterValueMap&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;associatedDirectClock&lt;/key&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;clockRate&lt;/key&gt;&#xa;                        &lt;value&gt;140000000&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;clockRateKnown&lt;/key&gt;&#xa;                        &lt;value&gt;true&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;externallyDriven&lt;/key&gt;&#xa;                        &lt;value&gt;false&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;ptfSchematicName&lt;/key&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/parameterValueMap&gt;&#xa;            &lt;/parameters&gt;&#xa;        &lt;/interface&gt;&#xa;    &lt;/interfaces&gt;&#xa;&lt;/boundaryDefinition&gt;</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="systemInfos" type="string">
           <ipxact:name>systemInfos</ipxact:name>
           <ipxact:displayName>systemInfos</ipxact:displayName>
-          <ipxact:value>&lt;systemInfosDefinition&gt;&#xa;    &lt;connPtSystemInfos&gt;&#xa;        &lt;entry&gt;&#xa;            &lt;key&gt;outclk0&lt;/key&gt;&#xa;            &lt;value&gt;&#xa;                &lt;connectionPointName&gt;outclk0&lt;/connectionPointName&gt;&#xa;                &lt;suppliedSystemInfos/&gt;&#xa;                &lt;consumedSystemInfos&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;CLOCK_RATE&lt;/key&gt;&#xa;                        &lt;value&gt;130000000&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/consumedSystemInfos&gt;&#xa;            &lt;/value&gt;&#xa;        &lt;/entry&gt;&#xa;    &lt;/connPtSystemInfos&gt;&#xa;&lt;/systemInfosDefinition&gt;</ipxact:value>
+          <ipxact:value>&lt;systemInfosDefinition&gt;&#xa;    &lt;connPtSystemInfos&gt;&#xa;        &lt;entry&gt;&#xa;            &lt;key&gt;outclk0&lt;/key&gt;&#xa;            &lt;value&gt;&#xa;                &lt;connectionPointName&gt;outclk0&lt;/connectionPointName&gt;&#xa;                &lt;suppliedSystemInfos/&gt;&#xa;                &lt;consumedSystemInfos&gt;&#xa;                    &lt;entry&gt;&#xa;                        &lt;key&gt;CLOCK_RATE&lt;/key&gt;&#xa;                        &lt;value&gt;140000000&lt;/value&gt;&#xa;                    &lt;/entry&gt;&#xa;                &lt;/consumedSystemInfos&gt;&#xa;            &lt;/value&gt;&#xa;        &lt;/entry&gt;&#xa;    &lt;/connPtSystemInfos&gt;&#xa;&lt;/systemInfosDefinition&gt;</ipxact:value>
         </ipxact:parameter>
       </ipxact:parameters>
     </altera:altera_system_parameters>

@@ -187,7 +187,7 @@ module qsys_top (
 	wire           rst_controller_001_reset_out_reset;               // rst_controller_001:reset_out -> [completed:reset_n, mm_interconnect_0:num1_reset_reset_bridge_in_reset_reset, num1:reset_n, num2:reset_n, onchip_memory2_0:reset, onchip_memory2_0:reset2, onchip_memory2_1:reset, onchip_memory2_1:reset2, reset_pio:reset_n, result:reset_n, rst_translator:in_reset, start:reset_n]
 	wire           rst_controller_001_reset_out_reset_req;           // rst_controller_001:reset_req -> [onchip_memory2_0:reset_req, onchip_memory2_0:reset_req2, onchip_memory2_1:reset_req, onchip_memory2_1:reset_req2, rst_translator:reset_req_in]
 
-	qsys_top_altera_arria10_hps_181_ie7t4cy #(
+	qsys_top_altera_arria10_hps_181_pcg24wq #(
 		.F2S_Width (6),
 		.S2F_Width (4)
 	) a10_hps (
@@ -605,7 +605,7 @@ module qsys_top (
 		.out_port   (start_external_connection_export)       //  output,   width = 1, external_connection.export
 	);
 
-	qsys_top_altera_mm_interconnect_181_lzarbwq mm_interconnect_0 (
+	qsys_top_altera_mm_interconnect_181_bplohha mm_interconnect_0 (
 		.num1_s1_address                                      (mm_interconnect_0_num1_s1_address),                //  output,   width = 2,                                        num1_s1.address
 		.num1_s1_write                                        (mm_interconnect_0_num1_s1_write),                  //  output,   width = 1,                                               .write
 		.num1_s1_readdata                                     (mm_interconnect_0_num1_s1_readdata),               //   input,  width = 32,                                               .readdata

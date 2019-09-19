@@ -819,7 +819,7 @@
           </parameter>
           <parameter>
             <name>gui_actual_duty_cycle_range0</name>
-            <value>44.44,45.0,45.45,50.0,54.55,55.0</value>
+            <value>43.75,44.44,45.0,50.0,55.0,55.56</value>
           </parameter>
           <parameter>
             <name>gui_actual_duty_cycle_range1</name>
@@ -891,7 +891,7 @@
           </parameter>
           <parameter>
             <name>gui_actual_output_clock_frequency0</name>
-            <value>130.0</value>
+            <value>140.0</value>
           </parameter>
           <parameter>
             <name>gui_actual_output_clock_frequency1</name>
@@ -963,7 +963,7 @@
           </parameter>
           <parameter>
             <name>gui_actual_output_clock_frequency_range0</name>
-            <value>129.629630,129.6875,129.870130,130.0,130.158730,130.303030</value>
+            <value>139.506173,139.583333,139.682540,140.0,140.277778,140.47619</value>
           </parameter>
           <parameter>
             <name>gui_actual_output_clock_frequency_range1</name>
@@ -1179,7 +1179,7 @@
           </parameter>
           <parameter>
             <name>gui_actual_phase_shift_deg_range0</name>
-            <value>0.0,4.1,4.5,5.0,5.6,6.4</value>
+            <value>0.0,4.5,5.0,5.6,6.4,7.5</value>
           </parameter>
           <parameter>
             <name>gui_actual_phase_shift_deg_range1</name>
@@ -1251,7 +1251,7 @@
           </parameter>
           <parameter>
             <name>gui_actual_phase_shift_range0</name>
-            <value>0.0,87.4,96.2,106.8,120.2,137.4</value>
+            <value>0.0,89.3,99.2,111.6,127.6,148.8</value>
           </parameter>
           <parameter>
             <name>gui_actual_phase_shift_range1</name>
@@ -1827,7 +1827,7 @@
           </parameter>
           <parameter>
             <name>gui_output_clock_frequency0</name>
-            <value>130.0</value>
+            <value>140.0</value>
           </parameter>
           <parameter>
             <name>gui_output_clock_frequency1</name>
@@ -1899,7 +1899,7 @@
           </parameter>
           <parameter>
             <name>gui_output_clock_frequency_ps0</name>
-            <value>7692.308</value>
+            <value>7142.857</value>
           </parameter>
           <parameter>
             <name>gui_output_clock_frequency_ps1</name>
@@ -2379,7 +2379,7 @@
           </parameter>
           <parameter>
             <name>hp_actual_output_clock_frequency_fp0</name>
-            <value>130.0</value>
+            <value>140.0</value>
           </parameter>
           <parameter>
             <name>hp_actual_output_clock_frequency_fp1</name>
@@ -2559,11 +2559,11 @@
           </parameter>
           <parameter>
             <name>m_cnt_hi_div</name>
-            <value>7</value>
+            <value>4</value>
           </parameter>
           <parameter>
             <name>m_cnt_lo_div</name>
-            <value>6</value>
+            <value>3</value>
           </parameter>
           <parameter>
             <name>m_cnt_odd_div_duty_en</name>
@@ -2587,19 +2587,19 @@
           </parameter>
           <parameter>
             <name>multiply_factor</name>
-            <value>13</value>
+            <value>7</value>
           </parameter>
           <parameter>
             <name>n_cnt_bypass_en</name>
-            <value>false</value>
+            <value>true</value>
           </parameter>
           <parameter>
             <name>n_cnt_hi_div</name>
-            <value>1</value>
+            <value>256</value>
           </parameter>
           <parameter>
             <name>n_cnt_lo_div</name>
-            <value>1</value>
+            <value>256</value>
           </parameter>
           <parameter>
             <name>n_cnt_odd_div_duty_en</name>
@@ -2619,7 +2619,7 @@
           </parameter>
           <parameter>
             <name>output_clock_frequency0</name>
-            <value>130.0 MHz</value>
+            <value>140.0 MHz</value>
           </parameter>
           <parameter>
             <name>output_clock_frequency1</name>
@@ -2695,7 +2695,7 @@
           </parameter>
           <parameter>
             <name>parameterTable_values</name>
-            <value>13,2,650.0 MHz,5,1,1,1,1,1,1,1,1,false,7,6,true,false,1,1,false,false,3,256,256,256,256,256,256,256,256,2,256,256,256,256,256,256,256,256,true,false,false,false,false,false,false,false,false,false,true,true,true,true,true,true,true,true,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,pll_cp_setting14,pll_bw_res_setting3</value>
+            <value>7,1,700.0 MHz,5,1,1,1,1,1,1,1,1,false,4,3,true,false,256,256,false,true,3,256,256,256,256,256,256,256,256,2,256,256,256,256,256,256,256,256,true,false,false,false,false,false,false,false,false,false,true,true,true,true,true,true,true,true,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,pll_cp_setting14,pll_bw_res_setting3</value>
           </parameter>
           <parameter>
             <name>parameter_table_hex_file</name>
@@ -2871,11 +2871,11 @@
           </parameter>
           <parameter>
             <name>pll_output_clk_frequency</name>
-            <value>650.0 MHz</value>
+            <value>700.0 MHz</value>
           </parameter>
           <parameter>
             <name>pll_pfd_frequency</name>
-            <value>50.0 MHz</value>
+            <value>100.0 MHz</value>
           </parameter>
           <parameter>
             <name>pll_ripplecap_ctrl</name>
@@ -2958,7 +2958,7 @@
         <className>altera_iopll</className>
         <version>18.1</version>
         <name>iopll_0</name>
-        <uniqueName>qsys_top_iopll_0_altera_iopll_181_f4koglq</uniqueName>
+        <uniqueName>qsys_top_iopll_0_altera_iopll_181_25k5ggi</uniqueName>
         <nonce>0</nonce>
         <incidentConnections></incidentConnections>
         <path>qsys_top_iopll_0.iopll_0</path>
