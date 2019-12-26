@@ -1,11 +1,13 @@
+package hardposit
+
 import java.io.File
 
 import chisel3._
 import chisel3.core.{Bundle, Input, Output, UInt}
 import firrtl.{ExecutionOptionsManager, HasFirrtlOptions}
 
-class FloatOperation extends Module{
-  val io = IO(new Bundle{
+class FloatOperation extends Module {
+  val io = IO(new Bundle {
     val num1 = Input(UInt(32.W))
     val num2 = Input(UInt(32.W))
     val result = Output(UInt(32.W))

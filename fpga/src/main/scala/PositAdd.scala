@@ -1,3 +1,5 @@
+package hardposit
+
 import chisel3._
 import chisel3.util.MuxCase
 import firrtl.{ExecutionOptionsManager, HasFirrtlOptions}

@@ -1,4 +1,5 @@
 import chisel3.iotesters.PeekPokeTester
+import hardposit.PositDiv
 import org.scalatest.{FlatSpec, Matchers}
 
 class PositDivSpec extends FlatSpec with Matchers {

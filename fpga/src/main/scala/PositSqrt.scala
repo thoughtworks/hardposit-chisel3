@@ -1,3 +1,5 @@
+package hardposit
+
 import chisel3._
 import chisel3.util.log2Ceil
 
@@ -57,7 +59,7 @@ class PositSqrt(totalBits: Int, es: Int) extends Module {
     root := next_root << 1
     testDiv := (next_root << 2).asUInt() + 1.U
     count := count - 1.U
-  } .otherwise {
+  }.otherwise {
     remHi := 0.U
     remLo := radicand
     root := 0.U

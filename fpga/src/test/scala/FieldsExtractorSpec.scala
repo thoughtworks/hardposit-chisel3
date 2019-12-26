@@ -1,4 +1,5 @@
 import chisel3.iotesters.PeekPokeTester
+import hardposit.FieldsExtractor
 import org.scalatest.{FlatSpec, Matchers}
 
 class FieldsExtractorSpec extends FlatSpec with Matchers {

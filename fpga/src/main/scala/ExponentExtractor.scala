@@ -1,3 +1,5 @@
+package hardposit
+
 import chisel3._
 import chisel3.util.{Cat, MuxCase, log2Ceil}
 
@@ -22,7 +24,7 @@ class ExponentExtractor(totalBits: Int, es: Int) extends Module {
   private val exponentCombinations = Array.range(2, maxBits).map(index => {
     val startPoint = totalBits + es - (index + 1)
     val endPoint = startPoint - es
-    (regimeLength === index.U) -> Cat(0.U(1.W),number(startPoint, endPoint)(es,if (es == 0) 0 else 1))
+    (regimeLength === index.U) -> Cat(0.U(1.W), number(startPoint, endPoint)(es, if (es == 0) 0 else 1))
   })
   //
   //  private val exponentCombinations = Array.range(2, maxBits - 1 - es).map(index => {

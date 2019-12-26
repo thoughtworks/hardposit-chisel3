@@ -1,4 +1,5 @@
 import chisel3.iotesters._
+import hardposit.PositSqrt
 import org.scalatest.{FlatSpec, Matchers}
 
 class PositSqrtSpec extends FlatSpec with Matchers {

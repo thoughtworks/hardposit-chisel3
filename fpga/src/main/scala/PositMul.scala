@@ -1,3 +1,5 @@
+package hardposit
+
 import chisel3._
 
 class PositMul(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits) {

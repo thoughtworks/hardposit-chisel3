@@ -1,3 +1,5 @@
+package hardposit
+
 import chisel3._
 import chisel3.util.{Cat, MuxCase}
 
@@ -15,10 +17,10 @@ class ItoPConverter(totalBits: Int, es: Int) extends Module {
     !(integerValue(index) === 0.U) -> (totalBits - (index + 1)).U
   })
 
-  private val zeroCount = MuxCase(0.U,zeroCountMappings)
+  private val zeroCount = MuxCase(0.U, zeroCountMappings)
   private val shiftedIntegerValue = integerValue << zeroCount
 
-  private val resultExponent = Cat(0.U,(totalBits - 1).U - zeroCount).asSInt()
+  private val resultExponent = Cat(0.U, (totalBits - 1).U - zeroCount).asSInt()
   private val resultFraction = shiftedIntegerValue(totalBits - 2, 0) << 1.U
 
   private val positGenerator = Module(new PositGeneratorWrapper(totalBits, es))

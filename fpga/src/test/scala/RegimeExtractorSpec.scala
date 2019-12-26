@@ -1,4 +1,5 @@
 import chisel3.iotesters.PeekPokeTester
+import hardposit.RegimeExtractor
 import org.scalatest.{FlatSpec, Matchers}
 
 class RegimeExtractorSpec extends FlatSpec with Matchers {

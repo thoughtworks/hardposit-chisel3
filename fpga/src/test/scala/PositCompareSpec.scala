@@ -1,4 +1,5 @@
 import chisel3.iotesters.PeekPokeTester
+import hardposit.PositCompare
 import org.scalatest.{FlatSpec, Matchers}
 
 

@@ -1,3 +1,5 @@
+package hardposit
+
 import chisel3._
 import chisel3.util.{Cat, MuxCase, log2Ceil}
 
@@ -12,5 +14,5 @@ class FractionExtractor(totalBits: Int) extends Module {
     (io.noOfUsedBits === index.U) -> Cat(io.num(totalBits - (index + 1), 0), 0.U(index.W))
   })
 
-  io.fraction := Cat(1.U,MuxCase(0.U, fractionCombinations))
+  io.fraction := Cat(1.U, MuxCase(0.U, fractionCombinations))
 }

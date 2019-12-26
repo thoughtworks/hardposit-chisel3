@@ -1,4 +1,5 @@
 import chisel3.iotesters.PeekPokeTester
+import hardposit.ItoPConverter
 import org.scalatest.{FlatSpec, Matchers}
 
 class ItoPConverterSpec extends FlatSpec with Matchers {

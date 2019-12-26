@@ -1,3 +1,5 @@
+package hardposit
+
 import chisel3._
 
 class PositFMA(totalBits: Int, es: Int) extends Module {

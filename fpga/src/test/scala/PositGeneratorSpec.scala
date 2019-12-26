@@ -1,4 +1,5 @@
 import chisel3.iotesters.PeekPokeTester
+import hardposit.PositGenerator
 import org.scalatest.{FlatSpec, Matchers}
 
 class PositGeneratorSpec extends FlatSpec with Matchers {
