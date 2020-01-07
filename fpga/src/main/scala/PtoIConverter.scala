@@ -2,11 +2,11 @@ package hardposit
 
 import chisel3._
 
-class PtoIConverter(totalBits: Int, es: Int) extends Module {
+class PtoIConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
   val io = IO(new Bundle {
     val posit = Input(UInt(totalBits.W))
     val unsigned = Input(Bool())
-    val integer = Output(UInt(totalBits.W))
+    val integer = Output(UInt(intWidth.W))
   })
 
   private val positFields = Module(new FieldsExtractor(totalBits, es))
@@ -19,8 +19,8 @@ class PtoIConverter(totalBits: Int, es: Int) extends Module {
   private val normalisedFraction = numFraction << numExponent.asUInt()
 
   private val unsignedInteger = Mux(io.unsigned,
-    Mux(numExponent < totalBits.S, normalisedFraction(2 * totalBits - 1, totalBits), math.pow(2, totalBits).toInt.U - 1.U),
-    Mux(numExponent < (totalBits - 1).S, normalisedFraction(2 * totalBits - 1, totalBits), math.pow(2, totalBits).toInt.U - 1.U))
+    Mux(numExponent < intWidth.S, normalisedFraction(intWidth + totalBits - 1, totalBits), math.pow(2, intWidth).toInt.U - 1.U),
+    Mux(numExponent < (intWidth - 1).S, normalisedFraction(intWidth + totalBits - 1, totalBits), math.pow(2, intWidth).toInt.U - 1.U))
 
   io.integer := Mux(intSign, ~unsignedInteger + 1.U, unsignedInteger)
 }
