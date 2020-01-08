@@ -6,7 +6,7 @@ class PtoIConverterSpec extends FlatSpec with Matchers {
 
   private class PtoIConverterTest(c: PtoIConverter, posit: Int, unsigned: Boolean, expected: Int) extends PeekPokeTester(c) {
     poke(c.io.posit, posit)
-    poke(c.io.unsigned, unsigned)
+    poke(c.io.unsignedOut, unsigned)
     step(1)
     expect(c.io.integer, expected)
   }
