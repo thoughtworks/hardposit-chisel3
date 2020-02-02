@@ -23,7 +23,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "fpga/build.sbt" }}
+            - v1-dependencies-{{ checksum "build.sbt" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
@@ -32,9 +32,8 @@ jobs:
       - save_cache:
           paths:
             - ~/.m2
-          key: v1-dependencies--{{ checksum "fpga/build.sbt" }}
+          key: v1-dependencies--{{ checksum "build.sbt" }}
 
       # run tests!
       - run: 
           command: cat /dev/null | sbt test:test
-          working_directory: fpga/
