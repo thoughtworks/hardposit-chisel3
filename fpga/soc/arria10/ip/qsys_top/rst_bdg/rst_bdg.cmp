@@ -1,8 +1,0 @@
-	component rst_bdg is
-		port (
-			clk       : in  std_logic := 'X'; -- clk
-			in_reset  : in  std_logic := 'X'; -- reset
-			out_reset : out std_logic         -- reset
-		);
-	end component rst_bdg;
-

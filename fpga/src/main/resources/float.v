@@ -1,1 +1,0 @@
-../../../soc/arria10/ip/float/synth/float.v
