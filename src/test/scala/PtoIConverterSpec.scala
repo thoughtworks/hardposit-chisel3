@@ -42,7 +42,7 @@ class PtoIConverterSpec extends FlatSpec with Matchers {
   }
 
   it should "return highest value for smaller integer width" in {
-    assert(test(16, 2, 0x7FFF, unsigned = false, 0xFF, 8))
+    assert(test(16, 2, 0x7FFF, unsigned = false, 0x7F, 8))
   }
 
   it should "return integer value for larger integer width" in {
