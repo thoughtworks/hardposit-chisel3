@@ -2,7 +2,7 @@ organization := "com.thoughtworks"
 
 version := "1.0.0"
 
-name := "posit-fpga"
+name := "hardposit"
 
 scalaVersion := "2.12.4"
 
