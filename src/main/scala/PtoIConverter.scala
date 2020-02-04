@@ -19,6 +19,7 @@ class PtoIConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
   private val numSign = positFields.io.sign
 
   private val intSign = numSign & !io.unsignedOut
+  private val zeroOut = numSign & io.unsignedOut
   private val normalisedFraction = numFraction << numExponent.asUInt()
   private val inRange = Mux(io.unsignedOut, numExponent < intWidth.S, numExponent < (intWidth - 1).S)
 
@@ -26,5 +27,5 @@ class PtoIConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
     normalisedFraction(intWidth + totalBits - 1, totalBits),
     Mux(io.unsignedOut, maxUnsignedInteger, maxSignedInteger))
 
-  io.integer := Mux(intSign, Mux(inRange, ~unsignedInteger + 1.U, ~unsignedInteger), unsignedInteger)
+  io.integer := Mux(intSign, Mux(inRange, ~unsignedInteger + 1.U, ~unsignedInteger), Mux(zeroOut, 0.U, unsignedInteger))
 }

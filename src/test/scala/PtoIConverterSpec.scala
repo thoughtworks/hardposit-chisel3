@@ -25,8 +25,8 @@ class PtoIConverterSpec extends FlatSpec with Matchers {
     assert(test(8, 2, 0x3F, unsigned = true, 0, 8))
   }
 
-  it should "return unsigned integer value for signed posit" in {
-    assert(test(16, 2, 0x8E4A, unsigned = true, 475, 16))
+  it should "return zero for signed posit" in {
+    assert(test(16, 2, 0x8E4A, unsigned = true, 0, 16))
   }
 
   it should "return signed integer value for signed posit" in {
