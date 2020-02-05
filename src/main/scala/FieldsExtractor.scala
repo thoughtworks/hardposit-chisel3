@@ -14,7 +14,7 @@ class FieldsExtractor(totalBits: Int, es: Int) extends Module {
   })
 
   private val num = Mux(io.num(totalBits - 1), -io.num, io.num)
-  private val NaR = math.pow(2, totalBits - 1).toInt.U
+  private val NaR = 1.U << (totalBits - 1)
 
   io.isZero := (io.num === 0.U)
   io.isNaR := (io.num === NaR)
