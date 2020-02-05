@@ -48,4 +48,12 @@ class PtoIConverterSpec extends FlatSpec with Matchers {
   it should "return integer value for larger integer width" in {
     assert(test(16, 2, 0x7F9D, unsigned = true, 973078528, 32))
   }
+
+  it should "return highest signed value for NaR" in {
+    assert(test(16, 2, 0x8000, unsigned = false, 0x7FFF, 16))
+  }
+
+  it should "return highest unsigned value for NaR" in {
+    assert(test(16, 2, 0x8000, unsigned = true, 0xFFFF, 16))
+  }
 }

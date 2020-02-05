@@ -9,9 +9,6 @@ class PtoIConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
     val integer = Output(UInt(intWidth.W))
   })
 
-  private val maxUnsignedInteger = math.pow(2, intWidth).toLong.U(intWidth - 1, 0) - 1.U
-  private val maxSignedInteger = math.pow(2, intWidth - 1).toLong.U(intWidth - 1, 0) - 1.U
-
   private val positFields = Module(new FieldsExtractor(totalBits, es))
   positFields.io.num := io.posit
   private val numFraction = positFields.io.fraction
@@ -22,10 +19,15 @@ class PtoIConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
   private val zeroOut = numSign & io.unsignedOut
   private val normalisedFraction = numFraction << numExponent.asUInt()
   private val inRange = Mux(io.unsignedOut, numExponent < intWidth.S, numExponent < (intWidth - 1).S)
+  private val specialCase = !inRange || positFields.io.isNaR || zeroOut
+  private val specialSign = !positFields.io.isNaR && numSign
 
-  private val unsignedInteger = Mux(inRange,
-    normalisedFraction(intWidth + totalBits - 1, totalBits),
-    Mux(io.unsignedOut, maxUnsignedInteger, maxSignedInteger))
+  private val normalOut = Mux(intSign,
+    ~normalisedFraction(intWidth + totalBits - 1, totalBits) + 1.U,
+    normalisedFraction(intWidth + totalBits - 1, totalBits))
 
-  io.integer := Mux(intSign, Mux(inRange, ~unsignedInteger + 1.U, ~unsignedInteger), Mux(zeroOut, 0.U, unsignedInteger))
+  private val specialCaseOut = Mux((specialSign === !io.unsignedOut), (1.U << (intWidth - 1)), 0.U) |
+    Mux(!specialSign, (1.U << (intWidth - 1)) - 1.U, 0.U)
+
+  io.integer := Mux(specialCase, specialCaseOut, normalOut)
 }
