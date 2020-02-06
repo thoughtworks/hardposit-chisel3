@@ -19,7 +19,7 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
     val out = Output(UInt(totalBits.W))
     val exceptions = Output(UInt(5.W))
   })
-  private val NaR = math.pow(2, totalBits - 1).toInt.U
+  private val NaR = 1.U << (totalBits - 1)
 
   private val cycleCount = RegInit(0.U(log2Up(totalBits + 3).W))
 
@@ -107,7 +107,7 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
     remHi := Mux(nextBit, testRem.asUInt(), rem)
   }
 
-    resultFraction := Mux(started_normally || !readyIn, Cat(resultFraction, nextBit.asUInt()), 0.U)
+  resultFraction := Mux(started_normally || !readyIn, Cat(resultFraction, nextBit.asUInt()), 0.U)
 
   private val validOut = cycleCount === 1.U
 
