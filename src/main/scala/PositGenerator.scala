@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util.{Cat, MuxCase, log2Ceil}
 
 class PositGenerator(totalBits: Int, es: Int) extends Module {
-  private val base = math.pow(2, es).toInt
+  private val base = 1 << es
   private val exponentBits = log2Ceil(base * (totalBits - 1)) + 1
   val io = IO(new Bundle {
     val sign = Input(Bool())
@@ -15,7 +15,7 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
 
   private val exponent = Mux(io.exponent < 0.S, if (es > 0) io.exponent.abs() + (base.asSInt() + ((io.exponent + 1.S) % base.S) - 1.S) * 2.S else 0.S - io.exponent, io.exponent).asUInt()
   private val positRegime = (exponent >> es).asUInt()
-  private val positExponent = (exponent % base.U) (if (es > 0) es - 1 else 0, 0)
+  private val positExponent = (exponent & (base - 1).U)(if (es > 0) es - 1 else 0, 0)
 
 
   //    private val exponent = io.exponent.abs().asUInt()

@@ -4,8 +4,11 @@ import chisel3._
 import chisel3.util.{Cat, MuxCase}
 
 class PositGeneratorWrapper(totalBits: Int, es: Int) extends Module {
-  private val base = math.pow(2, es).toInt
-  private val exponentBits = 128
+  private val base = 1 << es
+  private val exponentBits = (base * (totalBits - 1)) + 1
+  private val NaR = (1 << totalBits - 1)
+  private val maxExponent = (base * (totalBits - 1)) - 1
+
   val io = IO(new Bundle {
     val sign = Input(Bool())
     val exponent = Input(SInt(exponentBits.W))
@@ -19,19 +22,15 @@ class PositGeneratorWrapper(totalBits: Int, es: Int) extends Module {
     (fractionWithDecimal(totalBits, totalBits - index) === 1.U) -> index.S
   })
 
-  private val fractionCombinations = Array.range(1, totalBits).map(index => {
-    (fractionWithDecimal(totalBits, totalBits - index) === 1.U) -> Cat(fractionWithDecimal(totalBits - index - 1, 0), 0.U(index.W))
-  })
+  private val exponentOffset = MuxCase(0.S, exponentOffsetCombinations)
 
-  private val exponent = io.exponent - MuxCase(0.S, exponentOffsetCombinations)
-  private val fraction = MuxCase(fractionWithDecimal(totalBits - 1, 0), fractionCombinations)
+  private val exponent = io.exponent - exponentOffset
+  private val fraction = fractionWithDecimal << exponentOffset.asUInt()
 
   private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.sign := io.sign
   positGenerator.io.exponent := exponent
   positGenerator.io.fraction := fraction
 
-  private val infiniteRepresentation: UInt = math.pow(2, totalBits - 1).toInt.U
-  private val maxExponent: SInt = (base * (totalBits - 1)).S - 1.S
-  io.posit := Mux(fractionWithDecimal === 0.U | exponent <= 0.S - maxExponent, 0.U, Mux(exponent > maxExponent, infiniteRepresentation, positGenerator.io.posit))
+  io.posit := Mux(fractionWithDecimal === 0.U | exponent <= 0.S - maxExponent.S, 0.U, Mux(exponent > maxExponent.S, NaR.U, positGenerator.io.posit))
 }
