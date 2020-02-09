@@ -27,39 +27,16 @@ class PositGeneratorWrapper(totalBits: Int, es: Int) extends Module {
   private val normalisedExponent = io.exponent - exponentOffset
   private val normalisedFraction = (fractionWithDecimal << exponentOffset.asUInt())(totalBits - 1, 0)
 
-  private val exponent = Mux(normalisedExponent < 0.S, if (es > 0) normalisedExponent.abs() + (base.asSInt() + ((normalisedExponent + 1.S) % base.S) - 1.S) * 2.S else 0.S - normalisedExponent, normalisedExponent).asUInt()
-  private val positRegime = (exponent >> es).asUInt()
-  private val positExponent = exponent(if (es > 0) es - 1 else 0, 0)
+  private val signedExponent = Mux(normalisedExponent < 0.S, if (es > 0) normalisedExponent.abs() + (base.asSInt() + ((normalisedExponent + 1.S) % base.S) - 1.S) * 2.S else 0.S - normalisedExponent, normalisedExponent).asUInt()
+  private val positRegime = (signedExponent >> es).asUInt()
+  private val positExponent = signedExponent(if (es > 0) es - 1 else 0, 0)
 
-  private val positiveExponentCombinations = Array.range(0, totalBits).map(index => {
-    val regimeBits = (math.pow(2, index + 2) - 2).toInt.U((index + 2).W)
-    val bitsRequiredForRegime = index + 2
-    val bitsRequiredForExponent = es
-    val bitsRequiredForFraction = totalBits
-    val usedBits = bitsRequiredForRegime + bitsRequiredForExponent + bitsRequiredForFraction
-    val numberOfBitsExcludingSignBit = totalBits - 1
+  private val regimeBits = Mux(normalisedExponent >= 0.S, (1.U << positRegime + 2.U).asUInt() - 2.U, 1.U << (positRegime + 1.U) >> (positRegime + 1.U))
+  private val regimeWithExponentBits = if(es > 0) Cat(regimeBits, positExponent) else regimeBits
+  private val unRoundedPosit = Cat(regimeWithExponentBits, normalisedFraction)
+  private val positOffset = positRegime + es.U + Mux(normalisedExponent >= 0.S, 3.U, 2.U)
+  private val unsignedPosit = (unRoundedPosit >> positOffset)(totalBits - 2, 0)
 
-    var finalPosit = regimeBits
-    finalPosit = if (es > 0) Cat(finalPosit, positExponent) else finalPosit
-    finalPosit = Cat(finalPosit, normalisedFraction)
-    (positRegime === index.U) -> finalPosit(usedBits - 1, usedBits - numberOfBitsExcludingSignBit)
-  })
-
-  private val negativeExponentCombinations = Array.range(1, totalBits - 1).map(index => {
-    val regimeBits = 1.U((index + 1).W)
-    val bitsRequiredForRegime = index + 1
-    val bitsRequiredForExponent = es
-    val bitsRequiredForFraction = totalBits
-    val usedBits = bitsRequiredForRegime + bitsRequiredForExponent + bitsRequiredForFraction
-    val numberOfBitsExcludingSignBit = totalBits - 1
-
-    var finalPosit = regimeBits
-    finalPosit = if (es > 0) Cat(finalPosit, positExponent) else finalPosit
-    finalPosit = Cat(finalPosit, normalisedFraction)
-    (positRegime === index.U) -> finalPosit(usedBits - 1, usedBits - numberOfBitsExcludingSignBit)
-  })
-
-  private val unsignedPosit = Mux(normalisedExponent >= 0.S, MuxCase(0.U, positiveExponentCombinations), MuxCase(0.U, negativeExponentCombinations))
   private val posit = Cat(io.sign, Mux(io.sign, 0.U - unsignedPosit, unsignedPosit))
 
   io.posit := Mux(fractionWithDecimal === 0.U | normalisedExponent <= 0.S - maxExponent.S, 0.U, Mux(normalisedExponent > maxExponent.S, NaR.U, posit))
