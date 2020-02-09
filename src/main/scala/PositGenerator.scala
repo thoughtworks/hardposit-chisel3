@@ -15,7 +15,7 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
 
   private val exponent = Mux(io.exponent < 0.S, if (es > 0) io.exponent.abs() + (base.asSInt() + ((io.exponent + 1.S) % base.S) - 1.S) * 2.S else 0.S - io.exponent, io.exponent).asUInt()
   private val positRegime = (exponent >> es).asUInt()
-  private val positExponent = (exponent & (base - 1).U)(if (es > 0) es - 1 else 0, 0)
+  private val positExponent = exponent(if (es > 0) es - 1 else 0, 0)
 
 
   //    private val exponent = io.exponent.abs().asUInt()
