@@ -29,11 +29,11 @@ class PositFMASpec extends FlatSpec with Matchers {
   }
 
   it should "return product when addend is zero 2" in {
-    assert(test(16, 1, 0x5A00, 0x6200, 0x0, sub = false, negate = false, 0x7010)) //(1.875 * 0.00390) + 0 == 0.006853
+    assert(test(16, 1, 0x5A00, 0x6200, 0x0, sub = false, negate = false, 0x7010)) //(3.25 * 5) + 0 == 16.25
   }
 
   it should "return product when addend is zero 3" in {
-    assert(test(8, 2, 0x47, 0x10, 0x0, sub = false, negate = false, 0x13)) //(3.25 * 5) + 0 == 16.25
+    assert(test(8, 2, 0x47, 0x10, 0x0, sub = false, negate = false, 0x14)) //(1.875 * 0.00390) + 0 == 0.007324
   }
 
   it should "return sum when multiplier is one" in {

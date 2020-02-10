@@ -19,11 +19,11 @@ class PositAddSpec extends FlatSpec with Matchers {
   }
 
   it should "return added value when both exponent and signs are equal" in {
-    assert(test(8, 0, 0x6C, 0x62, 0x73))
+    assert(test(8, 0, 0x6C, 0x62, 0x74))
   }
 
   it should "return added value when both exponent and signs are equal1" in {
-    assert(test(8, 0, 0x6D, 0x6A, 0x75))
+    assert(test(8, 0, 0x6D, 0x6A, 0x76))
   }
 
   it should "return added value when both exponent and signs are equal2" in {
@@ -35,7 +35,7 @@ class PositAddSpec extends FlatSpec with Matchers {
   }
 
   it should "return added value when both exponent and signs are equal3" in {
-    assert(test(8, 0, 0x94, 0x9E, 0x8D))
+    assert(test(8, 0, 0x94, 0x9E, 0x8C))
   }
 
   it should "return the subtracted value when first one is lesser and positive" in {
@@ -92,9 +92,9 @@ class PositAddSpec extends FlatSpec with Matchers {
     assert(test(8,0,109,80,114))
     assert(test(8,0,114,82,117))
     assert(test(8,0,117,84,120))
-    assert(test(8,0,120,86,120))
-    assert(test(8,0,120,88,120))
-    assert(test(8,0,120,89,120))
+    assert(test(8,0,120,86,121))
+    assert(test(8,0,120,88,121))
+    assert(test(8,0,120,89,121))
     assert(test(8,0,120,0xA6,116))
   }
 
@@ -104,10 +104,10 @@ class PositAddSpec extends FlatSpec with Matchers {
     assert(test(8,2,84,80,90))
     assert(test(8,2,90,82,95))
     assert(test(8,2,95,84,97))
-    assert(test(8,2,97,86,98))
+    assert(test(8,2,97,86,99))
     assert(test(8,2,98,88,100))
     assert(test(8,2,100,89,101))
-    assert(test(8,2,0xA6,101,99))
+    assert(test(8,2,0xA6,101,100))
   }
 
   it should "for 100MHZ checking in 16*1" in {

@@ -49,6 +49,6 @@ class PositMulSpec extends FlatSpec with Matchers {
   }
 
   it should "return the correct multiplication when of the number has smallest exponent" in {
-    assert(test(8,2,0x47,0x10,0x13))
+    assert(test(8,2,0x47,0x10,0x14))
   }
 }
