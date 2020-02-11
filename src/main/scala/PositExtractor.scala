@@ -3,7 +3,7 @@ package hardposit
 import chisel3._
 import chisel3.util.log2Ceil
 
-class FieldsExtractor(totalBits: Int, es: Int) extends Module {
+class PositExtractor(totalBits: Int, es: Int) extends Module {
   val io = IO(new Bundle {
     val num = Input(UInt(totalBits.W))
     val isZero = Output(Bool())

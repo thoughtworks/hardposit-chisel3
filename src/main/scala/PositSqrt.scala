@@ -21,7 +21,7 @@ class PositSqrt(totalBits: Int, es: Int) extends Module {
 
   io.ready := ready
 
-  private val numFields = Module(new FieldsExtractor(totalBits, es))
+  private val numFields = Module(new PositExtractor(totalBits, es))
   numFields.io.num := validNum
   private val numSign = numFields.io.sign
   private val numExponent = numFields.io.exponent
@@ -78,7 +78,7 @@ class PositSqrt(totalBits: Int, es: Int) extends Module {
     start := 0.U
   }
 
-  private val positGenerator = Module(new PositGeneratorWrapper(totalBits, es))
+  private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.decimal := finalRoot(totalBits + 1, totalBits)
   positGenerator.io.fraction := finalRoot(totalBits - 1, 0)
   positGenerator.io.exponent := finalExponent

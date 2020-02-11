@@ -16,19 +16,19 @@ class PositFMA(totalBits: Int, es: Int) extends Module {
 
   private val NaR = math.pow(2, totalBits - 1).toInt.U
 
-  private val num1Fields = Module(new FieldsExtractor(totalBits, es))
+  private val num1Fields = Module(new PositExtractor(totalBits, es))
   num1Fields.io.num := io.num1
   private val num1Sign = num1Fields.io.sign
   private val num1Exponent = num1Fields.io.exponent
   private val num1Fraction = num1Fields.io.fraction
 
-  private val num2Fields = Module(new FieldsExtractor(totalBits, es))
+  private val num2Fields = Module(new PositExtractor(totalBits, es))
   num2Fields.io.num := io.num2
   private val num2Sign = num2Fields.io.sign
   private val num2Exponent = num2Fields.io.exponent
   private val num2Fraction = num2Fields.io.fraction
 
-  private val num3Fields = Module(new FieldsExtractor(totalBits, es))
+  private val num3Fields = Module(new PositExtractor(totalBits, es))
   num3Fields.io.num := io.num3
   private val num3Sign = num3Fields.io.sign
   private val num3Exponent = num3Fields.io.exponent
@@ -70,7 +70,7 @@ class PositFMA(totalBits: Int, es: Int) extends Module {
   private val resultDecimal = Mux(isAddition, addedFraction(maxProductFractionBits - 1), subtractedFraction(maxProductFractionBits - 2))
   private val resultSign = largerSign
 
-  private val positGenerator = Module(new PositGeneratorWrapper(totalBits, es))
+  private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.decimal := resultDecimal
   positGenerator.io.sign := resultSign
   positGenerator.io.exponent := resultExponent

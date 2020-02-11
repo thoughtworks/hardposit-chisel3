@@ -36,13 +36,13 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   private val remHi = RegInit(0.U((totalBits + 2).W))
   private val divisor = RegInit(0.U((totalBits + 2).W))
 
-  val num1Fields = Module(new FieldsExtractor(totalBits, es))
+  val num1Fields = Module(new PositExtractor(totalBits, es))
   num1Fields.io.num := io.num1
   private val num1Sign = num1Fields.io.sign
   private val num1Exponent = num1Fields.io.exponent
   private val num1Fraction = num1Fields.io.fraction
 
-  val num2Fields = Module(new FieldsExtractor(totalBits, es))
+  val num2Fields = Module(new PositExtractor(totalBits, es))
   num2Fields.io.num := io.num2
   private val num2Sign = num2Fields.io.sign
   private val num2Exponent = num2Fields.io.exponent
@@ -111,7 +111,7 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
 
   private val validOut = cycleCount === 1.U
 
-  private val positGenerator = Module(new PositGeneratorWrapper(totalBits, es))
+  private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.decimal := resultFraction(totalBits + 1, totalBits)
   positGenerator.io.fraction := resultFraction(totalBits - 1, 0)
   positGenerator.io.exponent := resultExponent

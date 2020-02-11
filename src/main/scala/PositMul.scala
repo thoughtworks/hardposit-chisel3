@@ -4,13 +4,13 @@ import chisel3._
 
 class PositMul(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits) {
 
-  private val num1Fields = Module(new FieldsExtractor(totalBits, es))
+  private val num1Fields = Module(new PositExtractor(totalBits, es))
   num1Fields.io.num := io.num1
   private val num1Sign = num1Fields.io.sign
   private val num1Exponent = num1Fields.io.exponent
   private val num1Fraction = num1Fields.io.fraction
 
-  private val num2Fields = Module(new FieldsExtractor(totalBits, es))
+  private val num2Fields = Module(new PositExtractor(totalBits, es))
   num2Fields.io.num := io.num2
   private val num2Sign = num2Fields.io.sign
   private val num2Exponent = num2Fields.io.exponent
@@ -20,7 +20,7 @@ class PositMul(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits)
   private val finalExponent = num1Exponent + num2Exponent
 
   private val maxFractionBits = 2 * (totalBits + 1)
-  private val positGenerator = Module(new PositGeneratorWrapper(totalBits, es))
+  private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.sign := num1Sign ^ num2Sign
   positGenerator.io.exponent := finalExponent + 1.S
   positGenerator.io.decimal := finalFraction(maxFractionBits - 1)

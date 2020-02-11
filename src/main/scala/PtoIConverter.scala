@@ -9,7 +9,7 @@ class PtoIConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
     val integer = Output(UInt(intWidth.W))
   })
 
-  private val positFields = Module(new FieldsExtractor(totalBits, es))
+  private val positFields = Module(new PositExtractor(totalBits, es))
   positFields.io.num := io.posit
   private val numFraction = positFields.io.fraction
   private val numExponent = positFields.io.exponent

@@ -23,7 +23,7 @@ class ItoPConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
   private val resultExponent = Cat(0.U, (intWidth - 1).U - zeroCount).asSInt()
   private val resultFraction = shiftedIntegerValue(intWidth - 2, 0) << totalBits + 1 >> intWidth
 
-  private val positGenerator = Module(new PositGeneratorWrapper(totalBits, es))
+  private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.sign := resultSign
   positGenerator.io.exponent := resultExponent
   positGenerator.io.fraction := resultFraction

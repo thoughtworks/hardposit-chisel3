@@ -1,10 +1,10 @@
 import chisel3.iotesters.PeekPokeTester
-import hardposit.FieldsExtractor
+import hardposit.PositExtractor
 import org.scalatest.{FlatSpec, Matchers}
 
-class FieldsExtractorSpec extends FlatSpec with Matchers {
+class PositExtractorSpec extends FlatSpec with Matchers {
 
-  private class FieldsExtractorTest(c: FieldsExtractor, num: Int, sign: Boolean, exponent: Int, fraction: Int) extends PeekPokeTester(c) {
+  private class PositExtractorTest(c: PositExtractor, num: Int, sign: Boolean, exponent: Int, fraction: Int) extends PeekPokeTester(c) {
     poke(c.io.num, num)
     expect(c.io.sign, sign)
     expect(c.io.exponent, exponent)
@@ -12,8 +12,8 @@ class FieldsExtractorSpec extends FlatSpec with Matchers {
   }
 
   private def test(totalBits: Int, es: Int, num: Int, sign: Boolean, exponent: Int, fraction: Int): Boolean = {
-    chisel3.iotesters.Driver(() => new FieldsExtractor(totalBits,es)){
-      c => new FieldsExtractorTest(c,num,sign,exponent,fraction)
+    chisel3.iotesters.Driver(() => new PositExtractor(totalBits,es)){
+      c => new PositExtractorTest(c,num,sign,exponent,fraction)
     }
   }
 

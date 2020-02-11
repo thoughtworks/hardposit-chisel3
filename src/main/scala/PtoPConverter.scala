@@ -10,8 +10,8 @@ class PtoPConverter(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) extends 
   private val NaR = math.pow(2, outWidth - 1).toInt.U
 
 
-  val extract = Module(new FieldsExtractor(inWidth, inEs))
-  val generate = Module(new PositGeneratorWrapper(outWidth, outEs))
+  val extract = Module(new PositExtractor(inWidth, inEs))
+  val generate = Module(new PositGenerator(outWidth, outEs))
 
   extract.io.num := io.in
   generate.io.sign := extract.io.sign
