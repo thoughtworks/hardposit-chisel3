@@ -66,9 +66,3 @@ class PositAdd(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits)
   io.out := Mux(check(io.num1, io.num2), io.num2, Mux(check(io.num2, io.num1), io.num1, positGenerator.io.posit))
   io.isNaN := false.B
 }
-
-object PositAdd extends App {
-  val optionsManager = new ExecutionOptionsManager("chisel3") with HasChiselExecutionOptions with HasFirrtlOptions
-  optionsManager.setTargetDirName("soc/chisel_output")
-  Driver.execute(optionsManager, () => new PositAdd(8, 2))
-}

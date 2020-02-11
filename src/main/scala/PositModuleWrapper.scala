@@ -3,7 +3,8 @@ package hardposit
 import chisel3._
 import firrtl.{ExecutionOptionsManager, HasFirrtlOptions}
 
-class PositAddWrapper(totalBits: Int, es: Int) extends Module {
+//Wrapper for testing hardposit modules on FPGA
+class PositModuleWrapper(totalBits: Int, es: Int) extends Module {
 
   val io = IO(new Bundle {
     val starting_address = Input(UInt(12.W))
@@ -51,5 +52,5 @@ class PositAddWrapper(totalBits: Int, es: Int) extends Module {
 object PositAddWrapper extends App {
   val optionsManager = new ExecutionOptionsManager("chisel3") with HasChiselExecutionOptions with HasFirrtlOptions
   optionsManager.setTargetDirName("soc/chisel_output")
-  Driver.execute(optionsManager, () => new PositAddWrapper(8, 2))
+  Driver.execute(optionsManager, () => new PositModuleWrapper(8, 2))
 }
