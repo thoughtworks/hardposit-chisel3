@@ -1,8 +1,7 @@
-import chisel3.iotesters.PeekPokeTester
+import chisel3.iotesters.{ChiselFlatSpec, PeekPokeTester}
 import hardposit.PtoIConverter
-import org.scalatest.{FlatSpec, Matchers}
 
-class PtoIConverterSpec extends FlatSpec with Matchers {
+class PtoIConverterSpec extends ChiselFlatSpec {
 
   private class PtoIConverterTest(c: PtoIConverter, posit: Int, unsigned: Boolean, expected: Int) extends PeekPokeTester(c) {
     poke(c.io.posit, posit)

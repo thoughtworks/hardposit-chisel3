@@ -1,8 +1,7 @@
-import chisel3.iotesters.PeekPokeTester
+import chisel3.iotesters.{ChiselFlatSpec, PeekPokeTester}
 import hardposit.PositMul
-import org.scalatest.{FlatSpec, Matchers}
 
-class PositMulSpec extends FlatSpec with Matchers {
+class PositMulSpec extends ChiselFlatSpec {
 
   private class PositMulTest(c: PositMul, num1: Int, num2: Int, expectedPosit: Int, isNaN: Boolean) extends PeekPokeTester(c) {
     poke(c.io.num1, num1)
@@ -40,15 +39,15 @@ class PositMulSpec extends FlatSpec with Matchers {
   }
 
   it should "return isNan as true when one is zero and another one is infinity" in {
-    assert(test(16, 7, 0x8000, 0,0,true))
-    assert(test(16, 7, 0, 0x8000,0,true))
+    assert(test(16, 7, 0x8000, 0, 0, true))
+    assert(test(16, 7, 0, 0x8000, 0, true))
   }
 
   it should "return the positive number when there are two negative numbers multiplied" in {
-    assert(test(16,1,0xA600,0x9E00,0x7010))
+    assert(test(16, 1, 0xA600, 0x9E00, 0x7010))
   }
 
   it should "return the correct multiplication when of the number has smallest exponent" in {
-    assert(test(8,2,0x47,0x10,0x14))
+    assert(test(8, 2, 0x47, 0x10, 0x14))
   }
 }

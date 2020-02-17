@@ -1,8 +1,7 @@
-import chisel3.iotesters.PeekPokeTester
+import chisel3.iotesters.{ChiselFlatSpec, PeekPokeTester}
 import hardposit.PositGenerator
-import org.scalatest.{FlatSpec, Matchers}
 
-class PositGeneratorSpec extends FlatSpec with Matchers {
+class PositGeneratorSpec extends ChiselFlatSpec{
 
   behavior of "Posit Generator"
 
@@ -33,7 +32,7 @@ class PositGeneratorSpec extends FlatSpec with Matchers {
   }
 
   it should "represent infinite when the exponent is high then it fits" in {
-    assert(test(8,0,false,8,true,0xFF,0x80))
+    assert(test(8, 0, false, 8, true, 0xFF, 0x80))
   }
 
   it should "extract the positive regime" in {

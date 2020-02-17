@@ -21,7 +21,7 @@ class PositDivSqrtSpec extends ChiselFlatSpec {
 //      c => new PositDivSqrtTest(c, num1, num2, sqrtOp, expect)
 //    }
 
-      chisel3.iotesters.Driver.execute(Array.empty,() => new PositDivSqrt(totalBits, es)) {
+      chisel3.iotesters.Driver(() => new PositDivSqrt(totalBits, es)) {
         c => new PositDivSqrtTest(c, num1, num2, sqrtOp, expect)
       }
   }

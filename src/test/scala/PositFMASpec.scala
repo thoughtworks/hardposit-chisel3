@@ -1,8 +1,7 @@
-import chisel3.iotesters.PeekPokeTester
+import chisel3.iotesters.{ChiselFlatSpec, PeekPokeTester}
 import hardposit.PositFMA
-import org.scalatest.{FlatSpec, Matchers}
 
-class PositFMASpec extends FlatSpec with Matchers {
+class PositFMASpec extends ChiselFlatSpec {
 
   private class PositFMATest(c: PositFMA, num1: Int, num2: Int, num3: Int, sub: Boolean, negate: Boolean, expectedPosit: Int, isNaR: Boolean) extends PeekPokeTester(c) {
     poke(c.io.num1, num1)
@@ -13,7 +12,7 @@ class PositFMASpec extends FlatSpec with Matchers {
     step(1)
     print(peek(c.io.isNaR))
     expect(c.io.isNaR, isNaR)
-    if(!isNaR) {
+    if (!isNaR) {
       expect(c.io.out, expectedPosit)
     }
   }
@@ -45,7 +44,7 @@ class PositFMASpec extends FlatSpec with Matchers {
   }
 
   it should "return sum when multiplier is one 3" in {
-    assert(test(16, 2, 0x64AF,  0x4000, 0xAF44, sub = false, negate = false, 0x6423)) //(37.46875 * 1) + -4.3671875 == 33.09375
+    assert(test(16, 2, 0x64AF, 0x4000, 0xAF44, sub = false, negate = false, 0x6423)) //(37.46875 * 1) + -4.3671875 == 33.09375
   }
 
   it should "return difference when multiplier is one and sub is true" in {
@@ -53,7 +52,7 @@ class PositFMASpec extends FlatSpec with Matchers {
   }
 
   it should "return difference when multiplier is one and sub is true 2" in {
-    assert(test(16, 2, 0x64AF,  0x4000, 0x50BC, sub = true, negate = false, 0x6423)) //(37.46875 * 1) - 4.3671875 == 33.09375
+    assert(test(16, 2, 0x64AF, 0x4000, 0x50BC, sub = true, negate = false, 0x6423)) //(37.46875 * 1) - 4.3671875 == 33.09375
   }
 
   it should "return fused multiply-add result" in {

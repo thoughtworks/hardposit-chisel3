@@ -1,15 +1,14 @@
-import chisel3.iotesters.PeekPokeTester
+import chisel3.iotesters.{ChiselFlatSpec, PeekPokeTester}
 import hardposit.PositAdd
-import org.scalatest.{FlatSpec, Matchers}
 
-class PositAddSpec extends FlatSpec with Matchers {
+class PositAddSpec extends ChiselFlatSpec {
 
   private class PositAddTest(c: PositAdd, num1: Int, num2: Int, expectedPosit: Int) extends PeekPokeTester(c) {
     poke(c.io.num1, num1)
     poke(c.io.num2, num2)
     step(1)
     expect(c.io.out, expectedPosit)
-    expect(c.io.isNaN,false)
+    expect(c.io.isNaN, false)
   }
 
   private def test(totalBits: Int, es: Int, num1: Int, num2: Int, expectedPosit: Int): Boolean = {
@@ -69,56 +68,56 @@ class PositAddSpec extends FlatSpec with Matchers {
   }
 
   it should "return the other number when one of it is zero" in {
-    assert(test(8,2,0,0x64,0x64))
-    assert(test(8,2,0x73,0,0x73))
+    assert(test(8, 2, 0, 0x64, 0x64))
+    assert(test(8, 2, 0x73, 0, 0x73))
   }
 
   it should "return infinite number when one of it is infinite" in {
-    assert(test(8,1,0x80,0x64,0x80))
-    assert(test(8,1,0x74,0x80,0x80))
+    assert(test(8, 1, 0x80, 0x64, 0x80))
+    assert(test(8, 1, 0x74, 0x80, 0x80))
   }
 
   it should "return infinite infinity when both are infinity" in {
-    assert(test(8,2,0x80,0x80,0x80))
+    assert(test(8, 2, 0x80, 0x80, 0x80))
   }
 
   it should "return zero when both are zero" in {
-    assert(test(8,4,0,0,0))
+    assert(test(8, 4, 0, 0, 0))
   }
 
   it should "for 100MHZ checking in fpga 8 * 0" in {
-    assert(test(8,0,64,72,98))
-    assert(test(8,0,98,76,109))
-    assert(test(8,0,109,80,114))
-    assert(test(8,0,114,82,117))
-    assert(test(8,0,117,84,120))
-    assert(test(8,0,120,86,121))
-    assert(test(8,0,120,88,121))
-    assert(test(8,0,120,89,121))
-    assert(test(8,0,120,0xA6,116))
+    assert(test(8, 0, 64, 72, 98))
+    assert(test(8, 0, 98, 76, 109))
+    assert(test(8, 0, 109, 80, 114))
+    assert(test(8, 0, 114, 82, 117))
+    assert(test(8, 0, 117, 84, 120))
+    assert(test(8, 0, 120, 86, 121))
+    assert(test(8, 0, 120, 88, 121))
+    assert(test(8, 0, 120, 89, 121))
+    assert(test(8, 0, 120, 0xA6, 116))
   }
 
   it should "for 100MHZ checking in fpga 8 * 2" in {
-    assert(test(8,2,64,72,76))
-    assert(test(8,2,76,76,84))
-    assert(test(8,2,84,80,90))
-    assert(test(8,2,90,82,95))
-    assert(test(8,2,95,84,97))
-    assert(test(8,2,97,86,99))
-    assert(test(8,2,98,88,100))
-    assert(test(8,2,100,89,101))
-    assert(test(8,2,0xA6,101,100))
+    assert(test(8, 2, 64, 72, 76))
+    assert(test(8, 2, 76, 76, 84))
+    assert(test(8, 2, 84, 80, 90))
+    assert(test(8, 2, 90, 82, 95))
+    assert(test(8, 2, 95, 84, 97))
+    assert(test(8, 2, 97, 86, 99))
+    assert(test(8, 2, 98, 88, 100))
+    assert(test(8, 2, 100, 89, 101))
+    assert(test(8, 2, 0xA6, 101, 100))
   }
 
   it should "for 100MHZ checking in 16*1" in {
-    assert(test(16,1,0x4000,0x5000,0x5800))
-    assert(test(16,1,0x5800,0x5800,0x6400))
-    assert(test(16,1,0x6400,0x6000,0x6A00))
-    assert(test(16,1,0x6A00,0x6200,0x6F00))
-    assert(test(16,1,0x6F00,0x6400,0x7140))
-    assert(test(16,1,0x7140,0x6600,0x7300))
-    assert(test(16,1,0x7300,0x6800,0x7480))
-    assert(test(16,1,0x7480,0x6900,0x75A0))
-    assert(test(16,1,0x75A0,0x9600,0x7460))
+    assert(test(16, 1, 0x4000, 0x5000, 0x5800))
+    assert(test(16, 1, 0x5800, 0x5800, 0x6400))
+    assert(test(16, 1, 0x6400, 0x6000, 0x6A00))
+    assert(test(16, 1, 0x6A00, 0x6200, 0x6F00))
+    assert(test(16, 1, 0x6F00, 0x6400, 0x7140))
+    assert(test(16, 1, 0x7140, 0x6600, 0x7300))
+    assert(test(16, 1, 0x7300, 0x6800, 0x7480))
+    assert(test(16, 1, 0x7480, 0x6900, 0x75A0))
+    assert(test(16, 1, 0x75A0, 0x9600, 0x7460))
   }
 }

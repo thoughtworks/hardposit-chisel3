@@ -1,8 +1,7 @@
-import chisel3.iotesters.PeekPokeTester
+import chisel3.iotesters.{ChiselFlatSpec, PeekPokeTester}
 import hardposit.ItoPConverter
-import org.scalatest.{FlatSpec, Matchers}
 
-class ItoPConverterSpec extends FlatSpec with Matchers {
+class ItoPConverterSpec extends ChiselFlatSpec {
 
   private class ItoPConverterTest(c: ItoPConverter, integer: Int, unsigned: Boolean, expected: Int) extends PeekPokeTester(c) {
     poke(c.io.integer, integer)
@@ -34,22 +33,22 @@ class ItoPConverterSpec extends FlatSpec with Matchers {
   }
 
   it should "return posit value for signed integer 2" in {
-    assert(test(8,2,0xB0,unsigned = false, 0x97, 8))
+    assert(test(8, 2, 0xB0, unsigned = false, 0x97, 8))
   }
 
   it should "return posit value for wider unsigned integer " in {
-    assert(test(8,2,32896,unsigned = true, 0x7B, 16))
+    assert(test(8, 2, 32896, unsigned = true, 0x7B, 16))
   }
 
   it should "return posit value for wider signed integer " in {
-    assert(test(8,2,0xFFB0,unsigned = false, 0x97, 16))
+    assert(test(8, 2, 0xFFB0, unsigned = false, 0x97, 16))
   }
 
   it should "return posit value for narrower unsigned integer " in {
-    assert(test(16,2,128,unsigned = true, 0x6C00, 8))
+    assert(test(16, 2, 128, unsigned = true, 0x6C00, 8))
   }
 
   it should "return posit value for narrower signed integer " in {
-    assert(test(16,2,0xB0,unsigned = false, 0x9700, 8))
+    assert(test(16, 2, 0xB0, unsigned = false, 0x9700, 8))
   }
 }

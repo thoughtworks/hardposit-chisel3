@@ -1,9 +1,8 @@
-import chisel3.iotesters.PeekPokeTester
+import chisel3.iotesters.{ChiselFlatSpec, PeekPokeTester}
 import hardposit.PositCompare
-import org.scalatest.{FlatSpec, Matchers}
 
 
-class PositCompareSpec extends FlatSpec with Matchers {
+class PositCompareSpec extends ChiselFlatSpec {
 
   private class PositCompareTest(c: PositCompare, num1: Int, num2: Int, expectlt: Boolean, expecteq: Boolean, expectge: Boolean) extends PeekPokeTester(c) {
     poke(c.io.num1, num1)
