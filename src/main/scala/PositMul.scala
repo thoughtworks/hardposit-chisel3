@@ -4,36 +4,32 @@ import chisel3._
 
 class PositMul(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits) {
 
-  private val num1Fields = Module(new PositExtractor(totalBits, es))
-  num1Fields.io.num := io.num1
-  private val num1Sign = num1Fields.io.sign
-  private val num1Exponent = num1Fields.io.exponent
-  private val num1Fraction = num1Fields.io.fraction
+  private val num1Extractor = Module(new PositExtractor(totalBits, es))
+  num1Extractor.io.in := io.num1
+  private val num1 = num1Extractor.io.out
 
-  private val num2Fields = Module(new PositExtractor(totalBits, es))
-  num2Fields.io.num := io.num2
-  private val num2Sign = num2Fields.io.sign
-  private val num2Exponent = num2Fields.io.exponent
-  private val num2Fraction = num2Fields.io.fraction
+  private val num2Extractor = Module(new PositExtractor(totalBits, es))
+  num2Extractor.io.in := io.num2
+  private val num2 = num2Extractor.io.out
 
-  private val finalFraction = num1Fraction * num2Fraction
-  private val finalExponent = num1Exponent + num2Exponent
+  private val finalFraction = num1.fraction * num2.fraction
+  private val finalExponent = num1.exponent + num2.exponent
 
   private val maxFractionBits = 2 * (totalBits + 1)
   private val positGenerator = Module(new PositGenerator(totalBits, es))
-  positGenerator.io.sign := num1Sign ^ num2Sign
+  positGenerator.io.sign := num1.sign ^ num2.sign
   positGenerator.io.exponent := finalExponent + 1.S
   positGenerator.io.decimal := finalFraction(maxFractionBits - 1)
   positGenerator.io.fraction := finalFraction(maxFractionBits - 2, totalBits + 1)
-  private val infiniteRepresentation: UInt = math.pow(2, totalBits - 1).toInt.U
+  private val NaR= 1.U << (totalBits - 1)
 
   private def checkSame(num1:UInt,num2:UInt,number:UInt):Bool = num1 === number || num2 === number
 
   io.out := Mux(checkSame(io.num1,io.num2,0.U), 0.U,
-            Mux(checkSame(io.num1,io.num2,infiniteRepresentation), infiniteRepresentation,
+            Mux(checkSame(io.num1,io.num2,NaR), NaR,
               positGenerator.io.posit))
 
-  private def check(num1: UInt,num2: UInt) : Bool = num1 === 0.U && num2 === infiniteRepresentation
+  private def check(num1: UInt,num2: UInt) : Bool = num1 === 0.U && num2 === NaR
 
   io.isNaN := check(io.num1,io.num2) || check(io.num2,io.num1)
 }

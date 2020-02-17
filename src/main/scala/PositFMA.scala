@@ -14,39 +14,33 @@ class PositFMA(totalBits: Int, es: Int) extends Module {
     val out = Output(UInt(totalBits.W))
   })
 
-  private val NaR = math.pow(2, totalBits - 1).toInt.U
+  private val NaR = 1.U << (totalBits - 1)
 
-  private val num1Fields = Module(new PositExtractor(totalBits, es))
-  num1Fields.io.num := io.num1
-  private val num1Sign = num1Fields.io.sign
-  private val num1Exponent = num1Fields.io.exponent
-  private val num1Fraction = num1Fields.io.fraction
+  private val num1Extractor = Module(new PositExtractor(totalBits, es))
+  num1Extractor.io.in := io.num1
+  private val num1 = num1Extractor.io.out
 
-  private val num2Fields = Module(new PositExtractor(totalBits, es))
-  num2Fields.io.num := io.num2
-  private val num2Sign = num2Fields.io.sign
-  private val num2Exponent = num2Fields.io.exponent
-  private val num2Fraction = num2Fields.io.fraction
+  private val num2Extractor = Module(new PositExtractor(totalBits, es))
+  num2Extractor.io.in := io.num2
+  private val num2 = num2Extractor.io.out
 
-  private val num3Fields = Module(new PositExtractor(totalBits, es))
-  num3Fields.io.num := io.num3
-  private val num3Sign = num3Fields.io.sign
-  private val num3Exponent = num3Fields.io.exponent
-  private val num3Fraction = num3Fields.io.fraction
+  private val num3Extractor = Module(new PositExtractor(totalBits, es))
+  num3Extractor.io.in := io.num3
+  private val num3 = num3Extractor.io.out
 
-  io.isNaR := num1Fields.io.isNaR || num2Fields.io.isNaR || num3Fields.io.isNaR
-  io.isZero := (num1Fields.io.isZero || num2Fields.io.isZero) && num3Fields.io.isZero
+  io.isNaR := num1.isNaR || num2.isNaR || num3.isNaR
+  io.isZero := (num1.isZero || num2.isZero) && num3.isZero
 
-  private val productSign = num1Sign ^ num2Sign ^ io.negate
-  private val addendSign = num3Sign ^ io.negate ^ io.sub
+  private val productSign = num1.sign ^ num2.sign ^ io.negate
+  private val addendSign = num3.sign ^ io.negate ^ io.sub
 
-  private val productExponent = num1Exponent + num2Exponent
-  private val productFraction = num1Fraction * num2Fraction
+  private val productExponent = num1.exponent + num2.exponent
+  private val productFraction = num1.fraction * num2.fraction
 
   private val maxProductFractionBits = 2 * (totalBits + 1)
 
-  private val addendFraction = (num3Fraction << totalBits).asUInt
-  private val addendExponent = num3Exponent
+  private val addendFraction = (num3.fraction << totalBits).asUInt
+  private val addendExponent = num3.exponent
 
   private val isAddendLargerThanProduct = (addendExponent > productExponent) || (addendExponent === productExponent && (addendFraction > productFraction))
 
@@ -76,8 +70,8 @@ class PositFMA(totalBits: Int, es: Int) extends Module {
   positGenerator.io.exponent := resultExponent
   positGenerator.io.fraction := resultFraction
 
-  io.isNaR := num1Fields.io.isNaR || num2Fields.io.isNaR || num3Fields.io.isNaR || (positGenerator.io.posit === NaR)
-  io.isZero := (num1Fields.io.isZero || num2Fields.io.isZero) && num3Fields.io.isZero || (positGenerator.io.posit === 0.U)
+  io.isNaR := num1.isNaR || num2.isNaR || num3.isNaR || (positGenerator.io.posit === NaR)
+  io.isZero := (num1.isZero || num2.isZero) && num3.isZero || (positGenerator.io.posit === 0.U)
 
   io.out := Mux(io.isNaR, NaR, positGenerator.io.posit)
 }

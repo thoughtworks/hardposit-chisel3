@@ -9,18 +9,16 @@ class PtoIConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
     val integer = Output(UInt(intWidth.W))
   })
 
-  private val positFields = Module(new PositExtractor(totalBits, es))
-  positFields.io.num := io.posit
-  private val numFraction = positFields.io.fraction
-  private val numExponent = positFields.io.exponent
-  private val numSign = positFields.io.sign
+  private val positExtractor = Module(new PositExtractor(totalBits, es))
+  positExtractor.io.in := io.posit
+  private val num = positExtractor.io.out
 
-  private val intSign = numSign & !io.unsignedOut
-  private val zeroOut = numSign & io.unsignedOut
-  private val normalisedFraction = numFraction << numExponent.asUInt()
-  private val inRange = Mux(io.unsignedOut, numExponent < intWidth.S, numExponent < (intWidth - 1).S)
-  private val specialCase = !inRange || positFields.io.isNaR || zeroOut
-  private val specialSign = !positFields.io.isNaR && numSign
+  private val intSign = num.sign & !io.unsignedOut
+  private val zeroOut = num.sign & io.unsignedOut
+  private val normalisedFraction = num.fraction << num.exponent.asUInt()
+  private val inRange = Mux(io.unsignedOut, num.exponent < intWidth.S, num.exponent < (intWidth - 1).S)
+  private val specialCase = !inRange || num.isNaR || zeroOut
+  private val specialSign = !num.isNaR && num.sign
 
   private val normalOut = Mux(intSign,
     ~normalisedFraction(intWidth + totalBits - 1, totalBits) + 1.U,

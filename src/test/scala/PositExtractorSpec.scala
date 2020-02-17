@@ -4,10 +4,10 @@ import hardposit.PositExtractor
 class PositExtractorSpec extends ChiselFlatSpec {
 
   private class PositExtractorTest(c: PositExtractor, num: Int, sign: Boolean, exponent: Int, fraction: Int) extends PeekPokeTester(c) {
-    poke(c.io.num, num)
-    expect(c.io.sign, sign)
-    expect(c.io.exponent, exponent)
-    expect(c.io.fraction, fraction)
+    poke(c.io.in, num)
+    expect(c.io.out.sign, sign)
+    expect(c.io.out.exponent, exponent)
+    expect(c.io.out.fraction, fraction)
   }
 
   private def test(totalBits: Int, es: Int, num: Int, sign: Boolean, exponent: Int, fraction: Int): Boolean = {

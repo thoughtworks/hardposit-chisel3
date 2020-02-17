@@ -6,7 +6,7 @@ import chisel3.util.{Cat, MuxCase, PriorityMux, log2Ceil}
 class PositGenerator(totalBits: Int, es: Int) extends Module {
   private val base = 1 << es
   private val exponentBits = log2Ceil(totalBits) + es + 2
-  private val NaR = (1.U << (totalBits - 1))
+  private val NaR = 1.U << (totalBits - 1)
   private val maxExponent = (base * (totalBits - 1)) - 1
   private val trailingBitCount = 3
     require(trailingBitCount >= 3)

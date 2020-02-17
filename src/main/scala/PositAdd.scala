@@ -8,27 +8,23 @@ class PositAdd(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits)
   require(totalBits > es)
   require(es >= 0)
 
-  private val num1Fields = Module(new PositExtractor(totalBits, es))
-  num1Fields.io.num := io.num1
-  private val num1Sign = num1Fields.io.sign
-  private val num1Exponent = num1Fields.io.exponent
-  private val num1Fraction = num1Fields.io.fraction
+  private val num1Extractor = Module(new PositExtractor(totalBits, es))
+  num1Extractor.io.in := io.num1
+  private val num1 = num1Extractor.io.out
 
-  private val num2Fields = Module(new PositExtractor(totalBits, es))
-  num2Fields.io.num := io.num2
-  private val num2Sign = num2Fields.io.sign
-  private val num2Exponent = num2Fields.io.exponent
-  private val num2Fraction = num2Fields.io.fraction
+  private val num2Extractor = Module(new PositExtractor(totalBits, es))
+  num2Extractor.io.in := io.num2
+  private val num2 = num2Extractor.io.out
 
-  private val num1IsHigherExponent = num1Exponent > num2Exponent
+  private val num1IsHigherExponent = num1.exponent > num2.exponent
 
-  private val highestExponent = Mux(num1IsHigherExponent, num1Exponent, num2Exponent)
-  private val highestExponentSign = Mux(num1IsHigherExponent, num1Sign, num2Sign)
-  private val highestExponentFraction = Mux(num1IsHigherExponent, num1Fraction, num2Fraction)
+  private val highestExponent = Mux(num1IsHigherExponent, num1.exponent, num2.exponent)
+  private val highestExponentSign = Mux(num1IsHigherExponent, num1.sign, num2.sign)
+  private val highestExponentFraction = Mux(num1IsHigherExponent, num1.fraction, num2.fraction)
 
-  private val smallestExponent = Mux(num1IsHigherExponent, num2Exponent, num1Exponent)
-  private val smallestExponentSign = Mux(num1IsHigherExponent, num2Sign, num1Sign)
-  private val smallestExponentFraction = Mux(num1IsHigherExponent, num2Fraction, num1Fraction)
+  private val smallestExponent = Mux(num1IsHigherExponent, num2.exponent, num1.exponent)
+  private val smallestExponentSign = Mux(num1IsHigherExponent, num2.sign, num1.sign)
+  private val smallestExponentFraction = Mux(num1IsHigherExponent, num2.fraction, num1.fraction)
 
   private val exponentDifference = highestExponent - smallestExponent
 
@@ -59,9 +55,9 @@ class PositAdd(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits)
   positGenerator.io.sign := Mux(isSameSignAddition, highestExponentSign, finalSubtractedSign)
   positGenerator.io.exponent := Mux(isSameSignAddition, finalAddedExponent, finalSubtractedExponent)
   positGenerator.io.fraction := Mux(isSameSignAddition, finalAddedFraction, finalSubtractedFraction)
-  private val infiniteRepresentation: UInt = math.pow(2, totalBits - 1).toInt.U
+  private val NaR = 1.U << (totalBits - 1)
 
-  private def check(num1: UInt, num2: UInt): Bool = num1 === 0.U || num2 === infiniteRepresentation
+  private def check(num1: UInt, num2: UInt): Bool = num1 === 0.U || num2 === NaR
 
   io.out := Mux(check(io.num1, io.num2), io.num2, Mux(check(io.num2, io.num1), io.num1, positGenerator.io.posit))
   io.isNaN := false.B

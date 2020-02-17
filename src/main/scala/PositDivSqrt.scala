@@ -36,23 +36,19 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   private val remHi = RegInit(0.U((totalBits + 2).W))
   private val divisor = RegInit(0.U((totalBits + 2).W))
 
-  val num1Fields = Module(new PositExtractor(totalBits, es))
-  num1Fields.io.num := io.num1
-  private val num1Sign = num1Fields.io.sign
-  private val num1Exponent = num1Fields.io.exponent
-  private val num1Fraction = num1Fields.io.fraction
+  val num1Extractor = Module(new PositExtractor(totalBits, es))
+  num1Extractor.io.in := io.num1
+  private val num1 = num1Extractor.io.out
 
-  val num2Fields = Module(new PositExtractor(totalBits, es))
-  num2Fields.io.num := io.num2
-  private val num2Sign = num2Fields.io.sign
-  private val num2Exponent = num2Fields.io.exponent
-  private val num2Fraction = num2Fields.io.fraction
+  val num2Extractor = Module(new PositExtractor(totalBits, es))
+  num2Extractor.io.in := io.num2
+  private val num2 = num2Extractor.io.out
 
-  private val isNaR = Mux(io.sqrtOp, num1Sign | num1Fields.io.isNaR, num1Fields.io.isNaR)
-  private val isZero = Mux(io.sqrtOp, num1Fields.io.isZero, num1Fields.io.isZero | num2Fields.io.isNaR)
-  private val divideByZero = !io.sqrtOp && num2Fields.io.isZero
+  private val isNaR = Mux(io.sqrtOp, num1.sign | num1.isNaR, num1.isNaR)
+  private val isZero = Mux(io.sqrtOp, num1.isZero, num1.isZero | num2.isNaR)
+  private val divideByZero = !io.sqrtOp && num2.isZero
   private val specialCase = isNaR || isZero || divideByZero
-  private val exponentDifference = num1Exponent - num2Exponent
+  private val exponentDifference = num1.exponent - num2.exponent
 
   private val idle = cycleCount === 0.U
   private val readyIn = cycleCount <= 1.U
@@ -60,7 +56,7 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   private val starting = readyIn && io.validIn
   private val started_normally = starting && !specialCase
 
-  private val radicand = Mux(io.sqrtOp && num1Exponent(0).asBool(), num1Fraction << 1, num1Fraction)
+  private val radicand = Mux(io.sqrtOp && num1.exponent(0).asBool(), num1.fraction << 1, num1.fraction)
 
   when(!idle | io.validIn) {
     cycleCount := Mux(starting && specialCase, 1.U, 0.U |
@@ -78,12 +74,12 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   }
 
   when(started_normally) {
-    resultSign := Mux(io.sqrtOp, false.B, num1Sign ^ num2Sign)
-    resultExponent := Mux(io.sqrtOp, num1Exponent >> 1, exponentDifference)
+    resultSign := Mux(io.sqrtOp, false.B, num1.sign ^ num2.sign)
+    resultExponent := Mux(io.sqrtOp, num1.exponent >> 1, exponentDifference)
   }
 
   when(started_normally && !io.sqrtOp) {
-    divisor := num2Fraction
+    divisor := num2.fraction
   }
 
   remLo := Mux(readyIn && io.sqrtOp, radicand << 2, 0.U) |
@@ -96,7 +92,7 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
 
 
   private val testDiv = Mux(readyIn && io.sqrtOp, 1.U, 0.U) |
-    Mux(readyIn && !io.sqrtOp, num2Fraction, 0.U) |
+    Mux(readyIn && !io.sqrtOp, num2.fraction, 0.U) |
     Mux(!readyIn && sqrtOp_stored, Cat(resultFraction << 1.U, 1.U), 0.U) |
     Mux(!readyIn && !sqrtOp_stored, divisor, 0.U)
 

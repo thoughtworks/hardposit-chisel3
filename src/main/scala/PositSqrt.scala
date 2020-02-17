@@ -11,7 +11,7 @@ class PositSqrt(totalBits: Int, es: Int) extends Module {
     val isNaR = Output(Bool())
     val ready = Output(Bool())
   })
-  private val NaR = math.pow(2, totalBits - 1).toInt.U
+  private val NaR = 1.U << (totalBits - 1)
 
   val validNum = RegInit(0.U(totalBits.W))
   val start = RegInit(0.U(2.W))
@@ -21,13 +21,11 @@ class PositSqrt(totalBits: Int, es: Int) extends Module {
 
   io.ready := ready
 
-  private val numFields = Module(new PositExtractor(totalBits, es))
-  numFields.io.num := validNum
-  private val numSign = numFields.io.sign
-  private val numExponent = numFields.io.exponent
-  private val numFraction = numFields.io.fraction
+  private val numExtractor = Module(new PositExtractor(totalBits, es))
+  numExtractor.io.in := io.num
+  private val num = numExtractor.io.out
 
-  io.isNaR := numSign || numFields.io.isNaR
+  io.isNaR := num.sign || num.isNaR
 
   when(io.valid && ready) {
     validNum := io.num
@@ -37,8 +35,8 @@ class PositSqrt(totalBits: Int, es: Int) extends Module {
     finalExponent := 0.S
   }
 
-  val rootExponent = numExponent >> 1
-  val radicand = Mux(numExponent(0).asBool(), numFraction << 1, numFraction)
+  val rootExponent = num.exponent >> 1
+  val radicand = Mux(num.exponent(0).asBool(), num.fraction << 1, num.fraction)
 
   when(start === 1.U) {
     start := 2.U
