@@ -1,7 +1,7 @@
 package hardposit
 
 import chisel3._
-import chisel3.util.{Cat, MuxCase, log2Ceil}
+import chisel3.util.{Cat, MuxCase, PriorityMux, log2Ceil}
 
 class PositGenerator(totalBits: Int, es: Int) extends Module {
   private val base = 1 << es
@@ -20,11 +20,9 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
   })
 
   private val fractionWithDecimal = Cat(io.decimal, io.fraction)
-  private val exponentOffsetCombinations = Array.range(0, totalBits + 1).map(index => {
+  private val exponentOffset = PriorityMux(Array.range(0, totalBits + 1).map(index => {
     (fractionWithDecimal(totalBits, totalBits - index) === 1.U) -> index.S
-  })
-
-  private val exponentOffset = MuxCase(0.S, exponentOffsetCombinations)
+  }))
 
   private val normalisedExponent = io.exponent - exponentOffset
   private val normalisedFraction = (fractionWithDecimal << exponentOffset.asUInt())(totalBits - 1, 0)
