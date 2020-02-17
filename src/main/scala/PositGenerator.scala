@@ -5,26 +5,22 @@ import chisel3.util.{Cat, MuxCase, PriorityMux, log2Ceil}
 
 class PositGenerator(totalBits: Int, es: Int) extends Module {
   private val base = 1 << es
-  private val exponentBits = log2Ceil(totalBits) + es + 2
   private val NaR = 1.U << (totalBits - 1)
   private val maxExponent = (base * (totalBits - 1)) - 1
   private val trailingBitCount = 3
     require(trailingBitCount >= 3)
 
   val io = IO(new Bundle {
-    val sign = Input(Bool())
-    val exponent = Input(SInt(exponentBits.W))
-    val decimal = Input(Bool())
-    val fraction = Input(UInt(totalBits.W))
-    val posit = Output(UInt(totalBits.W))
+    val in = Input(new unpackedPosit(totalBits, es))
+    val out = Output(UInt(totalBits.W))
   })
 
-  private val fractionWithDecimal = Cat(io.decimal, io.fraction)
+  private val fractionWithDecimal = io.in.fraction
   private val exponentOffset = PriorityMux(Array.range(0, totalBits + 1).map(index => {
     (fractionWithDecimal(totalBits, totalBits - index) === 1.U) -> index.S
   }))
 
-  private val normalisedExponent = io.exponent - exponentOffset
+  private val normalisedExponent = io.in.exponent - exponentOffset
   private val normalisedFraction = (fractionWithDecimal << exponentOffset.asUInt())(totalBits - 1, 0)
 
   private val signedExponent = Mux(normalisedExponent < 0.S, if (es > 0) normalisedExponent.abs() + (base.asSInt() + ((normalisedExponent + 1.S) % base.S) - 1.S) * 2.S else 0.S - normalisedExponent, normalisedExponent).asUInt()
@@ -48,7 +44,7 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
   private val roundingBit = Mux(uR_uS_posit.andR(), false.B, Mux(grs =/= 4.U, guardBit, T_uS_posit(0)))
 
   private val R_uS_posit = uR_uS_posit + roundingBit
-  private val R_S_posit = Cat(io.sign, Mux(io.sign, 0.U - R_uS_posit, R_uS_posit))
+  private val R_S_posit = Cat(io.in.sign, Mux(io.in.sign, 0.U - R_uS_posit, R_uS_posit))
 
-  io.posit := Mux(fractionWithDecimal === 0.U | normalisedExponent <= 0.S - maxExponent.S, 0.U, Mux(normalisedExponent > maxExponent.S, NaR, R_S_posit))
+  io.out := Mux(fractionWithDecimal === 0.U | normalisedExponent <= 0.S - maxExponent.S, 0.U, Mux(normalisedExponent > maxExponent.S, NaR, R_S_posit))
 }

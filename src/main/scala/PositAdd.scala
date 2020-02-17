@@ -1,7 +1,7 @@
 package hardposit
 
 import chisel3._
-import chisel3.util.MuxCase
+import chisel3.util.{Cat, MuxCase}
 import firrtl.{ExecutionOptionsManager, HasFirrtlOptions}
 
 class PositAdd(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits) {
@@ -17,6 +17,7 @@ class PositAdd(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits)
   private val num2 = num2Extractor.io.out
 
   private val num1IsHigherExponent = num1.exponent > num2.exponent
+  private val result = Wire(new unpackedPosit(totalBits, es))
 
   private val highestExponent = Mux(num1IsHigherExponent, num1.exponent, num2.exponent)
   private val highestExponentSign = Mux(num1IsHigherExponent, num1.sign, num2.sign)
@@ -50,15 +51,20 @@ class PositAdd(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits)
   private val finalSubtractedSign = Mux(isHighestExponentFractionHigher, highestExponentSign, smallestExponentSign)
 
   private val isSameSignAddition = !(highestExponentSign ^ smallestExponentSign)
-  private val positGenerator = Module(new PositGenerator(totalBits, es))
-  positGenerator.io.decimal := Mux(isSameSignAddition, finalAddedDecimal, finalSubtractedDecimal)
-  positGenerator.io.sign := Mux(isSameSignAddition, highestExponentSign, finalSubtractedSign)
-  positGenerator.io.exponent := Mux(isSameSignAddition, finalAddedExponent, finalSubtractedExponent)
-  positGenerator.io.fraction := Mux(isSameSignAddition, finalAddedFraction, finalSubtractedFraction)
-  private val NaR = 1.U << (totalBits - 1)
 
+  result.isNaR := num1.isNaR || num2.isNaR
+  result.isZero := num1.isZero && num2.isZero
+  result.sign := Mux(isSameSignAddition, highestExponentSign, finalSubtractedSign)
+  result.exponent := Mux(isSameSignAddition, finalAddedExponent, finalSubtractedExponent)
+  result.fraction := Cat(Mux(isSameSignAddition, finalAddedDecimal, finalSubtractedDecimal),
+    Mux(isSameSignAddition, finalAddedFraction, finalSubtractedFraction))
+
+  private val positGenerator = Module(new PositGenerator(totalBits, es))
+  positGenerator.io.in <> result
+
+  private val NaR = 1.U << (totalBits - 1)
   private def check(num1: UInt, num2: UInt): Bool = num1 === 0.U || num2 === NaR
 
-  io.out := Mux(check(io.num1, io.num2), io.num2, Mux(check(io.num2, io.num1), io.num1, positGenerator.io.posit))
+  io.out := Mux(check(io.num1, io.num2), io.num2, Mux(check(io.num2, io.num1), io.num1, positGenerator.io.out))
   io.isNaN := false.B
 }

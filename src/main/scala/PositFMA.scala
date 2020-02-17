@@ -59,19 +59,17 @@ class PositFMA(totalBits: Int, es: Int) extends Module {
   private val addedFraction = largerFraction + shiftedSmallerFraction
   private val subtractedFraction = largerFraction - shiftedSmallerFraction
 
-  private val resultExponent = Mux(isAddition, largerExponent + 1.S, largerExponent)
-  private val resultFraction = Mux(isAddition, addedFraction(maxProductFractionBits - 2, totalBits + 1), subtractedFraction(maxProductFractionBits - 3, totalBits))
-  private val resultDecimal = Mux(isAddition, addedFraction(maxProductFractionBits - 1), subtractedFraction(maxProductFractionBits - 2))
-  private val resultSign = largerSign
+  private val result = Wire(new unpackedPosit(totalBits, es))
+  result.isNaR := num1.isNaR || num2.isNaR || num3.isNaR
+  result.isZero := (num1.isZero || num2.isZero) && num3.isZero
+  result.sign := largerSign
+  result.exponent := Mux(isAddition, largerExponent + 1.S, largerExponent)
+  result.fraction := Mux(isAddition, addedFraction(maxProductFractionBits - 1, totalBits + 1), subtractedFraction(maxProductFractionBits - 2, totalBits))
 
   private val positGenerator = Module(new PositGenerator(totalBits, es))
-  positGenerator.io.decimal := resultDecimal
-  positGenerator.io.sign := resultSign
-  positGenerator.io.exponent := resultExponent
-  positGenerator.io.fraction := resultFraction
+  positGenerator.io.in <> result
 
-  io.isNaR := num1.isNaR || num2.isNaR || num3.isNaR || (positGenerator.io.posit === NaR)
-  io.isZero := (num1.isZero || num2.isZero) && num3.isZero || (positGenerator.io.posit === 0.U)
-
-  io.out := Mux(io.isNaR, NaR, positGenerator.io.posit)
+  io.isNaR := result.isNaR || (positGenerator.io.out === NaR)
+  io.isZero := result.isZero || (positGenerator.io.out === 0.U)
+  io.out := Mux(result.isNaR, NaR, positGenerator.io.out)
 }

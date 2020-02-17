@@ -28,10 +28,7 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   private val isZero_out = Reg(Bool())
   private val exceptions_out = RegInit(0.U(5.W))
 
-  private val resultSign = Reg(Bool())
-  private val resultExponent = Reg(SInt((log2Ceil(math.pow(2, es).toInt * totalBits) + es + 2).W))
-  private val resultFraction = RegInit(0.U((totalBits + 2).W))
-
+  private val result = RegInit(0.U.asTypeOf(new unpackedPosit(totalBits, es)))
   private val remLo = RegInit(0.U((totalBits + 2).W))
   private val remHi = RegInit(0.U((totalBits + 2).W))
   private val divisor = RegInit(0.U((totalBits + 2).W))
@@ -74,8 +71,8 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   }
 
   when(started_normally) {
-    resultSign := Mux(io.sqrtOp, false.B, num1.sign ^ num2.sign)
-    resultExponent := Mux(io.sqrtOp, num1.exponent >> 1, exponentDifference)
+    result.sign := Mux(io.sqrtOp, false.B, num1.sign ^ num2.sign)
+    result.exponent := Mux(io.sqrtOp, num1.exponent >> 1, exponentDifference)
   }
 
   when(started_normally && !io.sqrtOp) {
@@ -93,7 +90,7 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
 
   private val testDiv = Mux(readyIn && io.sqrtOp, 1.U, 0.U) |
     Mux(readyIn && !io.sqrtOp, num2.fraction, 0.U) |
-    Mux(!readyIn && sqrtOp_stored, Cat(resultFraction << 1.U, 1.U), 0.U) |
+    Mux(!readyIn && sqrtOp_stored, Cat(result.fraction << 1.U, 1.U), 0.U) |
     Mux(!readyIn && !sqrtOp_stored, divisor, 0.U)
 
   private val testRem = rem.zext - testDiv.zext
@@ -103,22 +100,21 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
     remHi := Mux(nextBit, testRem.asUInt(), rem)
   }
 
-  resultFraction := Mux(started_normally || !readyIn, Cat(resultFraction, nextBit.asUInt()), 0.U)
+  result.fraction := Mux(started_normally || !readyIn, Cat(result.fraction, nextBit.asUInt()), 0.U)
+  result.isNaR := isNaR_out
+  result.isZero := isZero_out
 
   private val validOut = cycleCount === 1.U
 
   private val positGenerator = Module(new PositGenerator(totalBits, es))
-  positGenerator.io.decimal := resultFraction(totalBits + 1, totalBits)
-  positGenerator.io.fraction := resultFraction(totalBits - 1, 0)
-  positGenerator.io.exponent := resultExponent
-  positGenerator.io.sign := resultSign
+  positGenerator.io.in <> result
 
-  private val out = Mux(isZero_out, 0.U, Mux(isNaR_out || divideByZero, NaR, positGenerator.io.posit))
+  private val out = Mux(isZero_out, 0.U, Mux(isNaR_out || divideByZero, NaR, positGenerator.io.out))
 
   io.validOut_div := validOut && !sqrtOp_stored
   io.validOut_sqrt := validOut && sqrtOp_stored
-  io.isNaR := isNaR_out
-  io.isZero := isZero_out
+  io.isNaR := result.isNaR
+  io.isZero := result.isZero
   io.exceptions := exceptions_out
   io.out := out
 }

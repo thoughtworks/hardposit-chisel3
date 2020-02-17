@@ -16,8 +16,7 @@ class PositSqrt(totalBits: Int, es: Int) extends Module {
   val validNum = RegInit(0.U(totalBits.W))
   val start = RegInit(0.U(2.W))
   val ready = RegInit(true.B)
-  val finalRoot = RegInit(0.U((totalBits + 2).W))
-  val finalExponent = RegInit(0.S((log2Ceil(math.pow(2, es).toInt * totalBits) + es + 2).W))
+  private val result = RegInit(0.U.asTypeOf(new unpackedPosit(totalBits, es)))
 
   io.ready := ready
 
@@ -25,14 +24,15 @@ class PositSqrt(totalBits: Int, es: Int) extends Module {
   numExtractor.io.in := io.num
   private val num = numExtractor.io.out
 
-  io.isNaR := num.sign || num.isNaR
+  result.isNaR := num.sign || num.isNaR
+  result.isZero := num.isZero
 
   when(io.valid && ready) {
     validNum := io.num
     start := 1.U
     ready := false.B
-    finalRoot := 0.U
-    finalExponent := 0.S
+    result.fraction := 0.U
+    result.exponent := 0.S
   }
 
   val rootExponent = num.exponent >> 1
@@ -67,8 +67,8 @@ class PositSqrt(totalBits: Int, es: Int) extends Module {
 
   when(count === 0.U) {
     start := 3.U
-    finalRoot := root
-    finalExponent := rootExponent
+    result.fraction := root
+    result.exponent := rootExponent
   }
 
   when(start === 3.U) {
@@ -76,11 +76,10 @@ class PositSqrt(totalBits: Int, es: Int) extends Module {
     start := 0.U
   }
 
+  result.sign := 0.U
   private val positGenerator = Module(new PositGenerator(totalBits, es))
-  positGenerator.io.decimal := finalRoot(totalBits + 1, totalBits)
-  positGenerator.io.fraction := finalRoot(totalBits - 1, 0)
-  positGenerator.io.exponent := finalExponent
-  positGenerator.io.sign := 0.U
+  positGenerator.io.in <> result
 
-  io.out := Mux(io.isNaR, NaR, positGenerator.io.posit)
+  io.isNaR := result.isNaR
+  io.out := Mux(io.isNaR, NaR, positGenerator.io.out)
 }
