@@ -45,6 +45,6 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
   private val R_uS_posit = uR_uS_posit + roundingBit
   private val R_S_posit = Cat(io.in.sign, Mux(io.in.sign, 0.U - R_uS_posit, R_uS_posit))
 
-  io.out := Mux((io.in.fraction === 0.U) | (normalisedExponent <= 0.S - maxExponent.S) | io.in.isZero, 0.U,
-    Mux((normalisedExponent > maxExponent.S) | io.in.isNaR, NaR, R_S_posit))
+  io.out := Mux((normalisedExponent > maxExponent.S) | io.in.isNaR, NaR,
+    Mux((io.in.fraction === 0.U) | (normalisedExponent <= 0.S - maxExponent.S) | io.in.isZero, 0.U, R_S_posit))
 }
