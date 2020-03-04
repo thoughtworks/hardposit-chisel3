@@ -15,13 +15,12 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
     val out = Output(UInt(totalBits.W))
   })
 
-  private val fractionWithDecimal = io.in.fraction
   private val exponentOffset = PriorityMux(Array.range(0, totalBits + 1).map(index => {
-    (fractionWithDecimal(totalBits, totalBits - index) === 1.U) -> index.S
+    (io.in.fraction(totalBits, totalBits - index) === 1.U) -> index.S
   }))
 
   private val normalisedExponent = io.in.exponent - exponentOffset
-  private val normalisedFraction = (fractionWithDecimal << exponentOffset.asUInt())(totalBits - 1, 0)
+  private val normalisedFraction = (io.in.fraction << exponentOffset.asUInt())(totalBits - 1, 0)
 
   private val signedExponent = Mux(normalisedExponent < 0.S, if (es > 0) normalisedExponent.abs() + (base.asSInt() + ((normalisedExponent + 1.S) % base.S) - 1.S) * 2.S else 0.S - normalisedExponent, normalisedExponent).asUInt()
   private val positRegime = (signedExponent >> es).asUInt()
@@ -46,5 +45,6 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
   private val R_uS_posit = uR_uS_posit + roundingBit
   private val R_S_posit = Cat(io.in.sign, Mux(io.in.sign, 0.U - R_uS_posit, R_uS_posit))
 
-  io.out := Mux(fractionWithDecimal === 0.U | normalisedExponent <= 0.S - maxExponent.S, 0.U, Mux(normalisedExponent > maxExponent.S, NaR, R_S_posit))
+  io.out := Mux((io.in.fraction === 0.U) | (normalisedExponent <= 0.S - maxExponent.S) | io.in.isZero, 0.U,
+    Mux((normalisedExponent > maxExponent.S) | io.in.isNaR, NaR, R_S_posit))
 }

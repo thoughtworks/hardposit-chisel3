@@ -9,6 +9,8 @@ class PositGeneratorSpec extends ChiselFlatSpec{
     poke(c.io.in.sign, sign)
     poke(c.io.in.exponent, exponent)
     poke(c.io.in.fraction, fraction)
+    poke(c.io.in.isNaR, false)
+    poke(c.io.in.isZero, false)
     step(1)
     expect(c.io.out, expectedPosit & 0xFF)
   }
