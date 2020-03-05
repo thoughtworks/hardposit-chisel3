@@ -22,7 +22,13 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
   private val normalisedExponent = io.in.exponent - exponentOffset
   private val normalisedFraction = (io.in.fraction << exponentOffset.asUInt())(totalBits - 1, 0)
 
-  private val signedExponent = Mux(normalisedExponent < 0.S, if (es > 0) normalisedExponent.abs() + (base.asSInt() + ((normalisedExponent + 1.S) % base.S) - 1.S) * 2.S else 0.S - normalisedExponent, normalisedExponent).asUInt()
+  private val signedExponent = Mux(normalisedExponent < 0.S,
+    if (es > 0){
+      val expModBase = (normalisedExponent + 1.S)(es - 1 ,0).asUInt
+      val signedExpModBase = Mux(expModBase =/= 0.U, Cat(1.U, expModBase).asSInt, 0.S)
+      normalisedExponent.abs() + (((base - 1).S + signedExpModBase) << 1.U)
+    } else 0.S - normalisedExponent, normalisedExponent).asUInt()
+
   private val positRegime = (signedExponent >> es).asUInt()
   private val positExponent = signedExponent(if (es > 0) es - 1 else 0, 0)
   private val positOffset = positRegime + es.U + Mux(normalisedExponent >= 0.S, 3.U, 2.U)
