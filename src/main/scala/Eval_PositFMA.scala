@@ -2,7 +2,7 @@ package hardposit
 
 import chisel3._
 
-class EvalPositFMA(totalBits: Int, es: Int) extends Module {
+class Eval_PositFMA(totalBits: Int, es: Int) extends Module {
 
   val io = IO(new Bundle {
     val num1 = Input(UInt(totalBits.W))
@@ -29,13 +29,13 @@ class EvalPositFMA(totalBits: Int, es: Int) extends Module {
   io.pass := (io.expected === io.actual)
 }
 
-class EvalPositFMA_16 extends EvalPositFMA(16, 1)
+class Eval_PositFMA_16 extends Eval_PositFMA(16, 1)
 
-class EvalPositFMA_32 extends EvalPositFMA(32, 2)
+class Eval_PositFMA_32 extends Eval_PositFMA(32, 2)
 
-class EvalPositFMA_64 extends EvalPositFMA(64, 3)
+class Eval_PositFMA_64 extends Eval_PositFMA(64, 3)
 
-class EvalPositFMA_add(totalBits: Int, es: Int) extends Module {
+class Eval_PositFMA_add(totalBits: Int, es: Int) extends Module {
   val io = IO(new Bundle {
     val num1 = Input(UInt(totalBits.W))
     val num2 = Input(UInt(totalBits.W))
@@ -60,13 +60,13 @@ class EvalPositFMA_add(totalBits: Int, es: Int) extends Module {
   io.pass := (io.expected === io.actual)
 }
 
-class EvalPositFMA_add_16 extends EvalPositFMA_add(16, 1)
+class Eval_PositFMA_add_16 extends Eval_PositFMA_add(16, 1)
 
-class EvalPositFMA_add_32 extends EvalPositFMA_add(32, 2)
+class Eval_PositFMA_add_32 extends Eval_PositFMA_add(32, 2)
 
-class EvalPositFMA_add_64 extends EvalPositFMA_add(64, 3)
+class Eval_PositFMA_add_64 extends Eval_PositFMA_add(64, 3)
 
-class EvalPositFMA_mul(totalBits: Int, es: Int) extends Module {
+class Eval_PositFMA_mul(totalBits: Int, es: Int) extends Module {
   val io = IO(new Bundle {
     val num1 = Input(UInt(totalBits.W))
     val num2 = Input(UInt(totalBits.W))
@@ -91,8 +91,8 @@ class EvalPositFMA_mul(totalBits: Int, es: Int) extends Module {
   io.pass := (io.expected === io.actual)
 }
 
-class EvalPositFMA_mul_16 extends EvalPositFMA_mul(16, 1)
+class Eval_PositFMA_mul_16 extends Eval_PositFMA_mul(16, 1)
 
-class EvalPositFMA_mul_32 extends EvalPositFMA_mul(32, 2)
+class Eval_PositFMA_mul_32 extends Eval_PositFMA_mul(32, 2)
 
-class EvalPositFMA_mul_64 extends EvalPositFMA_mul(64, 3)
+class Eval_PositFMA_mul_64 extends Eval_PositFMA_mul(64, 3)
