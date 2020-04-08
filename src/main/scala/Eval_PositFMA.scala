@@ -29,11 +29,11 @@ class Eval_PositFMA(totalBits: Int, es: Int) extends Module {
   io.pass := (io.expected === io.actual)
 }
 
-class Eval_PositFMA_16 extends Eval_PositFMA(16, 1)
+class Eval_PositFMAP16 extends Eval_PositFMA(16, 1)
 
-class Eval_PositFMA_32 extends Eval_PositFMA(32, 2)
+class Eval_PositFMAP32 extends Eval_PositFMA(32, 2)
 
-class Eval_PositFMA_64 extends Eval_PositFMA(64, 3)
+class Eval_PositFMAP64 extends Eval_PositFMA(64, 3)
 
 class Eval_PositFMA_add(totalBits: Int, es: Int) extends Module {
   val io = IO(new Bundle {
@@ -60,11 +60,11 @@ class Eval_PositFMA_add(totalBits: Int, es: Int) extends Module {
   io.pass := (io.expected === io.actual)
 }
 
-class Eval_PositFMA_add_16 extends Eval_PositFMA_add(16, 1)
+class Eval_PositFMAP16_add extends Eval_PositFMA_add(16, 1)
 
-class Eval_PositFMA_add_32 extends Eval_PositFMA_add(32, 2)
+class Eval_PositFMAP32_add extends Eval_PositFMA_add(32, 2)
 
-class Eval_PositFMA_add_64 extends Eval_PositFMA_add(64, 3)
+class Eval_PositFMAP64_add extends Eval_PositFMA_add(64, 3)
 
 class Eval_PositFMA_mul(totalBits: Int, es: Int) extends Module {
   val io = IO(new Bundle {
@@ -91,8 +91,8 @@ class Eval_PositFMA_mul(totalBits: Int, es: Int) extends Module {
   io.pass := (io.expected === io.actual)
 }
 
-class Eval_PositFMA_mul_16 extends Eval_PositFMA_mul(16, 1)
+class Eval_PositFMAP16_mul extends Eval_PositFMA_mul(16, 1)
 
-class Eval_PositFMA_mul_32 extends Eval_PositFMA_mul(32, 2)
+class Eval_PositFMAP32_mul extends Eval_PositFMA_mul(32, 2)
 
-class Eval_PositFMA_mul_64 extends Eval_PositFMA_mul(64, 3)
+class Eval_PositFMAP64_mul extends Eval_PositFMA_mul(64, 3)
