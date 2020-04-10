@@ -3,6 +3,9 @@ package hardposit
 import chisel3._
 
 class PositFMA(totalBits: Int, es: Int) extends Module {
+  private val maxProductFractionBits = 2 * (totalBits + 1)
+  private val NaR = 1.U << (totalBits - 1)
+
   val io = IO(new Bundle {
     val num1 = Input(UInt(totalBits.W))
     val num2 = Input(UInt(totalBits.W))
@@ -13,8 +16,6 @@ class PositFMA(totalBits: Int, es: Int) extends Module {
     val isZero = Output(Bool())
     val out = Output(UInt(totalBits.W))
   })
-
-  private val NaR = 1.U << (totalBits - 1)
 
   private val num1Extractor = Module(new PositExtractor(totalBits, es))
   num1Extractor.io.in := io.num1
@@ -36,8 +37,6 @@ class PositFMA(totalBits: Int, es: Int) extends Module {
 
   private val productExponent = num1.exponent + num2.exponent
   private val productFraction = num1.fraction * num2.fraction
-
-  private val maxProductFractionBits = 2 * (totalBits + 1)
 
   private val addendFraction = (num3.fraction << totalBits).asUInt
   private val addendExponent = num3.exponent
