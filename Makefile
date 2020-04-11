@@ -35,7 +35,7 @@ test-$(1)/dut: test-$(1)/dut.mk
 	cd test-$(1) && make -f dut.mk dut
 
 test-c-$(1).log: test-$(1)/dut $(TESTPOSIT_GEN)
-	{ $(TESTPOSIT_GEN) $(2) | $$< 0 0 ; } > $$@ $(STDERR_VCD)
+	{ $(TESTPOSIT_GEN) $(2) | $$< ;} > $$@ $(STDERR_VCD)
 
 test-c-$(1): \
  test-c-$(1).log \
@@ -47,15 +47,15 @@ endef
 #-----------------------------------------------------------------------------
 #-----------------------------------------------------------------------------
 
-$(eval $(call arithmeticTest_template,FMAP16_add,p16_add,))
-$(eval $(call arithmeticTest_template,FMAP16_mul,p16_mul,))
-$(eval $(call arithmeticTest_template,FMAP16,p16_mulAdd,))
-$(eval $(call arithmeticTest_template,FMAP32_add,p32_add,))
-$(eval $(call arithmeticTest_template,FMAP32_mul,p32_mul,))
-$(eval $(call arithmeticTest_template,FMAP32,p32_mulAdd,))
-$(eval $(call arithmeticTest_template,FMAP64_add,p64_add,))
-$(eval $(call arithmeticTest_template,FMAP64_mul,p64_mul,))
-$(eval $(call arithmeticTest_template,FMAP64,p64_mulAdd,))
+$(eval $(call arithmeticTest_template,FMAP16_add,p16_add))
+$(eval $(call arithmeticTest_template,FMAP16_mul,p16_mul))
+$(eval $(call arithmeticTest_template,FMAP16,p16_mulAdd))
+$(eval $(call arithmeticTest_template,FMAP32_add,p32_add))
+$(eval $(call arithmeticTest_template,FMAP32_mul,p32_mul))
+$(eval $(call arithmeticTest_template,FMAP32,p32_mulAdd))
+$(eval $(call arithmeticTest_template,FMAP64_add,p64_add))
+$(eval $(call arithmeticTest_template,FMAP64_mul,p64_mul))
+$(eval $(call arithmeticTest_template,FMAP64,p64_mulAdd))
 
 
 test-c: $(addprefix test-c-, $(tests))
