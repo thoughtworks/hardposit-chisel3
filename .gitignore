@@ -25,3 +25,6 @@ test_run_dir/
 .metals/
 .vscode/
 .bloop/
+test-*
+*.o
+

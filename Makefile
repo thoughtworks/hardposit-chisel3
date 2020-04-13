@@ -1,12 +1,13 @@
 default: test-c
 
-#TODO: Add test generator recipe
-./testposit_gen:
+./testposit_gen: test_generator/testposit_gen.cpp
+	g++-8 -I$(UNIVERSAL) -o testposit_gen $<
 
 TESTPOSIT_GEN = ./testposit_gen
 
 STDERR_VCD = 2> $$@.vcd
 VERILATOR_TRACE = --trace
+UNIVERSAL = universal/include/universal
 
 VERILATOR = verilator $(VERILATOR_TRACE)
 
