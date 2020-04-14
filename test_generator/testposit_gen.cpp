@@ -1,62 +1,45 @@
-#include "../universal/include/universal/posit/posit.hpp"
 #include <string>
 
-
-const int OP_ADD = 1;
-const int OP_MUL = 2;
-
-template<size_t nbits, size_t es>
-void writeHex_posit(sw::unum::posit<nbits, es> a, char sepChar) {
-    fprintf(stdout, "%llx", a);
-    if (sepChar) fputc(sepChar, stdout);
-}
-
-template<size_t nbits, size_t es>
-void genBinaryTestCase(int opcode) {
-    const size_t NR_POSITS = (size_t(1) << nbits);
-    sw::unum::posit<nbits, es> pa, pb, pexpected;
-
-    for (size_t i = 0; i < NR_POSITS; i++) {
-        pa.set_raw_bits(i);
-        for (size_t j = 0; j < NR_POSITS; j++) {
-            pb.set_raw_bits(j);
-            switch (opcode) {
-                case OP_ADD:
-                    pexpected = pa + pb;
-                    break;
-                case OP_MUL:
-                    pexpected = pa * pb;
-                    break;
-                default:
-                    return;
-            }
-            writeHex_posit<nbits, es>(pa, '\n');
-            writeHex_posit<nbits, es>(pb, '\n');
-            writeHex_posit<nbits, es>(pexpected, '\n');
-        }
-    }
-}
+#include "../universal/include/universal/posit/posit.hpp"
+#include "testposit_gen.hpp"
+#include "GenBinaryTest.hpp"
 
 int main(int argc, char *argv[]) {
+    using namespace testposit;
+
+    bool random_test = true;
+    int funcArgIndex = 1;
     if (argc < 2) {
         fprintf(stderr, "Invalid option\n");
         return -1;
     }
 
-    if (!strcmp(argv[1], "p16_add")) {            //TODO Improve argument decoding
-        genBinaryTestCase<16, 1>(OP_ADD);
-    } else if (!strcmp(argv[1], "p16_mul")) {
-        genBinaryTestCase<16, 1>(OP_MUL);
-    } else if (!strcmp(argv[1], "p32_add")) {
-        genBinaryTestCase<32, 2>(OP_ADD);
-    } else if (!strcmp(argv[1], "p32_mul")) {
-        genBinaryTestCase<32, 2>(OP_MUL);
-    } else if (!strcmp(argv[1], "p64_add")) {
-        genBinaryTestCase<64, 3>(OP_ADD);
-    } else if (!strcmp(argv[1], "p64_mul")) {
-        genBinaryTestCase<64, 3>(OP_MUL);
-    } else
-        fprintf(stderr, "Invalid option\n");       //TODO Print help message
+    if (argc == 3) {
+        if (!strcmp(argv[1], "-a")) {
+            random_test = false;
+            funcArgIndex = 2;
+        } else {
+            fprintf(stderr, "Invalid option\n");
+            return -1;
+        }
+    }
+
+    if (!strcmp(argv[funcArgIndex], "p16_add")) {            //TODO Improve argument decoding
+        genBinaryTestCases<16, 1>(OP_ADD, random_test, RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p16_mul")) {
+        genBinaryTestCases<16, 1>(OP_MUL, random_test, RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p32_add")) {
+        genBinaryTestCases<32, 2>(OP_ADD, random_test, RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p32_mul")) {
+        genBinaryTestCases<32, 2>(OP_MUL, random_test, RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p64_add")) {
+        genBinaryTestCases<64, 3>(OP_ADD, random_test, RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p64_mul")) {
+        genBinaryTestCases<64, 3>(OP_MUL, random_test, RND_TEST_CASES);
+    } else {
+        fprintf(stderr, "Invalid function\n");              //TODO Print help message
+        return -1;
+    }
 
     return 0;
 }

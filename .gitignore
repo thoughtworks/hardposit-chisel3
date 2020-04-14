@@ -27,4 +27,5 @@ test_run_dir/
 .bloop/
 test-*
 *.o
+*.exe
 

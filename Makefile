@@ -67,6 +67,6 @@ test-c: $(addprefix test-c-, $(tests))
 
 
 clean:
-	rm -rf test-*
+	rm -rf test-* testposit_gen
 
 .PHONY: test-c clean
