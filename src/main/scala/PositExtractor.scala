@@ -14,6 +14,7 @@ class PositExtractor(totalBits: Int, es: Int) extends Module {
 
   io.out.isZero := (io.in === 0.U)
   io.out.isNaR := (io.in === NaR)
+  io.out.stickyBit := false.B
 
   io.out.sign := io.in(totalBits - 1).asBool()
   private val exponentExtractor = Module(new ExponentExtractor(totalBits, es))

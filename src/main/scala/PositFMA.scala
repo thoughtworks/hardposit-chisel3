@@ -64,6 +64,7 @@ class PositFMA(totalBits: Int, es: Int) extends Module {
   result.sign := largerSign
   result.exponent := Mux(isAddition, largerExponent + 1.S, largerExponent)
   result.fraction := Mux(isAddition, addedFraction(maxProductFractionBits - 1, totalBits + 1), subtractedFraction(maxProductFractionBits - 2, totalBits))
+  result.stickyBit := Mux(isAddition, addedFraction(totalBits, 0).orR(), subtractedFraction(totalBits - 1, 0).orR())
 
   private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.in <> result
