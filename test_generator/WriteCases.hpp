@@ -18,6 +18,15 @@ namespace testposit {
         writeHex_posit(pb, '\n');
         writeHex_posit(pexpected, '\n');
     }
+
+    template<size_t nbits, size_t es>
+    void writeTernaryTestCase(const posit <nbits, es> &pa, const posit <nbits, es> &pb, const posit <nbits, es> &pc,
+                             posit <nbits, es> &pexpected) {
+        writeHex_posit(pa, '\n');
+        writeHex_posit(pb, '\n');
+        writeHex_posit(pc, '\n');
+        writeHex_posit(pexpected, '\n');
+    }
 }
 
 #endif
