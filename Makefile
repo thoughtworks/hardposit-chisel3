@@ -1,9 +1,9 @@
 default: test-c
 
-./testposit_gen: test_generator/testposit_gen.cpp
-	g++-8 -I$(UNIVERSAL) -o testposit_gen $<
+./testposit_gen.o: test_generator/testposit_gen.cpp
+	g++-8 -I$(UNIVERSAL) -o testposit_gen.o $<
 
-TESTPOSIT_GEN = ./testposit_gen
+TESTPOSIT_GEN = ./testposit_gen.o
 
 STDERR_VCD = 2> $$@.vcd
 VERILATOR_TRACE = --trace
@@ -67,6 +67,6 @@ test-c: $(addprefix test-c-, $(tests))
 
 
 clean:
-	rm -rf test-* testposit_gen
+	rm -rf test-* *.o
 
 .PHONY: test-c clean

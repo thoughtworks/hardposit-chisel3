@@ -1,10 +1,11 @@
 package hardposit
 
 import chisel3._
+import chisel3.util.PriorityMux
 
 class PositFMA(totalBits: Int, es: Int) extends Module {
-  private val maxProductFractionBits = 2 * (totalBits + 1)
-  private val NaR = 1.U << (totalBits - 1)
+  private val maxFMAFractionBits = 2 * (totalBits + 1) + 1
+  private val NaR = (1.U << (totalBits - 1)).asUInt()
 
   val io = IO(new Bundle {
     val num1 = Input(UInt(totalBits.W))
@@ -57,14 +58,23 @@ class PositFMA(totalBits: Int, es: Int) extends Module {
   private val isAddition = !(largerSign ^ smallerSign)
   private val addedFraction = largerFraction + shiftedSmallerFraction
   private val subtractedFraction = largerFraction - shiftedSmallerFraction
+  private val fmaFraction = WireInit(UInt(maxFMAFractionBits.W), Mux(isAddition, addedFraction, subtractedFraction))
+
+  private val normalizationFactor = PriorityMux(Array.range(0, maxFMAFractionBits - 1).map(index => {
+    (fmaFraction(maxFMAFractionBits - 1, maxFMAFractionBits - index - 1) === 1.U) -> index.S
+  }))
+  private val offset = normalizationFactor - 2.S
+  private val normFraction = fmaFraction >> (totalBits.S - offset).asUInt()
+  private val normExponent = largerExponent - offset
+  private val stickyBit = (fmaFraction & ((1.U << (totalBits.S - offset).asUInt()) - 1.U)).orR()
 
   private val result = Wire(new unpackedPosit(totalBits, es))
   result.isNaR := num1.isNaR || num2.isNaR || num3.isNaR
   result.isZero := (num1.isZero || num2.isZero) && num3.isZero
   result.sign := largerSign
-  result.exponent := Mux(isAddition, largerExponent + 1.S, largerExponent)
-  result.fraction := Mux(isAddition, addedFraction(maxProductFractionBits - 1, totalBits + 1), subtractedFraction(maxProductFractionBits - 2, totalBits))
-  result.stickyBit := Mux(isAddition, addedFraction(totalBits, 0).orR(), subtractedFraction(totalBits - 1, 0).orR())
+  result.exponent := normExponent
+  result.fraction := normFraction
+  result.stickyBit := stickyBit
 
   private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.in <> result
