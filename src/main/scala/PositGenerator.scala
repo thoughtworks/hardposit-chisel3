@@ -16,16 +16,15 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
   private val exponentOffset = PriorityMux(Array.range(0, totalBits).map(index => {
     (io.in.fraction(totalBits, totalBits - index) === 1.U) -> index.S
   }))
-
   private val normalisedExponent = io.in.exponent - exponentOffset
   private val normalisedFraction = (io.in.fraction << exponentOffset.asUInt()) (totalBits - 1, 0)
+  private val negExponent = normalisedExponent < 0.S
 
-  private val positRegime = Mux(normalisedExponent < 0.S, -(normalisedExponent >> es), normalisedExponent >> es).asUInt()
+  private val positRegime = Mux(negExponent, -(normalisedExponent >> es), normalisedExponent >> es).asUInt()
   private val positExponent = normalisedExponent(if (es > 0) es - 1 else 0, 0)
+  private val positOffset = positRegime + es.U + Mux(negExponent, 2.U, 3.U)
 
-  private val positOffset = positRegime + es.U + Mux(normalisedExponent >= 0.S, 3.U, 2.U)
-
-  private val regimeBits = Mux(normalisedExponent >= 0.S, (1.U << positRegime + 2.U).asUInt() - 2.U, 1.U << (positRegime + 1.U) >> (positRegime + 1.U))
+  private val regimeBits = Mux(negExponent, 1.U << (positRegime + 1.U) >> (positRegime + 1.U), (1.U << positRegime + 2.U).asUInt() - 2.U)
   private val regimeWithExponentBits = if (es > 0) Cat(regimeBits, positExponent) else regimeBits
 
   //u => un ; T => Trimmed ; R => Rounded ; S => Signed
