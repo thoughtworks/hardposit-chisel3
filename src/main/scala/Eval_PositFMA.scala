@@ -49,7 +49,7 @@ class Eval_PositFMA_add(totalBits: Int, es: Int) extends Module {
 
   val positFMA = Module(new PositFMA(totalBits, es))
   positFMA.io.num1 := io.num1
-  positFMA.io.num2 := (1 << (totalBits - 2)).U
+  positFMA.io.num2 := (1.U << (totalBits - 2).U)
   positFMA.io.num3 := io.num2
   positFMA.io.sub := false.B
   positFMA.io.negate := false.B
