@@ -6,7 +6,6 @@ import chisel3.util.{Cat, MuxCase, PriorityMux}
 class PositGenerator(totalBits: Int, es: Int) extends Module {
   private val base = 1 << es
   private val NaR = 1.U << (totalBits - 1)
-  private val maxExponent = (base * totalBits) - 1
 
   val io = IO(new Bundle {
     val in = Input(new unpackedPosit(totalBits, es))
@@ -41,6 +40,6 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
   private val R_uS_posit = uR_uS_posit + roundingBit
   private val R_S_posit = Cat(io.in.sign, Mux(io.in.sign, ~R_uS_posit + 1.U, R_uS_posit))
 
-  io.out := Mux((normalisedExponent >= maxExponent.S) | io.in.isNaR, NaR,
-    Mux((io.in.fraction === 0.U) | (normalisedExponent <= 0.S - maxExponent.S) | io.in.isZero, 0.U, R_S_posit))
+  io.out := Mux(io.in.isNaR, NaR,
+    Mux((io.in.fraction === 0.U) | io.in.isZero, 0.U, R_S_posit))
 }
