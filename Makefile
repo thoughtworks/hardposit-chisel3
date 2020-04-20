@@ -23,6 +23,9 @@ FMAP32_mul \
 FMAP64 \
 FMAP64_add \
 FMAP64_mul \
+DivSqrtP16_div \
+DivSqrtP32_div \
+DivSqrtP64_div \
 
 define arithmeticTest_template
 
@@ -57,7 +60,9 @@ $(eval $(call arithmeticTest_template,FMAP32,p32_mulAdd))
 $(eval $(call arithmeticTest_template,FMAP64_add,p64_add))
 $(eval $(call arithmeticTest_template,FMAP64_mul,p64_mul))
 $(eval $(call arithmeticTest_template,FMAP64,p64_mulAdd))
-
+$(eval $(call arithmeticTest_template,DivSqrtP16_div,p16_div))
+$(eval $(call arithmeticTest_template,DivSqrtP32_div,p32_div))
+$(eval $(call arithmeticTest_template,DivSqrtP64_div,p64_div))
 
 test-c: $(addprefix test-c-, $(tests))
 	@ if grep -q "expected" test-c-*.log; then \

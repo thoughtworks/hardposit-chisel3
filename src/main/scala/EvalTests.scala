@@ -32,6 +32,15 @@ object EvalTests {
       case "FMAP64" =>
         chisel3.Driver.execute(
           testArgs, () => new Eval_PositFMAP64)
+      case "DivSqrtP16_div" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositDivSqrtP16_div)
+      case "DivSqrtP32_div" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositDivSqrtP32_div)
+      case "DivSqrtP64_div" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositDivSqrtP64_div)
     }
   }
 }

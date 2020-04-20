@@ -20,6 +20,8 @@ namespace testposit {
             case OP_MUL:
                 pexpected = pa * pb;
                 break;
+            case OP_DIV:
+                pexpected = pa / pb;
             default:
                 return;
         }
