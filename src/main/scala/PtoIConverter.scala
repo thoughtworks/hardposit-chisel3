@@ -6,6 +6,7 @@ class PtoIConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
   val io = IO(new Bundle {
     val posit = Input(UInt(totalBits.W))
     val unsignedOut = Input(Bool())
+    val roundingMode = Input(Bool())            // Indicate rounding mode 0 for round to nearest even(RNE) and 1 for round to zero(RZ)
     val integer = Output(UInt(intWidth.W))
   })
 
@@ -20,9 +21,10 @@ class PtoIConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
   private val specialCase = !inRange || num.isNaR || zeroOut
   private val specialSign = !num.isNaR && num.sign
 
-  private val normalOut = Mux(intSign,
-    ~normalisedFraction(intWidth + totalBits - 1, totalBits) + 1.U,
-    normalisedFraction(intWidth + totalBits - 1, totalBits))
+  private val unsignedFraction = normalisedFraction(intWidth + totalBits - 1, totalBits)
+  private val roundingBit = ~io.roundingMode & normalisedFraction(totalBits - 1)
+  private val roundedInteger = unsignedFraction + roundingBit
+  private val normalOut = Mux(intSign, ~roundedInteger + 1.U, roundedInteger)
 
   private val specialCaseOut = Mux((specialSign === !io.unsignedOut), (1.U << (intWidth - 1)), 0.U) |
     Mux(!specialSign, (1.U << (intWidth - 1)) - 1.U, 0.U)
