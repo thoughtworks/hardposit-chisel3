@@ -32,7 +32,7 @@ class PtoPConverterSpec extends ChiselFlatSpec {
   }
 
   it should "return NaR for wide posit with value outside narrower range" in {
-    assert(test(16, 3, 8, 0, 0x6200, 0x80)) //512
+    assert(test(16, 3, 8, 0, 0x6200, 0x7F)) //512
   }
 
   it should "return NaR for wider NaR" in {
