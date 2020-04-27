@@ -103,6 +103,7 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   result.fraction := Mux(started_normally || !readyIn, Cat(result.fraction, nextBit.asUInt()), 0.U)
   result.isNaR := isNaR_out
   result.isZero := isZero_out
+  result.stickyBit := remHi.orR()
 
   private val validOut = cycleCount === 1.U
 

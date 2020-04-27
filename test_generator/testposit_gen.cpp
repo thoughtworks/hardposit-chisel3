@@ -44,11 +44,11 @@ int main(int argc, char *argv[]) {
     } else if (!strcmp(argv[funcArgIndex], "p64_mulAdd")) {
         genTernaryTestCases<64, 3>(OP_FMA, random_test, RND_TEST_CASES);
     } else if (!strcmp(argv[funcArgIndex], "p16_div")) {
-        genTernaryTestCases<16, 1>(OP_DIV, random_test, RND_TEST_CASES);
+        genBinaryTestCases<16, 1>(OP_DIV, random_test, RND_TEST_CASES);
     } else if (!strcmp(argv[funcArgIndex], "p32_div")) {
-        genTernaryTestCases<32, 2>(OP_DIV, random_test, RND_TEST_CASES);
+        genBinaryTestCases<32, 2>(OP_DIV, random_test, RND_TEST_CASES);
     } else if (!strcmp(argv[funcArgIndex], "p64_div")) {
-        genTernaryTestCases<64, 3>(OP_DIV, random_test, RND_TEST_CASES);
+        genBinaryTestCases<64, 3>(OP_DIV, random_test, RND_TEST_CASES);
     } else {
         fprintf(stderr, "Invalid function\n");              //TODO Print help message
         return -1;

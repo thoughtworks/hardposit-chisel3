@@ -38,7 +38,7 @@ namespace testposit {
             operand_values[i] = distr(eng);
 
         unsigned ia, ib, ic;  // random indices for picking operands to test
-        for (unsigned i = 1; i < nrOfRandoms; i++) {
+        for (unsigned i = 0; i <= nrOfRandoms; i++) {
             ia = std::rand() % SIZE_STATE_SPACE;
             pa.set_raw_bits(operand_values[ia]);
             ib = std::rand() % SIZE_STATE_SPACE;

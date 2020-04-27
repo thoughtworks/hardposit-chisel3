@@ -7,7 +7,7 @@ int main()
     initialize_dut(module);
 
     size_t error = 0;
-    size_t cnt = 0;
+    size_t cnt = 1;
 
     //Reset module
     for (size_t i = 0; i < 10; i++)
