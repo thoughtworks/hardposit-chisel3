@@ -4,7 +4,6 @@ import chisel3._
 import chisel3.util.{Cat, MuxCase, PriorityMux}
 
 class PositGenerator(totalBits: Int, es: Int) extends Module {
-  private val base = 1 << es
   private val NaR = 1.U << (totalBits - 1)
 
   val io = IO(new Bundle {
@@ -28,17 +27,17 @@ class PositGenerator(totalBits: Int, es: Int) extends Module {
 
   //u => un ; T => Trimmed ; R => Rounded ; S => Signed
   private val uT_uS_posit = Cat(regimeWithExponentBits, normalisedFraction)
-  private val T_uS_posit = (uT_uS_posit >> positOffset) (totalBits - 2, 0)
-  private val uR_uS_posit = Mux(T_uS_posit === 0.U, 1.U((totalBits - 1).W), T_uS_posit)
+  private val uR_uS_posit = (uT_uS_posit >> positOffset) (totalBits - 2, 0)
 
   private val trailingBits = (uT_uS_posit & ((1.U << positOffset) - 1.U)).asUInt()
-  private val lastBit = T_uS_posit(0)
+  private val lastBit = uR_uS_posit(0)
   private val afterBit = (trailingBits >> (positOffset - 1.U)) (0)
   private val stickyBit = io.in.stickyBit | (trailingBits & ((1.U << (positOffset - 1.U)) - 1.U)).orR()
   private val roundingBit = Mux(uR_uS_posit.andR(), false.B, (lastBit & afterBit) | (afterBit & stickyBit))
 
   private val R_uS_posit = uR_uS_posit + roundingBit
-  private val R_S_posit = Cat(io.in.sign, Mux(io.in.sign, ~R_uS_posit + 1.U, R_uS_posit))
+  private val uFC_R_uS_posit = Cat(0.U(1.W), R_uS_posit | (R_uS_posit === 0.U))
+  private val R_S_posit = Mux(io.in.sign, ~uFC_R_uS_posit + 1.U, uFC_R_uS_posit)
 
   io.out := Mux(io.in.isNaR, NaR,
     Mux((io.in.fraction === 0.U) | io.in.isZero, 0.U, R_S_posit))
