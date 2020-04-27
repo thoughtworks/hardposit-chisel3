@@ -41,10 +41,10 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   num2Extractor.io.in := io.num2
   private val num2 = num2Extractor.io.out
 
-  private val isNaR = Mux(io.sqrtOp, num1.sign | num1.isNaR, num1.isNaR)
-  private val isZero = Mux(io.sqrtOp, num1.isZero, num1.isZero | num2.isNaR)
   private val divideByZero = !io.sqrtOp && num2.isZero
-  private val specialCase = isNaR || isZero || divideByZero
+  private val isNaR = Mux(io.sqrtOp, num1.sign | num1.isNaR, num1.isNaR | num2.isNaR | divideByZero)
+  private val isZero = num1.isZero
+  private val specialCase = isNaR | isZero
   private val exponentDifference = num1.exponent - num2.exponent
 
   private val idle = cycleCount === 0.U
@@ -56,7 +56,7 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   private val radicand = Mux(io.sqrtOp && num1.exponent(0).asBool(), num1.fraction << 1, num1.fraction)
 
   when(!idle | io.validIn) {
-    cycleCount := Mux(starting && specialCase, 1.U, 0.U |
+    cycleCount := Mux(starting && specialCase, 2.U, 0.U |
       Mux(started_normally, (totalBits + 1).U, 0.U)) |
       Mux(!idle, cycleCount - 1.U, 0.U)
   }
@@ -110,7 +110,7 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.in <> result
 
-  private val out = Mux(isZero_out, 0.U, Mux(isNaR_out || divideByZero, NaR, positGenerator.io.out))
+  private val out = positGenerator.io.out
 
   io.validOut_div := validOut && !sqrtOp_stored
   io.validOut_sqrt := validOut && sqrtOp_stored

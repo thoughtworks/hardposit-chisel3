@@ -32,8 +32,6 @@ class Eval_PositDivSqrt_div(totalBits: Int, es: Int) extends Module {
   val positDivSqrt = Module(new PositDivSqrt(totalBits, es))
   val inq = Module(new Queue(new DivIO(totalBits, es), 5))
 
-  val expectedException = Mux(io.in.bits.num2 === 0.U, 8.U, 0.U)
-
   inq.io.enq.valid := io.in.valid && positDivSqrt.io.readyIn
   inq.io.enq.bits := io.in.bits
 
@@ -49,6 +47,7 @@ class Eval_PositDivSqrt_div(totalBits: Int, es: Int) extends Module {
   io.actual := positDivSqrt.io.out
   inq.io.deq.ready := positDivSqrt.io.validOut_div
   io.check := positDivSqrt.io.validOut_div
+  val expectedException = Mux(io.out.num2 === 0.U, 8.U, 0.U)
 
   io.pass := inq.io.deq.valid && (io.expected === io.actual) && (expectedException === positDivSqrt.io.exceptions)
 }
