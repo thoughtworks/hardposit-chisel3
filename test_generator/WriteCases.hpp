@@ -13,7 +13,13 @@ namespace testposit {
     }
 
     template<size_t nbits, size_t es>
-    void writeBinaryTestCase(const posit <nbits, es> &pa, const posit <nbits, es> &pb, posit <nbits, es> &pexpected) {
+    void writeUnaryTestCase(const posit <nbits, es> &pa, const posit <nbits, es> &pexpected) {
+        writeHex_posit(pa, '\n');
+        writeHex_posit(pexpected, '\n');
+    }
+
+    template<size_t nbits, size_t es>
+    void writeBinaryTestCase(const posit <nbits, es> &pa, const posit <nbits, es> &pb, const posit <nbits, es> &pexpected) {
         writeHex_posit(pa, '\n');
         writeHex_posit(pb, '\n');
         writeHex_posit(pexpected, '\n');
@@ -21,7 +27,7 @@ namespace testposit {
 
     template<size_t nbits, size_t es>
     void writeTernaryTestCase(const posit <nbits, es> &pa, const posit <nbits, es> &pb, const posit <nbits, es> &pc,
-                             posit <nbits, es> &pexpected) {
+                              const posit <nbits, es> &pexpected) {
         writeHex_posit(pa, '\n');
         writeHex_posit(pb, '\n');
         writeHex_posit(pc, '\n');

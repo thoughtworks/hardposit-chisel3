@@ -1,7 +1,7 @@
 package hardposit
 
 import chisel3._
-import chisel3.util.{Cat, log2Ceil, log2Up}
+import chisel3.util.{Cat, log2Up}
 
 class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   val io = IO(new Bundle {
@@ -100,7 +100,10 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
     remHi := Mux(nextBit, testRem.asUInt(), rem)
   }
 
-  result.fraction := Mux(started_normally || !readyIn, Cat(result.fraction, nextBit.asUInt()), 0.U)
+  private val nextFraction = Cat(result.fraction, nextBit.asUInt())
+  result.fraction := Mux(started_normally, nextBit, 0.U) |
+    Mux(!readyIn, nextFraction, 0.U)
+
   result.isNaR := isNaR_out
   result.isZero := isZero_out
   result.stickyBit := remHi.orR()

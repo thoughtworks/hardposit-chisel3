@@ -7,6 +7,7 @@ namespace testposit {
     const int OP_MUL = 2;
     const int OP_DIV = 3;
     const int OP_FMA = 4;
+    const int OP_SQRT = 5;
 
     constexpr size_t RND_TEST_CASES = 500000;
 }

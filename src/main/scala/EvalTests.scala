@@ -41,6 +41,15 @@ object EvalTests {
       case "DivSqrtP64_div" =>
         chisel3.Driver.execute(
           testArgs, () => new Eval_PositDivSqrtP64_div)
+      case "DivSqrtP16_sqrt" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositDivSqrtP16_sqrt)
+      case "DivSqrtP32_sqrt" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositDivSqrtP32_sqrt)
+      case "DivSqrtP64_sqrt" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositDivSqrtP64_sqrt)
     }
   }
 }

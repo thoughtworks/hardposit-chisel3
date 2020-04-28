@@ -7,7 +7,7 @@ TESTPOSIT_GEN = ./testposit_gen.o
 
 STDERR_VCD = 2> $$@.vcd
 VERILATOR_TRACE = --trace
-UNIVERSAL = universal/include/universal
+UNIVERSAL = universal/include/universal/posit
 
 VERILATOR = verilator $(VERILATOR_TRACE)
 
@@ -26,6 +26,9 @@ FMAP64_mul \
 DivSqrtP16_div \
 DivSqrtP32_div \
 DivSqrtP64_div \
+DivSqrtP16_sqrt \
+DivSqrtP32_sqrt \
+DivSqrtP64_sqrt \
 
 define arithmeticTest_template
 
@@ -63,6 +66,9 @@ $(eval $(call arithmeticTest_template,FMAP64,p64_mulAdd))
 $(eval $(call arithmeticTest_template,DivSqrtP16_div,p16_div))
 $(eval $(call arithmeticTest_template,DivSqrtP32_div,p32_div))
 $(eval $(call arithmeticTest_template,DivSqrtP64_div,p64_div))
+$(eval $(call arithmeticTest_template,DivSqrtP16_sqrt,p16_sqrt))
+$(eval $(call arithmeticTest_template,DivSqrtP32_sqrt,p32_sqrt))
+$(eval $(call arithmeticTest_template,DivSqrtP64_sqrt,p64_sqrt))
 
 test-c: $(addprefix test-c-, $(tests))
 	@ if grep -q "expected" test-c-*.log; then \

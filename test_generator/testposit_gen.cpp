@@ -2,6 +2,7 @@
 
 #include "../universal/include/universal/posit/posit.hpp"
 #include "testposit_gen.hpp"
+#include "GenUnaryTest.hpp"
 #include "GenBinaryTest.hpp"
 #include "GenTernaryTest.hpp"
 
@@ -49,6 +50,12 @@ int main(int argc, char *argv[]) {
         genBinaryTestCases<32, 2>(OP_DIV, random_test, RND_TEST_CASES);
     } else if (!strcmp(argv[funcArgIndex], "p64_div")) {
         genBinaryTestCases<64, 3>(OP_DIV, random_test, RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p16_sqrt")) {
+        genUnaryTestCases<16, 1>(OP_SQRT, random_test, RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p32_sqrt")) {
+        genUnaryTestCases<32, 2>(OP_SQRT, random_test, RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p64_sqrt")) {
+        genUnaryTestCases<64, 3>(OP_SQRT, random_test, RND_TEST_CASES);
     } else {
         fprintf(stderr, "Invalid function\n");              //TODO Print help message
         return -1;
