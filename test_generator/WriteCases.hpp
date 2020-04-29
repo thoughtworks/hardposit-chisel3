@@ -33,6 +33,13 @@ namespace testposit {
         writeHex_posit(pc, '\n');
         writeHex_posit(pexpected, '\n');
     }
+
+    template<size_t nbits, size_t es>
+    void writeCompareTestCase(const posit <nbits, es> &pa, const posit <nbits, es> &pb, bool expected) {
+        writeHex_posit(pa, '\n');
+        writeHex_posit(pb, '\n');
+        fprintf(stdout, "%d\n", expected);
+    }
 }
 
 #endif

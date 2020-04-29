@@ -50,6 +50,33 @@ object EvalTests {
       case "DivSqrtP64_sqrt" =>
         chisel3.Driver.execute(
           testArgs, () => new Eval_PositDivSqrtP64_sqrt)
+      case "CompareP16_lt" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositCompareP16_lt)
+      case "CompareP32_lt" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositCompareP32_lt)
+      case "CompareP64_lt" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositCompareP64_lt)
+      case "CompareP16_eq" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositCompareP16_eq)
+      case "CompareP32_eq" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositCompareP32_eq)
+      case "CompareP64_eq" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositCompareP64_eq)
+      case "CompareP16_gt" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositCompareP16_gt)
+      case "CompareP32_gt" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositCompareP32_gt)
+      case "CompareP64_gt" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositCompareP64_gt)
     }
   }
 }

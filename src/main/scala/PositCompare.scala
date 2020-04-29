@@ -8,10 +8,10 @@ class PositCompare(totalBits: Int, es: Int) extends Module {
     val num2 = Input(SInt(totalBits.W))
     val lt = Output(Bool())
     val eq = Output(Bool())
-    val ge = Output(Bool())
+    val gt = Output(Bool())
   })
 
   io.lt := (io.num1 < io.num2)
   io.eq := (io.num1 === io.num2)
-  io.ge := (!io.lt && !io.eq)
+  io.gt := (!io.lt && !io.eq)
 }
