@@ -9,7 +9,7 @@ class PtoIConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
     val roundingMode = Input(Bool())            // Indicate rounding mode 0 for round to nearest even(RNE) and 1 for round to zero(RZ)
     val integer = Output(UInt(intWidth.W))
   })
-
+  private val maxInteger = (1.U << (intWidth - 1))
   private val positExtractor = Module(new PositExtractor(totalBits, es))
   positExtractor.io.in := io.posit
   private val num = positExtractor.io.out
@@ -26,8 +26,7 @@ class PtoIConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
   private val roundedInteger = unsignedFraction + roundingBit
   private val normalOut = Mux(intSign, ~roundedInteger + 1.U, roundedInteger)
 
-  private val specialCaseOut = Mux((specialSign === !io.unsignedOut), (1.U << (intWidth - 1)), 0.U) |
-    Mux(!specialSign, (1.U << (intWidth - 1)) - 1.U, 0.U)
+  private val specialCaseOut = Mux(io.unsignedOut, 0.U, Mux(inRange, maxInteger - 1.U, maxInteger))
 
   io.integer := Mux(specialCase, specialCaseOut, normalOut)
 }

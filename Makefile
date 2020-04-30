@@ -38,6 +38,12 @@ CompareP64_eq \
 CompareP16_gt \
 CompareP32_gt \
 CompareP64_gt \
+P16toI32 \
+P16toI64 \
+P32toI32 \
+P32toI64 \
+P64toI32 \
+P64toI64 \
 
 define test_template
 
@@ -87,10 +93,16 @@ $(eval $(call test_template,CompareP64_eq,p64_eq,compare))
 $(eval $(call test_template,CompareP16_gt,p16_gt,compare))
 $(eval $(call test_template,CompareP32_gt,p32_gt,compare))
 $(eval $(call test_template,CompareP64_gt,p64_gt,compare))
+$(eval $(call test_template,P16toI32,p16_i32,p2i))
+$(eval $(call test_template,P16toI64,p16_i64,p2i))
+$(eval $(call test_template,P32toI32,p32_i32,p2i))
+$(eval $(call test_template,P32toI64,p32_i64,p2i))
+$(eval $(call test_template,P64toI32,p64_i32,p2i))
+$(eval $(call test_template,P64toI64,p64_i64,p2i))
 
 test-c: $(addprefix test-c-, $(tests))
 	@ if grep -q "expected" test-c-*.log; then \
-		echo "some test FAILED!!!"; \
+		echo "some test(s) FAILED!!!"; \
 		exit 1; \
 	fi
 

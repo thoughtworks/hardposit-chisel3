@@ -28,4 +28,4 @@ test_run_dir/
 *.o
 *.log
 *.vcd
-
+test-*/

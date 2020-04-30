@@ -6,6 +6,7 @@
 #include "GenBinaryTest.hpp"
 #include "GenTernaryTest.hpp"
 #include "GenCompareTest.hpp"
+#include "GenConversionTest.hpp"
 
 int main(int argc, char *argv[]) {
     using namespace testposit;
@@ -77,6 +78,19 @@ int main(int argc, char *argv[]) {
         genCompareTestCases<32, 2>(OP_GT, RND_TEST_CASES);
     } else if (!strcmp(argv[funcArgIndex], "p64_gt")) {
         genCompareTestCases<64, 3>(OP_GT, RND_TEST_CASES);
+    }
+    else if (!strcmp(argv[funcArgIndex], "p16_i32")) {
+        genP2ITestCases<16, 1, 32>(RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p16_i64")) {
+        genP2ITestCases<16, 1, 64>(RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p32_i32")) {
+        genP2ITestCases<32, 2, 32>(RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p32_i64")) {
+        genP2ITestCases<32, 2, 64>(RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p64_i32")) {
+        genP2ITestCases<64, 3, 32>(RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p64_i64")) {
+        genP2ITestCases<64, 3, 64>(RND_TEST_CASES);
     }
     else {
         fprintf(stderr, "Invalid function\n");              //TODO Print help message
