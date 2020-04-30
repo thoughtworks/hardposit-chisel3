@@ -44,6 +44,12 @@ P32toI32 \
 P32toI64 \
 P64toI32 \
 P64toI64 \
+I32toP16 \
+I64toP16 \
+I32toP32 \
+I64toP32 \
+I32toP64 \
+I64toP64 \
 
 define test_template
 
@@ -78,12 +84,14 @@ $(eval $(call test_template,FMAP32,p32_mulAdd,arithmetic))
 $(eval $(call test_template,FMAP64_add,p64_add,arithmetic))
 $(eval $(call test_template,FMAP64_mul,p64_mul,arithmetic))
 $(eval $(call test_template,FMAP64,p64_mulAdd,arithmetic))
+
 $(eval $(call test_template,DivSqrtP16_div,p16_div,arithmetic))
 $(eval $(call test_template,DivSqrtP32_div,p32_div,arithmetic))
 $(eval $(call test_template,DivSqrtP64_div,p64_div,arithmetic))
 $(eval $(call test_template,DivSqrtP16_sqrt,p16_sqrt,arithmetic))
 $(eval $(call test_template,DivSqrtP32_sqrt,p32_sqrt,arithmetic))
 $(eval $(call test_template,DivSqrtP64_sqrt,p64_sqrt,arithmetic))
+
 $(eval $(call test_template,CompareP16_lt,p16_lt,compare))
 $(eval $(call test_template,CompareP32_lt,p32_lt,compare))
 $(eval $(call test_template,CompareP64_lt,p64_lt,compare))
@@ -93,12 +101,20 @@ $(eval $(call test_template,CompareP64_eq,p64_eq,compare))
 $(eval $(call test_template,CompareP16_gt,p16_gt,compare))
 $(eval $(call test_template,CompareP32_gt,p32_gt,compare))
 $(eval $(call test_template,CompareP64_gt,p64_gt,compare))
-$(eval $(call test_template,P16toI32,p16_i32,p2i))
-$(eval $(call test_template,P16toI64,p16_i64,p2i))
-$(eval $(call test_template,P32toI32,p32_i32,p2i))
-$(eval $(call test_template,P32toI64,p32_i64,p2i))
-$(eval $(call test_template,P64toI32,p64_i32,p2i))
-$(eval $(call test_template,P64toI64,p64_i64,p2i))
+
+$(eval $(call test_template,P16toI32,p16_i32,convert))
+$(eval $(call test_template,P16toI64,p16_i64,convert))
+$(eval $(call test_template,P32toI32,p32_i32,convert))
+$(eval $(call test_template,P32toI64,p32_i64,convert))
+$(eval $(call test_template,P64toI32,p64_i32,convert))
+$(eval $(call test_template,P64toI64,p64_i64,convert))
+
+$(eval $(call test_template,I32toP16,i32_p16,convert))
+$(eval $(call test_template,I64toP16,i64_p16,convert))
+$(eval $(call test_template,I32toP32,i32_p32,convert))
+$(eval $(call test_template,I64toP32,i64_p32,convert))
+$(eval $(call test_template,I32toP64,i32_p64,convert))
+$(eval $(call test_template,I64toP64,i64_p64,convert))
 
 test-c: $(addprefix test-c-, $(tests))
 	@ if grep -q "expected" test-c-*.log; then \

@@ -5,7 +5,7 @@ import chisel3._
 class Eval_PositPNtoIN(totalBits: Int, es: Int, intWidth: Int) extends Module {
 
   val io = IO(new Bundle {
-    val posit = Input(UInt(totalBits.W))
+    val in = Input(UInt(totalBits.W))
 
     val expected = Input(UInt(intWidth.W))
     val actual = Output(UInt(intWidth.W))
@@ -15,7 +15,7 @@ class Eval_PositPNtoIN(totalBits: Int, es: Int, intWidth: Int) extends Module {
   })
 
   val p2i = Module(new PtoIConverter(totalBits, es, intWidth))
-  p2i.io.posit := io.posit
+  p2i.io.posit := io.in
   p2i.io.unsignedOut := false.B
   p2i.io.roundingMode := true.B
 

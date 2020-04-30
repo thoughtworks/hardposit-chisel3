@@ -4,7 +4,7 @@ static int process_inputs(dut &m) {
     char value[64];
 
     if (scanf("%s", value) != 1) return 0;
-    m.io_posit = strtoull(value, NULL, 16);
+    m.io_in = strtoull(value, NULL, 16);
 
     return 1;
 }
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
                 printf("[%07ld]", cnt);
                 printf(
                         "%#lx",
-                        module.io_posit
+                        module.io_in
                 );
                 printf(
                         " => %#lx expected: %#lx\n",
