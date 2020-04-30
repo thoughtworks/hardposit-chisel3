@@ -64,6 +64,12 @@ namespace testposit {
         fprintf(stdout, "%lx\n", a);
         writeHex_posit(pa, '\n');
     }
+
+    template<size_t ibits, size_t ies, size_t obits, size_t oes>
+    void writeP2PTestCase(const posit <ibits, ies> &pa, const posit <obits, oes> &pb) {
+        writeHex_posit(pa, '\n');
+        writeHex_posit(pb, '\n');
+    }
 }
 
 #endif

@@ -105,6 +105,19 @@ int main(int argc, char *argv[]) {
     } else if (!strcmp(argv[funcArgIndex], "i64_p64")) {
         genI2PTestCases<64, 3, 64>(RND_TEST_CASES);
     }
+    else if (!strcmp(argv[funcArgIndex], "p16_p32")) {
+        genP2PTestCases<16, 1, 32, 2>(RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p16_p64")) {
+        genP2PTestCases<16, 1, 64, 3>(RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p32_p16")) {
+        genP2PTestCases<32, 2, 16, 1>(RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p32_p64")) {
+        genP2PTestCases<32, 2, 64, 3>(RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p64_p16")) {
+        genP2PTestCases<64, 3, 16, 1>(RND_TEST_CASES);
+    } else if (!strcmp(argv[funcArgIndex], "p64_p32")) {
+        genP2PTestCases<64, 3, 32, 2>(RND_TEST_CASES);
+    }
     else {
         fprintf(stderr, "Invalid function\n");              //TODO Print help message
         return -1;

@@ -113,6 +113,24 @@ object EvalTests {
       case "I64toP64" =>
         chisel3.Driver.execute(
           testArgs, () => new Eval_PositI64toP64)
+      case "P16toP32" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositP16toP32)
+      case "P16toP64" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositP16toP64)
+      case "P32toP16" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositP32toP16)
+      case "P32toP64" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositP32toP64)
+      case "P64toP16" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositP64toP16)
+      case "P64toP32" =>
+        chisel3.Driver.execute(
+          testArgs, () => new Eval_PositP64toP32)
     }
   }
 }
