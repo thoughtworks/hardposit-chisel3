@@ -34,7 +34,7 @@ namespace testposit {
             pa.set_raw_bits(operand_values[ia]);
             long long ll_cast = (long long)pa;
             unsigned long long ull_cast = (unsigned long long)pa;
-            if (ibits < 64) {
+            if (ibits < 64) {                                    //TODO: Improve Posit to UNSIGNED conversion test generation
                 if(isUnsigned) {
                     unsigned int a;
                     if(ll_cast < 0)
@@ -79,7 +79,7 @@ namespace testposit {
     }
 
     template<size_t nbits, size_t es, size_t ibits>
-    void genI2PTestCases(uint32_t nrOfRandoms) {
+    void genI2PTestCases(uint32_t nrOfRandoms, bool isUnsigned) {
         const size_t SIZE_STATE_SPACE = nrOfRandoms;
         sw::unum::posit <nbits, es> pa;
 
@@ -96,14 +96,26 @@ namespace testposit {
         unsigned ia;  // random indices for picking operands to test
         for (int i = 1; i <= nrOfRandoms; i++) {
             ia = std::rand() % SIZE_STATE_SPACE;
-            if (ibits == 32) {
-                int a = (int) operand_values[ia];
-                pa = a;
-                writeI2PTestCase(a, pa);
+            if (ibits < 64) {
+                if(isUnsigned) {
+                    unsigned int a = (unsigned int) operand_values[ia];
+                    pa = (unsigned long long)a;
+                    writeI2PTestCase(a, pa);
+                } else {
+                    int a = (int) operand_values[ia];
+                    pa = (long long)a;
+                    writeI2PTestCase(a, pa);
+                }
             } else {
-                long a = (long) operand_values[ia];
-                pa = a;
-                writeI2PTestCase(a, pa);
+                if(isUnsigned) {
+                    unsigned long a = (unsigned long) operand_values[ia];
+                    pa = (unsigned long long)a;
+                    writeI2PTestCase(a, pa);
+                } else {
+                    long a = (long) operand_values[ia];
+                    pa = (long long)a;
+                    writeI2PTestCase(a, pa);
+                }
             }
         }
     }

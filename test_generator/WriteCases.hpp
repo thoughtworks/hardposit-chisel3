@@ -72,7 +72,19 @@ namespace testposit {
     }
 
     template<size_t nbits, size_t es>
+    void writeI2PTestCase(unsigned int a, const posit <nbits, es> &pa) {
+        fprintf(stdout, "%x\n", a);
+        writeHex_posit(pa, '\n');
+    }
+
+    template<size_t nbits, size_t es>
     void writeI2PTestCase(long a, const posit <nbits, es> &pa) {
+        fprintf(stdout, "%lx\n", a);
+        writeHex_posit(pa, '\n');
+    }
+
+    template<size_t nbits, size_t es>
+    void writeI2PTestCase(unsigned long a, const posit <nbits, es> &pa) {
         fprintf(stdout, "%lx\n", a);
         writeHex_posit(pa, '\n');
     }

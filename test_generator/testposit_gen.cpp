@@ -106,17 +106,30 @@ int main(int argc, char *argv[]) {
         genP2ITestCases<64, 3, 64>(RND_TEST_CASES, true);
     }
     else if (!strcmp(argv[funcArgIndex], "i32_p16")) {
-        genI2PTestCases<16, 1, 32>(RND_TEST_CASES);
+        genI2PTestCases<16, 1, 32>(RND_TEST_CASES, false);
     } else if (!strcmp(argv[funcArgIndex], "i64_p16")) {
-        genI2PTestCases<16, 1, 64>(RND_TEST_CASES);
+        genI2PTestCases<16, 1, 64>(RND_TEST_CASES, false);
     } else if (!strcmp(argv[funcArgIndex], "i32_p32")) {
-        genI2PTestCases<32, 2, 32>(RND_TEST_CASES);
+        genI2PTestCases<32, 2, 32>(RND_TEST_CASES, false);
     } else if (!strcmp(argv[funcArgIndex], "i64_p32")) {
-        genI2PTestCases<32, 2, 64>(RND_TEST_CASES);
+        genI2PTestCases<32, 2, 64>(RND_TEST_CASES, false);
     } else if (!strcmp(argv[funcArgIndex], "i32_p64")) {
-        genI2PTestCases<64, 3, 32>(RND_TEST_CASES);
+        genI2PTestCases<64, 3, 32>(RND_TEST_CASES, false);
     } else if (!strcmp(argv[funcArgIndex], "i64_p64")) {
-        genI2PTestCases<64, 3, 64>(RND_TEST_CASES);
+        genI2PTestCases<64, 3, 64>(RND_TEST_CASES, false);
+    }
+    else if (!strcmp(argv[funcArgIndex], "ui32_p16")) {
+        genI2PTestCases<16, 1, 32>(RND_TEST_CASES, true);
+    } else if (!strcmp(argv[funcArgIndex], "ui64_p16")) {
+        genI2PTestCases<16, 1, 64>(RND_TEST_CASES, true);
+    } else if (!strcmp(argv[funcArgIndex], "ui32_p32")) {
+        genI2PTestCases<32, 2, 32>(RND_TEST_CASES, true);
+    } else if (!strcmp(argv[funcArgIndex], "ui64_p32")) {
+        genI2PTestCases<32, 2, 64>(RND_TEST_CASES, true);
+    } else if (!strcmp(argv[funcArgIndex], "ui32_p64")) {
+        genI2PTestCases<64, 3, 32>(RND_TEST_CASES, true);
+    } else if (!strcmp(argv[funcArgIndex], "ui64_p64")) {
+        genI2PTestCases<64, 3, 64>(RND_TEST_CASES, true);
     }
     else if (!strcmp(argv[funcArgIndex], "p16_p32")) {
         genP2PTestCases<16, 1, 32, 2>(RND_TEST_CASES);

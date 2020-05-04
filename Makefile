@@ -50,6 +50,12 @@ I32toP32 \
 I64toP32 \
 I32toP64 \
 I64toP64 \
+UI32toP16 \
+UI64toP16 \
+UI32toP32 \
+UI64toP32 \
+UI32toP64 \
+UI64toP64 \
 P16toP32 \
 P16toP64 \
 P32toP16 \
@@ -128,6 +134,13 @@ $(eval $(call test_template,I32toP32,i32_p32,convert))
 $(eval $(call test_template,I64toP32,i64_p32,convert))
 $(eval $(call test_template,I32toP64,i32_p64,convert))
 $(eval $(call test_template,I64toP64,i64_p64,convert))
+
+$(eval $(call test_template,UI32toP16,ui32_p16,convert))
+$(eval $(call test_template,UI64toP16,ui64_p16,convert))
+$(eval $(call test_template,UI32toP32,ui32_p32,convert))
+$(eval $(call test_template,UI64toP32,ui64_p32,convert))
+$(eval $(call test_template,UI32toP64,ui32_p64,convert))
+$(eval $(call test_template,UI64toP64,ui64_p64,convert))
 
 $(eval $(call test_template,P16toP32,p16_p32,convert))
 $(eval $(call test_template,P16toP64,p16_p64,convert))
