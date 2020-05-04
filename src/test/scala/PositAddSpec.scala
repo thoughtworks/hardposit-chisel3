@@ -63,8 +63,8 @@ class PositAddSpec extends ChiselFlatSpec {
     assert(test(16, 2, 0x9B51, 0x50BC, 0x9BDD))
   }
 
-  it should "return the infinite when the exponent are at max" in {
-    assert(test(8, 0, 0x7F, 0x7F, 0x80))
+  it should "return the maxpos when the exponent are at max" in {
+    assert(test(8, 0, 0x7F, 0x7F, 0x7F))
   }
 
   it should "return the other number when one of it is zero" in {

@@ -22,7 +22,10 @@ fpga/soc/arria10/tmp-clearbox/*
 *.qws
 test_run_dir/
 
-hps/main.o
-hps/posit
-
-softposit/main
+.metals/
+.vscode/
+.bloop/
+*.o
+*.log
+*.vcd
+test-*/

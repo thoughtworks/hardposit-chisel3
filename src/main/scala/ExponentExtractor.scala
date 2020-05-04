@@ -39,5 +39,5 @@ class ExponentExtractor(totalBits: Int, es: Int) extends Module {
   //
   private val exponent = Mux(exponentLength === 0.U, 0.U, MuxCase(0.U, exponentCombinations))
   io.totalLength := regimeLength + exponentLength
-  io.exponent := (math.pow(2, es).toInt.S * regime) + exponent.asSInt()
+  io.exponent := (regime << es).asSInt() + exponent.asSInt()
 }

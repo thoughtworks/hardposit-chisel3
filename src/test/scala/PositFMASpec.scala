@@ -36,7 +36,7 @@ class PositFMASpec extends ChiselFlatSpec {
   }
 
   it should "return sum when multiplier is one" in {
-    assert(test(8, 0, 0x7F, 0x7F, 0x70, sub = false, negate = false, 0x80, isNaR = true)) //(64 * 1) + 64 == NaR (max exponent)
+    assert(test(8, 0, 0x7F, 0x7F, 0x70, sub = false, negate = false, 0x7F, isNaR = false)) //(64 * 1) + 64 == NaR
   }
 
   it should "return sum when multiplier is one 2" in {

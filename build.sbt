@@ -4,7 +4,7 @@ version := "1.0.0"
 
 name := "hardposit"
 
-scalaVersion := "2.12.4"
+scalaVersion := "2.12.11"
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-language:reflectiveCalls", "-Xsource:2.11")
 

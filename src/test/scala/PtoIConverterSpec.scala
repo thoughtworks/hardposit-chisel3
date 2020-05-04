@@ -3,16 +3,17 @@ import hardposit.PtoIConverter
 
 class PtoIConverterSpec extends ChiselFlatSpec {
 
-  private class PtoIConverterTest(c: PtoIConverter, posit: Int, unsigned: Boolean, expected: Int) extends PeekPokeTester(c) {
+  private class PtoIConverterTest(c: PtoIConverter, posit: Int, unsigned: Boolean, expected: Int, roundingMode: Boolean) extends PeekPokeTester(c) {
     poke(c.io.posit, posit)
     poke(c.io.unsignedOut, unsigned)
+    poke(c.io.roundingMode, roundingMode)
     step(1)
     expect(c.io.integer, expected)
   }
 
-  def test(totalBits: Int, es: Int, posit: Int, unsigned: Boolean, expected: Int, intWidth: Int): Boolean = {
+  def test(totalBits: Int, es: Int, posit: Int, unsigned: Boolean, expected: Int, intWidth: Int, roundingMode: Boolean = false): Boolean = {
     chisel3.iotesters.Driver(() => new PtoIConverter(totalBits, es, intWidth)) {
-      c => new PtoIConverterTest(c, posit, unsigned, expected)
+      c => new PtoIConverterTest(c, posit, unsigned, expected, roundingMode)
     }
   }
 
@@ -33,11 +34,11 @@ class PtoIConverterSpec extends ChiselFlatSpec {
   }
 
   it should "return signed integer value for signed posit 1" in {
-    assert(test(16, 2, 0xAC20, unsigned = false, 0xFFFB, 16))
+    assert(test(16, 2, 0xAC20, unsigned = false, 0xFFFA, 16))
   }
 
   it should "return signed integer value for smaller integer width" in {
-    assert(test(16, 2, 0xAC20, unsigned = false, 0xFB, 8))
+    assert(test(16, 2, 0xAC20, unsigned = false, 0xFA, 8))
   }
 
   it should "return highest value for smaller integer width" in {

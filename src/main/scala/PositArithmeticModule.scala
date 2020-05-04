@@ -15,11 +15,14 @@ class PositArithmeticBundle(val totalBits: Int) extends Bundle {
 }
 
 class unpackedPosit(val totalBits: Int, val es: Int) extends Bundle {
+  val maxExponentBits = (log2Ceil(totalBits) + es + 2)
+
   val sign = Bool()
-  val exponent = SInt((log2Ceil(math.pow(2, es).toInt * totalBits) + es + 2).W)
+  val exponent = SInt(maxExponentBits.W)
   val fraction = UInt((totalBits + 1).W)
   val isZero = Bool()
   val isNaR = Bool()
+  val stickyBit = Bool()
 
   override def cloneType =
     new unpackedPosit(totalBits, es).asInstanceOf[this.type]

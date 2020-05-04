@@ -27,13 +27,13 @@ class PositGeneratorSpec extends ChiselFlatSpec{
     assert(test(8, 1, true, 2, 0, 0))
   }
 
-  it should "represent zero when the exponent too less" in {
-    assert(test(8, 0, false, -7, 0xFF, 0x00))
-    assert(test(8, 0, false, -6, 0x7F, 0x00))
+  it should "not underflow when the exponent too less" in {
+    assert(test(8, 0, false, -7, 0xFF, 0x01))
+    assert(test(8, 0, false, -6, 0x7F, 0x01))
   }
 
-  it should "represent infinite when the exponent is high then it fits" in {
-    assert(test(8, 0, false, 8, 0x1FF, 0x80))
+  it should "represent maxpos when the exponent is high then it fits" in {
+    assert(test(8, 0, false, 8, 0x1FF, 0x7F))
   }
 
   it should "extract the positive regime" in {

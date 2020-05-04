@@ -25,9 +25,11 @@ class ItoPConverter(totalBits: Int, es: Int, intWidth: Int) extends Module {
   result.exponent := Cat(0.U, (intWidth - 1).U - zeroCount).asSInt()
   result.fraction := Cat(1.U, shiftedIntegerValue(intWidth - 2, 0) << totalBits + 1 >> intWidth)
 
+  private val stickyBit = if(intWidth > totalBits + 1) shiftedIntegerValue(intWidth - totalBits - 2, 0).orR() else false.B
+  result.stickyBit := stickyBit
+
   private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.in := result
 
   io.posit := positGenerator.io.out
-
 }

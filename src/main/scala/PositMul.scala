@@ -14,12 +14,14 @@ class PositMul(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits)
   num2Extractor.io.in := io.num2
   private val num2 = num2Extractor.io.out
 
+  private val productFraction = num1.fraction * num2.fraction
   private val result = Wire(new unpackedPosit(totalBits, es))
   result.isNaR := num1.isNaR || num2.isNaR
   result.isZero := num1.isZero && num2.isZero
   result.sign := num1.sign ^ num2.sign
   result.exponent := num1.exponent + num2.exponent + 1.S
-  result.fraction := (num1.fraction * num2.fraction)(maxFractionBits - 1, totalBits + 1)
+  result.fraction := productFraction(maxFractionBits - 1, totalBits + 1)
+  result.stickyBit := productFraction(totalBits, 0).orR()
 
   private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.in <> result

@@ -49,8 +49,8 @@ class PositModuleWrapper(totalBits: Int, es: Int) extends Module {
 }
 
 
-object PositAddWrapper extends App {
-  val optionsManager = new ExecutionOptionsManager("chisel3") with HasChiselExecutionOptions with HasFirrtlOptions
-  optionsManager.setTargetDirName("soc/chisel_output")
-  Driver.execute(optionsManager, () => new PositModuleWrapper(8, 2))
-}
+// object PositAddWrapper extends App {
+//   val optionsManager = new ExecutionOptionsManager("chisel3") with HasChiselExecutionOptions with HasFirrtlOptions
+//   optionsManager.setTargetDirName("_module_wrapper_output")
+//   Driver.execute(optionsManager, () => new PositModuleWrapper(8, 2))
+// }

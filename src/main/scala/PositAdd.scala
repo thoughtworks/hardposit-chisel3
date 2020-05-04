@@ -2,7 +2,6 @@ package hardposit
 
 import chisel3._
 import chisel3.util.{Cat, MuxCase}
-import firrtl.{ExecutionOptionsManager, HasFirrtlOptions}
 
 class PositAdd(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits) {
   require(totalBits > es)
@@ -54,15 +53,16 @@ class PositAdd(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits)
 
   result.isNaR := num1.isNaR || num2.isNaR
   result.isZero := num1.isZero && num2.isZero
+  result.stickyBit := Mux(isSameSignAddition, addedFraction(0), false.B)
   result.sign := Mux(isSameSignAddition, highestExponentSign, finalSubtractedSign)
   result.exponent := Mux(isSameSignAddition, finalAddedExponent, finalSubtractedExponent)
-  result.fraction := Cat(Mux(isSameSignAddition, finalAddedDecimal, finalSubtractedDecimal),
-    Mux(isSameSignAddition, finalAddedFraction, finalSubtractedFraction))
+  result.fraction := Mux(isSameSignAddition, Cat(finalAddedDecimal, finalAddedFraction), Cat(finalSubtractedDecimal, finalSubtractedFraction))
 
   private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.in <> result
 
   private val NaR = 1.U << (totalBits - 1)
+
   private def check(num1: UInt, num2: UInt): Bool = num1 === 0.U || num2 === NaR
 
   io.out := Mux(check(io.num1, io.num2), io.num2, Mux(check(io.num2, io.num1), io.num1, positGenerator.io.out))
