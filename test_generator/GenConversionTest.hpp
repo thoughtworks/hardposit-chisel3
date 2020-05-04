@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <random>
+#include <climits>
 
 #include "testposit_gen.hpp"
 #include "WriteCases.hpp"
@@ -12,9 +13,10 @@ using namespace sw::unum;
 namespace testposit {
 
     template<size_t nbits, size_t es, size_t ibits>
-    void genP2ITestCases(uint32_t nrOfRandoms) {
+    void genP2ITestCases(uint32_t nrOfRandoms, const bool isUnsigned) {
         const size_t SIZE_STATE_SPACE = nrOfRandoms;
-        sw::unum::posit <nbits, es> pa;
+        sw::unum::posit <nbits, es> pa, pzero;
+        pzero.set_raw_bits(0);
 
         // generate the full state space set of valid posit values
         std::random_device rd;     //Get a random seed from the OS entropy device, or whatever
@@ -30,10 +32,48 @@ namespace testposit {
         for (int i = 1; i <= nrOfRandoms; i++) {
             ia = std::rand() % SIZE_STATE_SPACE;
             pa.set_raw_bits(operand_values[ia]);
-            if (ibits == 32) {
-                writeP2ITestCase(pa, (int) pa);
+            long long ll_cast = (long long)pa;
+            unsigned long long ull_cast = (unsigned long long)pa;
+            if (ibits < 64) {
+                if(isUnsigned) {
+                    unsigned int a;
+                    if(ll_cast < 0)
+                        a = (pa < pzero) ? 0 : UINT_MAX;
+                    else if((unsigned long long)ll_cast < UINT_MAX && !pa.isnar())
+                        a = (unsigned int)pa;
+                    else
+                        a = UINT_MAX;
+                    writeP2ITestCase(pa, a);
+                } else {
+                    int a;
+                    if(ll_cast <= INT_MIN)
+                        a = (pa < pzero) ? INT_MIN : INT_MAX;
+                    else if(ll_cast < INT_MAX)
+                        a = (int)ll_cast;
+                    else
+                        a = INT_MAX;
+                    writeP2ITestCase(pa, a);
+                }
             } else {
-                writeP2ITestCase(pa, (long) pa);
+                if(isUnsigned) {
+                    unsigned long a;
+                    if(ll_cast < 0)
+                        a = (pa < pzero) ? 0 : ((ull_cast > (unsigned long long)LONG_MAX)?(unsigned long)pa : ULONG_MAX);
+                    else if((unsigned long long)ll_cast < ULONG_MAX && !pa.isnar())
+                        a = (unsigned long)pa;
+                    else
+                        a = ULONG_MAX;
+                    writeP2ITestCase(pa, a);
+                } else {
+                    long a;
+                    if(ll_cast <= LONG_MIN)
+                        a = (pa < pzero) ? LONG_MIN : LONG_MAX;
+                    else if(ll_cast < LONG_MAX)
+                        a = (long)ll_cast;
+                    else
+                        a = LONG_MAX;
+                    writeP2ITestCase(pa, a);
+                }
             }
         }
     }

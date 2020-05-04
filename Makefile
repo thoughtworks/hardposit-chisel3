@@ -115,6 +115,13 @@ $(eval $(call test_template,P32toI64,p32_i64,convert))
 $(eval $(call test_template,P64toI32,p64_i32,convert))
 $(eval $(call test_template,P64toI64,p64_i64,convert))
 
+$(eval $(call test_template,P16toUI32,p16_ui32,convert))
+$(eval $(call test_template,P16toUI64,p16_ui64,convert))
+$(eval $(call test_template,P32toUI32,p32_ui32,convert))
+$(eval $(call test_template,P32toUI64,p32_ui64,convert))
+$(eval $(call test_template,P64toUI32,p64_ui32,convert))
+$(eval $(call test_template,P64toUI64,p64_ui64,convert))
+
 $(eval $(call test_template,I32toP16,i32_p16,convert))
 $(eval $(call test_template,I64toP16,i64_p16,convert))
 $(eval $(call test_template,I32toP32,i32_p32,convert))
