@@ -63,22 +63,22 @@ class PositDivSqrtSpec extends ChiselFlatSpec {
     assert(test(8, 2, 0, 0x32, sqrtOp = false, 0))
   }
 
-  it should "return infinity when the divisor is zero and dividend is not equal zero" in {
+  it should "return NaR when the divisor is zero and dividend is not equal zero" in {
     assert(test(8, 2, 0x34, 0, sqrtOp = false, 0x80))
   }
 
-  it should "return infinity when the dividend is infinite and divisor is not equal infinity" in {
+  it should "return NaR when the dividend is NaR and divisor is not equal NaR" in {
     assert(test(8, 1, 0x80, 0x42, sqrtOp = false, 0x80))
     assert(test(8, 1, 0x80, 0, sqrtOp = false, 0x80))
   }
 
-  it should "return zero when the divisor is infinity and dividend is not infinity" in {
-    assert(test(8, 4, 0x76, 0x80, sqrtOp = false, 0))
-    assert(test(8, 4, 0, 0x80, sqrtOp = false, 0))
+  it should "return NaR when the divisor is NaR and dividend is not NaR" in {
+    assert(test(8, 4, 0x76, 0x80, sqrtOp = false, 0x80))
+    assert(test(8, 4, 0, 0x80, sqrtOp = false, 0x80))
   }
 
-  it should "return isNaN as true when both dividend and divisor are zero or infinite" in {
-    assert(test(8, 3, 0, 0, sqrtOp = false, 0))
-    assert(test(8, 3, 0x80, 0x80, sqrtOp = false, 0))
+  it should "return NaR when both dividend and divisor are zero or NaR" in {
+    assert(test(8, 3, 0, 0, sqrtOp = false, 0x80))
+    assert(test(8, 3, 0x80, 0x80, sqrtOp = false, 0x80))
   }
 }
