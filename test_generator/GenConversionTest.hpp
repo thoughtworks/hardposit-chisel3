@@ -5,7 +5,7 @@
 #include <random>
 #include <climits>
 
-#include "testposit_gen.hpp"
+#include "PositTestGenerator.hpp"
 #include "WriteCases.hpp"
 
 using namespace sw::unum;

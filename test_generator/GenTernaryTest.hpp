@@ -4,7 +4,7 @@
 #include <vector>
 #include <random>
 
-#include "testposit_gen.hpp"
+#include "PositTestGenerator.hpp"
 #include "WriteCases.hpp"
 
 using namespace sw::unum;
@@ -72,8 +72,8 @@ namespace testposit {
     void genTernaryTestCases(int opcode, bool random_test, uint32_t nrOfRandoms) {
         if (random_test)
             genRandTernaryTests<nbits, es>(opcode, nrOfRandoms);
-        else
-            genAllTernaryTests<nbits, es>(opcode);
+//        else
+//            genAllTernaryTests<nbits, es>(opcode);
     }
 
 }
