@@ -1,7 +1,7 @@
 #include <string>
 
 #include "../universal/include/universal/posit/posit.hpp"
-#include "testposit_gen.hpp"
+#include "PositTestGenerator.hpp"
 #include "GenUnaryTest.hpp"
 #include "GenBinaryTest.hpp"
 #include "GenTernaryTest.hpp"

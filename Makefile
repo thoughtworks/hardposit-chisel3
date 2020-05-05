@@ -1,9 +1,17 @@
 default: test-c
 
-./testposit_gen.o: test_generator/testposit_gen.cpp
-	g++-8 -I$(UNIVERSAL) -o testposit_gen.o $<
+TEST_BUILD_DIR = "test_generator/build"
+TESTPOSIT_GEN = ./PositTestGenerator
 
-TESTPOSIT_GEN = ./testposit_gen.o
+$(TEST_BUILD_DIR)/PositTestGenerator:
+	rm -rf $(TEST_BUILD_DIR)
+	mkdir $(TEST_BUILD_DIR)
+	cd $(TEST_BUILD_DIR) && cmake ..
+	$(MAKE) -C $(TEST_BUILD_DIR)
+
+./PositTestGenerator: $(TEST_BUILD_DIR)/PositTestGenerator
+	cp $(TEST_BUILD_DIR)/PositTestGenerator .
+
 
 STDERR_VCD = 2> $$@.vcd
 VERILATOR_TRACE = --trace
@@ -157,6 +165,6 @@ test-c: $(addprefix test-c-, $(tests))
 
 
 clean:
-	rm -rf test-* *.o
+	rm -rf $(TEST_BUILD_DIR) test-* $(TESTPOSIT_GEN)
 
 .PHONY: test-c clean
