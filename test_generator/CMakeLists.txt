@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 project(PositTestGenerator)
 
-include_directories(../universal/include/posit)
+include_directories(universal/include/posit)
 
 add_executable(PositTestGenerator PositTestGenerator.cpp PositTestGenerator.hpp
         GenUnaryTest.hpp GenBinaryTest.hpp GenTernaryTest.hpp

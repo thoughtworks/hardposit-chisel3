@@ -2,6 +2,7 @@
 project/*
 target/*
 test_run_dir/
+cmake-build-debug/
 .metals/
 .vscode/
 .bloop/
