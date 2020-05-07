@@ -3,7 +3,7 @@ package hardposit
 import chisel3._
 import chisel3.util.{Cat, log2Up}
 
-class PositDivSqrt(totalBits: Int, es: Int) extends Module {
+class PositDivSqrt(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
   val io = IO(new Bundle {
     val validIn = Input(Bool())
     val readyIn = Output(Bool())
@@ -19,9 +19,7 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
     val out = Output(UInt(totalBits.W))
     val exceptions = Output(UInt(5.W))
   })
-  private val NaR = 1.U << (totalBits - 1)
-
-  private val cycleCount = RegInit(0.U(log2Up(totalBits + 3).W))
+  private val cycleCount = RegInit(0.U(log2Up(maxFractionBitsWithHiddenBit + 2).W))
 
   private val sqrtOp_stored = Reg(Bool())
   private val isNaR_out = Reg(Bool())
@@ -29,16 +27,17 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   private val exceptions_out = RegInit(0.U(5.W))
 
   private val result = RegInit(0.U.asTypeOf(new unpackedPosit(totalBits, es)))
-  private val remLo = RegInit(0.U((totalBits + 2).W))
-  private val remHi = RegInit(0.U((totalBits + 2).W))
-  private val divisor = RegInit(0.U((totalBits + 2).W))
+  private val remLo = RegInit(0.U((maxFractionBitsWithHiddenBit + 1).W))
+  private val remHi = RegInit(0.U((maxFractionBitsWithHiddenBit + 1).W))
+  private val divisor = RegInit(0.U((maxFractionBitsWithHiddenBit + 1).W))
 
   val num1Extractor = Module(new PositExtractor(totalBits, es))
-  num1Extractor.io.in := io.num1
-  private val num1 = num1Extractor.io.out
-
   val num2Extractor = Module(new PositExtractor(totalBits, es))
+
+  num1Extractor.io.in := io.num1
   num2Extractor.io.in := io.num2
+
+  private val num1 = num1Extractor.io.out
   private val num2 = num2Extractor.io.out
 
   private val divideByZero = !io.sqrtOp && num2.isZero
@@ -57,7 +56,7 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
 
   when(!idle | io.validIn) {
     cycleCount := Mux(starting && specialCase, 2.U, 0.U |
-      Mux(started_normally, (totalBits + 1).U, 0.U)) |
+      Mux(started_normally, maxFractionBitsWithHiddenBit.U, 0.U)) |
       Mux(!idle, cycleCount - 1.U, 0.U)
   }
 
@@ -82,9 +81,9 @@ class PositDivSqrt(totalBits: Int, es: Int) extends Module {
   remLo := Mux(readyIn && io.sqrtOp, radicand << 2, 0.U) |
     Mux(!readyIn && sqrtOp_stored, remLo << 2, 0.U)
 
-  private val rem = Mux(readyIn && io.sqrtOp, radicand(totalBits + 1, totalBits), 0.U) |
+  private val rem = Mux(readyIn && io.sqrtOp, radicand(maxFractionBits + 1, maxFractionBits), 0.U) |
     Mux(readyIn && !io.sqrtOp, radicand.asUInt(), 0.U) |
-    Mux(!readyIn && sqrtOp_stored, remHi << 2.U | remLo >> totalBits.U, 0.U) |
+    Mux(!readyIn && sqrtOp_stored, remHi << 2.U | remLo >> maxFractionBits.U, 0.U) |
     Mux(!readyIn && !sqrtOp_stored, remHi << 1.U, 0.U)
 
 

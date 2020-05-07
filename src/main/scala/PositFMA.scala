@@ -3,9 +3,7 @@ package hardposit
 import chisel3._
 import chisel3.util.MuxCase
 
-class PositFMA(totalBits: Int, es: Int) extends Module {
-  private val maxProductFractionBits = 2 * (totalBits + 1)
-  private val NaR = (1.U << (totalBits - 1)).asUInt()
+class PositFMA(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
 
   val io = IO(new Bundle {
     val num1 = Input(UInt(totalBits.W))
@@ -19,15 +17,15 @@ class PositFMA(totalBits: Int, es: Int) extends Module {
   })
 
   private val num1Extractor = Module(new PositExtractor(totalBits, es))
-  num1Extractor.io.in := io.num1
-  private val num1 = num1Extractor.io.out
-
   private val num2Extractor = Module(new PositExtractor(totalBits, es))
-  num2Extractor.io.in := io.num2
-  private val num2 = num2Extractor.io.out
-
   private val num3Extractor = Module(new PositExtractor(totalBits, es))
+
+  num2Extractor.io.in := io.num2
+  num1Extractor.io.in := io.num1
   num3Extractor.io.in := io.num3
+
+  private val num1 = num1Extractor.io.out
+  private val num2 = num2Extractor.io.out
   private val num3 = num3Extractor.io.out
 
   io.isNaR := num1.isNaR || num2.isNaR || num3.isNaR
@@ -44,7 +42,7 @@ class PositFMA(totalBits: Int, es: Int) extends Module {
   private val normProductExponent = productExponent + Mux(prodOverflow, 1.S, 0.S)
   private val prodStickyBit = Mux(prodOverflow, productFraction(0), false.B)
 
-  private val addendFraction = (num3.fraction << totalBits).asUInt
+  private val addendFraction = (num3.fraction << maxFractionBits).asUInt
   private val addendExponent = num3.exponent
 
   private val isAddendLargerThanProduct = (addendExponent > normProductExponent) | (addendExponent === normProductExponent && (addendFraction > normProductFraction))
@@ -82,8 +80,8 @@ class PositFMA(totalBits: Int, es: Int) extends Module {
   result.isZero := (num1.isZero || num2.isZero) && num3.isZero
   result.sign := largerSign
   result.exponent := normFmaExponent
-  result.fraction := (normFmaFraction >> totalBits).asUInt()
-  result.stickyBit := prodStickyBit | sumStickyBit | smallFractionStickyBit | normFmaFraction(totalBits - 1, 0).orR()
+  result.fraction := (normFmaFraction >> maxFractionBits).asUInt()
+  result.stickyBit := prodStickyBit | sumStickyBit | smallFractionStickyBit | normFmaFraction(maxFractionBits - 1, 0).orR()
 
   private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.in <> result

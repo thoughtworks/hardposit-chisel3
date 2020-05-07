@@ -3,19 +3,18 @@ package hardposit
 import chisel3._
 import chisel3.util.{Cat, MuxCase, PriorityMux}
 
-class PositGenerator(totalBits: Int, es: Int) extends Module {
-  private val NaR = 1.U << (totalBits - 1)
+class PositGenerator(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
 
   val io = IO(new Bundle {
     val in = Input(new unpackedPosit(totalBits, es))
     val out = Output(UInt(totalBits.W))
   })
 
-  private val exponentOffset = PriorityMux(Array.range(0, totalBits).map(index => {
-    (io.in.fraction(totalBits, totalBits - index) === 1.U) -> index.S
+  private val exponentOffset = PriorityMux(Array.range(0, maxFractionBits).map(index => {
+    (io.in.fraction(maxFractionBits, maxFractionBits - index) === 1.U) -> index.S
   }))
   private val normalisedExponent = io.in.exponent - exponentOffset
-  private val normalisedFraction = (io.in.fraction << exponentOffset.asUInt()) (totalBits - 1, 0)
+  private val normalisedFraction = (io.in.fraction << exponentOffset.asUInt()) (maxFractionBits - 1, 0)
   private val negExponent = normalisedExponent < 0.S
 
   private val positRegime = Mux(negExponent, -(normalisedExponent >> es), normalisedExponent >> es).asUInt()

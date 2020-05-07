@@ -3,7 +3,7 @@ package hardposit
 import chisel3._
 import chisel3.util.{Cat, MuxCase}
 
-class PositExtractor(totalBits: Int, es: Int) extends Module {
+class PositExtractor(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
   val io = IO(new Bundle {
     val in = Input(UInt(totalBits.W))
     val out = Output(new unpackedPosit(totalBits, es))
@@ -33,5 +33,5 @@ class PositExtractor(totalBits: Int, es: Int) extends Module {
   val frac = expFrac << es
 
   io.out.exponent := ((regime << es) | extractedExponent).asSInt
-  io.out.fraction := Cat(1.U, frac(totalBits - 1, 0))
+  io.out.fraction := Cat(1.U, frac(totalBits - 1, totalBits - maxFractionBits))
 }
