@@ -4,8 +4,7 @@ TEST_BUILD_DIR = "test_generator/build"
 TESTPOSIT_GEN = ./PositTestGenerator
 
 $(TEST_BUILD_DIR)/PositTestGenerator:
-	rm -rf $(TEST_BUILD_DIR)
-	mkdir $(TEST_BUILD_DIR)
+	mkdir -p $(TEST_BUILD_DIR)
 	cd $(TEST_BUILD_DIR) && cmake ..
 	$(MAKE) -C $(TEST_BUILD_DIR)
 
