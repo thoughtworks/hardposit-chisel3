@@ -29,6 +29,7 @@ The posit arithmetic modules have been unit tested using Chisel IO testers. For 
 
 To test the units using verilator:
 ```sh
+$ git clone https://github.com/thoughtworks/hardposit-chisel3
 $ cd hardposit-chisel3
 $ git submodule update --init --recursive
 $ make
