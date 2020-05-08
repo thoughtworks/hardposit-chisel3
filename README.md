@@ -1,5 +1,5 @@
 # Hardware Posit Arithmetic Units
-[![CircleCI](https://circleci.com/gh/arunkmv/hardposit-chisel3.svg?style=svg)](https://circleci.com/gh/arunkmv/hardposit-chisel3)
+[![CircleCI](https://circleci.com/gh/thoughtworks/hardposit-chisel3.svg?style=svg)](https://circleci.com/gh/thoughtworks/hardposit-chisel3)
 
 This project contains hardware units required for performing floating-point arithmetic operations on numbers represented in the Unum Type-III Posit standard. The parameterized modules have been described in Chisel and can generate synthesizable RTL for posits of any size.
 
