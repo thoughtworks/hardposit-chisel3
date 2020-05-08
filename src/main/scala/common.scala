@@ -18,10 +18,9 @@ class unpackedPosit(val totalBits: Int, val es: Int) extends Bundle with HasHard
 
   val sign = Bool()
   val exponent = SInt(maxExponentBits.W)
-  val fraction = UInt(maxFractionBitsWithHiddenBit.W)
+  val fraction = UInt(maxFractionBitsWithHiddenBit.W) //TODO Transfer only fraction bits without hidden bit
   val isZero = Bool()
   val isNaR = Bool()
-  val stickyBit = Bool()
 
   override def cloneType =
     new unpackedPosit(totalBits, es).asInstanceOf[this.type]
@@ -33,7 +32,7 @@ trait HasHardPositParams {
 
   def maxExponentBits: Int = log2Ceil(totalBits) + es + 2
 
-  def maxFractionBits: Int = totalBits//if (es + 2 >= totalBits) 0 else totalBits - 3 - es
+  def maxFractionBits: Int = if (es + 2 >= totalBits) 0 else totalBits - 3 - es
 
   def maxFractionBitsWithHiddenBit: Int = maxFractionBits + 1
 
@@ -47,4 +46,5 @@ trait HasHardPositParams {
 
   def isZero(num: UInt): Bool = ~num.orR()
 
+  def trailingBitCount = 2
 }
