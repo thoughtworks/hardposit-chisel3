@@ -38,6 +38,8 @@ trait HasHardPositParams {
 
   def maxProductFractionBits: Int = 2 * maxFractionBitsWithHiddenBit
 
+  def maxDividerFractionBits: Int = maxFractionBitsWithHiddenBit + trailingBitCount + stickyBitCount + 1
+
   def NaR: UInt = (1.U << (totalBits - 1)).asUInt()
 
   def zero: UInt = 0.U(totalBits.W)
@@ -47,4 +49,6 @@ trait HasHardPositParams {
   def isZero(num: UInt): Bool = ~num.orR()
 
   def trailingBitCount = 2
+
+  def stickyBitCount = 1
 }

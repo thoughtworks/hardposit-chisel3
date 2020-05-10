@@ -11,7 +11,7 @@ class PositExtractorSpec extends ChiselFlatSpec {
   }
 
   private def test(totalBits: Int, es: Int, num: Int, sign: Boolean, exponent: Int, fraction: Int): Boolean = {
-    chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--target-dir", "test_run_dir/ext", "--top-name", "ext"), () => new PositExtractor(totalBits, es)) {
+    chisel3.iotesters.Driver(() => new PositExtractor(totalBits, es)) {
       c => new PositExtractorTest(c, num, sign, exponent, fraction)
     }
   }
