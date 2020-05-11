@@ -32,7 +32,7 @@ trait HasHardPositParams {
 
   def maxExponentBits: Int = log2Ceil(totalBits) + es + 2
 
-  def maxFractionBits: Int = if (es + 2 >= totalBits) 0 else totalBits - 3 - es
+  def maxFractionBits: Int = if (es + 3 >= totalBits) 1 else totalBits - 3 - es
 
   def maxFractionBitsWithHiddenBit: Int = maxFractionBits + 1
 
@@ -51,4 +51,8 @@ trait HasHardPositParams {
   def trailingBitCount = 2
 
   def stickyBitCount = 1
+
+  def maxSignedInteger(w: Int): UInt = (1.U << (w - 1)) - 1.U
+
+  def maxUnsignedInteger(w: Int): UInt = (1.U << w) - 1.U
 }
