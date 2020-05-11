@@ -30,11 +30,17 @@ trait HasHardPositParams {
   val totalBits: Int
   val es: Int
 
-  def maxExponentBits: Int = log2Ceil(totalBits) + es + 2
+  def maxExponentBits: Int = getMaxExponentBits(totalBits, es)
 
-  def maxFractionBits: Int = if (es + 3 >= totalBits) 1 else totalBits - 3 - es
+  def maxFractionBits: Int = getMaxFractionBits(totalBits, es)
 
-  def maxFractionBitsWithHiddenBit: Int = maxFractionBits + 1
+  def maxFractionBitsWithHiddenBit: Int = getMaxFractionBitsWithHiddenBit(totalBits, es)
+
+  def getMaxExponentBits(p: Int, e: Int): Int = log2Ceil(p) + e + 2
+
+  def getMaxFractionBits(p: Int, e: Int): Int = if (e + 3 >= p) 1 else p - 3 - e
+
+  def getMaxFractionBitsWithHiddenBit(p: Int, e: Int): Int = getMaxFractionBits(p, e) + 1
 
   def maxProductFractionBits: Int = 2 * maxFractionBitsWithHiddenBit
 
