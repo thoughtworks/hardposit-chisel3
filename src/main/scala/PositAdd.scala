@@ -3,9 +3,19 @@ package hardposit
 import chisel3._
 import chisel3.util.{Cat, MuxCase}
 
-class PositAdd(val totalBits: Int, val es: Int) extends PositArithmeticModule(totalBits) with HasHardPositParams {
+class PositAdd(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
   require(totalBits > es)
   require(es >= 0)
+
+  val io = IO(new Bundle{
+    val num1   = Input(UInt(totalBits.W))
+    val num2   = Input(UInt(totalBits.W))
+    val sub    = Input(Bool())
+
+    val isZero = Output(Bool())
+    val isNaR  = Output(Bool())
+    val out    = Output(UInt(totalBits.W))
+  })
 
   val num1Extractor = Module(new PositExtractor(totalBits, es))
   val num2Extractor = Module(new PositExtractor(totalBits, es))
@@ -22,13 +32,14 @@ class PositAdd(val totalBits: Int, val es: Int) extends PositArithmeticModule(to
     (num1.exponent > num2.exponent) |
      (num1.exponent === num2.exponent &&
       (num1.fraction > num2.fraction))
+  val num2AdjSign = num2.sign ^ io.sub
 
-  val largeSign = Mux(num1magGt, num1.sign, num2.sign)
+  val largeSign = Mux(num1magGt, num1.sign, num2AdjSign)
   val largeExp  = Mux(num1magGt, num1.exponent, num2.exponent)
   val largeFrac =
     Cat(Mux(num1magGt, num1.fraction, num2.fraction), 0.U((maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1).W))
 
-  val smallSign = Mux(num1magGt, num2.sign, num1.sign)
+  val smallSign = Mux(num1magGt, num2AdjSign, num1.sign)
   val smallExp  = Mux(num1magGt, num2.exponent, num1.exponent)
   val smallFrac =
     Cat(Mux(num1magGt, num2.fraction, num1.fraction), 0.U((maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1).W))

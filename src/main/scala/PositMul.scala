@@ -2,7 +2,16 @@ package hardposit
 
 import chisel3._
 
-class PositMul(val totalBits: Int, val es: Int) extends PositArithmeticModule(totalBits) with HasHardPositParams {
+class PositMul(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
+
+  val io = IO(new Bundle{
+    val num1   = Input(UInt(totalBits.W))
+    val num2   = Input(UInt(totalBits.W))
+
+    val isZero = Output(Bool())
+    val isNaR  = Output(Bool())
+    val out    = Output(UInt(totalBits.W))
+  })
 
   val num1Extractor = Module(new PositExtractor(totalBits, es))
   val num2Extractor = Module(new PositExtractor(totalBits, es))

@@ -13,7 +13,6 @@ class PositExtractor_deprecated(totalBits: Int, es: Int) extends Module {
 
   io.out.isZero := ~io.in.orR()
   io.out.isNaR := io.in(totalBits - 1) & (~io.in(totalBits - 2, 0).orR())
-  io.out.stickyBit := false.B
 
   private val exponentExtractor = Module(new ExponentExtractor(totalBits, es))
   exponentExtractor.io.num := num
