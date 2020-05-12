@@ -33,9 +33,9 @@ class PositFMA(val totalBits: Int, val es: Int) extends Module with HasHardPosit
 
   val productExponent = num1.exponent + num2.exponent
   val productFraction =
-    WireInit(UInt(maxProductFractionBits.W), num1.fraction * num2.fraction)
+    WireInit(UInt(maxMultiplierFractionBits.W), num1.fraction * num2.fraction)
 
-  val prodOverflow        = productFraction(maxProductFractionBits - 1)
+  val prodOverflow        = productFraction(maxMultiplierFractionBits - 1)
   val normProductFraction = (productFraction >> prodOverflow.asUInt()).asUInt()
   val normProductExponent = productExponent + Mux(prodOverflow, 1.S, 0.S)
   val prodStickyBit       = Mux(prodOverflow, productFraction(0), false.B)
@@ -58,23 +58,23 @@ class PositFMA(val totalBits: Int, val es: Int) extends Module with HasHardPosit
 
   val expDiff = (largeExp - smallExp).asUInt()
   val shiftedSmallFrac =
-    Mux(expDiff < maxProductFractionBits.U, smallFrac >> expDiff, 0.U)
+    Mux(expDiff < maxMultiplierFractionBits.U, smallFrac >> expDiff, 0.U)
   val smallFracStickyBit = (smallFrac & ((1.U << expDiff) - 1.U)).orR()
 
   val isAddition = ~(largeSign ^ smallSign)
   val signedSmallerFraction =
     Mux(isAddition, shiftedSmallFrac, ~shiftedSmallFrac + 1.U)
   val fmaFraction =
-    WireInit(UInt(maxProductFractionBits.W), largeFrac +& signedSmallerFraction)
+    WireInit(UInt(maxMultiplierFractionBits.W), largeFrac +& signedSmallerFraction)
 
-  val sumOverflow = fmaFraction(maxProductFractionBits - 1)
+  val sumOverflow = fmaFraction(maxMultiplierFractionBits - 1)
   val adjFmaFraction =
-    Mux(isAddition, fmaFraction >> sumOverflow.asUInt(), fmaFraction(maxProductFractionBits - 2, 0))
+    Mux(isAddition, fmaFraction >> sumOverflow.asUInt(), fmaFraction(maxMultiplierFractionBits - 2, 0))
   val adjFmaExponent = largeExp + Mux(isAddition & sumOverflow, 1.S, 0.S)
   val sumStickyBit = Mux(isAddition & sumOverflow, fmaFraction(0), false.B)
 
-  val normalizationFactor = MuxCase(0.S, Array.range(0, maxProductFractionBits - 2).map(index => {
-    (adjFmaFraction(maxProductFractionBits - 2, maxProductFractionBits - index - 2) === 1.U) -> index.S
+  val normalizationFactor = MuxCase(0.S, Array.range(0, maxMultiplierFractionBits - 2).map(index => {
+    (adjFmaFraction(maxMultiplierFractionBits - 2, maxMultiplierFractionBits - index - 2) === 1.U) -> index.S
   }))
 
   val normFmaExponent = adjFmaExponent - normalizationFactor
