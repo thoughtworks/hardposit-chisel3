@@ -3,17 +3,17 @@ import hardposit.PositAdd
 
 class PositAddSpec extends ChiselFlatSpec {
 
-  private class PositAddTest(c: PositAdd, num1: Int, num2: Int, expectedPosit: Int) extends PeekPokeTester(c) {
+  private class PositAddTest(c: PositAdd, num1: Int, num2: Int, expectedPosit: Int, isNaR: Boolean) extends PeekPokeTester(c) {
     poke(c.io.num1, num1)
     poke(c.io.num2, num2)
     step(1)
     expect(c.io.out, expectedPosit)
-    expect(c.io.isNaN, false)
+    expect(c.io.isNaR, isNaR)
   }
 
-  private def test(totalBits: Int, es: Int, num1: Int, num2: Int, expectedPosit: Int): Boolean = {
+  private def test(totalBits: Int, es: Int, num1: Int, num2: Int, expectedPosit: Int, isNaR: Boolean = false): Boolean = {
     chisel3.iotesters.Driver(() => new PositAdd(totalBits, es)) {
-      c => new PositAddTest(c, num1, num2, expectedPosit)
+      c => new PositAddTest(c, num1, num2, expectedPosit, isNaR)
     }
   }
 
@@ -73,12 +73,12 @@ class PositAddSpec extends ChiselFlatSpec {
   }
 
   it should "return infinite number when one of it is infinite" in {
-    assert(test(8, 1, 0x80, 0x64, 0x80))
-    assert(test(8, 1, 0x74, 0x80, 0x80))
+    assert(test(8, 1, 0x80, 0x64, 0x80, isNaR = true))
+    assert(test(8, 1, 0x74, 0x80, 0x80, isNaR = true))
   }
 
   it should "return infinite infinity when both are infinity" in {
-    assert(test(8, 2, 0x80, 0x80, 0x80))
+    assert(test(8, 2, 0x80, 0x80, 0x80, isNaR = true))
   }
 
   it should "return zero when both are zero" in {

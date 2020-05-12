@@ -10,8 +10,9 @@ abstract class PositArithmeticModule(totalBits: Int) extends Module {
 class PositArithmeticBundle(val totalBits: Int) extends Bundle {
   val num1 = Input(UInt(totalBits.W))
   val num2 = Input(UInt(totalBits.W))
+  val isZero = Output(Bool())
+  val isNaR = Output(Bool())
   val out = Output(UInt(totalBits.W))
-  val isNaN = Output(Bool())
 }
 
 class unpackedPosit(val totalBits: Int, val es: Int) extends Bundle with HasHardPositParams {
@@ -42,7 +43,9 @@ trait HasHardPositParams {
 
   def getMaxFractionBitsWithHiddenBit(p: Int, e: Int): Int = getMaxFractionBits(p, e) + 1
 
-  def maxProductFractionBits: Int = 2 * maxFractionBitsWithHiddenBit
+  def maxAdderFractionBits: Int = maxFractionBitsWithHiddenBit + trailingBitCount + stickyBitCount + 1
+
+  def maxMultiplierFractionBits: Int = 2 * maxFractionBitsWithHiddenBit
 
   def maxDividerFractionBits: Int = maxFractionBitsWithHiddenBit + trailingBitCount + stickyBitCount + 1
 

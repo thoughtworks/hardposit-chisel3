@@ -3,68 +3,75 @@ package hardposit
 import chisel3._
 import chisel3.util.{Cat, MuxCase}
 
-class PositAdd(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits) {
+class PositAdd(val totalBits: Int, val es: Int) extends PositArithmeticModule(totalBits) with HasHardPositParams {
   require(totalBits > es)
   require(es >= 0)
 
-  private val num1Extractor = Module(new PositExtractor(totalBits, es))
+  val num1Extractor = Module(new PositExtractor(totalBits, es))
+  val num2Extractor = Module(new PositExtractor(totalBits, es))
+
   num1Extractor.io.in := io.num1
-  private val num1 = num1Extractor.io.out
-
-  private val num2Extractor = Module(new PositExtractor(totalBits, es))
   num2Extractor.io.in := io.num2
-  private val num2 = num2Extractor.io.out
 
-  private val num1IsHigherExponent = num1.exponent > num2.exponent
-  private val result = Wire(new unpackedPosit(totalBits, es))
+  val num1 = num1Extractor.io.out
+  val num2 = num2Extractor.io.out
 
-  private val highestExponent = Mux(num1IsHigherExponent, num1.exponent, num2.exponent)
-  private val highestExponentSign = Mux(num1IsHigherExponent, num1.sign, num2.sign)
-  private val highestExponentFraction = Mux(num1IsHigherExponent, num1.fraction, num2.fraction)
+  val result = Wire(new unpackedPosit(totalBits, es))
 
-  private val smallestExponent = Mux(num1IsHigherExponent, num2.exponent, num1.exponent)
-  private val smallestExponentSign = Mux(num1IsHigherExponent, num2.sign, num1.sign)
-  private val smallestExponentFraction = Mux(num1IsHigherExponent, num2.fraction, num1.fraction)
+  val num1magGt =
+    (num1.exponent > num2.exponent) |
+     (num1.exponent === num2.exponent &&
+      (num1.fraction > num2.fraction))
 
-  private val exponentDifference = highestExponent - smallestExponent
+  val largeSign = Mux(num1magGt, num1.sign, num2.sign)
+  val largeExp  = Mux(num1magGt, num1.exponent, num2.exponent)
+  val largeFrac =
+    Cat(Mux(num1magGt, num1.fraction, num2.fraction), 0.U((maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1).W))
 
-  private val shiftingCombinations = Array.range(0, totalBits + 1).map(index => {
-    (exponentDifference.asUInt() === index.U) -> smallestExponentFraction(totalBits, index)
-  })
+  val smallSign = Mux(num1magGt, num2.sign, num1.sign)
+  val smallExp  = Mux(num1magGt, num2.exponent, num1.exponent)
+  val smallFrac =
+    Cat(Mux(num1magGt, num2.fraction, num1.fraction), 0.U((maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1).W))
 
-  private val smallestExponentFractionAfterAdjustment = MuxCase(0.U((totalBits + 2).W), shiftingCombinations)
+  val expDiff = (largeExp - smallExp).asUInt()
+  val shiftedSmallFrac =
+    Mux(expDiff < (maxAdderFractionBits - 1).U, smallFrac >> expDiff, 0.U)
+  val smallFracStickyBit =
+    Mux(expDiff > (maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1).U,
+    (smallFrac & ((1.U << (expDiff - (maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1).U)) - 1.U)).orR(), false.B)
 
-  private val addedFraction = highestExponentFraction + smallestExponentFractionAfterAdjustment
-  private val finalAddedDecimal = addedFraction(totalBits + 1)
-  private val finalAddedExponent = highestExponent + 1.S
-  private val finalAddedFraction = addedFraction(totalBits, 1)
+  val isAddition = !(largeSign ^ smallSign)
+  val signedSmallerFrac =
+    Mux(isAddition, shiftedSmallFrac, ~shiftedSmallFrac + 1.U)
+  val adderFrac =
+    WireInit(UInt(maxAdderFractionBits.W), largeFrac +& signedSmallerFrac)
 
-  private val isHighestExponentFractionHigher = highestExponentFraction >= smallestExponentFractionAfterAdjustment(totalBits, 0)
-  private val subtractedFraction = Mux(isHighestExponentFractionHigher,
-    highestExponentFraction - smallestExponentFractionAfterAdjustment,
-    smallestExponentFractionAfterAdjustment - highestExponentFraction
-  )
-  private val finalSubtractedDecimal = subtractedFraction(totalBits)
-  private val finalSubtractedExponent = highestExponent
-  private val finalSubtractedFraction = subtractedFraction(totalBits - 1, 0)
-  private val finalSubtractedSign = Mux(isHighestExponentFractionHigher, highestExponentSign, smallestExponentSign)
+  val sumOverflow = isAddition & adderFrac(maxAdderFractionBits - 1)
 
-  private val isSameSignAddition = !(highestExponentSign ^ smallestExponentSign)
+  val adjAdderExp = largeExp - sumOverflow.asSInt()
+  val adjAdderFrac =
+    Mux(sumOverflow, adderFrac(maxAdderFractionBits - 1, 1), adderFrac(maxAdderFractionBits - 2, 0))
+  val sumStickyBit = sumOverflow & adderFrac(0)
 
-  result.isNaR := num1.isNaR || num2.isNaR
-  result.isZero := num1.isZero && num2.isZero
-  result.stickyBit := Mux(isSameSignAddition, addedFraction(0), false.B)
-  result.sign := Mux(isSameSignAddition, highestExponentSign, finalSubtractedSign)
-  result.exponent := Mux(isSameSignAddition, finalAddedExponent, finalSubtractedExponent)
-  result.fraction := Mux(isSameSignAddition, Cat(finalAddedDecimal, finalAddedFraction), Cat(finalSubtractedDecimal, finalSubtractedFraction))
+  val normalizationFactor = MuxCase(0.S, Array.range(0, maxAdderFractionBits - 1).map(index => {
+    (adjAdderFrac(maxAdderFractionBits - 2, maxAdderFractionBits - index - 2) === 1.U) -> index.S
+  }))
+
+  val normExponent = adjAdderExp - normalizationFactor
+  val normFraction = adjAdderFrac << normalizationFactor.asUInt()
+
+  result.isNaR    := num1.isNaR || num2.isNaR
+  result.isZero   := (num1.isZero && num2.isZero) | (adderFrac === 0.U)
+  result.sign     := largeSign
+  result.exponent := normExponent
+  result.fraction := normFraction(maxAdderFractionBits - 2, maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1)
 
   private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.in <> result
+  positGenerator.io.trailingBits := normFraction(maxAdderFractionBits - maxFractionBitsWithHiddenBit - 2, maxAdderFractionBits - maxFractionBitsWithHiddenBit - trailingBitCount - 1)
+  positGenerator.io.stickyBit    := sumStickyBit | normFraction(stickyBitCount - 1, 0).orR()
 
-  private val NaR = 1.U << (totalBits - 1)
-
-  private def check(num1: UInt, num2: UInt): Bool = num1 === 0.U || num2 === NaR
-
-  io.out := Mux(check(io.num1, io.num2), io.num2, Mux(check(io.num2, io.num1), io.num1, positGenerator.io.out))
-  io.isNaN := false.B
+  io.isZero := result.isZero
+  io.isNaR  := result.isNaR
+  io.out    := positGenerator.io.out
 }
