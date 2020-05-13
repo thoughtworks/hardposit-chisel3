@@ -31,7 +31,7 @@ class PositFMA(val totalBits: Int, val es: Int) extends Module with HasHardPosit
   val productSign = num1.sign ^ num2.sign ^ io.negate
   val addendSign  = num3.sign ^ io.negate ^ io.sub
 
-  val productExponent = num1.exponent + num2.exponent
+  val productExponent = num1.exponent +& num2.exponent
   val productFraction =
     WireInit(UInt(maxMultiplierFractionBits.W), num1.fraction * num2.fraction)
 
@@ -40,13 +40,14 @@ class PositFMA(val totalBits: Int, val es: Int) extends Module with HasHardPosit
   val normProductExponent = productExponent + Mux(prodOverflow, 1.S, 0.S)
   val prodStickyBit       = Mux(prodOverflow, productFraction(0), false.B)
 
-  val addendFraction = (num3.fraction << maxFractionBits).asUInt
+  val addendIsZero   = num3.isZero
+  val addendFraction = Mux(!addendIsZero, (num3.fraction << maxFractionBits).asUInt, 0.U)
   val addendExponent = num3.exponent
 
   val isAddendLargerThanProduct =
-    (addendExponent > normProductExponent) |
-      (addendExponent === normProductExponent &&
-        (addendFraction > normProductFraction))
+    ~addendIsZero &
+      ((addendExponent > normProductExponent) |
+        (addendExponent === normProductExponent && (addendFraction > normProductFraction)))
 
   val largeExp  = Mux(isAddendLargerThanProduct, addendExponent, normProductExponent)
   val largeFrac = Mux(isAddendLargerThanProduct, addendFraction, normProductFraction)
@@ -57,28 +58,29 @@ class PositFMA(val totalBits: Int, val es: Int) extends Module with HasHardPosit
   val smallSign = Mux(isAddendLargerThanProduct, productSign, addendSign)
 
   val expDiff = (largeExp - smallExp).asUInt()
+  val ShftInBound = expDiff < maxMultiplierFractionBits.U
   val shiftedSmallFrac =
     Mux(expDiff < maxMultiplierFractionBits.U, smallFrac >> expDiff, 0.U)
   val smallFracStickyBit = (smallFrac & ((1.U << expDiff) - 1.U)).orR()
 
   val isAddition = ~(largeSign ^ smallSign)
-  val signedSmallerFraction =
+  val signedSmallerFrac =
     Mux(isAddition, shiftedSmallFrac, ~shiftedSmallFrac + 1.U)
   val fmaFraction =
-    WireInit(UInt(maxMultiplierFractionBits.W), largeFrac +& signedSmallerFraction)
+    WireInit(UInt(maxMultiplierFractionBits.W), largeFrac +& signedSmallerFrac)
 
-  val sumOverflow = fmaFraction(maxMultiplierFractionBits - 1)
+  val fmaOverflow = isAddition & fmaFraction(maxMultiplierFractionBits - 1)
   val adjFmaFraction =
-    Mux(isAddition, fmaFraction >> sumOverflow.asUInt(), fmaFraction(maxMultiplierFractionBits - 2, 0))
-  val adjFmaExponent = largeExp + Mux(isAddition & sumOverflow, 1.S, 0.S)
-  val sumStickyBit = Mux(isAddition & sumOverflow, fmaFraction(0), false.B)
+    Mux(fmaOverflow, fmaFraction(maxMultiplierFractionBits - 1, 1), fmaFraction(maxMultiplierFractionBits - 2, 0))
+  val adjFmaExponent = largeExp + Mux(fmaOverflow, 1.S, 0.S)
+  val sumStickyBit = Mux(fmaOverflow, fmaFraction(0), false.B)
 
   val normalizationFactor = MuxCase(0.S, Array.range(0, maxMultiplierFractionBits - 2).map(index => {
     (adjFmaFraction(maxMultiplierFractionBits - 2, maxMultiplierFractionBits - index - 2) === 1.U) -> index.S
   }))
 
   val normFmaExponent = adjFmaExponent - normalizationFactor
-  val normFmaFraction = adjFmaFraction << normalizationFactor.asUInt()
+  val normFmaFraction = (adjFmaFraction << normalizationFactor.asUInt())(maxMultiplierFractionBits - 1, 0)
 
   val result = Wire(new unpackedPosit(totalBits, es))
   result.isNaR    := num1.isNaR || num2.isNaR || num3.isNaR

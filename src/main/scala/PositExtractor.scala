@@ -26,11 +26,11 @@ class PositExtractor(val totalBits: Int, val es: Int) extends Module with HasHar
   val extractedExponent =
     if (es > 0) expFrac(totalBits - 1, totalBits - es)
     else 0.U
-  val frac = expFrac << es
+  val frac = (expFrac << es)(totalBits - 1, totalBits - maxFractionBits)
 
   io.out.sign      := sign
   io.out.isZero    := isZero(io.in)
   io.out.isNaR     := isNaR(io.in)
   io.out.exponent  := ((regime << es) | extractedExponent).asSInt
-  io.out.fraction  := Cat(1.U, frac(totalBits - 1, totalBits - maxFractionBits))
+  io.out.fraction  := Cat(1.U, frac)
 }
