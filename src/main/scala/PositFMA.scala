@@ -1,7 +1,7 @@
 package hardposit
 
 import chisel3._
-import chisel3.util.MuxCase
+import chisel3.util.{Cat, MuxCase}
 
 class PositFMA(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
 
@@ -36,65 +36,65 @@ class PositFMA(val totalBits: Int, val es: Int) extends Module with HasHardPosit
     WireInit(UInt(maxMultiplierFractionBits.W), num1.fraction * num2.fraction)
 
   val prodOverflow        = productFraction(maxMultiplierFractionBits - 1)
-  val normProductFraction = (productFraction >> prodOverflow.asUInt()).asUInt()
-  val normProductExponent = productExponent + Mux(prodOverflow, 1.S, 0.S)
-  val prodStickyBit       = Mux(prodOverflow, productFraction(0), false.B)
+  val normProductFraction =
+    Mux(prodOverflow, productFraction(maxMultiplierFractionBits - 1, 1), productFraction(maxMultiplierFractionBits - 2, 0))
+  val normProductExponent = productExponent + Cat(0.U, prodOverflow).asSInt()
+  val prodStickyBit       = prodOverflow & productFraction(0)
 
   val addendIsZero   = num3.isZero
-  val addendFraction = Mux(!addendIsZero, (num3.fraction << maxFractionBits).asUInt, 0.U)
+  val addendFraction = Mux(addendIsZero, 0.U, Cat(num3.fraction, 0.U(maxFractionBits.W)))
   val addendExponent = num3.exponent
 
-  val isAddendLargerThanProduct =
+  val isAddendGtProduct =
     ~addendIsZero &
       ((addendExponent > normProductExponent) |
         (addendExponent === normProductExponent && (addendFraction > normProductFraction)))
 
-  val largeExp  = Mux(isAddendLargerThanProduct, addendExponent, normProductExponent)
-  val largeFrac = Mux(isAddendLargerThanProduct, addendFraction, normProductFraction)
-  val largeSign = Mux(isAddendLargerThanProduct, addendSign, productSign)
+  val gExp  = Mux(isAddendGtProduct, addendExponent, normProductExponent)
+  val gFrac = Mux(isAddendGtProduct, addendFraction, normProductFraction)
+  val gSign = Mux(isAddendGtProduct, addendSign, productSign)
 
-  val smallExp  = Mux(isAddendLargerThanProduct, normProductExponent, addendExponent)
-  val smallFrac = Mux(isAddendLargerThanProduct, normProductFraction, addendFraction)
-  val smallSign = Mux(isAddendLargerThanProduct, productSign, addendSign)
+  val lExp  = Mux(isAddendGtProduct, normProductExponent, addendExponent)
+  val lFrac = Mux(isAddendGtProduct, normProductFraction, addendFraction)
+  val lSign = Mux(isAddendGtProduct, productSign, addendSign)
 
-  val expDiff = (largeExp - smallExp).asUInt()
-  val ShftInBound = expDiff < maxMultiplierFractionBits.U
-  val shiftedSmallFrac =
-    Mux(expDiff < maxMultiplierFractionBits.U, smallFrac >> expDiff, 0.U)
-  val smallFracStickyBit = (smallFrac & ((1.U << expDiff) - 1.U)).orR()
+  val expDiff = (gExp - lExp).asUInt()
+  val shftInBound = expDiff < (maxMultiplierFractionBits - 1).U
+  val shiftedLFrac =
+    Mux(shftInBound, lFrac >> expDiff, 0.U)
+  val lFracStickyBit = (lFrac & ((1.U << expDiff) - 1.U)).orR()
 
-  val isAddition = ~(largeSign ^ smallSign)
-  val signedSmallerFrac =
-    Mux(isAddition, shiftedSmallFrac, ~shiftedSmallFrac + 1.U)
+  val isAddition = ~(gSign ^ lSign)
+  val signedLFrac =
+    Mux(isAddition, shiftedLFrac, ~shiftedLFrac + 1.U)
   val fmaFraction =
-    WireInit(UInt(maxMultiplierFractionBits.W), largeFrac +& signedSmallerFrac)
+    WireInit(UInt(maxMultiplierFractionBits.W), gFrac +& signedLFrac)
 
   val fmaOverflow = isAddition & fmaFraction(maxMultiplierFractionBits - 1)
   val adjFmaFraction =
-    Mux(fmaOverflow, fmaFraction(maxMultiplierFractionBits - 1, 1), fmaFraction(maxMultiplierFractionBits - 2, 0))
-  val adjFmaExponent = largeExp + Mux(fmaOverflow, 1.S, 0.S)
-  val sumStickyBit = Mux(fmaOverflow, fmaFraction(0), false.B)
+    Mux(fmaOverflow, fmaFraction, Cat(fmaFraction(maxMultiplierFractionBits - 2, 0), 0.U(1.W)))
+  val adjFmaExponent = gExp + Cat(0.U, fmaOverflow).asSInt()
 
-  val normalizationFactor = MuxCase(0.S, Array.range(0, maxMultiplierFractionBits - 2).map(index => {
-    (adjFmaFraction(maxMultiplierFractionBits - 2, maxMultiplierFractionBits - index - 2) === 1.U) -> index.S
+  val normalizationFactor = MuxCase(maxMultiplierFractionBits.S, Array.range(0, maxMultiplierFractionBits - 1).map(index => {
+    (adjFmaFraction(maxMultiplierFractionBits - 1, maxMultiplierFractionBits - index - 1) === 1.U) -> index.S
   }))
 
-  val normFmaExponent = adjFmaExponent - normalizationFactor
+  val normFmaExponent = adjFmaExponent -& normalizationFactor
   val normFmaFraction = (adjFmaFraction << normalizationFactor.asUInt())(maxMultiplierFractionBits - 1, 0)
 
   val result = Wire(new unpackedPosit(totalBits, es))
-  result.isNaR    := num1.isNaR || num2.isNaR || num3.isNaR
-  result.isZero   := (num1.isZero || num2.isZero) && num3.isZero
-  result.sign     := largeSign
+  result.isNaR    := num1.isNaR | num2.isNaR | num3.isNaR
+  result.isZero   := !result.isNaR & ((num1.isZero | num2.isZero) & num3.isZero)
+  result.sign     := gSign
   result.exponent := normFmaExponent
-  result.fraction := (normFmaFraction >> maxFractionBits).asUInt()
+  result.fraction := normFmaFraction(maxMultiplierFractionBits - 1, maxMultiplierFractionBits - maxFractionBitsWithHiddenBit).asUInt()
 
   val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.in <> result
-  positGenerator.io.trailingBits := normFmaFraction(maxFractionBits - 1, maxFractionBits - trailingBitCount)
-  positGenerator.io.stickyBit    := prodStickyBit | sumStickyBit | smallFracStickyBit | normFmaFraction(maxFractionBits - trailingBitCount - 1, 0).orR()
+  positGenerator.io.trailingBits := normFmaFraction(maxFractionBitsWithHiddenBit - 1, maxFractionBitsWithHiddenBit - trailingBitCount)
+  positGenerator.io.stickyBit    := prodStickyBit | lFracStickyBit | normFmaFraction(maxFractionBitsWithHiddenBit - trailingBitCount - 1, 0).orR()
 
-  io.isNaR  := result.isNaR || (positGenerator.io.out === NaR)
-  io.isZero := result.isZero || (positGenerator.io.out === 0.U)
-  io.out    := Mux(result.isNaR, NaR, positGenerator.io.out)
+  io.isNaR  := result.isNaR  | isNaR(positGenerator.io.out)
+  io.isZero := result.isZero | isZero(positGenerator.io.out)
+  io.out    := positGenerator.io.out
 }

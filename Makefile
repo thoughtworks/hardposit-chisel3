@@ -1,6 +1,6 @@
 default: test-c
 
-TEST_BUILD_DIR = "test_generator/build"
+TEST_BUILD_DIR = test_generator/build
 TESTPOSIT_GEN = ./PositTestGenerator
 
 $(TEST_BUILD_DIR)/PositTestGenerator:
@@ -8,7 +8,7 @@ $(TEST_BUILD_DIR)/PositTestGenerator:
 	cd $(TEST_BUILD_DIR) && cmake ..
 	$(MAKE) -C $(TEST_BUILD_DIR)
 
-./PositTestGenerator: $(TEST_BUILD_DIR)/PositTestGenerator
+$(TESTPOSIT_GEN): $(TEST_BUILD_DIR)/PositTestGenerator
 	cp $(TEST_BUILD_DIR)/PositTestGenerator .
 
 
