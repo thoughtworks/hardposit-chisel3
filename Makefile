@@ -1,6 +1,6 @@
 default: test-c
 
-TEST_BUILD_DIR = "test_generator/build"
+TEST_BUILD_DIR = test_generator/build
 TESTPOSIT_GEN = ./PositTestGenerator
 
 $(TEST_BUILD_DIR)/PositTestGenerator:
@@ -8,7 +8,7 @@ $(TEST_BUILD_DIR)/PositTestGenerator:
 	cd $(TEST_BUILD_DIR) && cmake ..
 	$(MAKE) -C $(TEST_BUILD_DIR)
 
-./PositTestGenerator: $(TEST_BUILD_DIR)/PositTestGenerator
+$(TESTPOSIT_GEN): $(TEST_BUILD_DIR)/PositTestGenerator
 	cp $(TEST_BUILD_DIR)/PositTestGenerator .
 
 
@@ -51,6 +51,12 @@ P32toI32 \
 P32toI64 \
 P64toI32 \
 P64toI64 \
+P16toUI32 \
+P16toUI64 \
+P32toUI32 \
+P32toUI64 \
+P64toUI32 \
+P64toUI64 \
 I32toP16 \
 I64toP16 \
 I32toP32 \

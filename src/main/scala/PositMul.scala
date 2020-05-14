@@ -2,38 +2,47 @@ package hardposit
 
 import chisel3._
 
-class PositMul(totalBits: Int, es: Int) extends PositArithmeticModule(totalBits) {
+class PositMul(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
 
-  private val maxFractionBits = 2 * (totalBits + 1)
+  val io = IO(new Bundle{
+    val num1   = Input(UInt(totalBits.W))
+    val num2   = Input(UInt(totalBits.W))
 
-  private val num1Extractor = Module(new PositExtractor(totalBits, es))
+    val isZero = Output(Bool())
+    val isNaR  = Output(Bool())
+    val out    = Output(UInt(totalBits.W))
+  })
+
+  val num1Extractor = Module(new PositExtractor(totalBits, es))
+  val num2Extractor = Module(new PositExtractor(totalBits, es))
+
+  val num1 = num1Extractor.io.out
+  val num2 = num2Extractor.io.out
+
   num1Extractor.io.in := io.num1
-  private val num1 = num1Extractor.io.out
-
-  private val num2Extractor = Module(new PositExtractor(totalBits, es))
   num2Extractor.io.in := io.num2
-  private val num2 = num2Extractor.io.out
 
-  private val productFraction = num1.fraction * num2.fraction
-  private val result = Wire(new unpackedPosit(totalBits, es))
-  result.isNaR := num1.isNaR || num2.isNaR
-  result.isZero := num1.isZero && num2.isZero
-  result.sign := num1.sign ^ num2.sign
-  result.exponent := num1.exponent + num2.exponent + 1.S
-  result.fraction := productFraction(maxFractionBits - 1, totalBits + 1)
-  result.stickyBit := productFraction(totalBits, 0).orR()
+  val prodExp = num1.exponent + num2.exponent
+  val prodFrac =
+    WireInit(UInt(maxMultiplierFractionBits.W), num1.fraction * num2.fraction)
+  val prodOverflow = prodFrac(maxMultiplierFractionBits - 1)
+
+  val normProductFrac = (prodFrac << (~prodOverflow).asUInt()).asUInt()
+  val normProductExp  = prodExp + Mux(prodOverflow, 1.S, 0.S)
+
+  val result = Wire(new unpackedPosit(totalBits, es))
+  result.isNaR    := num1.isNaR  | num2.isNaR
+  result.isZero   := num1.isZero | num2.isZero
+  result.sign     := num1.sign ^ num2.sign
+  result.exponent := normProductExp
+  result.fraction := normProductFrac(maxMultiplierFractionBits - 1, maxMultiplierFractionBits - maxFractionBitsWithHiddenBit)
 
   private val positGenerator = Module(new PositGenerator(totalBits, es))
   positGenerator.io.in <> result
+  positGenerator.io.trailingBits := normProductFrac(maxMultiplierFractionBits - maxFractionBitsWithHiddenBit - 1, maxFractionBitsWithHiddenBit - trailingBitCount)
+  positGenerator.io.stickyBit    := normProductFrac(maxFractionBitsWithHiddenBit - trailingBitCount - 1, 0).orR()
 
-  private val NaR= 1.U << (totalBits - 1)
-  private def checkSame(num1:UInt,num2:UInt,number:UInt):Bool = num1 === number || num2 === number
-
-  io.out := Mux(checkSame(io.num1,io.num2,0.U), 0.U,
-            Mux(checkSame(io.num1,io.num2,NaR), NaR,
-              positGenerator.io.out))
-
-  private def check(num1: UInt,num2: UInt) : Bool = num1 === 0.U && num2 === NaR
-
-  io.isNaN := check(io.num1,io.num2) || check(io.num2,io.num1)
+  io.isZero := result.isZero
+  io.isNaR := result.isNaR
+  io.out := positGenerator.io.out
 }

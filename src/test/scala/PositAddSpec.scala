@@ -3,17 +3,18 @@ import hardposit.PositAdd
 
 class PositAddSpec extends ChiselFlatSpec {
 
-  private class PositAddTest(c: PositAdd, num1: Int, num2: Int, expectedPosit: Int) extends PeekPokeTester(c) {
+  private class PositAddTest(c: PositAdd, num1: Int, num2: Int, expectedPosit: Int, sub: Boolean, isNaR: Boolean) extends PeekPokeTester(c) {
     poke(c.io.num1, num1)
     poke(c.io.num2, num2)
+    poke(c.io.sub, sub)
     step(1)
     expect(c.io.out, expectedPosit)
-    expect(c.io.isNaN, false)
+    expect(c.io.isNaR, isNaR)
   }
 
-  private def test(totalBits: Int, es: Int, num1: Int, num2: Int, expectedPosit: Int): Boolean = {
+  private def test(totalBits: Int, es: Int, num1: Int, num2: Int, expectedPosit: Int, sub: Boolean = false, isNaR: Boolean = false): Boolean = {
     chisel3.iotesters.Driver(() => new PositAdd(totalBits, es)) {
-      c => new PositAddTest(c, num1, num2, expectedPosit)
+      c => new PositAddTest(c, num1, num2, expectedPosit, sub, isNaR)
     }
   }
 
@@ -73,12 +74,12 @@ class PositAddSpec extends ChiselFlatSpec {
   }
 
   it should "return infinite number when one of it is infinite" in {
-    assert(test(8, 1, 0x80, 0x64, 0x80))
-    assert(test(8, 1, 0x74, 0x80, 0x80))
+    assert(test(8, 1, 0x80, 0x64, 0x80, isNaR = true))
+    assert(test(8, 1, 0x74, 0x80, 0x80, isNaR = true))
   }
 
   it should "return infinite infinity when both are infinity" in {
-    assert(test(8, 2, 0x80, 0x80, 0x80))
+    assert(test(8, 2, 0x80, 0x80, 0x80, isNaR = true))
   }
 
   it should "return zero when both are zero" in {
@@ -119,5 +120,40 @@ class PositAddSpec extends ChiselFlatSpec {
     assert(test(16, 1, 0x7300, 0x6800, 0x7480))
     assert(test(16, 1, 0x7480, 0x6900, 0x75A0))
     assert(test(16, 1, 0x75A0, 0x9600, 0x7460))
+  }
+
+  it should "return zero for the same posit numbers" in {
+    assert(test(8, 1, 0x93, 0x93, 0x00, sub = true))
+  }
+
+  it should "return isNaN as true when both are infinity" in {
+    assert(test(8, 4, 0x80, 0x80, 0x80, sub = true, isNaR = true))
+  }
+
+  it should "return infinity when one of it is infinity" in {
+    assert(test(16, 2, 0x8000, 0x7543, 0x8000, sub = true, isNaR = true))
+    assert(test(16, 2, 0x7543, 0x8000, 0x8000, sub = true, isNaR = true))
+  }
+
+  it should "return the first number when the second number is zero" in {
+    assert(test(8, 3, 0x64, 0x00, 0x64, sub = true))
+  }
+
+  it should "return the negative of second number when the first number is zero" in {
+    assert(test(8, 3, 0, 0x45, 0xBB, sub = true))
+  }
+
+  it should "return the addition when both are having different signs" in {
+    assert(test(8, 1, 0x5D, 0xA5, 0x66, sub = true))
+  }
+
+  it should "return the positive number when both are of same sign and first number is larger" in {
+    assert(test(8, 1, 0x54, 0x42, 0x46, sub = true))
+    assert(test(8, 1, 0xBE, 0xAC, 0x46, sub = true))
+  }
+
+  it should "return the negative number when both are of same sign and second number is larger" in {
+    assert(test(8, 1, 0x42, 0x54, 0xBA, sub = true))
+    assert(test(8, 1, 0xAC, 0xBE, 0xBA, sub = true))
   }
 }

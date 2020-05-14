@@ -7,37 +7,53 @@ class PositGenerator(val totalBits: Int, val es: Int) extends Module with HasHar
 
   val io = IO(new Bundle {
     val in = Input(new unpackedPosit(totalBits, es))
+    val trailingBits = Input(UInt(trailingBitCount.W))
+    val stickyBit = Input(Bool())
     val out = Output(UInt(totalBits.W))
   })
 
-  private val exponentOffset = PriorityMux(Array.range(0, maxFractionBits).map(index => {
+  val exponentOffset = PriorityMux(Array.range(0, maxFractionBits).map(index => { //TODO Remove normalization check
     (io.in.fraction(maxFractionBits, maxFractionBits - index) === 1.U) -> index.S
   }))
-  private val normalisedExponent = io.in.exponent - exponentOffset
-  private val normalisedFraction = (io.in.fraction << exponentOffset.asUInt()) (maxFractionBits - 1, 0)
-  private val negExponent = normalisedExponent < 0.S
 
-  private val positRegime = Mux(negExponent, -(normalisedExponent >> es), normalisedExponent >> es).asUInt()
-  private val positExponent = normalisedExponent(if (es > 0) es - 1 else 0, 0)
-  private val positOffset = positRegime + es.U + Mux(negExponent, 2.U, 3.U)
+  val normalisedExponent = io.in.exponent - exponentOffset
+  val normalisedFraction =
+    (io.in.fraction << exponentOffset.asUInt()) (maxFractionBits - 1, 0)
+  val negExp = normalisedExponent < 0.S
 
-  private val regimeBits = Mux(negExponent, 1.U << (positRegime + 1.U) >> (positRegime + 1.U), (1.U << positRegime + 2.U).asUInt() - 2.U)
-  private val regimeWithExponentBits = if (es > 0) Cat(regimeBits, positExponent) else regimeBits
+  val positRegime =
+    Mux(negExp, -(normalisedExponent >> es), normalisedExponent >> es).asUInt()
+  val positExponent = normalisedExponent(if (es > 0) es - 1 else 0, 0)
+  val positOffset =
+    positRegime - (negExp & positRegime =/= (totalBits - 1).U) + trailingBitCount.U
+
+  val regimeBits =
+    Mux(negExp, 1.U << (positRegime + 1.U) >> (positRegime + 1.U),
+      (1.U << positRegime + 2.U).asUInt() - 2.U)
+  val regimeWithExponentBits =
+    if (es > 0) Cat(regimeBits, positExponent)
+    else regimeBits
 
   //u => un ; T => Trimmed ; R => Rounded ; S => Signed
-  private val uT_uS_posit = Cat(regimeWithExponentBits, normalisedFraction)
-  private val uR_uS_posit = (uT_uS_posit >> positOffset) (totalBits - 2, 0)
+  val uT_uS_posit = Cat(regimeWithExponentBits, normalisedFraction, io.trailingBits)
+  val uR_uS_posit = (uT_uS_posit >> positOffset) (totalBits - 2, 0)
 
-  private val trailingBits = (uT_uS_posit & ((1.U << positOffset) - 1.U)).asUInt()
-  private val lastBit = uR_uS_posit(0)
-  private val afterBit = (trailingBits >> (positOffset - 1.U)) (0)
-  private val stickyBit = io.in.stickyBit | (trailingBits & ((1.U << (positOffset - 1.U)) - 1.U)).orR()
-  private val roundingBit = Mux(uR_uS_posit.andR(), false.B, (lastBit & afterBit) | (afterBit & stickyBit))
+  val trailingBits = (uT_uS_posit & ((1.U << positOffset) - 1.U)).asUInt()
+  val gr = (trailingBits >> (positOffset - 2.U)) (1, 0)
+  val stickyBit =
+    io.stickyBit | (trailingBits & ((1.U << (positOffset - 2.U)) - 1.U)).orR()
+  val roundingBit =
+    Mux(uR_uS_posit.andR(), false.B,
+      gr(1) & ~(~uR_uS_posit(0) & gr(1) & ~gr(0) & ~stickyBit))
+  val R_uS_posit = uR_uS_posit + roundingBit
 
-  private val R_uS_posit = uR_uS_posit + roundingBit
-  private val uFC_R_uS_posit = Cat(0.U(1.W), R_uS_posit | (R_uS_posit === 0.U))
-  private val R_S_posit = Mux(io.in.sign, ~uFC_R_uS_posit + 1.U, uFC_R_uS_posit)
+  //Underflow Correction
+  val uFC_R_uS_posit =
+    Cat(0.U(1.W), R_uS_posit | (R_uS_posit === 0.U))
+
+  val R_S_posit =
+    Mux(io.in.sign, ~uFC_R_uS_posit + 1.U, uFC_R_uS_posit)
 
   io.out := Mux(io.in.isNaR, NaR,
-    Mux((io.in.fraction === 0.U) | io.in.isZero, 0.U, R_S_posit))
+    Mux((io.in.fraction === 0.U) | io.in.isZero, zero, R_S_posit))
 }
