@@ -4,6 +4,8 @@ import chisel3._
 import chisel3.util.{Cat, log2Ceil}
 
 class PtoPConverter(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) extends Module with HasHardPositParams {
+  require((inWidth != outWidth) | (inEs != outEs))
+
   override val totalBits: Int = 0
   override val es: Int = 0
   val io = IO(new Bundle {
@@ -30,9 +32,9 @@ class PtoPConverter(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) extends 
 
   val adjFrac =
     if(narrowConv)
-      extractor.io.out.fraction(maxInFractionBits, 0) >>  maxInFractionBits - maxOutFractionBits
+      (extractor.io.out.fraction(maxInFractionBits, 0) >>  maxInFractionBits - maxOutFractionBits)(maxOutFractionBits, 0)
     else
-      extractor.io.out.fraction(maxInFractionBits, 0) << maxOutFractionBits - maxInFractionBits
+      (extractor.io.out.fraction(maxInFractionBits, 0) << maxOutFractionBits - maxInFractionBits)(maxOutFractionBits, 0)
 
   val adjExp =
     if (maxInExponentBits > maxOutExponentBits)
@@ -40,14 +42,16 @@ class PtoPConverter(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) extends 
       Mux(extractor.io.out.exponent > maxOutExp, maxOutExp, extractor.io.out.exponent))
     else extractor.io.out.exponent
 
+  val inFracWithTrailOffset = Cat(extractor.io.out.fraction, 0.U((trailingBitCount + stickyBitCount).W))
   val trailingBits =
     if(narrowConv)
-      Cat(extractor.io.out.fraction, 0.U(trailingBitCount.W))(maxInFractionBits - maxOutFractionBits + trailingBitCount - 1, maxInFractionBits - maxOutFractionBits)
+      inFracWithTrailOffset(maxInFractionBits - maxOutFractionBits + trailingBitCount + stickyBitCount - 1,
+        maxInFractionBits - maxOutFractionBits + stickyBitCount )
     else 0.U
 
   val stickyBit =
     if (narrowConv)
-      extractor.io.out.fraction(maxInFractionBits - maxOutFractionBits - 1, 0).orR()
+      inFracWithTrailOffset(maxInFractionBits - maxOutFractionBits + stickyBitCount - 1, 0).orR()
     else false.B
 
   generator.io.in.fraction  := adjFrac
