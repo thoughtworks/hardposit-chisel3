@@ -1,8 +1,19 @@
 //include in g++ command line
+#if VM_TRACE
+#include "verilated.h"
+#endif
 
 int main()
 {
     dut module;
+
+#if VM_TRACE
+    VerilatedVcdFILE vcdfd(stderr);
+    VerilatedVcdC tfp(&vcdfd);
+    Verilated::traceEverOn(true);
+    module.trace(&tfp, 99);
+    tfp.open("");
+#endif
 
     initialize_dut(module);
 
@@ -33,6 +44,10 @@ int main()
         module.clock = 0;
         module.eval();
 
+#if VM_TRACE
+        tfp.dump(static_cast<vluint64_t>(cycle * 2));
+#endif
+
         if (module.io_check)
         {
             if ((cnt % 10000 == 0) && cnt)
@@ -59,6 +74,10 @@ int main()
 
         module.clock = 1;
         module.eval();
+
+#if VM_TRACE
+        tfp.dump(static_cast<vluint64_t>(cycle * 2 + 1));
+#endif
     }
 
     return 0;

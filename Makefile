@@ -11,9 +11,14 @@ $(TEST_BUILD_DIR)/PositTestGenerator:
 $(TESTPOSIT_GEN): $(TEST_BUILD_DIR)/PositTestGenerator
 	cp $(TEST_BUILD_DIR)/PositTestGenerator .
 
-
+ifeq (,$(vcd))
+STDERR_VCD =
+VERILATOR_TRACE =
+else
 STDERR_VCD = 2> $$@.vcd
 VERILATOR_TRACE = --trace
+endif
+
 UNIVERSAL = universal/include/universal/posit
 
 VERILATOR = verilator $(VERILATOR_TRACE)
@@ -87,11 +92,8 @@ test-$(1)/dut.mk: test-$(1)/Eval_$(1).v
 test-$(1)/dut: test-$(1)/dut.mk
 	cd test-$(1) && make -f dut.mk dut
 
-test-c-$(1).log: test-$(1)/dut $(TESTPOSIT_GEN)
-	{ $(TESTPOSIT_GEN) $(2) | $$< ;} > $$@ $(STDERR_VCD)
-
-test-c-$(1): \
- test-c-$(1).log \
+test-c-$(1): test-$(1)/dut $(TESTPOSIT_GEN)
+	{ $(TESTPOSIT_GEN) $(2) | $$< ;} > $$@.log $(STDERR_VCD)
 
 .PHONY: test-c-$(1)
 
