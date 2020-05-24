@@ -1,7 +1,7 @@
 package hardposit
 
 import chisel3._
-import chisel3.util.log2Ceil
+import chisel3.util.{PriorityEncoder, log2Ceil}
 
 class unpackedPosit(val totalBits: Int, val es: Int) extends Bundle with HasHardPositParams {
 
@@ -13,6 +13,11 @@ class unpackedPosit(val totalBits: Int, val es: Int) extends Bundle with HasHard
 
   override def cloneType =
     new unpackedPosit(totalBits, es).asInstanceOf[this.type]
+}
+
+object countLeadingZeros
+{
+  def apply(in: UInt): UInt = PriorityEncoder(in.asBools.reverse)
 }
 
 trait HasHardPositParams {

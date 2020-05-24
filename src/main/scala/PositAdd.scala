@@ -3,28 +3,20 @@ package hardposit
 import chisel3._
 import chisel3.util.{Cat, MuxCase}
 
-class PositAdd(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
-  require(totalBits > es)
-  require(es >= 0)
+class PositAddCore(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
 
   val io = IO(new Bundle{
-    val num1   = Input(UInt(totalBits.W))
-    val num2   = Input(UInt(totalBits.W))
+    val num1   = Input(new unpackedPosit(totalBits, es))
+    val num2   = Input(new unpackedPosit(totalBits, es))
     val sub    = Input(Bool())
 
-    val isZero = Output(Bool())
-    val isNaR  = Output(Bool())
-    val out    = Output(UInt(totalBits.W))
+    val trailingBits = Output(UInt(trailingBitCount.W))
+    val stickyBit = Output(Bool())
+    val out    = Output(new unpackedPosit(totalBits, es))
   })
 
-  val num1Extractor = Module(new PositExtractor(totalBits, es))
-  val num2Extractor = Module(new PositExtractor(totalBits, es))
-
-  num1Extractor.io.in := io.num1
-  num2Extractor.io.in := io.num2
-
-  val num1 = num1Extractor.io.out
-  val num2 = num2Extractor.io.out
+  val num1 = io.num1
+  val num2 = io.num2
 
   val result = Wire(new unpackedPosit(totalBits, es))
 
@@ -64,11 +56,9 @@ class PositAdd(val totalBits: Int, val es: Int) extends Module with HasHardPosit
     Mux(sumOverflow, adderFrac(maxAdderFractionBits - 1, 1), adderFrac(maxAdderFractionBits - 2, 0))
   val sumStickyBit = sumOverflow & adderFrac(0)
 
-  val normalizationFactor = MuxCase(0.S, Array.range(0, maxAdderFractionBits - 1).map(index => {
-    (adjAdderFrac(maxAdderFractionBits - 2, maxAdderFractionBits - index - 2) === 1.U) -> index.S
-  }))
+  val normalizationFactor = countLeadingZeros(adjAdderFrac)
 
-  val normExponent = adjAdderExp - normalizationFactor
+  val normExponent = adjAdderExp - normalizationFactor.asSInt()
   val normFraction = adjAdderFrac << normalizationFactor.asUInt()
 
   result.isNaR    := num1.isNaR || num2.isNaR
@@ -77,12 +67,43 @@ class PositAdd(val totalBits: Int, val es: Int) extends Module with HasHardPosit
   result.exponent := normExponent
   result.fraction := normFraction(maxAdderFractionBits - 2, maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1)
 
-  private val positGenerator = Module(new PositGenerator(totalBits, es))
-  positGenerator.io.in <> result
-  positGenerator.io.trailingBits := normFraction(maxAdderFractionBits - maxFractionBitsWithHiddenBit - 2, maxAdderFractionBits - maxFractionBitsWithHiddenBit - trailingBitCount - 1)
-  positGenerator.io.stickyBit    := sumStickyBit | normFraction(stickyBitCount - 1, 0).orR()
+  io.trailingBits := normFraction(maxAdderFractionBits - maxFractionBitsWithHiddenBit - 2, maxAdderFractionBits - maxFractionBitsWithHiddenBit - trailingBitCount - 1)
+  io.stickyBit    := sumStickyBit | normFraction(stickyBitCount - 1, 0).orR()
 
-  io.isZero := result.isZero
-  io.isNaR  := result.isNaR
+  io.out := result
+}
+
+class PositAdd(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
+  require(totalBits > es)
+  require(es >= 0)
+
+  val io = IO(new Bundle{
+    val num1   = Input(UInt(totalBits.W))
+    val num2   = Input(UInt(totalBits.W))
+    val sub    = Input(Bool())
+
+    val isZero = Output(Bool())
+    val isNaR  = Output(Bool())
+    val out    = Output(UInt(totalBits.W))
+  })
+
+  val positAddCore = Module(new PositAddCore(totalBits, es))
+
+  val num1Extractor = Module(new PositExtractor(totalBits, es))
+  val num2Extractor = Module(new PositExtractor(totalBits, es))
+  num1Extractor.io.in := io.num1
+  num2Extractor.io.in := io.num2
+
+  positAddCore.io.num1 := num1Extractor.io.out
+  positAddCore.io.num2 := num2Extractor.io.out
+  positAddCore.io.sub  := io.sub
+
+  private val positGenerator = Module(new PositGenerator(totalBits, es))
+  positGenerator.io.in           := positAddCore.io.out
+  positGenerator.io.trailingBits := positAddCore.io.trailingBits
+  positGenerator.io.stickyBit    := positAddCore.io.stickyBit
+
+  io.isZero := positAddCore.io.out.isZero | isZero(positGenerator.io.out)
+  io.isNaR  := positAddCore.io.out.isNaR  | isNaR(positGenerator.io.out)
   io.out    := positGenerator.io.out
 }

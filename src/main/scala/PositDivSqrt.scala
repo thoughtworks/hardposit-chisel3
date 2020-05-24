@@ -3,32 +3,27 @@ package hardposit
 import chisel3._
 import chisel3.util.{Cat, log2Up}
 
-class PositDivSqrt(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
+class PositDivSqrtCore(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
   val io = IO(new Bundle {
     val validIn = Input(Bool())
     val readyIn = Output(Bool())
 
     val sqrtOp = Input(Bool())
-    val num1   = Input(UInt(totalBits.W))
-    val num2   = Input(UInt(totalBits.W))
+    val num1   = Input(new unpackedPosit(totalBits, es))
+    val num2   = Input(new unpackedPosit(totalBits, es))
 
-    val isZero        = Output(Bool())
-    val isNaR         = Output(Bool())
     val validOut_div  = Output(Bool())
     val validOut_sqrt = Output(Bool())
     val exceptions    = Output(UInt(5.W))
-    val out           = Output(UInt(totalBits.W))
+
+    val trailingBits = Output(UInt(trailingBitCount.W))
+    val stickyBit    = Output(Bool())
+    val out          = Output(new unpackedPosit(totalBits, es))
   })
 
-  val num1Extractor = Module(new PositExtractor(totalBits, es))
-  val num2Extractor = Module(new PositExtractor(totalBits, es))
+  val num1 = io.num1
+  val num2 = io.num2
 
-  num1Extractor.io.in := io.num1
-  num2Extractor.io.in := io.num2
-
-  val num1 = num1Extractor.io.out
-  val num2 = num2Extractor.io.out
-  
   val cycleCount = RegInit(0.U(log2Up(maxDividerFractionBits + 1).W))
 
   val sqrtOp_stored = Reg(Bool())
@@ -122,15 +117,58 @@ class PositDivSqrt(val totalBits: Int, val es: Int) extends Module with HasHardP
 
   val validOut = cycleCount === 1.U
 
-  val positGenerator = Module(new PositGenerator(totalBits, es))
-  positGenerator.io.in <> result
-  positGenerator.io.trailingBits := frac_out(maxDividerFractionBits - maxFractionBitsWithHiddenBit - 1, trailingBitCount)
-  positGenerator.io.stickyBit    := frac_out(trailingBitCount - 1, 0).orR() | remHi.orR()
-
-  io.isZero        := result.isZero
-  io.isNaR         := result.isNaR
   io.validOut_div  := validOut && !sqrtOp_stored
   io.validOut_sqrt := validOut && sqrtOp_stored
   io.exceptions    := exec_out
-  io.out           := positGenerator.io.out
+
+  io.trailingBits := frac_out(maxDividerFractionBits - maxFractionBitsWithHiddenBit - 1, trailingBitCount)
+  io.stickyBit    := frac_out(trailingBitCount - 1, 0).orR() | remHi.orR()
+
+  io.out := result
+}
+
+class PositDivSqrt(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
+  val io = IO(new Bundle {
+    val validIn = Input(Bool())
+    val readyIn = Output(Bool())
+
+    val sqrtOp = Input(Bool())
+    val num1   = Input(UInt(totalBits.W))
+    val num2   = Input(UInt(totalBits.W))
+
+    val isZero        = Output(Bool())
+    val isNaR         = Output(Bool())
+    val validOut_div  = Output(Bool())
+    val validOut_sqrt = Output(Bool())
+    val exceptions    = Output(UInt(5.W))
+    val out           = Output(UInt(totalBits.W))
+  })
+
+  val positDivSqrtCore = Module(new PositDivSqrtCore(totalBits, es))
+
+  val num1Extractor = Module(new PositExtractor(totalBits, es))
+  val num2Extractor = Module(new PositExtractor(totalBits, es))
+  num1Extractor.io.in := io.num1
+  num2Extractor.io.in := io.num2
+
+  positDivSqrtCore.io.num1 := num1Extractor.io.out
+  positDivSqrtCore.io.num2 := num2Extractor.io.out
+
+  positDivSqrtCore.io.sqrtOp  := io.sqrtOp
+  positDivSqrtCore.io.validIn := io.validIn
+
+  io.readyIn := positDivSqrtCore.io.readyIn
+
+  io.validOut_div  := positDivSqrtCore.io.validOut_div
+  io.validOut_sqrt := positDivSqrtCore.io.validOut_sqrt
+  io.exceptions    := positDivSqrtCore.io.exceptions
+
+  val positGenerator = Module(new PositGenerator(totalBits, es))
+  positGenerator.io.in := positDivSqrtCore.io.out
+  positGenerator.io.trailingBits := positDivSqrtCore.io.trailingBits
+  positGenerator.io.stickyBit    := positDivSqrtCore.io.stickyBit
+
+  io.isZero := positDivSqrtCore.io.out.isZero | isZero(positGenerator.io.out)
+  io.isNaR  := positDivSqrtCore.io.out.isNaR  | isNaR(positGenerator.io.out)
+  io.out    := positGenerator.io.out
 }

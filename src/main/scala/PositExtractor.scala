@@ -5,7 +5,7 @@ import chisel3.util.{Cat, MuxCase}
 
 class PositExtractor(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
   val io = IO(new Bundle {
-    val in = Input(UInt(totalBits.W))
+    val in  = Input(UInt(totalBits.W))
     val out = Output(new unpackedPosit(totalBits, es))
   })
 
@@ -23,7 +23,7 @@ class PositExtractor(val totalBits: Int, val es: Int) extends Module with HasHar
     Mux(absIn(totalBits - 2), regimeCount - 1.U, ~regimeCount + 1.U)
 
   val expFrac = absIn << (regimeCount + 2.U)
-  val extractedExponent =
+  val extractedExp =
     if (es > 0) expFrac(totalBits - 1, totalBits - es)
     else 0.U
   val frac = (expFrac << es)(totalBits - 1, totalBits - maxFractionBits)
@@ -31,6 +31,6 @@ class PositExtractor(val totalBits: Int, val es: Int) extends Module with HasHar
   io.out.sign      := sign
   io.out.isZero    := isZero(io.in)
   io.out.isNaR     := isNaR(io.in)
-  io.out.exponent  := ((regime << es) | extractedExponent).asSInt
+  io.out.exponent  := ((regime << es) | extractedExp).asSInt
   io.out.fraction  := Cat(1.U, frac)
 }
