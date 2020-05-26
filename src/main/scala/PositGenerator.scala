@@ -25,23 +25,23 @@ class PositGenerator(val totalBits: Int, val es: Int) extends Module with HasHar
     Mux(negExp, -(normalisedExponent >> es), normalisedExponent >> es).asUInt()
   val positExponent = normalisedExponent(if (es > 0) es - 1 else 0, 0)
   val positOffset =
-    positRegime - (negExp & positRegime =/= (totalBits - 1).U) + trailingBitCount.U
+    positRegime - (negExp & positRegime =/= (totalBits - 1).U)
 
-  val regimeBits =
-    Mux(negExp, 1.U << (positRegime + 1.U) >> (positRegime + 1.U),
-      (1.U << positRegime + 2.U).asUInt() - 2.U)
-  val regimeWithExponentBits =
-    if (es > 0) Cat(regimeBits, positExponent)
-    else regimeBits
+  val expFrac =
+    if (es > 0)
+      Cat(Mux(negExp, 1.U(2.W), 2.U(2.W)), positExponent, normalisedFraction).asSInt()
+    else
+      Cat(Mux(negExp, 1.U(2.W), 2.U(2.W)), normalisedFraction).asSInt()
 
-  //u => un ; T => Trimmed ; R => Rounded ; S => Signed
-  val uT_uS_posit = Cat(regimeWithExponentBits, normalisedFraction, io.trailingBits)
-  val uR_uS_posit = (uT_uS_posit >> positOffset) (totalBits - 2, 0)
+  //u => un ; R => Rounded ; S => Signed
+  val uR_uS_posit = (expFrac >> positOffset)(totalBits - 2, 0).asUInt()
 
-  val trailingBits = (uT_uS_posit & ((1.U << positOffset) - 1.U)).asUInt()
-  val gr = (trailingBits >> (positOffset - 2.U)) (1, 0)
+  val trailingBitMask = ((1.U << positOffset) - 1.U)(totalBits - 3, 0)
+  val trailingBits = Cat(expFrac.asUInt() & trailingBitMask, io.trailingBits)
+  val gr =
+    (trailingBits >> positOffset) (1, 0)
   val stickyBit =
-    io.stickyBit | (trailingBits & ((1.U << (positOffset - 2.U)) - 1.U)).orR()
+    io.stickyBit | (trailingBits & trailingBitMask).orR()
   val roundingBit =
     Mux(uR_uS_posit.andR(), false.B,
       gr(1) & ~(~uR_uS_posit(0) & gr(1) & ~gr(0) & ~stickyBit))
