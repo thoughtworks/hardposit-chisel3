@@ -1,7 +1,7 @@
 package hardposit
 
 import chisel3._
-import chisel3.util.{Cat, MuxCase}
+import chisel3.util.{Cat, MuxCase, log2Ceil}
 
 class PositFMACore(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
 
@@ -55,7 +55,9 @@ class PositFMACore(val totalBits: Int, val es: Int) extends Module with HasHardP
   val shftInBound = expDiff < (maxMultiplierFractionBits - 1).U
   val shiftedLFrac =
     Mux(shftInBound, lFrac >> expDiff, 0.U(maxMultiplierFractionBits.W))
-  val lFracStickyBit = (lFrac & ((1.U(maxMultiplierFractionBits.W) << expDiff) - 1.U)).orR()
+  val lfracStickyMask =
+    ((1.U << expDiff(log2Ceil(maxMultiplierFractionBits) - 1, 0)) - 1.U)(maxMultiplierFractionBits - 1, 0)
+  val lFracStickyBit = (lFrac & lfracStickyMask).orR()
 
   val isAddition = ~(gSign ^ lSign)
   val signedLFrac =
