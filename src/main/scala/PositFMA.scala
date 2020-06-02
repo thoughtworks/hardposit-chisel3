@@ -70,12 +70,9 @@ class PositFMACore(val totalBits: Int, val es: Int) extends Module with HasHardP
     Mux(fmaOverflow, fmaFraction, Cat(fmaFraction(maxMultiplierFractionBits - 2, 0), 0.U(1.W)))
   val adjFmaExponent = gExp + Cat(0.U, fmaOverflow).asSInt()
 
-  val normalizationFactor = MuxCase(maxMultiplierFractionBits.S, Array.range(0, maxMultiplierFractionBits - 1).map(index => {
-    (adjFmaFraction(maxMultiplierFractionBits - 1, maxMultiplierFractionBits - index - 1) === 1.U) -> index.S
-  }))
-
-  val normFmaExponent = adjFmaExponent -& normalizationFactor
-  val normFmaFraction = (adjFmaFraction << normalizationFactor.asUInt())(maxMultiplierFractionBits - 1, 0)
+  val normalizationFactor = countLeadingZeros(adjFmaFraction)
+  val normFmaExponent = adjFmaExponent -& normalizationFactor.asSInt()
+  val normFmaFraction = (adjFmaFraction << normalizationFactor)(maxMultiplierFractionBits - 1, 0)
 
   val result = Wire(new unpackedPosit(totalBits, es))
   result.isNaR    := num1.isNaR | num2.isNaR | num3.isNaR
