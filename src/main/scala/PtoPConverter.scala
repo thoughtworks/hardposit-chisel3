@@ -4,10 +4,10 @@ import chisel3._
 import chisel3.util.{Cat, log2Ceil}
 
 class PtoPConverterCore(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) extends Module with HasHardPositParams {
-  require((inWidth != outWidth) | (inEs != outEs))
+  lazy val totalBits: Int = inWidth
+  lazy val es: Int = inEs
+  require((inWidth != outWidth) | (inEs != outEs), "Conversion between identical posit configuration")
 
-  override val totalBits: Int = 0
-  override val es: Int = 0
   val io = IO(new Bundle {
     val in = Input(new unpackedPosit(inWidth, inEs))
 
@@ -58,7 +58,6 @@ class PtoPConverterCore(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) exte
 }
 
 class PtoPConverter(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) extends Module{
-  require((inWidth != outWidth) | (inEs != outEs))
 
   val io = IO(new Bundle {
     val in  = Input(UInt(inWidth.W))

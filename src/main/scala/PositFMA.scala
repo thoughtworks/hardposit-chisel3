@@ -56,7 +56,7 @@ class PositFMACore(val totalBits: Int, val es: Int) extends Module with HasHardP
   val shiftedLFrac =
     Mux(shftInBound, lFrac >> expDiff, 0.U(maxMultiplierFractionBits.W))
   val lfracStickyMask =
-    ((1.U << expDiff(log2Ceil(maxMultiplierFractionBits) - 1, 0)) - 1.U)(maxMultiplierFractionBits - 1, 0)
+    lowerBitMask(expDiff)(maxMultiplierFractionBits - 1, 0)
   val lFracStickyBit = (lFrac & lfracStickyMask).orR()
 
   val isAddition = ~(gSign ^ lSign)

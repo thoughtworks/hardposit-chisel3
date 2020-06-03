@@ -23,19 +23,22 @@ class PositGenerator(val totalBits: Int, val es: Int) extends Module with HasHar
 
   val expFrac =
     if (es > 0)
-      Cat(Mux(negExp, 1.U(2.W), 2.U(2.W)), exponent, fraction).asSInt()
+      Cat(Mux(negExp, 1.U(2.W), 2.U(2.W)), exponent, fraction, io.trailingBits).asSInt()
     else
-      Cat(Mux(negExp, 1.U(2.W), 2.U(2.W)), fraction).asSInt()
+      Cat(Mux(negExp, 1.U(2.W), 2.U(2.W)), fraction, io.trailingBits).asSInt()
 
-  //u => un ; R => Rounded ; S => Signed
-  val uR_uS_posit = (expFrac >> offset)(totalBits - 2, 0).asUInt()
+  //u => un ; T => Trimmed ; R => Rounded ; S => Signed
+  val uT_uS_posit = (expFrac >> offset)(totalBits - 2 + trailingBitCount, 0).asUInt()
+  val uR_uS_posit = uT_uS_posit(totalBits - 2 + trailingBitCount, trailingBitCount)
 
-  val trailingBitMask = ((1.U << offset) - 1.U)(totalBits - 3, 0)
-  val trailingBits = Cat(expFrac.asUInt() & trailingBitMask, io.trailingBits)
+  val stickyBitMask = lowerBitMask(offset)(totalBits - 3, 0)
   val gr =
-    (trailingBits >> offset) (1, 0)
+    uT_uS_posit(trailingBitCount - 1, trailingBitCount - 2)
   val stickyBit =
-    io.stickyBit | (trailingBits & trailingBitMask).orR()
+    io.stickyBit |
+      { if (trailingBitCount > 2) uT_uS_posit(trailingBitCount - 3, 0)
+        else 0.U } |
+      (expFrac.asUInt() & stickyBitMask).orR()
   val roundingBit =
     Mux(uR_uS_posit.andR(), false.B,
       gr(1) & ~(~uR_uS_posit(0) & gr(1) & ~gr(0) & ~stickyBit))

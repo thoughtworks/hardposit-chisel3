@@ -1,7 +1,7 @@
 package hardposit
 
 import chisel3._
-import chisel3.util.{PriorityEncoder, log2Ceil}
+import chisel3.util.{PriorityEncoder, UIntToOH, log2Ceil}
 
 class unpackedPosit(val totalBits: Int, val es: Int) extends Bundle with HasHardPositParams {
 
@@ -20,9 +20,17 @@ object countLeadingZeros
   def apply(in: UInt): UInt = PriorityEncoder(in.asBools.reverse)
 }
 
+object lowerBitMask
+{
+  def apply(in: UInt): UInt = UIntToOH(in) - 1.U
+}
+
 trait HasHardPositParams {
   val totalBits: Int
   val es: Int
+
+  require(totalBits > es + 3, s"Posit size $totalBits is inadequate for exponent size $es")
+  require(trailingBitCount >= 2, "At-least 2 trailing bits required")
 
   def maxExponentBits: Int = getMaxExponentBits(totalBits, es)
 
