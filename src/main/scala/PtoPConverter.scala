@@ -31,9 +31,9 @@ class PtoPConverterCore(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) exte
 
   io.out.fraction := {
     if (narrowConv)
-      (io.in.fraction(maxInFractionBits, 0) >> maxInFractionBits - maxOutFractionBits) (maxOutFractionBits, 0)
+      io.in.fraction(maxInFractionBits, maxInFractionBits - maxOutFractionBits)
     else
-      (io.in.fraction(maxInFractionBits, 0) << maxOutFractionBits - maxInFractionBits) (maxOutFractionBits, 0)
+      Cat(io.in.fraction(maxInFractionBits, 0), 0.U((maxOutFractionBits - maxInFractionBits).W))(maxOutFractionBits, 0)
   }
 
   io.out.exponent := {
@@ -76,5 +76,4 @@ class PtoPConverter(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) extends 
   generator.io.stickyBit    := p2pCore.io.stickyBit
 
   io.out := generator.io.out
-
 }
