@@ -35,10 +35,10 @@ class PositGenerator(val totalBits: Int, val es: Int) extends Module with HasHar
   val gr =
     uT_uS_posit(trailingBitCount - 1, trailingBitCount - 2)
   val stickyBit =
-    io.stickyBit |
-      { if (trailingBitCount > 2) uT_uS_posit(trailingBitCount - 3, 0)
-        else 0.U } |
-      (expFrac.asUInt() & stickyBitMask).orR()
+    io.stickyBit | (expFrac.asUInt() & stickyBitMask).orR() | {
+      if (trailingBitCount > 2) uT_uS_posit(trailingBitCount - 3, 0)
+      else 0.U
+    }
   val roundingBit =
     Mux(uR_uS_posit.andR(), false.B,
       gr(1) & ~(~uR_uS_posit(0) & gr(1) & ~gr(0) & ~stickyBit))

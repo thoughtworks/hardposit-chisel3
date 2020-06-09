@@ -9,28 +9,31 @@ class PositExtractor(val totalBits: Int, val es: Int) extends Module with HasHar
     val out = Output(new unpackedPosit(totalBits, es))
   })
 
-  val sign = io.in(totalBits - 1)
-  val absIn = Mux(sign, ~io.in + 1.U, io.in).asUInt()
+  val sign   = io.in(totalBits - 1)
+  val absIn  = Mux(sign, ~io.in + 1.U, io.in).asUInt()
+  val negExp = ~absIn(totalBits - 2)
 
-  val regExpFrac = absIn(totalBits - 2, 0)
-  val regMaps =
-    Array.range(0, totalBits - 2).reverse.map(index => {
-      (!(regExpFrac(index + 1) === regExpFrac(index))) -> (totalBits - (index + 2)).U
-    })
+  val regExpFrac  = absIn(totalBits - 2, 0)
+  val zerosRegime = Mux(negExp, regExpFrac, ~regExpFrac)
   val regimeCount =
-    Cat(0.U(1.W), MuxCase((totalBits - 1).U, regMaps))
+    Cat(0.U(1.W),
+      Mux(isZero(zerosRegime), (totalBits - 1).U, countLeadingZeros(zerosRegime)))
   val regime =
-    Mux(absIn(totalBits - 2), regimeCount - 1.U, ~regimeCount + 1.U)
+    Mux(negExp, ~regimeCount + 1.U, regimeCount - 1.U)
 
   val expFrac = absIn << (regimeCount + 2.U)
   val extractedExp =
     if (es > 0) expFrac(totalBits - 1, totalBits - es)
     else 0.U
-  val frac = (expFrac << es)(totalBits - 1, totalBits - maxFractionBits)
+  val frac = expFrac(totalBits - es - 1, totalBits - es - maxFractionBits)
 
-  io.out.sign      := sign
-  io.out.isZero    := isZero(io.in)
-  io.out.isNaR     := isNaR(io.in)
-  io.out.exponent  := ((regime << es) | extractedExp).asSInt
-  io.out.fraction  := Cat(1.U, frac)
+  io.out.isNaR    := isNaR(io.in)
+  io.out.isZero   := isZero(io.in)
+
+  io.out.sign     := sign
+  io.out.exponent := {
+    if (es > 0) Cat(regime, extractedExp)
+    else regime
+  }.asSInt()
+  io.out.fraction := Cat(1.U, frac)
 }
