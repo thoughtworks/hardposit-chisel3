@@ -22,11 +22,7 @@ class ItoPConverterCore(val totalBits: Int, val es: Int, intWidth: Int) extends 
 
   val intVal = Mux(result.sign, ~io.integer + 1.U, io.integer)
 
-  val zeroCountMappings = Array.range(0, intWidth).reverse.map(index => {
-    !(intVal(index) === 0.U) -> (intWidth - (index + 1)).U
-  })
-
-  val zeroCount = MuxCase(0.U, zeroCountMappings)
+  val zeroCount = countLeadingZeros(intVal)
   val shiftedIntVal = intVal << zeroCount
 
   result.exponent :=
@@ -34,9 +30,9 @@ class ItoPConverterCore(val totalBits: Int, val es: Int, intWidth: Int) extends 
 
   result.fraction := {
     if(narrowConv)
-      shiftedIntVal(intWidth - 1, 0) >> (intWidth - maxFractionBitsWithHiddenBit)
+      shiftedIntVal(intWidth - 1, intWidth - maxFractionBitsWithHiddenBit)
     else
-      shiftedIntVal(intWidth - 1, 0) << (maxFractionBitsWithHiddenBit - intWidth)
+      Cat(shiftedIntVal(intWidth - 1, 0), 0.U((maxFractionBitsWithHiddenBit - intWidth).W))
   }
 
   io.trailingBits := {
