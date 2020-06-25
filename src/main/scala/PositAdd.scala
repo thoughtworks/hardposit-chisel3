@@ -3,22 +3,22 @@ package hardposit
 import chisel3._
 import chisel3.util.{Cat, MuxCase}
 
-class PositAddCore(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
+class PositAddCore(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
 
   val io = IO(new Bundle{
-    val num1   = Input(new unpackedPosit(totalBits, es))
-    val num2   = Input(new unpackedPosit(totalBits, es))
+    val num1   = Input(new unpackedPosit(nbits, es))
+    val num2   = Input(new unpackedPosit(nbits, es))
     val sub    = Input(Bool())
 
     val trailingBits = Output(UInt(trailingBitCount.W))
     val stickyBit = Output(Bool())
-    val out    = Output(new unpackedPosit(totalBits, es))
+    val out    = Output(new unpackedPosit(nbits, es))
   })
 
   val num1 = io.num1
   val num2 = io.num2
 
-  val result = Wire(new unpackedPosit(totalBits, es))
+  val result = Wire(new unpackedPosit(nbits, es))
 
   val num1magGt =
     (num1.exponent > num2.exponent) |
@@ -73,24 +73,24 @@ class PositAddCore(val totalBits: Int, val es: Int) extends Module with HasHardP
   io.out := result
 }
 
-class PositAdd(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
-  require(totalBits > es)
+class PositAdd(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
+  require(nbits > es)
   require(es >= 0)
 
   val io = IO(new Bundle{
-    val num1   = Input(UInt(totalBits.W))
-    val num2   = Input(UInt(totalBits.W))
+    val num1   = Input(UInt(nbits.W))
+    val num2   = Input(UInt(nbits.W))
     val sub    = Input(Bool())
 
     val isZero = Output(Bool())
     val isNaR  = Output(Bool())
-    val out    = Output(UInt(totalBits.W))
+    val out    = Output(UInt(nbits.W))
   })
 
-  val positAddCore = Module(new PositAddCore(totalBits, es))
+  val positAddCore = Module(new PositAddCore(nbits, es))
 
-  val num1Extractor = Module(new PositExtractor(totalBits, es))
-  val num2Extractor = Module(new PositExtractor(totalBits, es))
+  val num1Extractor = Module(new PositExtractor(nbits, es))
+  val num2Extractor = Module(new PositExtractor(nbits, es))
   num1Extractor.io.in := io.num1
   num2Extractor.io.in := io.num2
 
@@ -98,7 +98,7 @@ class PositAdd(val totalBits: Int, val es: Int) extends Module with HasHardPosit
   positAddCore.io.num2 := num2Extractor.io.out
   positAddCore.io.sub  := io.sub
 
-  private val positGenerator = Module(new PositGenerator(totalBits, es))
+  private val positGenerator = Module(new PositGenerator(nbits, es))
   positGenerator.io.in           := positAddCore.io.out
   positGenerator.io.trailingBits := positAddCore.io.trailingBits
   positGenerator.io.stickyBit    := positAddCore.io.stickyBit

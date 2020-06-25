@@ -3,7 +3,7 @@ package hardposit
 import chisel3._
 import chisel3.util.{PriorityEncoder, UIntToOH, log2Ceil}
 
-class unpackedPosit(val totalBits: Int, val es: Int) extends Bundle with HasHardPositParams {
+class unpackedPosit(val nbits: Int, val es: Int) extends Bundle with HasHardPositParams {
 
   val sign = Bool()
   val exponent = SInt(maxExponentBits.W)
@@ -12,7 +12,7 @@ class unpackedPosit(val totalBits: Int, val es: Int) extends Bundle with HasHard
   val isNaR = Bool()
 
   override def cloneType =
-    new unpackedPosit(totalBits, es).asInstanceOf[this.type]
+    new unpackedPosit(nbits, es).asInstanceOf[this.type]
 }
 
 object countLeadingZeros
@@ -26,23 +26,23 @@ object lowerBitMask
 }
 
 trait HasHardPositParams {
-  val totalBits: Int
+  val nbits: Int
   val es: Int
 
-  require(totalBits > es + 3, s"Posit size $totalBits is inadequate for exponent size $es")
+  require(nbits > es + 3, s"Posit size $nbits is inadequate for exponent size $es")
   require(trailingBitCount >= 2, "At-least 2 trailing bits required")
 
-  def maxExponentBits: Int = getMaxExponentBits(totalBits, es)
+  def maxExponentBits: Int = getMaxExponentBits(nbits, es)
 
-  def maxFractionBits: Int = getMaxFractionBits(totalBits, es)
+  def maxFractionBits: Int = getMaxFractionBits(nbits, es)
 
-  def maxFractionBitsWithHiddenBit: Int = getMaxFractionBitsWithHiddenBit(totalBits, es)
+  def maxFractionBitsWithHiddenBit: Int = getMaxFractionBitsWithHiddenBit(nbits, es)
 
-  def getMaxExponentBits(p: Int, e: Int): Int = log2Ceil(p) + e + 2
+  def getMaxExponentBits(n: Int, e: Int): Int = log2Ceil(n) + e + 2
 
-  def getMaxFractionBits(p: Int, e: Int): Int = if (e + 3 >= p) 1 else p - 3 - e
+  def getMaxFractionBits(n: Int, e: Int): Int = if (e + 3 >= n) 1 else n - 3 - e
 
-  def getMaxFractionBitsWithHiddenBit(p: Int, e: Int): Int = getMaxFractionBits(p, e) + 1
+  def getMaxFractionBitsWithHiddenBit(n: Int, e: Int): Int = getMaxFractionBits(n, e) + 1
 
   def maxAdderFractionBits: Int = maxFractionBitsWithHiddenBit + trailingBitCount + stickyBitCount + 1
 
@@ -50,11 +50,11 @@ trait HasHardPositParams {
 
   def maxDividerFractionBits: Int = maxFractionBitsWithHiddenBit + trailingBitCount + stickyBitCount + 1
 
-  def NaR: UInt = (1.U << (totalBits - 1)).asUInt()
+  def NaR: UInt = (1.U << (nbits - 1)).asUInt()
 
-  def zero: UInt = 0.U(totalBits.W)
+  def zero: UInt = 0.U(nbits.W)
 
-  def isNaR(num: UInt): Bool = num(totalBits - 1) & ~num(totalBits - 2, 0).orR()
+  def isNaR(num: UInt): Bool = num(nbits - 1) & ~num(nbits - 2, 0).orR()
 
   def isZero(num: UInt): Bool = ~num.orR()
 

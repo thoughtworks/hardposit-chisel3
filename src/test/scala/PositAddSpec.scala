@@ -12,8 +12,8 @@ class PositAddSpec extends ChiselFlatSpec {
     expect(c.io.isNaR, isNaR)
   }
 
-  private def test(totalBits: Int, es: Int, num1: Int, num2: Int, expectedPosit: Int, sub: Boolean = false, isNaR: Boolean = false): Boolean = {
-    chisel3.iotesters.Driver(() => new PositAdd(totalBits, es)) {
+  private def test(nbits: Int, es: Int, num1: Int, num2: Int, expectedPosit: Int, sub: Boolean = false, isNaR: Boolean = false): Boolean = {
+    chisel3.iotesters.Driver(() => new PositAdd(nbits, es)) {
       c => new PositAddTest(c, num1, num2, expectedPosit, sub, isNaR)
     }
   }

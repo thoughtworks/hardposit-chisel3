@@ -3,18 +3,18 @@ package hardposit
 import chisel3._
 import chisel3.util.{Cat, MuxCase}
 
-class ItoPConverterCore(val totalBits: Int, val es: Int, intWidth: Int) extends Module with HasHardPositParams {
+class ItoPConverterCore(val nbits: Int, val es: Int, intWidth: Int) extends Module with HasHardPositParams {
   val io = IO(new Bundle {
     val integer    = Input(UInt(intWidth.W))
     val unsignedIn = Input(Bool())
 
     val trailingBits = Output(UInt(trailingBitCount.W))
     val stickyBit    = Output(Bool())
-    val posit        = Output(new unpackedPosit(totalBits, es))
+    val posit        = Output(new unpackedPosit(nbits, es))
   })
   val narrowConv = intWidth > maxFractionBitsWithHiddenBit
 
-  val result = Wire(new unpackedPosit(totalBits, es))
+  val result = Wire(new unpackedPosit(nbits, es))
 
   result.isNaR  := false.B
   result.isZero := io.integer === 0.U
@@ -48,19 +48,19 @@ class ItoPConverterCore(val totalBits: Int, val es: Int, intWidth: Int) extends 
   io.posit := result
 }
 
-class ItoPConverter(val totalBits: Int, val es: Int, intWidth: Int) extends Module with HasHardPositParams {
+class ItoPConverter(val nbits: Int, val es: Int, intWidth: Int) extends Module with HasHardPositParams {
   val io = IO(new Bundle {
     val integer    = Input(UInt(intWidth.W))
     val unsignedIn = Input(Bool())
 
-    val posit = Output(UInt(totalBits.W))
+    val posit = Output(UInt(nbits.W))
   })
 
-  val i2pCore = Module(new ItoPConverterCore(totalBits, es, intWidth))
+  val i2pCore = Module(new ItoPConverterCore(nbits, es, intWidth))
   i2pCore.io.integer    := io.integer
   i2pCore.io.unsignedIn := io.unsignedIn
 
-  val positGenerator = Module(new PositGenerator(totalBits, es))
+  val positGenerator = Module(new PositGenerator(nbits, es))
   positGenerator.io.in := i2pCore.io.posit
   positGenerator.io.trailingBits := i2pCore.io.trailingBits
   positGenerator.io.stickyBit    := i2pCore.io.stickyBit

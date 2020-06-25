@@ -16,12 +16,12 @@ class PositDivSqrtSpec extends ChiselFlatSpec {
     expect(c.io.out, expect)
   }
 
-  private def test(totalBits: Int, es: Int, num1: Int, num2: Int, sqrtOp: Boolean, expect: Int): Boolean = {
+  private def test(nbits: Int, es: Int, num1: Int, num2: Int, sqrtOp: Boolean, expect: Int): Boolean = {
 //    chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--target-dir", "test_run_dir/div_sqrt", "--top-name", "dsvcd"), () => new PositDivSqrt(totalBits, es)) {
 //      c => new PositDivSqrtTest(c, num1, num2, sqrtOp, expect)
 //    }
 
-      chisel3.iotesters.Driver(() => new PositDivSqrt(totalBits, es)) {
+      chisel3.iotesters.Driver(() => new PositDivSqrt(nbits, es)) {
         c => new PositDivSqrtTest(c, num1, num2, sqrtOp, expect)
       }
   }

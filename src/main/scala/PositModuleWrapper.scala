@@ -4,7 +4,7 @@ import chisel3._
 import firrtl.{ExecutionOptionsManager, HasFirrtlOptions}
 
 //Wrapper for testing hardposit modules on FPGA
-class PositModuleWrapper(totalBits: Int, es: Int) extends Module {
+class PositModuleWrapper(nbits: Int, es: Int) extends Module {
 
   val io = IO(new Bundle {
     val starting_address = Input(UInt(12.W))
@@ -17,20 +17,20 @@ class PositModuleWrapper(totalBits: Int, es: Int) extends Module {
     val address_to_read = Output(UInt(12.W))
     val address_to_write = Output(UInt(12.W))
     val completed = Output(Bool())
-    val result = Output(UInt(totalBits.W))
+    val result = Output(UInt(nbits.W))
   })
 
   private val numbersToRead = 10
   private val maxCount = numbersToRead + 2
 
-  private val num1 = RegInit(0.U(totalBits.W))
-  private val num2 = WireInit(0.U(totalBits.W))
-  private val result = RegInit(0.U(totalBits.W))
-  private val positAdd = Module(new PositAdd(totalBits, es))
+  private val num1 = RegInit(0.U(nbits.W))
+  private val num2 = WireInit(0.U(nbits.W))
+  private val result = RegInit(0.U(nbits.W))
+  private val positAdd = Module(new PositAdd(nbits, es))
   positAdd.io.num1 := num1
   positAdd.io.num2 := num2
 
-  private val counter = RegInit(0.U(totalBits.W))
+  private val counter = RegInit(0.U(nbits.W))
 
   io.completed := counter === maxCount.U
 

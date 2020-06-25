@@ -10,8 +10,8 @@ class PositExtractorSpec extends ChiselFlatSpec {
     expect(c.io.out.fraction, fraction)
   }
 
-  private def test(totalBits: Int, es: Int, num: Int, sign: Boolean, exponent: Int, fraction: Int): Boolean = {
-    chisel3.iotesters.Driver(() => new PositExtractor(totalBits, es)) {
+  private def test(nbits: Int, es: Int, num: Int, sign: Boolean, exponent: Int, fraction: Int): Boolean = {
+    chisel3.iotesters.Driver(() => new PositExtractor(nbits, es)) {
       c => new PositExtractorTest(c, num, sign, exponent, fraction)
     }
   }

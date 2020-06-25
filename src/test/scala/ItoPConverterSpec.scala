@@ -10,8 +10,8 @@ class ItoPConverterSpec extends ChiselFlatSpec {
     expect(c.io.posit, expected)
   }
 
-  def test(totalBits: Int, es: Int, integer: Int, unsigned: Boolean, expected: Int, intWidth: Int): Boolean = {
-    chisel3.iotesters.Driver(() => new ItoPConverter(totalBits, es, intWidth)) {
+  def test(nbits: Int, es: Int, integer: Int, unsigned: Boolean, expected: Int, intWidth: Int): Boolean = {
+    chisel3.iotesters.Driver(() => new ItoPConverter(nbits, es, intWidth)) {
       c => new ItoPConverterTest(c, integer, unsigned, expected)
     }
   }

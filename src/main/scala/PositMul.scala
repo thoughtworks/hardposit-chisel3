@@ -2,15 +2,15 @@ package hardposit
 
 import chisel3._
 
-class PositMulCore(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
+class PositMulCore(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
 
   val io = IO(new Bundle{
-    val num1   = Input(new unpackedPosit(totalBits, es))
-    val num2   = Input(new unpackedPosit(totalBits, es))
+    val num1   = Input(new unpackedPosit(nbits, es))
+    val num2   = Input(new unpackedPosit(nbits, es))
 
     val trailingBits = Output(UInt(trailingBitCount.W))
     val stickyBit = Output(Bool())
-    val out    = Output(new unpackedPosit(totalBits, es))
+    val out    = Output(new unpackedPosit(nbits, es))
   })
 
   val num1 = io.num1
@@ -24,7 +24,7 @@ class PositMulCore(val totalBits: Int, val es: Int) extends Module with HasHardP
   val normProductFrac = (prodFrac << (~prodOverflow).asUInt()).asUInt()
   val normProductExp  = prodExp + Mux(prodOverflow, 1.S, 0.S)
 
-  val result = Wire(new unpackedPosit(totalBits, es))
+  val result = Wire(new unpackedPosit(nbits, es))
   result.isNaR    := num1.isNaR  | num2.isNaR
   result.isZero   := num1.isZero | num2.isZero
   result.sign     := num1.sign ^ num2.sign
@@ -37,28 +37,28 @@ class PositMulCore(val totalBits: Int, val es: Int) extends Module with HasHardP
   io.out := result
 }
 
-class PositMul(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
+class PositMul(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
 
   val io = IO(new Bundle {
-    val num1 = Input(UInt(totalBits.W))
-    val num2 = Input(UInt(totalBits.W))
+    val num1 = Input(UInt(nbits.W))
+    val num2 = Input(UInt(nbits.W))
 
     val isZero = Output(Bool())
     val isNaR = Output(Bool())
-    val out = Output(UInt(totalBits.W))
+    val out = Output(UInt(nbits.W))
   })
 
-  val positMulCore = Module(new PositMulCore(totalBits, es))
+  val positMulCore = Module(new PositMulCore(nbits, es))
 
-  val num1Extractor = Module(new PositExtractor(totalBits, es))
-  val num2Extractor = Module(new PositExtractor(totalBits, es))
+  val num1Extractor = Module(new PositExtractor(nbits, es))
+  val num2Extractor = Module(new PositExtractor(nbits, es))
   num1Extractor.io.in := io.num1
   num2Extractor.io.in := io.num2
 
   positMulCore.io.num1 := num1Extractor.io.out
   positMulCore.io.num2 := num2Extractor.io.out
 
-  val positGenerator = Module(new PositGenerator(totalBits, es))
+  val positGenerator = Module(new PositGenerator(nbits, es))
   positGenerator.io.in           := positMulCore.io.out
   positGenerator.io.trailingBits := positMulCore.io.trailingBits
   positGenerator.io.stickyBit    := positMulCore.io.stickyBit

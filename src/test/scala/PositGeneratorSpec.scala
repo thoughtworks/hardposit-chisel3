@@ -15,8 +15,8 @@ class PositGeneratorSpec extends ChiselFlatSpec{
     expect(c.io.out, expectedPosit & 0xFF)
   }
 
-  private def test(totalBits: Int, es: Int, sign: Boolean, exponent: Int, fraction: Int, expectedPosit: Int): Boolean = {
-    chisel3.iotesters.Driver(() => new PositGenerator(totalBits, es)) {
+  private def test(nbits: Int, es: Int, sign: Boolean, exponent: Int, fraction: Int, expectedPosit: Int): Boolean = {
+    chisel3.iotesters.Driver(() => new PositGenerator(nbits, es)) {
       c => new PositGeneratorTest(c, sign, exponent, fraction, expectedPosit)
     }
   }

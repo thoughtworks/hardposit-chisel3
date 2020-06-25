@@ -1,10 +1,10 @@
 package hardposit
 
 import chisel3._
-import chisel3.util.{Cat, log2Ceil}
+import chisel3.util.Cat
 
 class PtoPConverterCore(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) extends Module with HasHardPositParams {
-  lazy val totalBits: Int = inWidth
+  lazy val nbits: Int = inWidth
   lazy val es: Int = inEs
   require((inWidth != outWidth) | (inEs != outEs), "Conversion between identical posit configuration")
 

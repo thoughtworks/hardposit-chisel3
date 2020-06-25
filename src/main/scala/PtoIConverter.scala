@@ -2,9 +2,9 @@ package hardposit
 
 import chisel3._
 
-class PtoIConverterCore(val totalBits: Int, val es: Int, val intWidth: Int) extends Module with HasHardPositParams {
+class PtoIConverterCore(val nbits: Int, val es: Int, val intWidth: Int) extends Module with HasHardPositParams {
   val io = IO(new Bundle {
-    val posit        = Input(new unpackedPosit(totalBits, es))
+    val posit        = Input(new unpackedPosit(nbits, es))
     val unsignedOut  = Input(Bool())
     val roundingMode = Input(Bool())
 
@@ -32,17 +32,17 @@ class PtoIConverterCore(val totalBits: Int, val es: Int, val intWidth: Int) exte
   io.integer := Mux(specialCase, specialCaseOut, normalOut)
 }
 
-class PtoIConverter(val totalBits: Int, val es: Int, val intWidth: Int) extends Module with HasHardPositParams {
+class PtoIConverter(val nbits: Int, val es: Int, val intWidth: Int) extends Module with HasHardPositParams {
   val io = IO(new Bundle {
-    val posit        = Input(UInt(totalBits.W))
+    val posit        = Input(UInt(nbits.W))
     val unsignedOut  = Input(Bool())
     val roundingMode = Input(Bool())   // Indicate rounding mode 0 for round to nearest even(RNE)
                                        // and 1 for round to zero(RZ)
     val integer = Output(UInt(intWidth.W))
   })
-  val p2iCore = Module(new PtoIConverterCore(totalBits, es, intWidth))
+  val p2iCore = Module(new PtoIConverterCore(nbits, es, intWidth))
 
-  val positExtractor = Module(new PositExtractor(totalBits, es))
+  val positExtractor = Module(new PositExtractor(nbits, es))
   positExtractor.io.in := io.posit
 
   p2iCore.io.posit        := positExtractor.io.out

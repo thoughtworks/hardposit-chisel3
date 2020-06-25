@@ -13,8 +13,8 @@ class PositCompareSpec extends ChiselFlatSpec {
     expect(c.io.gt, expectgt)
   }
 
-  private def test(totalBits: Int, es: Int, num1: Int, num2: Int, expectlt: Boolean, expecteq: Boolean, expectgt: Boolean): Boolean = {
-    chisel3.iotesters.Driver(() => new PositCompare(totalBits, es)) {
+  private def test(nbits: Int, es: Int, num1: Int, num2: Int, expectlt: Boolean, expecteq: Boolean, expectgt: Boolean): Boolean = {
+    chisel3.iotesters.Driver(() => new PositCompare(nbits, es)) {
       c => new PositCompareTest(c, num1, num2, expectlt, expecteq, expectgt)
     }
   }

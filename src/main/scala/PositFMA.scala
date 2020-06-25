@@ -3,18 +3,18 @@ package hardposit
 import chisel3._
 import chisel3.util.{Cat, MuxCase, log2Ceil}
 
-class PositFMACore(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
+class PositFMACore(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
 
   val io = IO(new Bundle {
-    val num1   = Input(new unpackedPosit(totalBits, es))
-    val num2   = Input(new unpackedPosit(totalBits, es))
-    val num3   = Input(new unpackedPosit(totalBits, es))
+    val num1   = Input(new unpackedPosit(nbits, es))
+    val num2   = Input(new unpackedPosit(nbits, es))
+    val num3   = Input(new unpackedPosit(nbits, es))
     val sub    = Input(Bool())
     val negate = Input(Bool())
 
     val trailingBits = Output(UInt(trailingBitCount.W))
     val stickyBit    = Output(Bool())
-    val out          = Output(new unpackedPosit(totalBits, es))
+    val out          = Output(new unpackedPosit(nbits, es))
   })
 
   val num1 = io.num1
@@ -74,7 +74,7 @@ class PositFMACore(val totalBits: Int, val es: Int) extends Module with HasHardP
   val normFmaExponent = adjFmaExponent -& normalizationFactor.asSInt()
   val normFmaFraction = (adjFmaFraction << normalizationFactor)(maxMultiplierFractionBits - 1, 0)
 
-  val result = Wire(new unpackedPosit(totalBits, es))
+  val result = Wire(new unpackedPosit(nbits, es))
   result.isNaR    := num1.isNaR | num2.isNaR | num3.isNaR
   result.isZero   := !result.isNaR & ((num1.isZero | num2.isZero) & num3.isZero)
   result.sign     := gSign
@@ -87,25 +87,25 @@ class PositFMACore(val totalBits: Int, val es: Int) extends Module with HasHardP
   io.out := result
 }
 
-class PositFMA(val totalBits: Int, val es: Int) extends Module with HasHardPositParams {
+class PositFMA(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
 
   val io = IO(new Bundle {
-    val num1   = Input(UInt(totalBits.W))
-    val num2   = Input(UInt(totalBits.W))
-    val num3   = Input(UInt(totalBits.W))
+    val num1   = Input(UInt(nbits.W))
+    val num2   = Input(UInt(nbits.W))
+    val num3   = Input(UInt(nbits.W))
     val sub    = Input(Bool())
     val negate = Input(Bool())
 
     val isNaR  = Output(Bool())
     val isZero = Output(Bool())
-    val out    = Output(UInt(totalBits.W))
+    val out    = Output(UInt(nbits.W))
   })
 
-  val positFMACore = Module(new PositFMACore(totalBits, es))
+  val positFMACore = Module(new PositFMACore(nbits, es))
 
-  val num1Extractor = Module(new PositExtractor(totalBits, es))
-  val num2Extractor = Module(new PositExtractor(totalBits, es))
-  val num3Extractor = Module(new PositExtractor(totalBits, es))
+  val num1Extractor = Module(new PositExtractor(nbits, es))
+  val num2Extractor = Module(new PositExtractor(nbits, es))
+  val num3Extractor = Module(new PositExtractor(nbits, es))
   num2Extractor.io.in := io.num2
   num1Extractor.io.in := io.num1
   num3Extractor.io.in := io.num3
@@ -116,7 +116,7 @@ class PositFMA(val totalBits: Int, val es: Int) extends Module with HasHardPosit
   positFMACore.io.sub    := io.sub
   positFMACore.io.negate := io.negate
 
-  private val positGenerator = Module(new PositGenerator(totalBits, es))
+  private val positGenerator = Module(new PositGenerator(nbits, es))
 
   positGenerator.io.in := positFMACore.io.out
   positGenerator.io.trailingBits := positFMACore.io.trailingBits

@@ -11,8 +11,8 @@ class PositMulSpec extends ChiselFlatSpec {
     expect(c.io.out, expectedPosit)
   }
 
-  private def test(totalBits: Int, es: Int, num1: Int, num2: Int, expectedPosit: Int, isNaR: Boolean = false): Boolean = {
-    chisel3.iotesters.Driver(() => new PositMul(totalBits, es)) {
+  private def test(nbits: Int, es: Int, num1: Int, num2: Int, expectedPosit: Int, isNaR: Boolean = false): Boolean = {
+    chisel3.iotesters.Driver(() => new PositMul(nbits, es)) {
       c => new PositMulTest(c, num1, num2, expectedPosit, isNaR)
     }
   }

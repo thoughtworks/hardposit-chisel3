@@ -11,8 +11,8 @@ class PtoIConverterSpec extends ChiselFlatSpec {
     expect(c.io.integer, expected)
   }
 
-  def test(totalBits: Int, es: Int, posit: Int, unsigned: Boolean, expected: Int, intWidth: Int, roundingMode: Boolean = false): Boolean = {
-    chisel3.iotesters.Driver(() => new PtoIConverter(totalBits, es, intWidth)) {
+  def test(nbits: Int, es: Int, posit: Int, unsigned: Boolean, expected: Int, intWidth: Int, roundingMode: Boolean = false): Boolean = {
+    chisel3.iotesters.Driver(() => new PtoIConverter(nbits, es, intWidth)) {
       c => new PtoIConverterTest(c, posit, unsigned, expected, roundingMode)
     }
   }

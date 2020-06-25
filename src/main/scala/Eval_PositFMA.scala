@@ -2,21 +2,21 @@ package hardposit
 
 import chisel3._
 
-class Eval_PositFMA(totalBits: Int, es: Int) extends Module {
+class Eval_PositFMA(nbits: Int, es: Int) extends Module {
 
   val io = IO(new Bundle {
-    val num1 = Input(UInt(totalBits.W))
-    val num2 = Input(UInt(totalBits.W))
-    val num3 = Input(UInt(totalBits.W))
+    val num1 = Input(UInt(nbits.W))
+    val num2 = Input(UInt(nbits.W))
+    val num3 = Input(UInt(nbits.W))
 
-    val expected = Input(UInt(totalBits.W))
-    val actual = Output(UInt(totalBits.W))
+    val expected = Input(UInt(nbits.W))
+    val actual = Output(UInt(nbits.W))
 
     val check = Output(Bool())
     val pass = Output(Bool())
   })
 
-  val positFMA = Module(new PositFMA(totalBits, es))
+  val positFMA = Module(new PositFMA(nbits, es))
   positFMA.io.num1 := io.num1
   positFMA.io.num2 := io.num2
   positFMA.io.num3 := io.num3
@@ -35,21 +35,21 @@ class Eval_PositFMAP32 extends Eval_PositFMA(32, 2)
 
 class Eval_PositFMAP64 extends Eval_PositFMA(64, 3)
 
-class Eval_PositFMA_add(totalBits: Int, es: Int) extends Module {
+class Eval_PositFMA_add(nbits: Int, es: Int) extends Module {
   val io = IO(new Bundle {
-    val num1 = Input(UInt(totalBits.W))
-    val num2 = Input(UInt(totalBits.W))
+    val num1 = Input(UInt(nbits.W))
+    val num2 = Input(UInt(nbits.W))
 
-    val expected = Input(UInt(totalBits.W))
-    val actual = Output(UInt(totalBits.W))
+    val expected = Input(UInt(nbits.W))
+    val actual = Output(UInt(nbits.W))
 
     val check = Output(Bool())
     val pass = Output(Bool())
   })
 
-  val positFMA = Module(new PositFMA(totalBits, es))
+  val positFMA = Module(new PositFMA(nbits, es))
   positFMA.io.num1 := io.num1
-  positFMA.io.num2 := (1.U << (totalBits - 2).U)
+  positFMA.io.num2 := (1.U << (nbits - 2).U)
   positFMA.io.num3 := io.num2
   positFMA.io.sub := false.B
   positFMA.io.negate := false.B
@@ -66,19 +66,19 @@ class Eval_PositFMAP32_add extends Eval_PositFMA_add(32, 2)
 
 class Eval_PositFMAP64_add extends Eval_PositFMA_add(64, 3)
 
-class Eval_PositFMA_mul(totalBits: Int, es: Int) extends Module {
+class Eval_PositFMA_mul(nbits: Int, es: Int) extends Module {
   val io = IO(new Bundle {
-    val num1 = Input(UInt(totalBits.W))
-    val num2 = Input(UInt(totalBits.W))
+    val num1 = Input(UInt(nbits.W))
+    val num2 = Input(UInt(nbits.W))
 
-    val expected = Input(UInt(totalBits.W))
-    val actual = Output(UInt(totalBits.W))
+    val expected = Input(UInt(nbits.W))
+    val actual = Output(UInt(nbits.W))
 
     val check = Output(Bool())
     val pass = Output(Bool())
   })
 
-  val positFMA = Module(new PositFMA(totalBits, es))
+  val positFMA = Module(new PositFMA(nbits, es))
   positFMA.io.num1 := io.num1
   positFMA.io.num2 := io.num2
   positFMA.io.num3 := 0.U

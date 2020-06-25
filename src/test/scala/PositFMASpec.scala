@@ -17,12 +17,12 @@ class PositFMASpec extends ChiselFlatSpec {
     }
   }
 
-  private def test(totalBits: Int, es: Int, num1: Int, num2: Int, num3: Int, sub: Boolean, negate: Boolean, expectedPosit: Int, isNaR: Boolean = false): Boolean = {
-//    chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--target-dir", "test_run_dir/fma", "--top-name", "fma"), () => new PositFMA(totalBits, es)) {
+  private def test(nbits: Int, es: Int, num1: Int, num2: Int, num3: Int, sub: Boolean, negate: Boolean, expectedPosit: Int, isNaR: Boolean = false): Boolean = {
+//    chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--target-dir", "test_run_dir/fma", "--top-name", "fma"), () => new PositFMA(nbits, es)) {
 //      c => new PositFMATest(c, num1, num2, num3, sub, negate, expectedPosit, isNaR)
 //    }
 
-    chisel3.iotesters.Driver(() => new PositFMA(totalBits, es)) {
+    chisel3.iotesters.Driver(() => new PositFMA(nbits, es)) {
       c => new PositFMATest(c, num1, num2, num3, sub, negate, expectedPosit, isNaR)
     }
   }
