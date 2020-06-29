@@ -16,8 +16,8 @@ class ItoPConverterCore(val nbits: Int, val es: Int, intWidth: Int) extends Modu
 
   val result = Wire(new unpackedPosit(nbits, es))
 
-  result.isNaR  := false.B
-  result.isZero := io.integer === 0.U
+  result.isNaR  := isOnlyMSBSet(io.integer, intWidth)
+  result.isZero := isZero(io.integer)
   result.sign   := io.integer(intWidth - 1).asBool() && !io.unsignedIn
 
   val intVal = Mux(result.sign, ~io.integer + 1.U, io.integer)

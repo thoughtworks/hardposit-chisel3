@@ -15,14 +15,16 @@ class unpackedPosit(val nbits: Int, val es: Int) extends Bundle with HasHardPosi
     new unpackedPosit(nbits, es).asInstanceOf[this.type]
 }
 
-object countLeadingZeros
-{
+object countLeadingZeros {
   def apply(in: UInt): UInt = PriorityEncoder(in.asBools.reverse)
 }
 
-object lowerBitMask
-{
+object lowerBitMask {
   def apply(in: UInt): UInt = UIntToOH(in) - 1.U
+}
+
+object isOnlyMSBSet {
+  def apply(num: UInt, n: Int): Bool = num(n - 1) & ~num(n - 2, 0).orR()
 }
 
 trait HasHardPositParams {
@@ -54,7 +56,7 @@ trait HasHardPositParams {
 
   def zero: UInt = 0.U(nbits.W)
 
-  def isNaR(num: UInt): Bool = num(nbits - 1) & ~num(nbits - 2, 0).orR()
+  def isNaR(num: UInt): Bool = isOnlyMSBSet(num, nbits)
 
   def isZero(num: UInt): Bool = ~num.orR()
 

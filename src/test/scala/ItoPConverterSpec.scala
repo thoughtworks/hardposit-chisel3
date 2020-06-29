@@ -45,10 +45,14 @@ class ItoPConverterSpec extends ChiselFlatSpec {
   }
 
   it should "return posit value for narrower unsigned integer " in {
-    assert(test(16, 2, 128, unsigned = true, 0x6C00, 8))
+    assert(test(16, 2, 127, unsigned = true, 0x6BF0, 8))
   }
 
   it should "return posit value for narrower signed integer " in {
     assert(test(16, 2, 0xB0, unsigned = false, 0x9700, 8))
+  }
+
+  it should "return NaR for integer with an MSB of 1 and all other bits 0" in {
+    assert(test(16, 2, 0x80, unsigned = false, 0x8000, 8))
   }
 }
