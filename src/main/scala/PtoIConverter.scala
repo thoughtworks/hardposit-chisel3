@@ -21,8 +21,8 @@ class PtoIConverterCore(val nbits: Int, val es: Int, val intWidth: Int) extends 
     Mux(io.unsignedOut, num.exponent < intWidth.S, num.exponent < (intWidth - 1).S)
   val specialCase = ~inRange | num.isNaR | (num.sign & io.unsignedOut)
   val specialCaseOut =
-    Mux(specialCase & io.unsignedOut & (~num.sign | num.isNaR), maxUnsignedInteger(intWidth), 0.U) |
-    Mux(specialCase & ~io.unsignedOut, maxSignedInteger(intWidth) + (~num.isNaR & num.sign), 0.U)
+    Mux(specialCase & io.unsignedOut & (~num.sign | num.isNaR), maxUnsignedInteger(intWidth).U, 0.U) |
+    Mux(specialCase & ~io.unsignedOut, maxSignedInteger(intWidth).U + (~num.isNaR & num.sign), 0.U)
 
   val unsignedFrac = normFrac(intWidth + maxFractionBits - 1, maxFractionBits)
   val roundingBit  = ~io.roundingMode & normFrac(maxFractionBits - 1)

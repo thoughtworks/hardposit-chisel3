@@ -1,7 +1,7 @@
 package hardposit
 
 import chisel3._
-import chisel3.util.{Cat, MuxCase, PriorityMux}
+import chisel3.util.{Cat, MuxCase}
 
 class PositGenerator(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
 
@@ -36,8 +36,8 @@ class PositGenerator(val nbits: Int, val es: Int) extends Module with HasHardPos
     uT_uS_posit(trailingBitCount - 1, trailingBitCount - 2)
   val stickyBit =
     io.stickyBit | (expFrac.asUInt() & stickyBitMask).orR() | {
-      if (trailingBitCount > 2) uT_uS_posit(trailingBitCount - 3, 0)
-      else 0.U
+      if (trailingBitCount > 2) uT_uS_posit(trailingBitCount - 3, 0).orR()
+      else false.B
     }
   val roundingBit =
     Mux(uR_uS_posit.andR(), false.B,

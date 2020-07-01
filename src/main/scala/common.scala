@@ -64,7 +64,11 @@ trait HasHardPositParams {
 
   def stickyBitCount = 1
 
-  def maxSignedInteger(w: Int): UInt = (1.U << (w - 1)) - 1.U
+  def maxRegime: Int = nbits - 2
 
-  def maxUnsignedInteger(w: Int): UInt = (1.U << w) - 1.U
+  def maxExponent: Int = maxRegime * (1 << es)
+
+  def maxSignedInteger(w: Int): Int = (1 << (w - 1)) - 1
+
+  def maxUnsignedInteger(w: Int): Int = (1 << w) - 1
 }
