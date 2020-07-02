@@ -34,15 +34,17 @@ class PositRound(val nbits: Int, val es: Int) extends Module with HasHardPositPa
   val fracOverflow = roundFrac(maxFractionBitsWithHiddenBit)
 
   val roundExp = WireInit(SInt((maxExponentBits + 1).W), io.in.exponent +& fracOverflow.zext)
-  val overflow = roundExp >= maxExponent.S
+  val overflow  = roundExp >= maxExponent.S
+  val underflow = roundExp <  minExponent.S
 
   io.out.exponent :=
-    Mux(io.in.isNaR || io.in.isZero,
-      0.S, Mux(overflow,
-        maxExponent.S, roundExp))
+    Mux(io.in.isNaR || io.in.isZero, 0.S,
+      Mux(overflow, maxExponent.S,
+        Mux(underflow, minExponent.S,
+          roundExp)))
 
   io.out.fraction :=
-    Mux(fracOverflow || overflow || io.in.isNaR || io.in.isZero,
+    Mux(fracOverflow || overflow || underflow || io.in.isNaR || io.in.isZero,
       Cat(1.U, 0.U(maxFractionBits.W)),
       roundFrac)
 }

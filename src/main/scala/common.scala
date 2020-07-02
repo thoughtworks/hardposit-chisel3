@@ -66,7 +66,11 @@ trait HasHardPositParams {
 
   def maxRegime: Int = nbits - 2
 
+  def minRegime: Int = -maxRegime
+
   def maxExponent: Int = maxRegime * (1 << es)
+
+  def minExponent: Int = minRegime * (1 << es)
 
   def maxSignedInteger(w: Int): Int = (1 << (w - 1)) - 1
 

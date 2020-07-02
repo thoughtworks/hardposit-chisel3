@@ -48,5 +48,7 @@ class PositRoundSpec extends ChiselFlatSpec {
     assert(test(16, 1, false, 0x1C, 0x1FFF, false, false, 3, true, 0x1C, 0x1000))
   }
 
-
+  it should "round to minpos if underflow" in {
+    assert(test(16, 1, false, -0x1D, 0x1FFF, false, false, 0, false, -0x1C, 0x1000))
+  }
 }
