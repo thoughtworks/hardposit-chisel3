@@ -26,7 +26,7 @@ class PositRound(val nbits: Int, val es: Int) extends Module with HasHardPositPa
     io.trailingBits(trailingBitCount - 1),
     io.trailingBits(trailingBitCount - 2),
     io.stickyBit | {
-      if (trailingBitCount > 2) io.trailingBits(trailingBitCount - 3, 0).orR()
+      if (trailingBitCount > 2) io.trailingBits(trailingBitCount - 3, 0).orR
       else false.B
     })
 

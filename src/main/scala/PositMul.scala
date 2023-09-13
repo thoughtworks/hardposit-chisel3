@@ -21,7 +21,7 @@ class PositMulCore(val nbits: Int, val es: Int) extends Module with HasHardPosit
     WireInit(UInt(maxMultiplierFractionBits.W), num1.fraction * num2.fraction)
   val prodOverflow = prodFrac(maxMultiplierFractionBits - 1)
 
-  val normProductFrac = (prodFrac << (~prodOverflow).asUInt()).asUInt()
+  val normProductFrac = (prodFrac << (~prodOverflow).asUInt).asUInt
   val normProductExp  = prodExp + Mux(prodOverflow, 1.S, 0.S)
 
   val result = Wire(new unpackedPosit(nbits, es))
@@ -32,7 +32,7 @@ class PositMulCore(val nbits: Int, val es: Int) extends Module with HasHardPosit
   result.fraction := normProductFrac(maxMultiplierFractionBits - 1, maxMultiplierFractionBits - maxFractionBitsWithHiddenBit)
 
   io.trailingBits := normProductFrac(maxMultiplierFractionBits - maxFractionBitsWithHiddenBit - 1, maxFractionBitsWithHiddenBit - trailingBitCount)
-  io.stickyBit    := normProductFrac(maxFractionBitsWithHiddenBit - trailingBitCount - 1, 0).orR()
+  io.stickyBit    := normProductFrac(maxFractionBitsWithHiddenBit - trailingBitCount - 1, 0).orR
 
   io.out := result
 }

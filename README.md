@@ -35,7 +35,7 @@ $ git submodule update --init --recursive
 $ make
 ```
 
-To test the units using Chisel IO testers:
+To test the units using chiseltest:
 
 ```sh
 $ sbt test

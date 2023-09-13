@@ -10,7 +10,7 @@ class PositExtractor(val nbits: Int, val es: Int) extends Module with HasHardPos
   })
 
   val sign   = io.in(nbits - 1)
-  val absIn  = Mux(sign, ~io.in + 1.U, io.in).asUInt()
+  val absIn  = Mux(sign, ~io.in + 1.U, io.in).asUInt
   val negExp = ~absIn(nbits - 2)
 
   val regExpFrac  = absIn(nbits - 2, 0)
@@ -34,6 +34,6 @@ class PositExtractor(val nbits: Int, val es: Int) extends Module with HasHardPos
   io.out.exponent := {
     if (es > 0) Cat(regime, extractedExp)
     else regime
-  }.asSInt()
+  }.asSInt
   io.out.fraction := Cat(1.U, frac)
 }

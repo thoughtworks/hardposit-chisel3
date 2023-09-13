@@ -36,12 +36,12 @@ class PositAddCore(val nbits: Int, val es: Int) extends Module with HasHardPosit
   val smallFrac =
     Cat(Mux(num1magGt, num2.fraction, num1.fraction), 0.U((maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1).W))
 
-  val expDiff = (largeExp - smallExp).asUInt()
+  val expDiff = (largeExp - smallExp).asUInt
   val shiftedSmallFrac =
     Mux(expDiff < (maxAdderFractionBits - 1).U, smallFrac >> expDiff, 0.U)
   val smallFracStickyBit =
     Mux(expDiff > (maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1).U,
-    (smallFrac & ((1.U << (expDiff - (maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1).U)) - 1.U)).orR(), false.B)
+    (smallFrac & ((1.U << (expDiff - (maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1).U)) - 1.U)).orR, false.B)
 
   val isAddition = !(largeSign ^ smallSign)
   val signedSmallerFrac =
@@ -51,15 +51,15 @@ class PositAddCore(val nbits: Int, val es: Int) extends Module with HasHardPosit
 
   val sumOverflow = isAddition & adderFrac(maxAdderFractionBits - 1)
 
-  val adjAdderExp = largeExp - sumOverflow.asSInt()
+  val adjAdderExp = largeExp - sumOverflow.asSInt
   val adjAdderFrac =
     Mux(sumOverflow, adderFrac(maxAdderFractionBits - 1, 1), adderFrac(maxAdderFractionBits - 2, 0))
   val sumStickyBit = sumOverflow & adderFrac(0)
 
   val normalizationFactor = countLeadingZeros(adjAdderFrac)
 
-  val normExponent = adjAdderExp - normalizationFactor.asSInt()
-  val normFraction = adjAdderFrac << normalizationFactor.asUInt()
+  val normExponent = adjAdderExp - normalizationFactor.asSInt
+  val normFraction = adjAdderFrac << normalizationFactor.asUInt
 
   result.isNaR    := num1.isNaR || num2.isNaR
   result.isZero   := (num1.isZero && num2.isZero) | (adderFrac === 0.U)
@@ -68,7 +68,7 @@ class PositAddCore(val nbits: Int, val es: Int) extends Module with HasHardPosit
   result.fraction := normFraction(maxAdderFractionBits - 2, maxAdderFractionBits - maxFractionBitsWithHiddenBit - 1)
 
   io.trailingBits := normFraction(maxAdderFractionBits - maxFractionBitsWithHiddenBit - 2, maxAdderFractionBits - maxFractionBitsWithHiddenBit - trailingBitCount - 1)
-  io.stickyBit    := sumStickyBit | normFraction(stickyBitCount - 1, 0).orR()
+  io.stickyBit    := sumStickyBit | normFraction(stickyBitCount - 1, 0).orR
 
   io.out := result
 }
