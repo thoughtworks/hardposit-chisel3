@@ -6,6 +6,11 @@ This project contains hardware units required for performing floating-point arit
 **DISCLAIMER**: 
 These units are works in progress and are not completely free of bugs or fully optimized.
 
+## Technical Report
+
+1. [CARRV2020 Paper](https://carrv.github.io/2020/papers/CARRV2020_paper_5_MV.pdf)
+2. [CARRV2020 Presentation](https://carrv.github.io/2020/videos/CARRV_5_MV.html)
+
 ## About Posit Arithmetic
 Universal Numbers, or unums, are a collection of number systems which features better efficiency and mathematically correct arithmetic properties compared to the IEEE-754 floating-point standard. Unums are capable of expressing real numbers and ranges of real numbers. The newest version Unum Type-III called [Posits] is a hardware-friendly representation designed as a drop-in replacement for IEEE floats.
 
@@ -51,3 +56,15 @@ We are working towards a complete posit implementation including support for *qu
 [cmake]: <https://cmake.org/>
 [verilator]: <https://www.veripool.org/wiki/verilator>
 
+## Attribution
+
+If used for research, please cite by the technical report
+
+```
+@inproceedings{ArunkumarM2020PERCPE,
+  title={PERC: Posit Enhanced Rocket Chip},
+  author={V ArunkumarM. and Sai Ganesh Bhairathi and Harshal G. Hayatnagarkar},
+  year={2020},
+  url={https://api.semanticscholar.org/CorpusID:221837450}
+}
+```
