@@ -16,8 +16,8 @@ class Eval_PositCompare_lt(nbits: Int, es: Int) extends Module {
   })
 
   val positCompare = Module(new PositCompare(nbits, es))
-  positCompare.io.num1 := io.num1.asSInt()
-  positCompare.io.num2 := io.num2.asSInt()
+  positCompare.io.num1 := io.num1.asSInt
+  positCompare.io.num2 := io.num2.asSInt
 
   io.actual := positCompare.io.lt
 
@@ -45,8 +45,8 @@ class Eval_PositCompare_eq(nbits: Int, es: Int) extends Module {
   })
 
   val positCompare = Module(new PositCompare(nbits, es))
-  positCompare.io.num1 := io.num1.asSInt()
-  positCompare.io.num2 := io.num2.asSInt()
+  positCompare.io.num1 := io.num1.asSInt
+  positCompare.io.num2 := io.num2.asSInt
 
   io.actual := positCompare.io.eq
 
@@ -74,8 +74,8 @@ class Eval_PositCompare_gt(nbits: Int, es: Int) extends Module {
   })
 
   val positCompare = Module(new PositCompare(nbits, es))
-  positCompare.io.num1 := io.num1.asSInt()
-  positCompare.io.num2 := io.num2.asSInt()
+  positCompare.io.num1 := io.num1.asSInt
+  positCompare.io.num2 := io.num2.asSInt
 
   io.actual := positCompare.io.gt
 

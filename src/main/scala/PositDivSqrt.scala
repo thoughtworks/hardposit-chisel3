@@ -53,7 +53,7 @@ class PositDivSqrtCore(val nbits: Int, val es: Int) extends Module with HasHardP
   val starting         = readyIn && io.validIn
   val started_normally = starting && !specialCase
 
-  val radicand = Mux(io.sqrtOp && num1.exponent(0).asBool(), num1.fraction << 1, num1.fraction)
+  val radicand = Mux(io.sqrtOp && num1.exponent(0).asBool, num1.fraction << 1, num1.fraction)
 
   when(!idle | io.validIn) {
     cycleCount := Mux(starting && specialCase, 2.U, 0.U) |
@@ -83,7 +83,7 @@ class PositDivSqrtCore(val nbits: Int, val es: Int) extends Module with HasHardP
            Mux(!readyIn && sqrtOp_stored, remLo << 2, 0.U)
 
   val rem = Mux(readyIn && io.sqrtOp, radicand(maxFractionBitsWithHiddenBit, maxFractionBitsWithHiddenBit - 1), 0.U) |
-    Mux(readyIn && !io.sqrtOp, radicand.asUInt(), 0.U) |
+    Mux(readyIn && !io.sqrtOp, radicand.asUInt, 0.U) |
     Mux(!readyIn && sqrtOp_stored, remHi << 2.U | remLo >> maxFractionBits.U, 0.U) |
     Mux(!readyIn && !sqrtOp_stored, remHi << 1.U, 0.U)
 
@@ -98,16 +98,16 @@ class PositDivSqrtCore(val nbits: Int, val es: Int) extends Module with HasHardP
   val nextBit = testRem >= 0.S
 
   when(started_normally || cycleCount > 2.U) {
-    remHi := Mux(nextBit, testRem.asUInt(), rem)
+    remHi := Mux(nextBit, testRem.asUInt, rem)
   }
 
-  val nextFraction = Cat(divSqrtFrac, nextBit.asUInt())
+  val nextFraction = Cat(divSqrtFrac, nextBit.asUInt)
   divSqrtFrac := Mux(started_normally, nextBit, 0.U) |
              Mux(!readyIn, nextFraction, 0.U)
 
   val normReq = !divSqrtFrac(maxDividerFractionBits - 1)
   frac_out := Mux(normReq, Cat(divSqrtFrac, 0.U(1.W)), divSqrtFrac)
-  exp_out  := divSqrtExp + normReq.asSInt()
+  exp_out  := divSqrtExp + normReq.asSInt
 
   result.isNaR    := isNaR_out
   result.isZero   := isZero_out
@@ -122,7 +122,7 @@ class PositDivSqrtCore(val nbits: Int, val es: Int) extends Module with HasHardP
   io.exceptions    := exec_out
 
   io.trailingBits := frac_out(maxDividerFractionBits - maxFractionBitsWithHiddenBit - 1, trailingBitCount)
-  io.stickyBit    := frac_out(trailingBitCount - 1, 0).orR() | remHi.orR()
+  io.stickyBit    := frac_out(trailingBitCount - 1, 0).orR | remHi.orR
 
   io.out := result
 }

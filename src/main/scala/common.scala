@@ -11,8 +11,8 @@ class unpackedPosit(val nbits: Int, val es: Int) extends Bundle with HasHardPosi
   val isZero = Bool()
   val isNaR = Bool()
 
-  override def cloneType =
-    new unpackedPosit(nbits, es).asInstanceOf[this.type]
+  // override def cloneType =
+    // new unpackedPosit(nbits, es).asInstanceOf[this.type]
 }
 
 object countLeadingZeros {
@@ -24,7 +24,7 @@ object lowerBitMask {
 }
 
 object isOnlyMSBSet {
-  def apply(num: UInt, n: Int): Bool = num(n - 1) & ~num(n - 2, 0).orR()
+  def apply(num: UInt, n: Int): Bool = num(n - 1) & ~num(n - 2, 0).orR
 }
 
 trait HasHardPositParams {
@@ -52,13 +52,13 @@ trait HasHardPositParams {
 
   def maxDividerFractionBits: Int = maxFractionBitsWithHiddenBit + trailingBitCount + stickyBitCount + 1
 
-  def NaR: UInt = (1.U << (nbits - 1)).asUInt()
+  def NaR: UInt = (1.U << (nbits - 1)).asUInt
 
   def zero: UInt = 0.U(nbits.W)
 
   def isNaR(num: UInt): Bool = isOnlyMSBSet(num, nbits)
 
-  def isZero(num: UInt): Bool = ~num.orR()
+  def isZero(num: UInt): Bool = ~num.orR
 
   def trailingBitCount = 2
 

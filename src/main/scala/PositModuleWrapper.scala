@@ -1,7 +1,7 @@
 package hardposit
 
 import chisel3._
-import firrtl.{ExecutionOptionsManager, HasFirrtlOptions}
+// import firrtl.{ExecutionOptionsManager, HasFirrtlOptions}
 
 //Wrapper for testing hardposit modules on FPGA
 class PositModuleWrapper(nbits: Int, es: Int) extends Module {

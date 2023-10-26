@@ -31,7 +31,7 @@ class PositFMACore(val nbits: Int, val es: Int) extends Module with HasHardPosit
   val prodOverflow        = productFraction(maxMultiplierFractionBits - 1)
   val normProductFraction =
     Mux(prodOverflow, productFraction(maxMultiplierFractionBits - 1, 1), productFraction(maxMultiplierFractionBits - 2, 0))
-  val normProductExponent = productExponent + Cat(0.U, prodOverflow).asSInt()
+  val normProductExponent = productExponent + Cat(0.U, prodOverflow).asSInt
   val prodStickyBit       = prodOverflow & productFraction(0)
 
   val addendIsZero   = num3.isZero
@@ -51,13 +51,13 @@ class PositFMACore(val nbits: Int, val es: Int) extends Module with HasHardPosit
   val lFrac = Mux(isAddendGtProduct, normProductFraction, addendFraction)
   val lSign = Mux(isAddendGtProduct, productSign, addendSign)
 
-  val expDiff = (gExp - lExp).asUInt()
+  val expDiff = (gExp - lExp).asUInt
   val shftInBound = expDiff < (maxMultiplierFractionBits - 1).U
   val shiftedLFrac =
     Mux(shftInBound, lFrac >> expDiff, 0.U(maxMultiplierFractionBits.W))
   val lfracStickyMask =
     lowerBitMask(expDiff)(maxMultiplierFractionBits - 1, 0)
-  val lFracStickyBit = (lFrac & lfracStickyMask).orR()
+  val lFracStickyBit = (lFrac & lfracStickyMask).orR
 
   val isAddition = ~(gSign ^ lSign)
   val signedLFrac =
@@ -68,10 +68,10 @@ class PositFMACore(val nbits: Int, val es: Int) extends Module with HasHardPosit
   val fmaOverflow = isAddition & fmaFraction(maxMultiplierFractionBits - 1)
   val adjFmaFraction =
     Mux(fmaOverflow, fmaFraction, Cat(fmaFraction(maxMultiplierFractionBits - 2, 0), 0.U(1.W)))
-  val adjFmaExponent = gExp + Cat(0.U, fmaOverflow).asSInt()
+  val adjFmaExponent = gExp + Cat(0.U, fmaOverflow).asSInt
 
   val normalizationFactor = countLeadingZeros(adjFmaFraction)
-  val normFmaExponent = adjFmaExponent -& normalizationFactor.asSInt()
+  val normFmaExponent = adjFmaExponent -& normalizationFactor.asSInt
   val normFmaFraction = (adjFmaFraction << normalizationFactor)(maxMultiplierFractionBits - 1, 0)
 
   val result = Wire(new unpackedPosit(nbits, es))
@@ -79,10 +79,10 @@ class PositFMACore(val nbits: Int, val es: Int) extends Module with HasHardPosit
   result.isZero   := !result.isNaR & ((num1.isZero | num2.isZero) & num3.isZero)
   result.sign     := gSign
   result.exponent := normFmaExponent
-  result.fraction := normFmaFraction(maxMultiplierFractionBits - 1, maxMultiplierFractionBits - maxFractionBitsWithHiddenBit).asUInt()
+  result.fraction := normFmaFraction(maxMultiplierFractionBits - 1, maxMultiplierFractionBits - maxFractionBitsWithHiddenBit).asUInt
 
   io.trailingBits := normFmaFraction(maxFractionBitsWithHiddenBit - 1, maxFractionBitsWithHiddenBit - trailingBitCount)
-  io.stickyBit    := prodStickyBit | lFracStickyBit | normFmaFraction(maxFractionBitsWithHiddenBit - trailingBitCount - 1, 0).orR()
+  io.stickyBit    := prodStickyBit | lFracStickyBit | normFmaFraction(maxFractionBitsWithHiddenBit - trailingBitCount - 1, 0).orR
 
   io.out := result
 }

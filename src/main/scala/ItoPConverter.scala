@@ -18,7 +18,7 @@ class ItoPConverterCore(val nbits: Int, val es: Int, intWidth: Int) extends Modu
 
   result.isNaR  := isOnlyMSBSet(io.integer, intWidth)
   result.isZero := isZero(io.integer)
-  result.sign   := io.integer(intWidth - 1).asBool() && !io.unsignedIn
+  result.sign   := io.integer(intWidth - 1).asBool && !io.unsignedIn
 
   val intVal = Mux(result.sign, ~io.integer + 1.U, io.integer)
 
@@ -26,7 +26,7 @@ class ItoPConverterCore(val nbits: Int, val es: Int, intWidth: Int) extends Modu
   val shiftedIntVal = intVal << zeroCount
 
   result.exponent :=
-    Cat(0.U, (intWidth - 1).U - zeroCount).asSInt()
+    Cat(0.U, (intWidth - 1).U - zeroCount).asSInt
 
   result.fraction := {
     if(narrowConv)
@@ -42,7 +42,7 @@ class ItoPConverterCore(val nbits: Int, val es: Int, intWidth: Int) extends Modu
 
   io.stickyBit := {
     if(narrowConv)
-      Cat(shiftedIntVal, 0.U(trailingBitCount.W))(intWidth - maxFractionBitsWithHiddenBit - 1, 0).orR()
+      Cat(shiftedIntVal, 0.U(trailingBitCount.W))(intWidth - maxFractionBitsWithHiddenBit - 1, 0).orR
     else false.B }
 
   io.posit := result

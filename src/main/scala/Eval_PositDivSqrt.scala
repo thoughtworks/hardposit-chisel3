@@ -8,8 +8,8 @@ class DivIO(nbits: Int, es: Int) extends Bundle {
   val num2 = UInt(nbits.W)
   val expected = UInt(nbits.W)
 
-  override def cloneType =
-    new DivIO(nbits, es).asInstanceOf[this.type]
+  // override def cloneType =
+    // new DivIO(nbits, es).asInstanceOf[this.type]
 }
 
 class Eval_PositDivSqrt_div(nbits: Int, es: Int) extends Module {
@@ -62,8 +62,8 @@ class SqrtIO(nbits: Int, es: Int) extends Bundle {
   val num1 = UInt(nbits.W)
   val expected = UInt(nbits.W)
 
-  override def cloneType =
-    new SqrtIO(nbits, es).asInstanceOf[this.type]
+  // override def cloneType =
+  //   new SqrtIO(nbits, es).asInstanceOf[this.type]
 }
 
 class Eval_PositDivSqrt_sqrt(nbits: Int, es: Int) extends Module {

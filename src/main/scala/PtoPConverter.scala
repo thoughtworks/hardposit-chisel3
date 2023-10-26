@@ -23,7 +23,7 @@ class PtoPConverterCore(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) exte
   val maxOutFractionBits = getMaxFractionBits(outWidth, outEs)
 
   val maxOutExp = ((1 << (maxOutExponentBits - 1)) - 1).S(maxOutExponentBits.W)
-  val minOutExp = (1 << (maxOutExponentBits - 1)).U.asSInt()
+  val minOutExp = (1 << (maxOutExponentBits - 1)).U.asSInt
 
   val narrowConv = maxInFractionBits > maxOutFractionBits
 
@@ -53,7 +53,7 @@ class PtoPConverterCore(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) exte
 
   io.stickyBit := {
     if (narrowConv)
-      inFracWithTrailOffset(maxInFractionBits - maxOutFractionBits + stickyBitCount - 1, 0).orR()
+      inFracWithTrailOffset(maxInFractionBits - maxOutFractionBits + stickyBitCount - 1, 0).orR
     else false.B }
 }
 

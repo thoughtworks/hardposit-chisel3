@@ -15,7 +15,7 @@ class PtoIConverterCore(val nbits: Int, val es: Int, val intWidth: Int) extends 
 
   val magGeOne = !num.exponent(maxExponentBits - 1)
   val normFrac =
-    Mux(magGeOne, num.fraction << num.exponent.asUInt(), 0.U)
+    Mux(magGeOne, num.fraction << num.exponent.asUInt, 0.U)
 
   val inRange =
     Mux(io.unsignedOut, num.exponent < intWidth.S, num.exponent < (intWidth - 1).S)
