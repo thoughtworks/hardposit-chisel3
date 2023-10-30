@@ -14,4 +14,14 @@ class PositCompare(nbits: Int, es: Int) extends Module {
   io.lt := (io.num1 < io.num2)
   io.eq := (io.num1 === io.num2)
   io.gt := (!io.lt && !io.eq)
+
+  when(io.lt) {
+    assert(!io.eq && !io.gt)
+  }
+  when(io.gt) {
+    assert(!io.lt && !io.eq)
+  }
+  when(io.eq) {
+    assert(!io.lt && !io.gt)
+  }
 }
