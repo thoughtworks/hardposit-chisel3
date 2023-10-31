@@ -1,9 +1,10 @@
 import chiseltest._
+import chiseltest.formal.{BoundedCheck, Formal}
 import hardposit.PositAdd
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class PositAddSpec extends AnyFlatSpec with ChiselScalatestTester with Matchers {
+class PositAddSpec extends AnyFlatSpec with ChiselScalatestTester with Matchers with Formal{
 
   def posit_add_test(nbits: Int, es: Int, num1: Int, num2: Int, expectedPosit: Int, sub: Boolean = false, isNaR: Boolean = false) {
     val annos = Seq(WriteVcdAnnotation)
@@ -15,6 +16,26 @@ class PositAddSpec extends AnyFlatSpec with ChiselScalatestTester with Matchers 
       c.io.out.expect(expectedPosit)
       c.io.isNaR.expect(isNaR)
     }
+  }
+
+  def posit_add_formal_verify(nbits: Int, es: Int): Unit = {
+    verify(new PositAdd(nbits,es), Seq(BoundedCheck(20)))
+  }
+
+  it should "should formally verify for the posit <8,0> format" in {
+    posit_add_formal_verify(8, 0)
+  }
+
+  it should "should formally verify for the posit <16,1> format" in {
+    posit_add_formal_verify(16, 1)
+  }
+
+  it should "should formally verify for the posit <32,2> format" in {
+    posit_add_formal_verify(32, 2)
+  }
+
+  it should "should formally verify for the posit <64,3> format" in {
+    posit_add_formal_verify(64, 3)
   }
 
   it should "return added value when both exponent and signs are equal" in {
