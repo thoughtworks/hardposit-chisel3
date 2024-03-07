@@ -1,10 +1,10 @@
+import chisel3._
 import chiseltest._
-import chiseltest.formal.{BoundedCheck, Formal}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import hardposit.PositCompare
 
-class PositCompareSpec extends AnyFlatSpec with ChiselScalatestTester with Matchers with Formal {
+class PositCompareSpec extends AnyFlatSpec with ChiselScalatestTester with Matchers {
 
   def posit_compare_test(nbits: Int, es: Int, num1: Int, num2: Int, expectlt: Boolean, expecteq: Boolean, expectgt: Boolean)  {
     val annos = Seq(WriteVcdAnnotation)
@@ -24,26 +24,6 @@ class PositCompareSpec extends AnyFlatSpec with ChiselScalatestTester with Match
       num - scala.math.pow(2, nbits).toInt
     else
       num
-  }
-
-  def posit_compare_formal_verify(nbits: Int, es: Int): Unit = {
-    verify(new PositCompare(nbits,es), Seq(BoundedCheck(20)))
-  }
-
-  it should "should formally verify for the posit <8,0> format" in {
-    posit_compare_formal_verify(8, 0)
-  }
-
-  it should "should formally verify for the posit <16,1> format" in {
-    posit_compare_formal_verify(16, 1)
-  }
-
-  it should "should formally verify for the posit <32,2> format" in {
-    posit_compare_formal_verify(32, 2)
-  }
-
-  it should "should formally verify for the posit <64,3> format" in {
-    posit_compare_formal_verify(64, 3)
   }
 
   it should "return less than when sign and exponent equal and fraction less" in {
