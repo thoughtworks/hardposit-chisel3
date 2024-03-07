@@ -8,4 +8,4 @@ add_executable(PositTestGenerator PositTestGenerator.cpp PositTestGenerator.hpp
         GenCompareTest.hpp GenConversionTest.hpp WriteCases.hpp)
 
 set(CMAKE_CXX_FLAGS "-march=native -mtune=generic")
-set(CMAKE_CXX_COMPILER g++-8)
+set(CMAKE_CXX_COMPILER g++)
