@@ -8,7 +8,6 @@ object Main {
       case "PositAdd" => new PositAdd(nbits, es)
       case "PositCompare" => new PositCompare(nbits, es)
       case "PositMul" => new PositMul(nbits, es)
-      case "PositRound" => new PositRound(nbits, es)
       case "PositDivSqrt" => new PositDivSqrt(nbits, es)
       case "PositFMA" => new PositFMA(nbits, es)
     },
@@ -25,8 +24,7 @@ object Main {
     val minimal = Seq(
       "PositAdd",
       "PositCompare",
-      "PositMul",
-      "PositRound"
+      "PositMul"
     )
     val extra = Seq(
       "PositDivSqrt",
