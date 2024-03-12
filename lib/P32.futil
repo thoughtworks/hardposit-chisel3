@@ -1,4 +1,4 @@
-extern "P32/PositAdd.v" {
+extern "P32/P32.sv" {
     comb primitive PositAdd[](
         @write_together(1) io_num1: 32,
         @write_together(1) io_num2: 32,
@@ -10,9 +10,7 @@ extern "P32/PositAdd.v" {
         io_isNaR : 1,
         io_out: 32
     );
-}
 
-extern "P32/PositMul.v" {
     comb primitive PositMul[](
         @write_together(1) io_num1: 32,
         @write_together(1) io_num2: 32,
@@ -23,9 +21,7 @@ extern "P32/PositMul.v" {
         io_isNaR : 1,
         io_out: 32
     );
-}
 
-extern "P32/PositCompare.v" {
     comb primitive PositCompare[](
         @write_together(1) io_num1: 32,
         @write_together(1) io_num2: 32,
@@ -36,9 +32,7 @@ extern "P32/PositCompare.v" {
         io_eq : 1,
         io_gt: 32
     );
-}
 
-extern "P32/PositDivSqrt.v" {
     primitive PositDivSqrt[](
         @write_together(1) io_num1: 32,
         @write_together(1) io_num2: 32,

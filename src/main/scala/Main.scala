@@ -1,17 +1,20 @@
 package hardposit
 
+import _root_.circt.stage.ChiselStage
+
 object Main {
 
   def generateVerilogForModules(models: Seq[String], bitwidths: (Int, Int)) = {
     val (nbits, es) = bitwidths
-    models.foreach(model => (new chisel3.stage.ChiselStage).emitVerilog(model match {
+    models.foreach(model => ChiselStage.emitSystemVerilog(model match {
       case "PositAdd" => new PositAdd(nbits, es)
       case "PositCompare" => new PositCompare(nbits, es)
       case "PositMul" => new PositMul(nbits, es)
       case "PositDivSqrt" => new PositDivSqrt(nbits, es)
       case "PositFMA" => new PositFMA(nbits, es)
     },
-    Array.concat(Array("-td", s"lib/P${nbits}")))
+    Array.concat(Array("-td", s"lib/P${nbits}")),
+    Array.concat(Array("-o", s"lib/P${nbits}", "--split-verilog")))
     )
   }
 
@@ -44,6 +47,7 @@ object Main {
   }
 
   def runIntegrationTests(args: Array[String]): Unit = {
+    // TODO: Migrate this to CIRCT stage
     (new chisel3.stage.ChiselStage).emitVerilog(args(0) match {
       case "FMAP16_add" => new Eval_PositFMAP16_add
       case "FMAP16_mul" => new Eval_PositFMAP16_mul
@@ -105,9 +109,7 @@ object Main {
   }
 
   def main(args: Array[String]): Unit = {
-    val runArgs = args.slice(1, args.length).toArray
-
-    val testDirAbsolutePath = "./td"
+    val runArgs = args.slice(1, args.length)
 
     args(0) match {
       case "gen" => generatePPU(runArgs)
