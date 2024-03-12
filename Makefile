@@ -84,7 +84,7 @@ P64toP32 \
 define test_template
 
 test-$(1)/Eval_$(1).v: src/main/scala/*.scala
-	sbt "run $(1) -td test-$(1)"
+	sbt "run tb $(1) -td test-$(1)"
 
 test-$(1)/dut.mk: test-$(1)/Eval_$(1).v
 	$(VERILATOR) -cc --prefix dut --Mdir test-$(1) -CFLAGS "$(VERILATOR_CFLAGS) -include ../csrc/test-$(1).h" test-$(1)/Eval_Posit$(1).v --exe csrc/test-$(3).cpp
