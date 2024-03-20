@@ -10,7 +10,7 @@ using json_t = nlohmann::json;
 
 json_t parse_data(int argc, char** argv) {
     if (argc != 3) {
-        std::cout << "Usage: PositConvertor <json> <json-path>\n"
+        std::cout << "Usage: F2P <json> <field>\n"
                  "Converts a JSON file with floating point numbers to posits\n";
         exit(2);
     }
@@ -37,13 +37,13 @@ template<class T, size_t n>
 
 void convert_path_1d(json_t json, std::string field) {
     try {
-        auto data = json[field]["data"].get<n_dim_vec_t<float, 1>>();
+        auto data = json[field]["data"].get<n_dim_vec_t<double, 1>>();
         std::vector<unsigned long> data_posit(data.size());
         std::transform(
             data.cbegin(),
             data.cend(),
             data_posit.begin(),
-            [](float v) -> unsigned long {
+            [](double v) -> unsigned long {
                 sw::unum::posit <32, 2> p (v);
                 return p.get().to_ulong();
         });
