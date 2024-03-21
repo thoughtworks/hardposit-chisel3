@@ -9,8 +9,8 @@
 using json_t = nlohmann::json;
 
 json_t parse_data(int argc, char** argv) {
-    if (argc != 3) {
-        std::cout << "Usage: F2P <json> <field>\n"
+    if (argc != 4) {
+        std::cout << "Usage: PositConvertor <json> <json-path> <dimension> \n"
                  "Converts a JSON file with floating point numbers to posits\n";
         exit(2);
     }
@@ -57,11 +57,42 @@ void convert_path_1d(json_t json, std::string field) {
     }
 }
 
-// void convert_path_2d(json_t json, std::string field) {
-//     // TODO: Implement this
-// }
+ void convert_path_2d(json_t json, std::string field) {
+     try {
+             auto data = json[field]["data"].get<n_dim_vec_t<float, 2>>();
+             std::vector<std::vector<unsigned long>> data_posit(data.size(), std::vector<unsigned long>(data[0].size(), 0));
+             for( int i = 0; i < data.size() ; i++) {
+                 std::transform(
+                     data[i].cbegin(),
+                     data[i].cend(),
+                     data_posit[i].begin(),
+                     [](float v) -> unsigned long {
+                         sw::unum::posit <32, 2> p (v);
+                         return p.get().to_ulong();
+                 });
+              }
+             json_t transformed;
+             transformed = json;
+             transformed[field]["data"] = data_posit;
+             std::cout << transformed.dump(2);
+         }  catch(nlohmann::json::type_error err) {
+             std::cerr << "[Error] Expected `" << field << ".data' field with type float[]" << std::endl;
+             exit(2);
+         }
+    }
 
 int main(int argc, char *argv[]) {
     auto j = parse_data(argc, argv);
+    switch(argv[3][0]) {
+    case '1':
     convert_path_1d(j, argv[2]);
+    break;
+    case '2':
+    convert_path_2d(j, argv[2]);
+    break;
+    default:
+    std::cout << "Usage: PositConvertor <json> <json-path> <dimension> \n"
+                    "Dimension of the array should be either 1 or 2 \n";
+            exit(2);
+    }
 }
