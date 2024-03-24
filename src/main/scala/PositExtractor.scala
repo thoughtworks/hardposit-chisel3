@@ -4,6 +4,7 @@ import chisel3._
 import chisel3.util.{Cat, MuxCase}
 
 class PositExtractor(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
+  override val desiredName = s"posit_${nbits}_extractor"
   val io = IO(new Bundle {
     val in  = Input(UInt(nbits.W))
     val out = Output(new unpackedPosit(nbits, es))

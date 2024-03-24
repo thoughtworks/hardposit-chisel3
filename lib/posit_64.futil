@@ -1,5 +1,5 @@
-extern "P64/P64.sv" {
-    comb primitive PositAdd[](
+extern "posit_64.sv" {
+    comb primitive posit_64_add[](
         @write_together(1) io_num1: 64,
         @write_together(1) io_num2: 64,
         @write_together(1) io_sub: 1,
@@ -11,7 +11,7 @@ extern "P64/P64.sv" {
         io_out: 64
     );
 
-    comb primitive PositMul[](
+    comb primitive posit_64_mul[](
         @write_together(1) io_num1: 64,
         @write_together(1) io_num2: 64,
         @clk clock: 1,
@@ -22,7 +22,7 @@ extern "P64/P64.sv" {
         io_out: 64
     );
 
-    comb primitive PositCompare[](
+    comb primitive posit_64_compare[](
         @write_together(1) io_num1: 64,
         @write_together(1) io_num2: 64,
         @clk clock: 1,
@@ -33,7 +33,7 @@ extern "P64/P64.sv" {
         io_gt: 1
     );
 
-    primitive PositDivSqrt[](
+    primitive posit_64_divsqrt[](
         @write_together(1) io_num1: 64,
         @write_together(1) io_num2: 64,
         @write_together(1) @interval(1) @go(1) io_validIn: 1,

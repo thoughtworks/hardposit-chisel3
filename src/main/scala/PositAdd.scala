@@ -4,6 +4,7 @@ import chisel3._
 import chisel3.util.{Cat, MuxCase}
 
 class PositAddCore(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
+  override val desiredName = s"posit_${nbits}_add_core"
 
   val io = IO(new Bundle{
     val num1   = Input(new unpackedPosit(nbits, es))
@@ -74,6 +75,7 @@ class PositAddCore(val nbits: Int, val es: Int) extends Module with HasHardPosit
 }
 
 class PositAdd(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
+  override val desiredName = s"posit_${nbits}_add"
   require(nbits > es)
   require(es >= 0)
 

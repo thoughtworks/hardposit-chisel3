@@ -1,12 +1,12 @@
 import "primitives/core.futil";
 import "primitives/memories/seq.futil";
 import "primitives/binary_operators.futil";
-import "../P32.futil";
+import "../posit_32.futil";
 component main() -> () {
   cells {
     @external(1) a = seq_mem_d1(32,8,4);
     a_read0_0 = std_reg(32);
-    add0 = PositAdd();
+    add0 = posit_32_add();
     add1 = std_add(4);
     @external(1) b = seq_mem_d1(32,8,4);
     b_read0_0 = std_reg(32);

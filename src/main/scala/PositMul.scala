@@ -3,7 +3,7 @@ package hardposit
 import chisel3._
 
 class PositMulCore(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
-
+  override val desiredName = s"posit_${nbits}_mul_core"
   val io = IO(new Bundle{
     val num1   = Input(new unpackedPosit(nbits, es))
     val num2   = Input(new unpackedPosit(nbits, es))
@@ -38,7 +38,7 @@ class PositMulCore(val nbits: Int, val es: Int) extends Module with HasHardPosit
 }
 
 class PositMul(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
-
+  override val desiredName = s"posit_${nbits}_mul"
   val io = IO(new Bundle {
     val num1 = Input(UInt(nbits.W))
     val num2 = Input(UInt(nbits.W))

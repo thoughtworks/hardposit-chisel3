@@ -1,7 +1,7 @@
-all: P16.sv P32.sv P64.sv
+all: posit_16.sv posit_32.sv posit_64.sv
 
-%.sv:
-	rm -f $(basename $@)/$@
-	cat $(basename $@)/*.sv > $(basename $@)/$@
+posit_%.sv: P%
+	rm -f $@
+	cat $</*.sv > $@
 
-.PHONY = P16.sv P32.sv P64.sv
+.PHONY = posit_16.sv posit_32.sv posit_64.sv

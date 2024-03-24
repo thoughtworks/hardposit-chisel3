@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util.{Cat, MuxCase}
 
 class PositGenerator(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
-
+  override val desiredName = s"posit_${nbits}_generator"
   val io = IO(new Bundle {
     val in = Input(new unpackedPosit(nbits, es))
     val trailingBits = Input(UInt(trailingBitCount.W))

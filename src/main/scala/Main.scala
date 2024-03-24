@@ -20,9 +20,11 @@ object Main {
 
   def generatePPU(args: Array[String]) = {
     val std = Map(
+      "P8" -> (8, 1),
       "P16" -> (16, 1),
       "P32" -> (32, 2),
-      "P64" -> (64, 3)
+      "P64" -> (64, 3),
+      "P128" -> (128, 4)
     )
     val minimal = Seq(
       "PositAdd",

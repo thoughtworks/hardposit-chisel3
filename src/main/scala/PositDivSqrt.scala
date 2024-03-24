@@ -4,6 +4,7 @@ import chisel3._
 import chisel3.util.{Cat, log2Up}
 
 class PositDivSqrtCore(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
+  override val desiredName = s"posit_${nbits}_divsqrt_core"
   val io = IO(new Bundle {
     val validIn = Input(Bool())
     val readyIn = Output(Bool())
@@ -128,6 +129,7 @@ class PositDivSqrtCore(val nbits: Int, val es: Int) extends Module with HasHardP
 }
 
 class PositDivSqrt(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
+  override val desiredName = s"posit_${nbits}_divsqrt"
   val io = IO(new Bundle {
     val validIn = Input(Bool())
     val readyIn = Output(Bool())
