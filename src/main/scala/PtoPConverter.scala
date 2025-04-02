@@ -4,6 +4,7 @@ import chisel3._
 import chisel3.util.Cat
 
 class PtoPConverterCore(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) extends Module with HasHardPositParams {
+  override val desiredName = s"posit_${inWidth}_${outWidth}_ptop_core"
   lazy val nbits: Int = inWidth
   lazy val es: Int = inEs
   require((inWidth != outWidth) | (inEs != outEs), "Conversion between identical posit configuration")
@@ -58,7 +59,7 @@ class PtoPConverterCore(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) exte
 }
 
 class PtoPConverter(inWidth: Int, inEs: Int, outWidth: Int, outEs: Int) extends Module{
-
+  override val desiredName = s"posit_${inWidth}_${outWidth}_ptop"
   val io = IO(new Bundle {
     val in  = Input(UInt(inWidth.W))
     val out = Output(UInt(outWidth.W))

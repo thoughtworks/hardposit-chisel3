@@ -1,0 +1,83 @@
+import "primitives/core.futil";
+import "primitives/memories/seq.futil";
+import "primitives/binary_operators.futil";
+import "../posit_32.futil";
+component main() -> () {
+  cells {
+    @external(1) a = seq_mem_d1(32,8,4);
+    a_read0_0 = std_reg(32);
+    add0 = posit_32_add();
+    add1 = std_add(4);
+    @external(1) b = seq_mem_d1(32,8,4);
+    b_read0_0 = std_reg(32);
+    @external(1) c = seq_mem_d1(32,8,4);
+    const0 = std_const(4,0);
+    const1 = std_const(4,7);
+    const2 = std_const(4,1);
+    i0 = std_reg(4);
+    le0 = std_le(4);
+  }
+  wires {
+    comb group cond0 {
+      le0.left = i0.out;
+      le0.right = const1.out;
+    }
+    group let0<"promotable"=1> {
+      i0.in = const0.out;
+      i0.write_en = 1'd1;
+      let0[done] = i0.done;
+    }
+    group let1<"promotable"=2> {
+      a_read0_0.in = a.read_data;
+      a_read0_0.write_en = a.done;
+      let1[done] = a_read0_0.done;
+      a.content_en = 1'd1;
+      a.addr0 = i0.out;
+    }
+    group let2<"promotable"=2> {
+      b_read0_0.in = b.read_data;
+      b_read0_0.write_en = b.done;
+      let2[done] = b_read0_0.done;
+      b.content_en = 1'd1;
+      b.addr0 = i0.out;
+    }
+    group upd0<"promotable"=1> {
+      c.content_en = 1'd1;
+      c.addr0 = i0.out;
+      c.write_en = 1'd1;
+      add0.io_num1 = a_read0_0.out;
+      add0.io_num2 = b_read0_0.out;
+      add0.io_sub  = 1'd0;
+      c.write_data = add0.io_out;
+      upd0[done] = c.done;
+    }
+    group upd1<"promotable"=1> {
+      i0.write_en = 1'd1;
+      add1.left = i0.out;
+      add1.right = const2.out;
+      i0.in = add1.out;
+      upd1[done] = i0.done;
+    }
+  }
+  control {
+    seq {
+      @pos(0) let0;
+      @bound(8) while le0.out with cond0 {
+        seq {
+          par {
+            @pos(1) let1;
+            @pos(2) let2;
+          }
+          @pos(3) upd0;
+          @pos(0) upd1;
+        }
+      }
+    }
+  }
+}
+metadata #{
+  0: for (let i: ubit<4> = 0..8) {
+  1:   c[i] := a[i] + b[i];
+  2:   c[i] := a[i] + b[i];
+  3:   c[i] := a[i] + b[i];
+}#

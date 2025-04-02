@@ -10,7 +10,7 @@ object roundToNearestEven {
 }
 
 class PositRound(val nbits: Int, val es: Int) extends Module with HasHardPositParams{
-
+  override val desiredName = s"posit_${nbits}_round"
   val io = IO(new Bundle {
     val in = Input(new unpackedPosit(nbits, es))
     val trailingBits = Input(UInt(trailingBitCount.W))

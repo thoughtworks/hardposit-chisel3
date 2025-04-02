@@ -1,0 +1,52 @@
+extern "posit_64.sv" {
+    comb primitive posit_64_add[](
+        @write_together(1) io_num1: 64,
+        @write_together(1) io_num2: 64,
+        @write_together(1) io_sub: 1,
+        @clk clock: 1,
+        @reset reset: 1
+    ) -> (
+        io_isZero: 1,
+        io_isNaR : 1,
+        io_out: 64
+    );
+
+    comb primitive posit_64_mul[](
+        @write_together(1) io_num1: 64,
+        @write_together(1) io_num2: 64,
+        @clk clock: 1,
+        @reset reset: 1
+    ) -> (
+        io_isZero: 1,
+        io_isNaR : 1,
+        io_out: 64
+    );
+
+    comb primitive posit_64_compare[](
+        @write_together(1) io_num1: 64,
+        @write_together(1) io_num2: 64,
+        @clk clock: 1,
+        @reset reset: 1
+    ) -> (
+        io_lt: 1,
+        io_eq : 1,
+        io_gt: 1
+    );
+
+    primitive posit_64_divsqrt[](
+        @write_together(1) io_num1: 64,
+        @write_together(1) io_num2: 64,
+        @write_together(1) @interval(1) @go(1) io_validIn: 1,
+        @write_together(1) io_sqrtOp: 1,
+        @clk clock: 1,
+        @reset reset: 1
+    ) -> (
+        io_readyIn: 1,
+        io_out: 64,
+        io_isZero: 1,
+        io_isNaR : 1,
+        @done io_validOut_div: 1,
+        @done io_validOut_sqrt: 1,
+        io_exceptions: 4,
+    );
+}

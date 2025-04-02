@@ -3,6 +3,7 @@ package hardposit
 import chisel3._
 
 class PtoIConverterCore(val nbits: Int, val es: Int, val intWidth: Int) extends Module with HasHardPositParams {
+  override val desiredName = s"posit_${nbits}_${intWidth}_ptoi_core"
   val io = IO(new Bundle {
     val posit        = Input(new unpackedPosit(nbits, es))
     val unsignedOut  = Input(Bool())
@@ -33,6 +34,7 @@ class PtoIConverterCore(val nbits: Int, val es: Int, val intWidth: Int) extends 
 }
 
 class PtoIConverter(val nbits: Int, val es: Int, val intWidth: Int) extends Module with HasHardPositParams {
+  override val desiredName = s"posit_${nbits}_${intWidth}_ptoi"
   val io = IO(new Bundle {
     val posit        = Input(UInt(nbits.W))
     val unsignedOut  = Input(Bool())

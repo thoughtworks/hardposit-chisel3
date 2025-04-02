@@ -21,6 +21,12 @@ For more information about Universal numbers and Posit arithmetic and to follow 
 [Posit Hub] \
 [Unum-computing Google group]
 
+## Calyx Binding
+
+Calyx is an infrastructure for accelerator design. This repo has bindings for Calyx Native. These bindings can allow Posit arithmetic for Calyx frontends such as Dahlia.
+
+More information about the Calyx binding and it's usage is in the [lib directory](./lib/README.md)
+
 ## Unit Testing
 
 The posit arithmetic modules have been unit tested using Chisel IO testers. For better coverage a random test generator is also available enabled by the [universal] C++ template library. The test generator supplies tests to the hardware units which are simulated using [verilator]. 

@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util.{Cat, MuxCase, log2Ceil}
 
 class PositFMACore(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
-
+  override val desiredName = s"posit_${nbits}_fma_core"
   val io = IO(new Bundle {
     val num1   = Input(new unpackedPosit(nbits, es))
     val num2   = Input(new unpackedPosit(nbits, es))
@@ -88,7 +88,7 @@ class PositFMACore(val nbits: Int, val es: Int) extends Module with HasHardPosit
 }
 
 class PositFMA(val nbits: Int, val es: Int) extends Module with HasHardPositParams {
-
+  override val desiredName = s"posit_${nbits}_fma"
   val io = IO(new Bundle {
     val num1   = Input(UInt(nbits.W))
     val num2   = Input(UInt(nbits.W))

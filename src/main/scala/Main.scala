@@ -1,13 +1,56 @@
 package hardposit
 
-object EvalTests {
+import _root_.circt.stage.ChiselStage
 
-  def main(args: Array[String]): Unit = {
-    val testArgs = args.slice(1, args.length).toArray
+object Main {
 
-    val testDirAbsolutePath = "./td"
+  def generateVerilogForModules(models: Seq[String], bitwidths: (Int, Int)) = {
+    val (nbits, es) = bitwidths
+    models.foreach(model => ChiselStage.emitSystemVerilog(model match {
+      case "PositAdd" => new PositAdd(nbits, es)
+      case "PositCompare" => new PositCompare(nbits, es)
+      case "PositMul" => new PositMul(nbits, es)
+      case "PositDivSqrt" => new PositDivSqrt(nbits, es)
+      case "PositFMA" => new PositFMA(nbits, es)
+    },
+    Array.concat(Array("-td", s"lib/P${nbits}")),
+    Array.concat(Array("-o", s"lib/P${nbits}", "--split-verilog")))
+    )
+  }
 
-    (new chisel3.stage.ChiselStage).emitVerilog( args(0) match {
+  def generatePPU(args: Array[String]) = {
+    val std = Map(
+      "P8" -> (8, 1),
+      "P16" -> (16, 1),
+      "P32" -> (32, 2),
+      "P64" -> (64, 3),
+      "P128" -> (128, 4)
+    )
+    val minimal = Seq(
+      "PositAdd",
+      "PositCompare",
+      "PositMul"
+    )
+    val extra = Seq(
+      "PositDivSqrt",
+      "PositFMA"
+    )
+    val full = minimal ++ extra
+
+    std.get(args(0)) match {
+      case Some(bitwidths: (Int, Int)) =>
+        args(1) match {
+          case "minimal" => generateVerilogForModules(minimal, bitwidths)
+          case "full" => generateVerilogForModules(full, bitwidths)
+          case _ => throw new IllegalArgumentException("Package has to be either 'minimal' or 'full'")
+        }
+      case None => throw new IllegalArgumentException("Standard has to be either (P16/P32/P64)")
+    }
+  }
+
+  def runIntegrationTests(args: Array[String]): Unit = {
+    // TODO: Migrate this to CIRCT stage
+    (new chisel3.stage.ChiselStage).emitVerilog(args(0) match {
       case "FMAP16_add" => new Eval_PositFMAP16_add
       case "FMAP16_mul" => new Eval_PositFMAP16_mul
       case "FMAP16" => new Eval_PositFMAP16
@@ -63,15 +106,16 @@ object EvalTests {
       case "P64toP16" => new Eval_PositP64toP16
       case "P64toP32" => new Eval_PositP64toP32
     },
-      Array.concat(args)
+    Array.concat(args)
     )
+  }
 
-    // (new chisel3.stage.ChiselStage).execute(
-    //   Array("-X", "verilog"),
-    //   Seq(
-    //     TargetDirAnnotation(testDirAbsolutePath),
-    //     ChiselGeneratorAnnotation(module)
-    //   )
-    // )
+  def main(args: Array[String]): Unit = {
+    val runArgs = args.slice(1, args.length)
+
+    args(0) match {
+      case "gen" => generatePPU(runArgs)
+      case "tb" => runIntegrationTests(runArgs)
+    }
   }
 }
