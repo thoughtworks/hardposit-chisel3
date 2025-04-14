@@ -155,4 +155,8 @@ class PositAddSpec extends AnyFlatSpec with ChiselScalatestTester with Matchers 
     posit_add_test(8, 1, 0x42, 0x54, 0xBA, sub = true)
     posit_add_test(8, 1, 0xAC, 0xBE, 0xBA, sub = true)
   }
+
+  it should "return posit" in {
+    posit_add_test(32, 2, 1442843648, 1442840576, 2101346304, sub=true)
+  }
 }
